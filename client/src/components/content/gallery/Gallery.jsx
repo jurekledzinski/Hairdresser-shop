@@ -23,6 +23,9 @@ const Gallery = () => {
           </div>
         </div>
         <div className="gallery__images-wrapper">
+          <span className="gallery__below-cover-1"></span>
+          <span className="gallery__below-cover-2"></span>
+          <span className="gallery__below-cover-3"></span>
           <div className="gallery__image-1">
             <img
               src="https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Menhaircut1.jpg?alt=media&token=2ba2839a-332d-4a69-a58d-c0c7d6ad8e0c"
