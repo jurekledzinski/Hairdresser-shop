@@ -1,0 +1,179 @@
+@use "../../../scss-variables/media-queries" as *;
+
+@mixin button-gender {
+  width: 100px;
+  padding: 2px 0;
+  background-color: transparent;
+  border: 1px solid #808080;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+  font-family: "Oswald", sans-serif;
+
+  @include media-queries(xmedium) {
+    font-size: 1.6rem;
+  }
+
+  @include media-queries(large) {
+    width: 120px;
+    padding: 5px 0;
+    // border: 1px solid #ffdc00;
+    border: 2px solid #808080;
+  }
+}
+
+.service {
+  &__prices {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 25px;
+
+    @include media-queries(xlarge) {
+      flex-direction: row;
+      align-items: initial;
+      height: 320px;
+      margin-top: 50px;
+    }
+  }
+
+  &__button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 33px;
+
+    @include media-queries(xlarge) {
+      width: 30%;
+      margin-bottom: 100px;
+    }
+  }
+
+  &__plan-title {
+    margin-bottom: 40px;
+    color: #ddd;
+    letter-spacing: 2px;
+    font-weight: 400;
+  }
+
+  //TODO: Do button-gender klasa active to tlo i border
+
+  &__btn-men {
+    @include button-gender();
+    margin-right: 10px;
+    background-color: #ffdc00;
+  }
+
+  &__btn-women {
+    @include button-gender();
+    margin-left: 10px;
+    color: white;
+  }
+
+  &__plans-prices {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 210px;
+    height: 320px;
+    overflow-x: hidden;
+    margin: 0 auto;
+
+    @include media-queries(xsmall) {
+      width: 250px;
+    }
+
+    @include media-queries(large) {
+      width: 80%;
+      overflow-x: initial;
+    }
+
+    @include media-queries(xlarge) {
+      width: 70%;
+    }
+  }
+
+  &__dots-list {
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    min-width: 100px;
+    transform: translateX(-50%);
+    list-style-type: none;
+    z-index: 1;
+
+    @include media-queries(large) {
+      display: none;
+    }
+  }
+
+  &__dot {
+    display: block;
+    width: 20px;
+    height: 5px;
+    margin: 0 5px;
+    background-color: white;
+    border-radius: 3px;
+    transform: scale(1);
+    transition: 0.5s all;
+    cursor: pointer;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    transform: translateX(-100%);
+
+    @include media-queries(large) {
+      transform: translateX(0%);
+    }
+  }
+
+  &__plan-cut {
+    display: grid;
+    grid-template-columns: 1fr 50px;
+    grid-template-rows: repeat(4, 50px);
+    column-gap: 10px;
+    width: initial;
+    max-width: 100%;
+    min-width: 100%;
+    align-content: center;
+    background-color: #393939;
+    border: 1px solid #686868;
+
+    @include media-queries(large) {
+      max-width: initial;
+      min-width: initial;
+      width: 32%;
+    }
+  }
+
+  &__service-title {
+    display: flex;
+    padding-left: 15px;
+    color: white;
+    text-align: left;
+    letter-spacing: 2px;
+    font-size: 1.3rem;
+    font-family: "Oswald", sans-serif;
+    font-weight: 300;
+  }
+
+  &__service-price {
+    display: flex;
+    justify-content: center;
+    color: #c4a128;
+    letter-spacing: 2px;
+    font-size: 1.3rem;
+    font-family: "Oswald", sans-serif;
+    font-weight: 400;
+  }
+}

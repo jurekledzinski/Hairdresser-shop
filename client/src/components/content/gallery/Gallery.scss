@@ -1,0 +1,334 @@
+@use "../../../scss-variables/media-queries" as *;
+
+@mixin buttons-type-images {
+  padding: 2px 0;
+  background-color: transparent;
+  border: 1px solid #808080;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  font-family: "Oswald", sans-serif;
+  outline: none;
+
+  @include media-queries(xmedium) {
+    padding: 5px 0;
+    font-size: 1.6rem;
+  }
+
+  @include media-queries(large) {
+    // border: 1px solid #ffdc00;
+    border: 2px solid #808080;
+  }
+}
+
+.gallery {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 50px 20px;
+  background-color: #303030;
+
+  @include media-queries(small) {
+    padding: 50px;
+  }
+
+  @include media-queries(large) {
+    padding: 50px;
+    min-height: 100vh;
+  }
+
+  @include media-queries(xlarge) {
+    min-height: initial;
+    height: 768px;
+  }
+
+  &__wrapper {
+    width: 100%;
+    margin: 0 auto;
+
+    @include media-queries(xlarge) {
+      width: 1000px;
+    }
+  }
+
+  &__title {
+    margin: -25px 0 10px 0;
+    color: #d4774a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  &__subtitle {
+    margin: 25px 0 40px 0;
+    color: #ddd;
+  }
+
+  &__buttons-wrapper {
+    width: 100%;
+    margin-bottom: 50px;
+  }
+
+  &__buttons-top {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  &__button-men {
+    flex-basis: 31%;
+    @include buttons-type-images();
+    background-color: #ffdc00;
+    color: #000;
+  }
+
+  &__button-women {
+    flex-basis: 31%;
+    @include buttons-type-images();
+  }
+
+  &__button-children {
+    flex-basis: 31%;
+    @include buttons-type-images();
+  }
+
+  &__buttons-bottom {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &__button-weddings {
+    flex-basis: 48%;
+    @include buttons-type-images();
+  }
+
+  &__button-others {
+    flex-basis: 48%;
+    @include buttons-type-images();
+  }
+
+  &__images-wrapper {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, 100px);
+    column-gap: 10px;
+    row-gap: 10px;
+    grid-template-areas:
+      "img1 img2"
+      "img3 img4"
+      "img5 img6";
+
+    @include media-queries(medium) {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(3, 150px);
+    }
+
+    @include media-queries(medium) {
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: repeat(3, 150px);
+      column-gap: 20px;
+      row-gap: 20px;
+      grid-template-areas:
+        "img1 img2 img7"
+        "img3 img4 img8"
+        "img5 img6 img9";
+    }
+
+    @include media-queries(large) {
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      grid-template-rows: repeat(5, 120px);
+      column-gap: 20px;
+      row-gap: 20px;
+      grid-template-areas:
+        "img1 img1 img1 img2 img3"
+        "img1 img1 img1 img4 img5"
+        "img6 img7 img7 img14 img8"
+        "img9 img7 img7 img10 img10"
+        "img11 img12 img13 img10 img10";
+    }
+
+    @include media-queries(xlarge) {
+      grid-template-columns: 1fr 1fr 250px 250px;
+      grid-template-rows: repeat(2, 200px);
+      column-gap: 40px;
+      row-gap: 20px;
+      grid-template-areas:
+        "img1 img1 img2 img3"
+        "img4 img5 img5 img6";
+    }
+  }
+
+  &__image-1 {
+    grid-area: img1;
+    background-color: red;
+    z-index: 1;
+  }
+
+  &__image-2 {
+    grid-area: img2;
+    background-color: green;
+    z-index: 1;
+  }
+  &__image-3 {
+    grid-area: img3;
+    background-color: yellow;
+    z-index: 1;
+  }
+  &__image-4 {
+    grid-area: img4;
+    background-color: pink;
+    z-index: 1;
+  }
+
+  &__image-5 {
+    grid-area: img5;
+    background-color: orange;
+    z-index: 1;
+  }
+
+  &__image-6 {
+    grid-area: img6;
+    background-color: coral;
+    z-index: 1;
+  }
+
+  &__image-7 {
+    display: none;
+    grid-area: img7;
+    background-color: blueviolet;
+    z-index: 1;
+
+    @include media-queries(medium) {
+      display: block;
+    }
+
+    @include media-queries(xlarge) {
+      display: none;
+    }
+  }
+
+  &__image-8 {
+    display: none;
+    grid-area: img8;
+    background-color: chocolate;
+    z-index: 1;
+
+    @include media-queries(medium) {
+      display: block;
+    }
+
+    @include media-queries(xlarge) {
+      display: none;
+    }
+  }
+
+  &__image-9 {
+    display: none;
+    grid-area: img9;
+    background-color: chocolate;
+    z-index: 1;
+
+    @include media-queries(medium) {
+      display: block;
+    }
+
+    @include media-queries(xlarge) {
+      display: none;
+    }
+  }
+
+  &__image-10 {
+    display: none;
+    grid-area: img10;
+    background-color: cornflowerblue;
+    z-index: 1;
+
+    @include media-queries(large) {
+      display: block;
+    }
+
+    @include media-queries(xlarge) {
+      display: none;
+    }
+  }
+
+  &__image-11 {
+    display: none;
+    grid-area: img11;
+    background-color: crimson;
+    z-index: 1;
+
+    @include media-queries(large) {
+      display: block;
+    }
+
+    @include media-queries(xlarge) {
+      display: none;
+    }
+  }
+
+  &__image-12 {
+    display: none;
+    grid-area: img12;
+    background-color: darkgoldenrod;
+    z-index: 1;
+
+    @include media-queries(large) {
+      display: block;
+    }
+
+    @include media-queries(xlarge) {
+      display: none;
+    }
+  }
+
+  &__image-13 {
+    display: none;
+    grid-area: img13;
+    background-color: darkgreen;
+    z-index: 1;
+
+    @include media-queries(large) {
+      display: block;
+    }
+
+    @include media-queries(xlarge) {
+      display: none;
+    }
+  }
+
+  &__image-14 {
+    display: none;
+    grid-area: img14;
+    background-color: darkmagenta;
+    z-index: 1;
+
+    @include media-queries(large) {
+      display: block;
+    }
+
+    @include media-queries(xlarge) {
+      display: none;
+    }
+  }
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    @include media-queries(medium) {
+      height: 100%;
+    }
+
+    @include media-queries(large) {
+      height: 100%;
+    }
+  }
+}

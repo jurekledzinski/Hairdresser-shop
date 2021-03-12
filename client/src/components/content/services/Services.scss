@@ -1,0 +1,42 @@
+@use "../../../scss-variables/media-queries" as *;
+
+.service {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 50px 0;
+  background-color: #303030;
+
+  @include media-queries(large) {
+    min-height: 100vh;
+  }
+
+  @include media-queries(xlarge) {
+    min-height: initial;
+    height: 768px;
+  }
+
+  &__wrapper {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+
+    @include media-queries(xlarge) {
+      width: 1000px;
+      margin: 0 auto;
+    }
+  }
+
+  &__title {
+    padding: 20px 0;
+    color: #d4774a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    @include media-queries(xlarge) {
+      padding: 40px 0;
+    }
+  }
+}

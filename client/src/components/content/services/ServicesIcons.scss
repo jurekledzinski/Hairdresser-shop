@@ -1,0 +1,44 @@
+@use "../../../scss-variables/media-queries" as *;
+
+.service {
+  &__icons {
+    display: none;
+
+    @include media-queries(large) {
+      display: flex;
+    }
+  }
+
+  &__icon-wrapper {
+    padding: 10px 20px;
+
+    @include media-queries(xlarge) {
+      padding: 20px;
+    }
+  }
+
+  &__icon {
+    display: inline-block;
+    width: 100%;
+    padding: 20px 0 40px 0;
+    color: #d3d3d3;
+    font-size: 30px;
+    text-align: center;
+
+    @include media-queries(xlarge) {
+      font-size: 40px;
+    }
+  }
+
+  &__text {
+    color: #ddd;
+    font-size: 1.4rem;
+    font-weight: 300;
+    font-family: "Roboto", sans-serif;
+    letter-spacing: 1px;
+
+    @include media-queries(xlarge) {
+      font-size: 1.6rem;
+    }
+  }
+}

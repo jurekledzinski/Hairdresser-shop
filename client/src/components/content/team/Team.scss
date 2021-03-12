@@ -1,0 +1,250 @@
+@use "../../../scss-variables/media-queries" as *;
+
+.team {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 50px 20px;
+  background-color: #303030;
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Our%20team%20background.jpeg?alt=media&token=3438e48f-1369-49e8-b79b-ce1f5b27361c");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  @include media-queries(small) {
+    padding: 50px;
+  }
+
+  @include media-queries(large) {
+    padding: 50px;
+    min-height: 100vh;
+  }
+
+  @include media-queries(xlarge) {
+    min-height: initial;
+    height: 768px;
+  }
+
+  &__wrapper {
+    width: 100%;
+    margin: 0 auto;
+
+    @include media-queries(xlarge) {
+      width: 1000px;
+    }
+  }
+
+  &__title {
+    margin: -25px 0 10px 0;
+    color: #d4774a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  &__subtitle {
+    margin: 25px 0 40px 0;
+    color: #ddd;
+  }
+
+  &__group {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 40px;
+
+    grid-template-areas:
+      "image1 image1 image1 image1"
+      "image1 image1 image1 image1"
+      "text1 text1 text1 text1"
+      "image2 image2 image2 image2"
+      "image2 image2 image2 image2"
+      "text2 text2 text2 text2"
+      "image3 image3 image3 image3"
+      "image3 image3 image3 image3"
+      "text3 text3 text3 text3"
+      "image4 image4 image4 image4"
+      "image4 image4 image4 image4"
+      "text4 text4 text4 text4";
+
+    @include media-queries(large) {
+      grid-template-columns: 200px 1fr 1fr 250px;
+      grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      column-gap: 20px;
+      row-gap: 20px;
+      grid-template-areas:
+        "image1 image1 . ."
+        "image1 image1 text1 text1"
+        "image1 image1 text1 text1"
+        "text2 text2 text1 text1"
+        "text2 text2 image2 image2"
+        "text2 text2 image2 image2"
+        "image4 . image2 image2"
+        "image4 text3 text3 image3"
+        "image4 text3 text3 image3"
+        "image4 text4 text4 image3"
+        "image4 text4 text4 image3";
+    }
+
+    @include media-queries(xlarge) {
+      grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+      column-gap: 40px;
+      row-gap: 20px;
+      grid-template-areas:
+        "image1 image1 . ."
+        "image1 image1 text1 text1"
+        "image1 image1 text1 text1"
+        "text2 text2 text1 text1"
+        "text2 text2 image2 image2"
+        "text2 text2 image2 image2"
+        "image4 . image2 image2"
+        "image4 text3 text3 image3"
+        "image4 text4 text4 image3";
+    }
+  }
+
+  &__col1 {
+    grid-area: image1;
+    background-color: red;
+    z-index: 1;
+  }
+
+  &__col2 {
+    grid-area: text1;
+    background-color: green;
+    z-index: 1;
+  }
+
+  &__col3 {
+    grid-area: text2;
+    background-color: yellow;
+    z-index: 1;
+  }
+
+  &__col4 {
+    grid-area: image2;
+    background-color: violet;
+    z-index: 1;
+  }
+
+  &__col5 {
+    grid-area: text3;
+    background-color: firebrick;
+    z-index: 1;
+  }
+
+  &__col6 {
+    grid-area: image3;
+    background-color: peru;
+    z-index: 1;
+  }
+
+  &__col7 {
+    grid-area: image4;
+    background-color: orangered;
+    z-index: 1;
+  }
+
+  &__col8 {
+    grid-area: text4;
+    background-color: burlywood;
+    z-index: 1;
+  }
+
+  &__below-cover-1 {
+    position: absolute;
+    top: 8.35%;
+    right: calc(-20% - 20px);
+    width: 40%;
+    height: 16.65%;
+    transform: translate(-50%, -50%);
+    background-color: #c4a128;
+    z-index: 0;
+
+    @include media-queries(small) {
+      right: calc(-20% - 50px);
+    }
+
+    @include media-queries(large) {
+      top: 35%;
+      left: 40%;
+      right: 0;
+      width: 40%;
+      height: 200px;
+    }
+  }
+
+  &__below-cover-2 {
+    position: absolute;
+    bottom: 58.4%;
+    left: calc(0% - 20px);
+    width: 50px;
+    height: 16.6%;
+    background-color: #c4a128;
+    z-index: 0;
+
+    @include media-queries(small) {
+      left: calc(0% - 50px);
+    }
+
+    @include media-queries(large) {
+      bottom: 23%;
+      left: 0;
+      width: 291px;
+      height: 115px;
+    }
+
+    @include media-queries(xlarge) {
+      bottom: 12%;
+      width: 36%;
+      height: 111px;
+    }
+  }
+
+  &__below-cover-3 {
+    position: absolute;
+    bottom: 33.35%;
+    right: calc(0% - 20px);
+    width: 50px;
+    height: 16.65%;
+    background-color: #c4a128;
+    z-index: 0;
+
+    @include media-queries(small) {
+      right: calc(0% - 50px);
+    }
+
+    @include media-queries(large) {
+      bottom: 5%;
+      right: 0;
+      width: 337px;
+      height: 86px;
+    }
+  }
+
+  &__below-cover-4 {
+    position: absolute;
+    bottom: 8.35%;
+    left: calc(0% - 20px);
+    display: block;
+    width: 50px;
+    height: 16.65%;
+    background-color: #c4a128;
+    z-index: 0;
+
+    @include media-queries(small) {
+      left: calc(0% - 50px);
+    }
+
+    @include media-queries(large) {
+      display: none;
+    }
+  }
+
+  &__image1 {
+    width: 100%;
+    height: 180px;
+  }
+}
