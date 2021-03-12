@@ -1,0 +1,240 @@
+@use "./scss-variables/abstracts";
+@use "./scss-variables/media-queries" as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: abstracts.$hmtl-font-size;
+}
+
+body {
+  max-width: 1200px;
+  margin: 0 auto;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  font-family: "Oswald", sans-serif;
+  overflow-x: hidden;
+}
+
+h1 {
+  text-align: center;
+  font-size: 1.8rem;
+
+  @include media-queries(xxsmall) {
+    font-size: 1.8rem;
+  }
+
+  @include media-queries(xsmall) {
+    font-size: 2rem;
+  }
+
+  @include media-queries(small) {
+    font-size: 2.4rem;
+  }
+
+  @include media-queries(xmedium) {
+    font-size: 2.8rem;
+  }
+
+  @include media-queries(medium) {
+    font-size: 3.4rem;
+  }
+
+  @include media-queries(large) {
+    font-size: 4rem;
+  }
+
+  @include media-queries(xlarge) {
+    font-size: 4.6rem;
+  }
+}
+h2 {
+  text-align: center;
+  font-size: 1.7rem;
+
+  @include media-queries(xxsmall) {
+    font-size: 1.7rem;
+  }
+
+  @include media-queries(xsmall) {
+    font-size: 1.8rem;
+  }
+
+  @include media-queries(small) {
+    font-size: 2.2rem;
+  }
+
+  @include media-queries(xmedium) {
+    font-size: 2.6rem;
+  }
+
+  @include media-queries(medium) {
+    font-size: 3.2rem;
+  }
+
+  @include media-queries(large) {
+    font-size: 3.4rem;
+  }
+
+  @include media-queries(xlarge) {
+    font-size: 3.6rem;
+  }
+}
+
+h3 {
+  text-align: center;
+  font-size: 1.5rem;
+
+  @include media-queries(xxsmall) {
+    font-size: 1.5rem;
+  }
+
+  @include media-queries(xsmall) {
+    font-size: 1.7rem;
+  }
+
+  @include media-queries(small) {
+    font-size: 2rem;
+  }
+
+  @include media-queries(xmedium) {
+    font-size: 2.4rem;
+  }
+
+  @include media-queries(medium) {
+    font-size: 2.4rem;
+  }
+
+  @include media-queries(large) {
+    font-size: 2.6rem;
+  }
+
+  @include media-queries(xlarge) {
+    font-size: 2.8rem;
+  }
+}
+
+h4 {
+  text-align: center;
+  font-size: 1.4rem;
+
+  @include media-queries(xxsmall) {
+    font-size: 1.4rem;
+  }
+
+  @include media-queries(xsmall) {
+    font-size: 1.6rem;
+  }
+
+  @include media-queries(small) {
+    font-size: 1.9rem;
+  }
+
+  @include media-queries(xmedium) {
+    font-size: 2rem;
+  }
+
+  @include media-queries(medium) {
+    font-size: 2rem;
+  }
+
+  @include media-queries(large) {
+    font-size: 2.1rem;
+  }
+
+  @include media-queries(xlarge) {
+    font-size: 2.2rem;
+  }
+}
+
+h5 {
+  text-align: center;
+  font-size: 1.4rem;
+
+  @include media-queries(xxsmall) {
+    font-size: 1.4rem;
+  }
+
+  @include media-queries(xsmall) {
+    font-size: 1.5rem;
+  }
+
+  @include media-queries(small) {
+    font-size: 1.7rem;
+  }
+
+  @include media-queries(xmedium) {
+    font-size: 1.7rem;
+  }
+
+  @include media-queries(medium) {
+    font-size: 1.7rem;
+  }
+
+  @include media-queries(large) {
+    font-size: 1.8rem;
+  }
+
+  @include media-queries(xlarge) {
+    font-size: 1.8rem;
+  }
+}
+
+h6 {
+  text-align: center;
+  font-size: 1.4rem;
+
+  @include media-queries(xxsmall) {
+    font-size: 1.4rem;
+  }
+
+  @include media-queries(xsmall) {
+    font-size: 1.5rem;
+  }
+
+  @include media-queries(small) {
+    font-size: 1.6rem;
+  }
+
+  @include media-queries(xmedium) {
+    font-size: 1.6rem;
+  }
+
+  @include media-queries(medium) {
+    font-size: 1.6rem;
+  }
+
+  @include media-queries(large) {
+    font-size: 1.6rem;
+  }
+
+  @include media-queries(xlarge) {
+    font-size: 1.6rem;
+  }
+}
+
+ul,
+li,
+p {
+  font-weight: 400;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+
+  font-size: 1.2rem;
+
+  @include media-queries(xsmall) {
+    font-size: 1.3rem;
+  }
+
+  @include media-queries(small) {
+    font-size: 1.5rem;
+  }
+
+  @include media-queries(medium) {
+    font-size: 1.6rem;
+  }
+}
