@@ -65,7 +65,8 @@
   &__btn-men {
     @include button-gender();
     margin-right: 10px;
-    background-color: #ffdc00;
+    border: 1px solid #f8c822;
+    background-color: #f8c822;
   }
 
   &__btn-women {
@@ -118,7 +119,7 @@
     width: 20px;
     height: 5px;
     margin: 0 5px;
-    background-color: white;
+    background-color: #dddddd;
     border-radius: 3px;
     transform: scale(1);
     transition: 0.5s all;

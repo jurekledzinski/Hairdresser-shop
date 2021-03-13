@@ -65,6 +65,7 @@
   &__subtitle {
     margin: 25px 0 40px 0;
     color: #ddd;
+    font-size: 1.4rem;
   }
 
   &__buttons-wrapper {
@@ -82,7 +83,8 @@
   &__button-men {
     flex-basis: 31%;
     @include buttons-type-images();
-    background-color: #ffdc00;
+    border: 1px solid #f8c822;
+    background-color: #f8c822;
     color: #000;
   }
 
