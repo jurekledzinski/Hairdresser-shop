@@ -8,7 +8,7 @@ const Team = () => {
       <div className="team__wrapper">
         <h2 className="team__title">Our Team</h2>
         <p className="team__subtitle">
-          "One should, nevertheless, consider that there is a direct relation
+          One should, nevertheless, consider that there is a direct relation
           between the entity integrity and the capacity of the primary element.
         </p>
         <div className="team__group">
