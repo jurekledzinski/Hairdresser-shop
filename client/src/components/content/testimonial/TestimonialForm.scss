@@ -1,0 +1,95 @@
+@use "../../../scss-variables/media-queries" as *;
+
+@mixin button-form-opinion {
+  display: block;
+  width: 100%;
+  padding: 2px 30px;
+  margin-top: 15px;
+  border: 1px solid #f8c822;
+  background-color: #f8c822;
+  color: #303030;
+  outline: none;
+  font-size: 1.6rem;
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+
+  @include media-queries(medium) {
+    width: initial;
+    padding: 5px 35px;
+  }
+}
+
+.testimonial {
+  &__form {
+    width: 100%;
+  }
+
+  &__form-wrapper {
+    width: 100%;
+    margin: 0 auto;
+
+    @include media-queries(medium) {
+      width: 80%;
+    }
+
+    @include media-queries(large) {
+      width: 40%;
+    }
+
+    @include media-queries(xlarge) {
+      width: 30%;
+    }
+  }
+
+  &__form-input {
+    display: block;
+    width: 100%;
+    padding: 5px 0;
+    border: none;
+    outline: none;
+    font-family: "Roboto", sans-serif;
+
+    @include media-queries(medium) {
+      padding: 10px 0;
+    }
+  }
+
+  &__form-rating {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 15px;
+  }
+
+  &__add-rate {
+    margin: 15px 0;
+    color: #dddddd;
+    text-align: left;
+  }
+
+  //TODO:
+
+  &__stars {
+    margin-left: 5px;
+    color: #dddddd;
+    font-size: 1.4rem;
+    cursor: pointer;
+  }
+
+  &__input-file {
+    display: block;
+  }
+
+  &__form-textarea {
+    display: block;
+    width: 100%;
+    border: none;
+    outline: none;
+    resize: none;
+    font-family: "Roboto", sans-serif;
+  }
+
+  &__form-button {
+    @include button-form-opinion();
+  }
+}

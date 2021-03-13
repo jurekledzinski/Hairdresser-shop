@@ -1,1 +1,55 @@
 @use "../../../scss-variables/media-queries" as *;
+
+.testimonial {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 50px 20px;
+  background-color: #303030;
+  //   background-color: coral;
+
+  @include media-queries(small) {
+    padding: 50px;
+  }
+
+  @include media-queries(large) {
+    padding: 50px;
+    min-height: 100vh;
+  }
+
+  @include media-queries(xlarge) {
+    min-height: initial;
+    height: 768px;
+  }
+
+  &__wrapper {
+    width: 100%;
+    margin: 0 auto;
+
+    @include media-queries(xlarge) {
+      width: 1000px;
+    }
+  }
+
+  &__title {
+    // margin: -25px 0 10px 0;
+    color: #d4774a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  &__subtitle {
+    margin: 20px 0 20px 0;
+    color: #ddd;
+    font-size: 1.4rem;
+  }
+
+  &__title-opinion {
+    margin: 25px 0;
+    color: #d4774a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+}
