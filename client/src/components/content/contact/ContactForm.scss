@@ -1,0 +1,70 @@
+@use "../../../scss-variables/media-queries" as *;
+
+@mixin button-contact-form {
+  display: block;
+  width: 100%;
+  padding: 2px 30px;
+  margin-top: 15px;
+  border: 1px solid #f8c822;
+  background-color: #f8c822;
+  color: #303030;
+  outline: none;
+  font-size: 1.6rem;
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+
+  @include media-queries(medium) {
+    width: initial;
+    padding: 5px 35px;
+  }
+}
+
+.contact {
+  &__form-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    grid-area: form;
+    margin-top: 40px;
+
+    @include media-queries(large) {
+      margin-top: 0px;
+    }
+  }
+
+  &__contact-title {
+    margin: 15px 0;
+    color: #d4774a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  &__contact-subtitle {
+    margin-bottom: 15px;
+    color: #dddddd;
+    font-size: 1.3rem;
+  }
+
+  &__input {
+    display: block;
+    width: 100%;
+    padding: 5px 0;
+    margin: 15px auto;
+    border: none;
+    outline: none;
+  }
+
+  &__textarea {
+    display: block;
+    width: 100%;
+    resize: none;
+    border: none;
+    outline: none;
+  }
+
+  &__button {
+    @include button-contact-form();
+  }
+}
