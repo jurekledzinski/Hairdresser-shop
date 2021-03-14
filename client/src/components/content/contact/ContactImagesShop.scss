@@ -1,0 +1,57 @@
+@use "../../../scss-variables/media-queries" as *;
+
+.contact {
+  &__images-wrapper {
+    display: flex;
+    flex-direction: column;
+    grid-area: images;
+    background-color: lightcoral;
+
+    @include media-queries(large) {
+      flex-direction: row;
+    }
+  }
+
+  &__img-1 {
+    width: 100%;
+    height: 100%;
+
+    @include media-queries(large) {
+      height: 100%;
+    }
+  }
+
+  &__img-one,
+  &__img-two,
+  &__img-three {
+    display: block;
+    max-width: 100%;
+    height: auto;
+
+    @include media-queries(large) {
+      height: 100%;
+    }
+  }
+
+  &__img-2 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+
+    @include media-queries(large) {
+      flex-direction: column;
+      height: 100%;
+    }
+  }
+
+  &__img-first,
+  &__img-second {
+    width: 100%;
+    height: 100%;
+
+    @include media-queries(large) {
+      width: 100%;
+    }
+  }
+}
