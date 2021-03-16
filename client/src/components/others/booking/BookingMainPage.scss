@@ -1,0 +1,100 @@
+@use "../../../scss-variables/media-queries" as *;
+
+.booking {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  min-height: 80vh;
+  padding: 50px 20px;
+  background-color: #303030;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  z-index: 1;
+
+  @include media-queries(small) {
+    padding: 50px;
+  }
+
+  @include media-queries(large) {
+    padding: 50px;
+    height: 80vh;
+  }
+
+  @include media-queries(xlarge) {
+    min-height: initial;
+    height: 768px;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: inherit;
+    padding: 50px 0;
+    // margin: 0 auto;
+
+    @include media-queries(large) {
+      flex-direction: row;
+      max-width: 1200px;
+      height: inherit;
+    }
+
+    @include media-queries(xlarge) {
+      height: inherit;
+    }
+  }
+
+  &__left {
+    width: 100%;
+    min-height: 80vh;
+    background-color: lightgreen;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Background-booking-mobile.jpeg?alt=media&token=e1b588c3-81e4-4905-92c4-71ec9ab91e5f");
+
+    @include media-queries(large) {
+      width: 20%;
+      min-height: initial;
+      height: 100%;
+      background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Background-booking.jpeg?alt=media&token=043b3596-878c-49ff-a10c-002b66da3570");
+    }
+
+    @include media-queries(xlarge) {
+      width: 40%;
+    }
+  }
+
+  &__right {
+    position: relative;
+    display: none;
+    width: 60%;
+
+    @include media-queries(large) {
+      display: block;
+      width: 80%;
+      min-height: 60vh;
+    }
+
+    @include media-queries(xlarge) {
+      width: 60%;
+    }
+  }
+
+  &__form-wrapper {
+    display: none;
+    position: absolute;
+    top: -20px;
+    bottom: -20px;
+    background-color: #000000;
+
+    @include media-queries(large) {
+      display: block;
+      width: 100%;
+    }
+
+    @include media-queries(xlarge) {
+      width: 100%;
+    }
+  }
+}
