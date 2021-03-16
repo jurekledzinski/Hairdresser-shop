@@ -17,10 +17,6 @@
     color: #d4774a;
     letter-spacing: 1px;
     text-transform: uppercase;
-
-    // @include media-queries(large) {
-    //   margin: 50px 0 75px;
-    // }
   }
 
   &__address-map {
@@ -60,5 +56,12 @@
       height: 280px;
       align-items: center;
     }
+  }
+
+  &__name-shop,
+  &__shop-street,
+  &__shop-post-code,
+  &__shop-country {
+    font-weight: 300;
   }
 }
