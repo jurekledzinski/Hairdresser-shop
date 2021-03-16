@@ -212,7 +212,7 @@
 
     @include media-queries(xlarge) {
       grid-template-columns: 1fr 1fr 250px 250px;
-      grid-template-rows: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 200px);
       column-gap: 40px;
       row-gap: 20px;
       grid-template-areas:
@@ -374,8 +374,6 @@
       display: none;
     }
   }
-
-  //TODO: Images
 
   &__img {
     display: block;
