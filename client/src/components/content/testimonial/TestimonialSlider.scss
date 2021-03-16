@@ -3,13 +3,14 @@
 .testimonial {
   &__slider {
     width: 100%;
-    height: 220px;
+    // height: 500px;
     margin: 0 auto 40px auto;
     overflow-x: hidden;
     background-color: #303030;
 
-    @include media-queries(medium) {
+    @media (min-width: 700px) {
       width: 100%;
+      height: 220px;
     }
 
     @include media-queries(large) {
@@ -32,16 +33,73 @@
   &__text {
     position: relative;
     display: flex;
+    flex-direction: column;
     max-width: 100%;
     min-width: 100%;
-    height: 100%;
+    // height: 100%;
+    //TODO: od 700
+
+    @media (min-width: 700px) {
+      flex-direction: row;
+    }
   }
 
   &__text-left {
+    position: relative;
     flex-basis: 65%;
-    background: #c4a128;
-    background: -webkit-linear-gradient(to right, #799f0c, #c4a128);
-    background: linear-gradient(to right, #799f0c, #c4a128);
+    background-color: #424242;
+  }
+
+  &__blockquote {
+    position: relative;
+    margin: 10px 10px 35px 10px;
+    padding: 10px 10px 10px 10px;
+    color: #dddddd;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    line-height: 1.2;
+    font-size: 1.4rem;
+    text-align: left;
+
+    @include media-queries(medium) {
+      margin: 25px 10px 35px 10px;
+      padding: 20px 30px 20px 30px;
+      font-size: 1.6rem;
+    }
+
+    @media (min-width: 700px) {
+      margin: 25px 15px 35px 10px;
+    }
+
+    &::before {
+      font-family: Georgia, serif;
+      position: absolute;
+      font-size: 2rem;
+      line-height: 1;
+      top: 5px;
+      left: 0px;
+      content: "\201C";
+
+      @include media-queries(medium) {
+        top: 15px;
+        left: 20px;
+      }
+    }
+
+    &::after {
+      font-family: Georgia, serif;
+      position: absolute;
+      float: right;
+      font-size: 2rem;
+      line-height: 1;
+      right: auto;
+      bottom: -5px;
+      content: "\201D";
+
+      @include media-queries(medium) {
+        bottom: 3px;
+      }
+    }
   }
 
   &__text-right {
@@ -58,18 +116,30 @@
   }
 
   &__name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    height: 25%;
-    text-align: center;
-    line-height: 60px;
+    height: 30%;
+    margin-top: 50px;
     color: #ddd;
+
+    @media (min-width: 700px) {
+      width: 100%;
+      height: 25%;
+      margin-top: initial;
+      color: #ddd;
+    }
   }
 
   &__rate-stars {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 25%;
+    padding: 10px 0;
     text-align: center;
-    line-height: 60px;
     color: #ddd;
     font-size: 1rem;
 
@@ -114,9 +184,14 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 100px;
+    width: 80px;
     height: 20%;
+    padding: 10px 0 20px 0;
     list-style-type: none;
+
+    @include media-queries(medium) {
+      width: 100px;
+    }
   }
 
   &__dot {
@@ -133,13 +208,26 @@
 
   &__image-wrapper {
     position: absolute;
-    top: 50%;
-    right: calc(35% - 70px / 2);
+    bottom: -35px;
+    left: 50%;
     width: 70px;
     height: 70px;
-    transform: translateY(-50%);
+    transform: translate(-50%, 0);
     background-color: lightgreen;
     border-radius: 50%;
-    box-shadow: 0 0 0 7px rgb(57, 57, 57);
+    box-shadow: 0 0 0 7px #393939;
+
+    @media (min-width: 700px) {
+      position: absolute;
+      bottom: 50%;
+      left: initial;
+      right: -35px;
+      width: 70px;
+      height: 70px;
+      transform: translateY(50%);
+      background-color: lightgreen;
+      border-radius: 50%;
+      box-shadow: 0 0 0 7px rgb(57, 57, 57);
+    }
   }
 }
