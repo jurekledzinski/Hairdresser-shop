@@ -1,6 +1,7 @@
 @use "../../../scss-variables/media-queries" as *;
 
 .team {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,6 +13,7 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  z-index: 1;
 
   @include media-queries(small) {
     padding: 50px;
@@ -47,119 +49,253 @@
     margin: 25px 0 40px 0;
     color: #ddd;
     font-size: 1.4rem;
+    font-weight: 300;
   }
 
   &__group {
     position: relative;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    column-gap: 40px;
-
+    grid-template-rows: auto;
     grid-template-areas:
-      "image1 image1 image1 image1"
-      "image1 image1 image1 image1"
-      "text1 text1 text1 text1"
-      "image2 image2 image2 image2"
-      "image2 image2 image2 image2"
-      "text2 text2 text2 text2"
-      "image3 image3 image3 image3"
-      "image3 image3 image3 image3"
-      "text3 text3 text3 text3"
-      "image4 image4 image4 image4"
-      "image4 image4 image4 image4"
-      "text4 text4 text4 text4";
+      "image1"
+      "text1"
+      "image2"
+      "text2"
+      "image3"
+      "text3";
 
-    @include media-queries(large) {
-      grid-template-columns: 200px 1fr 1fr 250px;
-      grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-      column-gap: 20px;
-      row-gap: 20px;
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 40px;
+      row-gap: 40px;
       grid-template-areas:
-        "image1 image1 . ."
-        "image1 image1 text1 text1"
-        "image1 image1 text1 text1"
-        "text2 text2 text1 text1"
-        "text2 text2 image2 image2"
-        "text2 text2 image2 image2"
-        "image4 . image2 image2"
-        "image4 text3 text3 image3"
-        "image4 text3 text3 image3"
-        "image4 text4 text4 image3"
-        "image4 text4 text4 image3";
+        "image1 text1"
+        "image1 image2"
+        "text2 image2"
+        "text2 image2"
+        "image3 text3"
+        "image3 text3";
     }
 
-    @include media-queries(xlarge) {
-      grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-      column-gap: 40px;
-      row-gap: 20px;
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto;
       grid-template-areas:
-        "image1 image1 . ."
-        "image1 image1 text1 text1"
-        "image1 image1 text1 text1"
-        "text2 text2 text1 text1"
-        "text2 text2 image2 image2"
-        "text2 text2 image2 image2"
-        "image4 . image2 image2"
-        "image4 text3 text3 image3"
-        "image4 text4 text4 image3";
+        "image1 text1"
+        "image1 image2"
+        "text2 image2"
+        "text2 image2"
+        "image3 text3"
+        "image3 text3";
     }
   }
 
+  &__col1,
+  &__col4 {
+    width: 100%;
+    height: 200px;
+  }
+
+  &__col6 {
+    width: 100%;
+    height: 200px;
+  }
+
+  &__col1,
+  &__col4,
+  &__col6 {
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  &__col2,
+  &__col3,
+  &__col5 {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+
   &__col1 {
+    position: relative;
     grid-area: image1;
-    background-color: red;
-    z-index: 1;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/person-1.jpg?alt=media&token=dc597a75-975f-4f8f-abf7-53fcfa293999");
+
+    &::after {
+      content: "";
+      display: block;
+      width: 150px;
+      height: 100%;
+      background-color: #c4a128;
+      position: absolute;
+      right: -20px;
+      z-index: -1;
+
+      @include media-queries(small) {
+        right: -50px;
+      }
+
+      @include media-queries(large) {
+        display: none;
+      }
+    }
   }
 
   &__col2 {
     grid-area: text1;
-    background-color: green;
     z-index: 1;
+    background-color: #393939;
+
+    &--margin {
+      margin-bottom: 30px;
+    }
+
+    @media (min-width: 768px) {
+      margin-bottom: initial;
+    }
   }
 
   &__col3 {
     grid-area: text2;
-    background-color: yellow;
     z-index: 1;
+    background-color: #393939;
+
+    &--margin {
+      margin-bottom: 30px;
+    }
+
+    @media (min-width: 768px) {
+      margin-bottom: initial;
+    }
   }
 
   &__col4 {
+    position: relative;
     grid-area: image2;
-    background-color: violet;
-    z-index: 1;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/person-2.jpg?alt=media&token=1b20175d-3c2e-4a27-ac27-091ac5ee7b41");
+
+    &::after {
+      content: "";
+      display: block;
+      width: 150px;
+      height: 100%;
+      background-color: #c4a128;
+      position: absolute;
+      left: -20px;
+      z-index: -1;
+
+      @include media-queries(small) {
+        left: -50px;
+      }
+
+      @include media-queries(large) {
+        display: none;
+      }
+    }
   }
 
   &__col5 {
     grid-area: text3;
-    background-color: firebrick;
     z-index: 1;
+    background-color: #393939;
   }
 
   &__col6 {
+    position: relative;
     grid-area: image3;
-    background-color: peru;
-    z-index: 1;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/person-4.jpg?alt=media&token=b1f49b8b-d216-4d0a-a9d8-cc96b808c9d9");
+
+    &::after {
+      content: "";
+      display: block;
+      width: 150px;
+      height: 100%;
+      background-color: #c4a128;
+      position: absolute;
+      right: -20px;
+      z-index: -1;
+
+      @include media-queries(small) {
+        right: -50px;
+      }
+
+      @include media-queries(large) {
+        display: none;
+      }
+    }
+
+    @media (min-width: 768px) {
+      height: auto;
+    }
+
+    @media (min-width: 1024px) {
+      height: 200px;
+    }
   }
 
-  &__col7 {
-    grid-area: image4;
-    background-color: orangered;
-    z-index: 1;
+  &__name {
+    margin-bottom: 10px;
+    color: #f8c822;
+    text-align: left;
   }
 
-  &__col8 {
-    grid-area: text4;
-    background-color: burlywood;
-    z-index: 1;
+  &__name-1 {
+    display: none;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    color: white;
+
+    @media (min-width: 768px) {
+      display: block;
+    }
+  }
+
+  &__name-2 {
+    display: none;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    color: black;
+
+    @media (min-width: 768px) {
+      display: block;
+    }
+  }
+
+  &__text {
+    margin-bottom: 10px;
+    color: #ddd;
+    text-align: left;
+    font-weight: 300;
+  }
+
+  &__read-more-1,
+  &__read-more-2,
+  &__read-more-3 {
+    color: #f8c822;
+  }
+
+  &__read-more-2 {
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+
+    @media (min-width: 500px) {
+      text-align: right;
+    }
   }
 
   &__below-cover-1 {
+    display: none;
     position: absolute;
-    top: 8.35%;
+    top: 9%;
     right: calc(-20% - 20px);
     width: 40%;
-    height: 16.65%;
+    height: 200px;
     transform: translate(-50%, -50%);
     background-color: #c4a128;
     z-index: 0;
@@ -169,6 +305,8 @@
     }
 
     @include media-queries(large) {
+      display: block;
+      height: 16.65%;
       top: 35%;
       left: 40%;
       right: 0;
@@ -178,6 +316,7 @@
   }
 
   &__below-cover-2 {
+    display: none;
     position: absolute;
     bottom: 58.4%;
     left: calc(0% - 20px);
@@ -191,6 +330,7 @@
     }
 
     @include media-queries(large) {
+      display: block;
       bottom: 23%;
       left: 0;
       width: 291px;
@@ -198,13 +338,14 @@
     }
 
     @include media-queries(xlarge) {
-      bottom: 12%;
-      width: 36%;
+      bottom: 23%;
+      width: 20%;
       height: 111px;
     }
   }
 
   &__below-cover-3 {
+    display: none;
     position: absolute;
     bottom: 33.35%;
     right: calc(0% - 20px);
@@ -218,18 +359,19 @@
     }
 
     @include media-queries(large) {
+      display: block;
       bottom: 5%;
-      right: 0;
+      right: 30%;
       width: 337px;
       height: 86px;
     }
   }
 
   &__below-cover-4 {
+    display: none;
     position: absolute;
     bottom: 8.35%;
     left: calc(0% - 20px);
-    display: block;
     width: 50px;
     height: 16.65%;
     background-color: #c4a128;
@@ -240,12 +382,11 @@
     }
 
     @include media-queries(large) {
-      display: none;
+      display: block;
+      width: 15%;
+      left: initial;
+      right: 0%;
+      bottom: 25%;
     }
-  }
-
-  &__image1 {
-    width: 100%;
-    height: 180px;
   }
 }
