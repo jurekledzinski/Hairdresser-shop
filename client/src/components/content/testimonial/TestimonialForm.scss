@@ -72,8 +72,20 @@
   &__stars {
     margin-left: 5px;
     color: #dddddd;
-    font-size: 1.4rem;
+    font-size: 1rem;
     cursor: pointer;
+
+    @include media-queries(xsmall) {
+      font-size: 1.1rem;
+    }
+
+    @include media-queries(small) {
+      font-size: 1.2rem;
+    }
+
+    @include media-queries(medium) {
+      font-size: 1.4rem;
+    }
   }
 
   &__input-file {
