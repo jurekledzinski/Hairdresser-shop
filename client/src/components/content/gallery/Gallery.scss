@@ -16,11 +16,6 @@
     padding: 5px 0;
     font-size: 1.6rem;
   }
-
-  @include media-queries(large) {
-    // border: 1px solid #ffdc00;
-    border: 2px solid #808080;
-  }
 }
 
 .gallery {
@@ -66,6 +61,7 @@
     margin: 25px 0 40px 0;
     color: #ddd;
     font-size: 1.4rem;
+    font-weight: 300;
   }
 
   &__buttons-wrapper {
@@ -75,50 +71,109 @@
 
   &__buttons-top {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 20px;
+    height: 100px;
+
+    @include media-queries(xxsmall) {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      height: auto;
+      margin-bottom: 20px;
+    }
   }
 
   &__button-men {
     flex-basis: 31%;
     @include buttons-type-images();
+    border-width: 0;
     border: 1px solid #f8c822;
     background-color: #f8c822;
     color: #000;
+
+    @include media-queries(large) {
+      flex-basis: 20%;
+    }
   }
 
   &__button-women {
     flex-basis: 31%;
     @include buttons-type-images();
+
+    @include media-queries(large) {
+      flex-basis: 20%;
+    }
   }
 
   &__button-children {
     flex-basis: 31%;
     @include buttons-type-images();
+
+    @include media-queries(large) {
+      flex-basis: 20%;
+    }
   }
 
   &__buttons-bottom {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: space-around;
     width: 100%;
+    height: 63px;
+
+    @include media-queries(xxsmall) {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      height: auto;
+    }
   }
 
   &__button-weddings {
-    flex-basis: 48%;
+    flex-basis: 40%;
+
     @include buttons-type-images();
+
+    @include media-queries(xxsmall) {
+      flex-basis: 40%;
+      margin-right: 5px;
+    }
+
+    @include media-queries(small) {
+      flex-basis: 35%;
+    }
+
+    @include media-queries(large) {
+      flex-basis: 20%;
+    }
   }
 
   &__button-others {
-    flex-basis: 48%;
+    flex-basis: 40%;
+
     @include buttons-type-images();
+
+    @include media-queries(xxsmall) {
+      flex-basis: 40%;
+      margin-left: 5px;
+    }
+
+    @include media-queries(small) {
+      flex-basis: 35%;
+    }
+
+    @include media-queries(large) {
+      flex-basis: 20%;
+    }
   }
 
   &__images-wrapper {
     position: relative;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(3, 100px);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     column-gap: 10px;
     row-gap: 10px;
     grid-template-areas:
@@ -127,13 +182,13 @@
       "img5 img6";
 
     @include media-queries(medium) {
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: repeat(3, 150px);
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(3, 1fr);
     }
 
     @include media-queries(medium) {
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: repeat(3, 150px);
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
       column-gap: 20px;
       row-gap: 20px;
       grid-template-areas:
@@ -143,8 +198,8 @@
     }
 
     @include media-queries(large) {
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-      grid-template-rows: repeat(5, 120px);
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(5, 1fr);
       column-gap: 20px;
       row-gap: 20px;
       grid-template-areas:
@@ -157,7 +212,7 @@
 
     @include media-queries(xlarge) {
       grid-template-columns: 1fr 1fr 250px 250px;
-      grid-template-rows: repeat(2, 200px);
+      grid-template-rows: repeat(2, 1fr);
       column-gap: 40px;
       row-gap: 20px;
       grid-template-areas:
@@ -320,18 +375,13 @@
     }
   }
 
+  //TODO: Images
+
   &__img {
     display: block;
     width: 100%;
     height: 100%;
-
-    @include media-queries(medium) {
-      height: 100%;
-    }
-
-    @include media-queries(large) {
-      height: 100%;
-    }
+    object-fit: cover;
   }
 
   &__below-cover-1 {
