@@ -2,6 +2,8 @@ import React from "react";
 
 import "./Header.scss";
 
+import BookingMainPage from "../others/booking/BookingMainPage";
+
 const Header = () => {
   return (
     <header className="header">
@@ -38,6 +40,7 @@ const Header = () => {
         </p>
       </div>
       <span className="header__booking-button">Booking</span>
+      <BookingMainPage />
     </header>
   );
 };
