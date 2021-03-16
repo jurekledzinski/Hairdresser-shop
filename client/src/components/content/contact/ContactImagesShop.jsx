@@ -13,7 +13,7 @@ const ContactImagesShop = () => {
           />
           <img
             className="contact__img-one"
-            src="https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Hairplanet-outside-2-mobile.jpg?alt=media&token=67ce5877-186b-42da-b35e-17f732343ce7"
+            src="https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Hairplanet-outside-2-mobile.jpg?alt=media&token=0a5d7553-3d6e-4bef-ac62-d43b3804278a"
             alt="Entrance"
           />
         </picture>
@@ -27,7 +27,7 @@ const ContactImagesShop = () => {
             />
             <img
               className="contact__img-two"
-              src="https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Hairdressert-inside-2-mobile.jpg?alt=media&token=c1e3206a-16dd-415f-8ea8-b34f933b742d"
+              src="https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Hairdressert-inside-2-mobile.jpg?alt=media&token=2696720b-1252-4cd2-b769-c101c97089c0"
               alt="Inside hairdresser shop"
             />
           </picture>
@@ -40,7 +40,7 @@ const ContactImagesShop = () => {
             />
             <img
               className="contact__img-three"
-              src="https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Hairdresser-inside-1-mobile.jpg?alt=media&token=f9a57432-5910-4baa-821b-c69c22c44ec3"
+              src="https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Hairdresser-inside-1-mobile.jpg?alt=media&token=1f85925a-873f-4aa0-9150-b50262b7e915"
               alt="Inside hairdresser shop"
             />
           </picture>
