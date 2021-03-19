@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "./Team.scss";
 
@@ -25,7 +26,9 @@ const Team = () => {
               Don't talk to me about hours, what about sudo, man? How are we
               gonna get that?
             </p>
-            <span className="team__read-more-1">Read more...</span>
+            <Link className="team__read-more-1" to="/team-details">
+              Read more...
+            </Link>
           </div>
           <div className="team__col3 team__col3--margin">
             <p className="team__name">Jim Carry</p>
@@ -33,7 +36,9 @@ const Team = () => {
               Don't talk to me about hours, what about sudo, man? How are we
               gonna get that?
             </p>
-            <span className="team__read-more-2">Read more...</span>
+            <Link className="team__read-more-2" to="/team-details">
+              Read more...
+            </Link>
           </div>
           <div className="team__col4">
             <span className="team__name-2">Jim Carry</span>
@@ -46,7 +51,9 @@ const Team = () => {
               like... Lex Luthor. I got two dudes turned into raspberry slushy
               and flushed down my toilet.
             </p>
-            <span className="team__read-more-3">Read more...</span>
+            <Link className="team__read-more-3" to="/team-details">
+              Read more...
+            </Link>
           </div>
           <div className="team__col6">
             <span className="team__name-1">John Johson</span>

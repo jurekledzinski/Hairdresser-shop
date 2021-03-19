@@ -92,11 +92,7 @@
   }
 
   &__col1,
-  &__col4 {
-    width: 100%;
-    height: 200px;
-  }
-
+  &__col4,
   &__col6 {
     width: 100%;
     height: 200px;
@@ -278,6 +274,7 @@
   &__read-more-3 {
     font-size: 1.4rem;
     color: #f8c822;
+    text-decoration: none;
   }
 
   &__read-more-2 {
