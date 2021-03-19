@@ -1,0 +1,364 @@
+@use "../../../scss-variables/media-queries" as *;
+
+.team-details {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 50px 20px;
+  background-color: #303030;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  @include media-queries(large) {
+    padding: 50px;
+    min-height: 100vh;
+  }
+
+  @include media-queries(xlarge) {
+    min-height: initial;
+    min-height: 100vh;
+  }
+
+  &__wrapper {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+
+    @include media-queries(xlarge) {
+      width: 1000px;
+    }
+  }
+
+  &__title {
+    margin: -25px 0 10px 0;
+    color: #d4774a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  &__wrapper-subtitle {
+    margin: 25px 0 0 0;
+    @include media-queries(large) {
+      margin: 25px 0 40px 0;
+    }
+  }
+
+  &__subtitle {
+    margin-bottom: 40px;
+    color: #ddd;
+    font-size: 1.4rem;
+    font-weight: 300;
+  }
+
+  &__team {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    row-gap: 20px;
+    grid-template-areas:
+      "description1 description1"
+      "image1 image1"
+      "description2 description2"
+      "image2 image2"
+      "description3 description3"
+      "image3 image3"
+      "description4 description4"
+      "image4 image4"
+      "description5 description5"
+      "image5 image5"
+      "description6 description6"
+      "image6 image6";
+
+    @include media-queries(large) {
+      grid-template-columns: repeat(2, 2fr);
+      column-gap: 40px;
+      row-gap: 40px;
+      grid-template-areas:
+        "image1 description1"
+        "image1 description1"
+        "description2 image2"
+        "image3 description3"
+        "description4 image4"
+        "image5 description5"
+        "description6 image6";
+    }
+  }
+
+  &__box-1,
+  &__box-4,
+  &__box-5,
+  &__box-8,
+  &__box-9,
+  &__box-12 {
+    width: 100%;
+    height: 200px;
+  }
+
+  &__box-2,
+  &__box-3,
+  &__box-6,
+  &__box-7,
+  &__box-10,
+  &__box-11 {
+    height: auto;
+  }
+
+  &__box-1,
+  &__box-5,
+  &__box-9 {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 400px;
+
+    @include media-queries(large) {
+      height: auto;
+    }
+  }
+
+  &__box-1 {
+    grid-area: image1;
+  }
+
+  &__image-box-1 {
+    width: 100%;
+    height: 50%;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Person-details-1.jpg?alt=media&token=fb2e67aa-4115-4a52-b71b-9f8a5a2439e0");
+  }
+
+  &__image-box-2 {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+
+    @include media-queries(medium) {
+      display: flex;
+      flex-direction: row;
+      height: 50%;
+    }
+  }
+
+  &__image-box-1,
+  &__image-box-3,
+  &__image-box-4,
+  &__img-inside-1,
+  &__img-inside-2,
+  &__img-inside-3,
+  &__img-inside-4,
+  &__img-inside-5,
+  &__img-inside-6,
+  &__box-4,
+  &__box-8,
+  &__box-12 {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  &__box-2,
+  &__box-3,
+  &__box-7,
+  &__box-11 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__box-4,
+  &__box-8,
+  &__box-12 {
+    height: 200px;
+
+    @include media-queries(medium) {
+      height: initial;
+      min-height: 400px;
+    }
+
+    @include media-queries(large) {
+      min-height: initial;
+      height: auto;
+    }
+  }
+
+  &__img-inside-1 {
+    flex-basis: 50%;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Person-details-2.jpg?alt=media&token=2a6a8b39-a187-4011-8f46-495a976db72e");
+  }
+
+  &__img-inside-2 {
+    flex-basis: 50%;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Person-details-4.jpg?alt=media&token=2dd3f730-2f77-4320-94b3-c5708b69084d");
+  }
+
+  &__box-2 {
+    grid-area: description1;
+  }
+
+  &__name-1 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 94px;
+    background-color: blueviolet;
+    background-color: #303030;
+  }
+
+  &__name {
+    color: #f8c822;
+    letter-spacing: 1px;
+  }
+
+  &__description-1 {
+    width: 100%;
+    height: 80%;
+    padding: 20px;
+    background-color: #393939;
+    color: #dddddd;
+    height: auto;
+  }
+
+  &__text-des-1 {
+    margin-bottom: 20px;
+  }
+
+  &__text-des-1,
+  &__text-des-2,
+  &__text-des-3 {
+    text-align: left;
+    font-weight: 300;
+    height: auto;
+    color: #dddddd;
+  }
+
+  &__box-3 {
+    grid-area: description2;
+    height: auto;
+    padding: 20px;
+    background-color: #393939;
+  }
+
+  &__quote {
+    position: relative;
+    height: auto;
+    padding: 10px 10px 30px 10px;
+    color: #dddddd;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    line-height: 1.2;
+    font-size: 1.4rem;
+    text-align: center;
+
+    @include media-queries(medium) {
+      padding: 20px 30px 30px 30px;
+      font-size: 1.6rem;
+    }
+
+    &::before {
+      font-family: Georgia, serif;
+      position: absolute;
+      transform: translateX(-15px);
+      font-size: 3rem;
+      line-height: 1;
+      top: 5px;
+      content: "\201C";
+
+      @include media-queries(medium) {
+        top: 15px;
+      }
+    }
+
+    &::after {
+      font-family: Georgia, serif;
+      position: absolute;
+      float: right;
+      transform: translateX(4px);
+      font-size: 3rem;
+      line-height: 1;
+      right: auto;
+      bottom: 9px;
+      content: "\201D";
+    }
+  }
+
+  &__box-4 {
+    grid-area: image2;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Person-details-3.jpg?alt=media&token=e33a0f66-b483-478d-8534-43469f1a7d7e");
+  }
+
+  &__box-5 {
+    grid-area: image3;
+  }
+
+  &__image-box-3 {
+    width: 100%;
+    height: 50%;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Person-details-5.jpg?alt=media&token=0bc77852-200c-4e6c-a0dd-e1965d2a3639");
+  }
+
+  &__img-inside-3 {
+    flex-basis: 50%;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Person-details-6.jpg?alt=media&token=1b682d84-451b-466a-bc51-4f107e18b248");
+  }
+
+  &__img-inside-4 {
+    flex-basis: 50%;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Person-details-8.jpg?alt=media&token=e207cb06-f770-4170-9f15-f12e7eef1075");
+  }
+
+  &__box-6 {
+    grid-area: description3;
+  }
+
+  &__box-7 {
+    height: auto;
+    grid-area: description4;
+    padding: 20px;
+    background-color: #393939;
+  }
+
+  &__box-8 {
+    grid-area: image4;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Person-details-7.jpg?alt=media&token=b1cfb143-60e9-4809-a6b0-fb7bb1d58d79");
+  }
+
+  &__box-9 {
+    grid-area: image5;
+  }
+
+  &__image-box-4 {
+    width: 100%;
+    height: 50%;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Person-details-9.jpg?alt=media&token=511632ba-5aa7-4e06-90a1-742da5a9c802");
+  }
+
+  &__img-inside-5 {
+    flex-basis: 50%;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Person-details-10.jpg?alt=media&token=1e74ad8c-5ab8-4f3d-9c12-95dad66d589c");
+  }
+
+  &__img-inside-6 {
+    flex-basis: 50%;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Person-details-11.jpg?alt=media&token=f0b8e166-5813-4a2b-a240-b9847fc6a5a1");
+  }
+
+  &__box-10 {
+    grid-area: description5;
+  }
+
+  &__box-11 {
+    height: auto;
+    grid-area: description6;
+    padding: 20px;
+    background-color: #393939;
+  }
+
+  &__box-12 {
+    grid-area: image6;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Person-details-12.jpg?alt=media&token=c1a6c74f-4f34-49cb-87d8-78374184fb66");
+  }
+}
