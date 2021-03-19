@@ -1,8 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "./Header.scss";
-
-import BookingMainPage from "../others/booking/BookingMainPage";
 
 const Header = () => {
   return (
@@ -39,8 +38,9 @@ const Header = () => {
           experience
         </p>
       </div>
-      <span className="header__booking-button">Booking</span>
-      <BookingMainPage />
+      <Link className="header__booking-button" to="/booking">
+        Booking
+      </Link>
     </header>
   );
 };
