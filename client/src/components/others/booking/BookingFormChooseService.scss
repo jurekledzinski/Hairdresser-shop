@@ -1,0 +1,68 @@
+@use "../../../scss-variables/media-queries" as *;
+
+.booking {
+  &__input-wrapper-services {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+  }
+
+  &__select-wrapper {
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  &__input-select {
+    width: 100%;
+  }
+
+  &__coverSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  &__label-service {
+    display: block;
+    width: fit-content;
+    color: black;
+    font-size: 1.33rem;
+    font-family: Arial, sans-serif;
+    text-indent: 5px;
+    cursor: pointer;
+  }
+
+  &__input-service {
+    display: inline-block;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+
+  &__checkbox-select {
+    display: block;
+    position: absolute;
+    top: 58px;
+    left: 0;
+    right: 0;
+    padding-bottom: 10px;
+    background-color: white;
+    z-index: 3;
+    overflow-y: scroll;
+
+    &--hidden {
+      display: none;
+    }
+  }
+
+  &__serivces-title {
+    margin: 5px 0;
+    font-size: 1.4rem;
+    text-align: left;
+    text-indent: 5px;
+    font-weight: 500;
+  }
+}

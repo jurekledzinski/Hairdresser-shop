@@ -1,0 +1,20 @@
+@use "../../../scss-variables/media-queries" as *;
+
+.booking {
+  &__input-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+  }
+
+  &__label {
+    margin-bottom: 10px;
+    color: #f8c822;
+  }
+
+  &__input-select {
+    padding: 5px 0;
+    border: 1px solid white;
+    outline: none;
+  }
+}

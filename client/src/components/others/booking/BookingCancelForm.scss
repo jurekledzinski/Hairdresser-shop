@@ -1,0 +1,74 @@
+@use "../../../scss-variables/media-queries" as *;
+
+@mixin button-cancel {
+  width: 100%;
+  padding: 2px 0;
+  background-color: transparent;
+  border: 1px solid #808080;
+  color: #dddddd;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  font-weight: 500;
+  outline: none;
+  font-family: "Oswald", sans-serif;
+  cursor: pointer;
+
+  @include media-queries(xmedium) {
+    font-size: 1.6rem;
+  }
+
+  @include media-queries(medium) {
+    width: 100px;
+  }
+
+  @include media-queries(large) {
+    width: 120px;
+    padding: 5px 0;
+  }
+}
+
+.booking {
+  &__cancel-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 20px 0 20px;
+
+    @include media-queries(xmedium) {
+      margin: 20px 0;
+    }
+  }
+
+  &__cancel-form {
+    width: 350px;
+  }
+
+  &__cancel-label {
+    display: block;
+    margin-bottom: 10px;
+    color: #f8c822;
+    text-align: center;
+    font-size: 1.2rem;
+
+    @include media-queries(small) {
+      font-size: 1.4rem;
+      text-align: left;
+    }
+  }
+
+  &__cancel-input {
+    display: block;
+    width: 100%;
+    padding: 5px 0;
+    margin: 10px 0;
+    border: none;
+    outline: none;
+  }
+
+  &__button-cancel {
+    @include button-cancel();
+    float: right;
+    margin-top: 10px;
+    border: 1px solid #ff4136;
+  }
+}

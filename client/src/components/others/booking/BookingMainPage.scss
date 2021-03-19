@@ -6,7 +6,7 @@
   align-items: center;
   width: 100%;
   max-width: 1200px;
-  min-height: 80vh;
+  height: auto;
   padding: 50px 20px;
   background-color: #303030;
   background-repeat: no-repeat;
@@ -14,87 +14,85 @@
   background-size: cover;
   z-index: 1;
 
-  @include media-queries(small) {
+  @include media-queries(medium) {
     padding: 50px;
   }
 
   @include media-queries(large) {
-    padding: 50px;
-    height: 80vh;
+    padding: 50px 0 50px 50px;
   }
 
-  @include media-queries(xlarge) {
-    min-height: initial;
-    height: 768px;
+  &__center-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
   }
 
   &__wrapper {
     display: flex;
-    flex-direction: column;
     width: 100%;
-    min-height: inherit;
+    height: auto;
     padding: 50px 0;
-    // margin: 0 auto;
 
     @include media-queries(large) {
-      flex-direction: row;
       max-width: 1200px;
-      height: inherit;
     }
 
     @include media-queries(xlarge) {
-      height: inherit;
+      height: 768px;
     }
   }
 
   &__left {
+    display: none;
     width: 100%;
-    min-height: 80vh;
-    background-color: lightgreen;
-    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Background-booking-mobile.jpeg?alt=media&token=e1b588c3-81e4-4905-92c4-71ec9ab91e5f");
+    height: auto;
 
     @include media-queries(large) {
-      width: 20%;
-      min-height: initial;
-      height: 100%;
+      display: block;
+      width: 40%;
       background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Background-booking.jpeg?alt=media&token=043b3596-878c-49ff-a10c-002b66da3570");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
     }
 
     @include media-queries(xlarge) {
-      width: 40%;
+      width: 50%;
     }
   }
 
   &__right {
-    position: relative;
-    display: none;
-    width: 60%;
+    width: 100%;
+    height: auto;
 
     @include media-queries(large) {
-      display: block;
-      width: 80%;
-      min-height: 60vh;
+      width: 60%;
     }
 
     @include media-queries(xlarge) {
-      width: 60%;
+      width: 50%;
     }
   }
 
+  &__inside-wrapper {
+    width: 100%;
+    background-color: #303030;
+  }
+
+  &__title {
+    // margin: 40px 0 20px 0;
+    text-transform: uppercase;
+    color: white;
+  }
+
   &__form-wrapper {
-    display: none;
-    position: absolute;
-    top: -20px;
-    bottom: -20px;
-    background-color: #000000;
-
-    @include media-queries(large) {
-      display: block;
-      width: 100%;
-    }
-
-    @include media-queries(xlarge) {
-      width: 100%;
-    }
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: auto;
   }
 }

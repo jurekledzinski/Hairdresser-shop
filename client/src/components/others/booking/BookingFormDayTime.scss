@@ -1,0 +1,42 @@
+@use "../../../scss-variables/media-queries" as *;
+
+.booking {
+  &__input-wrapper-day-time {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include media-queries(large) {
+      flex-direction: row;
+    }
+  }
+
+  &__input-wrapper-day {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__input-date,
+  &__input-select-time {
+    border: 1px solid white;
+    outline: none;
+  }
+
+  &__input-date {
+    padding: 4px 0;
+    margin-bottom: 10px;
+
+    @include media-queries(large) {
+      margin-bottom: initial;
+    }
+  }
+  
+  &__input-select-time {
+    padding: 5px 0;
+  }
+
+  &__input-wrapper-time {
+    display: flex;
+    flex-direction: column;
+  }
+}

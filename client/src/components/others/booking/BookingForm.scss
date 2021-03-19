@@ -1,0 +1,39 @@
+@use "../../../scss-variables/media-queries" as *;
+
+@mixin button-booking {
+  width: 100%;
+  padding: 2px 0;
+  background-color: transparent;
+  border: 1px solid #808080;
+  color: #dddddd;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  font-weight: 500;
+  outline: none;
+  font-family: "Oswald", sans-serif;
+  cursor: pointer;
+
+  @include media-queries(xmedium) {
+    font-size: 1.6rem;
+  }
+
+  @include media-queries(medium) {
+    width: 100px;
+  }
+
+  @include media-queries(large) {
+    width: 120px;
+    padding: 5px 0;
+  }
+}
+
+.booking {
+  &__form {
+    width: 350px;
+  }
+
+  &__button-continue {
+    @include button-booking();
+    margin-top: 20px;
+  }
+}
