@@ -1,0 +1,244 @@
+@use "../../../scss-variables/media-queries" as *;
+
+@mixin button-login {
+  display: block;
+  width: 100%;
+  padding: 7px 0;
+  background-color: #f8c822;
+  border: none;
+  font-size: 1.3rem;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+  font-family: "Oswald", sans-serif;
+  color: #333333;
+  transition: 0.4s ease;
+
+  &:hover {
+    background-color: #f8cd38;
+    color: black;
+  }
+
+  @include media-queries(xmedium) {
+    font-size: 1.6rem;
+  }
+
+  @include media-queries(medium) {
+    width: 100px;
+  }
+
+  @include media-queries(large) {
+    width: 120px;
+    padding: 5px 0;
+  }
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 0px 20px;
+  box-sizing: border-box;
+  //   background-color: #303030;
+
+  @include media-queries(xlarge) {
+    min-height: initial;
+    height: 768px;
+    padding: 50px;
+  }
+
+  // tutaj dałem min-height: bez min-height <768 i centruje w pionie
+
+  &__wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    // margin: 0 auto;
+    padding: 50px 0;
+
+    // tutaj dałem min-height: inherit
+
+    @include media-queries(large) {
+      flex-direction: row;
+      min-height: inherit;
+      padding: 50px 0;
+    }
+
+    @include media-queries(xlarge) {
+      width: 1000px;
+      height: 100%;
+      padding: 0;
+    }
+  }
+
+  //TODO: Lewa strona
+
+  &__left {
+    position: relative;
+    display: none;
+    flex-basis: 50%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Background-register.jpg?alt=media&token=1aaaebea-8a46-4dd2-bed2-f6b55509fb37");
+    opacity: 0.9;
+
+    @include media-queries(large) {
+      display: block;
+      flex-basis: 40%;
+    }
+
+    @include media-queries(xlarge) {
+      flex-basis: 50%;
+    }
+  }
+
+  &__cover-left {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  &__left-redirects {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__left-title {
+    width: 100%;
+    color: rgba(255, 255, 255, 1);
+    letter-spacing: 1px;
+  }
+
+  &__left-subtitle {
+    width: 100%;
+    color: rgba(255, 255, 255, 1);
+  }
+
+  //TODO: Prawa strona
+
+  &__right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 100%;
+
+    @include media-queries(large) {
+      flex-basis: 60%;
+      background-image: initial;
+      background-color: #fff;
+    }
+
+    @include media-queries(xlarge) {
+      flex-basis: 50%;
+    }
+  }
+
+  &__right-title {
+    display: block;
+    color: #d4774a;
+    margin-bottom: 60px;
+
+    @include media-queries(large) {
+      display: none;
+      margin-bottom: initial;
+    }
+  }
+
+  &__form {
+    width: 100%;
+
+    @include media-queries(medium) {
+      width: 70%;
+    }
+  }
+
+  &__input-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  &__icon {
+    position: absolute;
+    right: 5px;
+    bottom: 7px;
+    color: #333333;
+  }
+
+  &__label {
+    margin-bottom: 10px;
+    color: #f8c822;
+    color: #333333;
+    font-size: 1.4rem;
+
+    @include media-queries(large) {
+      color: black;
+      font-size: 1.6rem;
+    }
+  }
+
+  &__input {
+    padding: 8px 25px 8px 0;
+    border: 1px solid #aaa;
+    border-radius: 0;
+    text-indent: 5px;
+    outline: none;
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      box-shadow: 0 0 0 30px white inset !important;
+      -webkit-box-shadow: 0 0 0 30px white inset !important;
+    }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active ~ .login__icon {
+      color: #333333;
+    }
+
+    &:focus ~ .login__icon,
+    &:active ~ .login__icon {
+      color: #333333;
+    }
+
+    &::placeholder {
+      color: transparent;
+    }
+
+    &:placeholder-shown ~ .login__icon {
+      color: #808080;
+    }
+
+    &:not(:placeholder-shown) ~ .login__icon {
+      color: #333333;
+    }
+  }
+
+  &__button-login {
+    @include button-login();
+    margin-top: 30px;
+  }
+}
