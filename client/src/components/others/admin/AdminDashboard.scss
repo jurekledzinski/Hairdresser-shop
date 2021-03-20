@@ -1,0 +1,35 @@
+@use "../../../scss-variables/media-queries" as *;
+
+.admin {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 50px 20px;
+  background-color: #303030;
+
+  @include media-queries(small) {
+    padding: 50px;
+  }
+
+  @include media-queries(large) {
+    padding: 50px;
+    min-height: 100vh;
+  }
+
+  @include media-queries(xlarge) {
+    min-height: initial;
+    height: 768px;
+  }
+
+  &__wrapper {
+    width: 100%;
+    margin: 0 auto;
+
+    @include media-queries(xlarge) {
+      width: 1000px;
+    }
+  }
+}
