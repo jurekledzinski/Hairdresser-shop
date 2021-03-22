@@ -8,6 +8,7 @@
   max-width: 1200px;
   height: auto;
   padding: 50px 20px;
+  margin: 0 auto;
   background-color: #303030;
   background-repeat: no-repeat;
   background-position: center;
@@ -20,6 +21,10 @@
 
   @include media-queries(large) {
     padding: 50px 0 50px 50px;
+  }
+
+  @include media-queries(xlarge) {
+    max-width: 1200px;
   }
 
   &__center-wrapper {

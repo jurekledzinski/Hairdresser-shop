@@ -8,6 +8,7 @@
   width: 100%;
   min-height: 100vh;
   padding: 50px 20px;
+  margin: 0 auto;
   background-color: #303030;
   background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Our%20team%20background.jpeg?alt=media&token=3438e48f-1369-49e8-b79b-ce1f5b27361c");
   background-repeat: no-repeat;
@@ -25,6 +26,7 @@
   }
 
   @include media-queries(xlarge) {
+    max-width: 1200px;
     min-height: initial;
     height: 768px;
   }

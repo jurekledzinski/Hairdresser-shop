@@ -7,6 +7,7 @@
   width: 100%;
   min-height: 100vh;
   padding: 50px 20px;
+  margin: 0 auto;
   background-color: #303030;
   background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Background-testimonials.jpeg?alt=media&token=5ab0cd7f-5044-4724-9a9d-0c7eac06576c");
   background-repeat: no-repeat;
@@ -23,6 +24,7 @@
   }
 
   @include media-queries(xlarge) {
+    max-width: 1200px;
     min-height: initial;
     height: 768px;
   }

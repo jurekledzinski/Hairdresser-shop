@@ -5,8 +5,13 @@
   justify-content: center;
   width: 100%;
   padding: 10px 0;
+  margin: 0 auto;
   background-color: #101010;
   color: #dddddd;
+
+  @include media-queries(xlarge) {
+    max-width: 1200px;
+  }
 
   &__wrapper {
     display: flex;

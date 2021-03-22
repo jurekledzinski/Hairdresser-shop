@@ -24,6 +24,7 @@
   align-items: center;
   width: 100%;
   min-height: 100vh;
+  margin: 0 auto;
   padding: 50px 20px;
   background-color: #303030;
 
@@ -37,6 +38,7 @@
   }
 
   @include media-queries(xlarge) {
+    max-width: 1200px;
     min-height: initial;
     height: 768px;
   }

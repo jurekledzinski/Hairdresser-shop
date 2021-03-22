@@ -8,6 +8,7 @@
   width: 100%;
   min-height: 100vh;
   padding: 50px 20px;
+  margin: 0 auto;
   background-color: #303030;
   color: #dddddd;
 
@@ -21,6 +22,7 @@
   }
 
   @include media-queries(xlarge) {
+    max-width: 1200px;
     min-height: initial;
     min-height: 768px;
   }

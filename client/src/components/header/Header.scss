@@ -4,9 +4,11 @@
   position: relative;
   display: flex;
   width: 100%;
+  margin: 0 auto;
   height: 100vh;
 
   @include media-queries(xlarge) {
+    max-width: 1200px;
     height: 600px;
   }
 

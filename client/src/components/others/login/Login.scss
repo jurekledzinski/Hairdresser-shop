@@ -40,10 +40,12 @@
   width: 100%;
   min-height: 100vh;
   padding: 0px 20px;
+  margin: 0 auto;
   box-sizing: border-box;
   //   background-color: #303030;
 
   @include media-queries(xlarge) {
+    max-width: 1200px;
     min-height: initial;
     height: 768px;
     padding: 50px;
