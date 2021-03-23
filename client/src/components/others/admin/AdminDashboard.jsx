@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import "./AdminDashboard.scss";
@@ -6,9 +6,12 @@ import "./AdminDashboard.scss";
 import { menuOptions } from "./AdminAsideMenuOptions";
 
 const AdminDashboard = () => {
+  const [checkSizeWindow, setCheckSizeWindow] = useState(
+    window.innerWidth >= 1200 ? true : false
+  );
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
-  console.log(isOpenMenu);
+  console.log(checkSizeWindow);
 
   const handleCloseOpenMenu = () => {
     setIsOpenMenu((prevValue) => !prevValue);
@@ -37,6 +40,18 @@ const AdminDashboard = () => {
     </li>
   ));
 
+  const checkWindowSize = () => {
+    setCheckSizeWindow(window.innerWidth >= 1200 ? true : false);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", checkWindowSize);
+
+    () => {
+      window.removeEventListener("resize", checkWindowSize);
+    };
+  }, []);
+
   return (
     <section className="admin">
       <div className="admin__wrapper">
@@ -52,10 +67,32 @@ const AdminDashboard = () => {
                   }
                 >
                   {isOpenMenu ? (
-                    <span className="admin__logo-mobile">Hp</span>
-                  ) : (
+                    checkSizeWindow ? (
+                      <span className="admin__logo-mobile">Hp</span>
+                    ) : (
+                      <p className="admin__logo">
+                        <span
+                          className={
+                            isOpenMenu
+                              ? "admin__logo-part-1--active"
+                              : "admin__logo-part-1"
+                          }
+                        >
+                          Hair
+                        </span>
+                        <span
+                          className={
+                            isOpenMenu
+                              ? "admin__logo-part-2--active"
+                              : "admin__logo-part-2"
+                          }
+                        >
+                          planet
+                        </span>
+                      </p>
+                    )
+                  ) : checkSizeWindow ? (
                     <p className="admin__logo">
-                      {" "}
                       <span
                         className={
                           isOpenMenu
@@ -75,6 +112,8 @@ const AdminDashboard = () => {
                         planet
                       </span>
                     </p>
+                  ) : (
+                    <span className="admin__logo-mobile">Hp</span>
                   )}
                 </div>
                 <ul className="admin__menu">{menuLi}</ul>
@@ -89,7 +128,13 @@ const AdminDashboard = () => {
             }
           >
             <div className="admin__nav-left">
-              <div className="admin__hamburger-wrapper">
+              <div
+                className={
+                  isOpenMenu
+                    ? "admin__hamburger-wrapper--active"
+                    : "admin__hamburger-wrapper"
+                }
+              >
                 <div
                   className="admin__hamburger-menu"
                   onClick={handleCloseOpenMenu}

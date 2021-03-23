@@ -3,15 +3,14 @@
 .admin {
   width: 100%;
   min-height: 100vh;
-  //   background-color: red;
 
   &__wrapper {
     width: 100%;
     min-height: inherit;
-    // background-color: green;
   }
 
   //   TODO: left
+  //   FIXME:
 
   &__left {
     position: fixed;
@@ -19,7 +18,8 @@
     left: 0;
     bottom: 0;
     // width: 20%;
-    width: 300px;
+    // width: 300px;
+    width: 60px;
     background-color: #303030;
     z-index: 100;
     transition: 0.4s ease;
@@ -29,12 +29,38 @@
       top: 0;
       left: 0;
       bottom: 0;
-      width: 60px;
+      width: 300px;
       background-color: #303030;
+      //   z-index: 200;
       z-index: 100;
       transition: 0.4s ease;
     }
+
+    @include media-queries(xxlarge) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      // width: 20%;
+      width: 300px;
+      background-color: #303030;
+      z-index: 100;
+      transition: 0.4s ease;
+
+      &--active {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 60px;
+        background-color: #303030;
+        z-index: 100;
+        transition: 0.4s ease;
+      }
+    }
   }
+
+  // FIXME:
 
   &__logo-wrapper {
     display: flex;
@@ -42,7 +68,7 @@
     width: 100%;
     height: 142px;
     padding: 4px 0;
-    margin-left: -30px;
+    margin-left: 0px;
 
     &--active {
       display: flex;
@@ -52,6 +78,24 @@
       padding: 4px 0;
       margin-left: 0;
     }
+
+    @include media-queries(xxlarge) {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      height: 142px;
+      padding: 4px 0;
+      margin-left: -30px;
+
+      &--active {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 142px;
+        padding: 4px 0;
+        margin-left: 0;
+      }
+    }
   }
 
   &__logo {
@@ -60,25 +104,69 @@
     width: 100%;
   }
 
+  // FIXME:
+
   &__logo-part-1 {
-    // width: 100%;
-    // margin: 10px 0 80px;
     color: white;
     font-size: 2.8rem;
     text-align: center;
     font-family: "Engagement", cursive;
-    animation: logoDesktopShow 0.4s linear;
+    animation: logoDesktopHide 0.1s linear forwards;
+
+    &--active {
+      margin-top: 5px;
+      color: white;
+      font-size: 2.8rem;
+      text-align: center;
+      font-family: "Engagement", cursive;
+      animation: logoDesktopShow 0.1s linear forwards;
+      //   margin: 10px 0 80px;
+    }
+
+    @include media-queries(large) {
+      font-size: 3.5rem;
+      animation: logoDesktopHide 0.4s linear forwards;
+
+      &--active {
+        margin-top: 0px;
+        color: white;
+        font-size: 3.5rem;
+        text-align: center;
+        font-family: "Engagement", cursive;
+        animation: logoDesktopShow 0.4s linear forwards;
+        //   margin: 10px 0 80px;
+      }
+    }
 
     @include media-queries(xlarge) {
       //   margin: 3px 0 80px;
       font-size: 4rem;
+      animation: logoDesktopHide 0.4s linear forwards;
+
+      &--active {
+        margin-top: 0px;
+        color: white;
+        font-size: 4rem;
+        text-align: center;
+        font-family: "Engagement", cursive;
+        animation: logoDesktopShow 0.4s linear forwards;
+        //   margin: 10px 0 80px;
+      }
     }
 
-    &--active {
-      animation: logoDesktopHide 0.1s linear forwards;
-      //   margin: 10px 0 80px;
+    @include media-queries(xxlarge) {
+      color: white;
+      text-align: center;
+      font-family: "Engagement", cursive;
+      animation: logoDesktopShow 0.4s linear;
+
+      &--active {
+        animation: logoDesktopHide 0.1s linear forwards;
+      }
     }
   }
+
+  // FIXME:
 
   &__logo-part-2 {
     color: white;
@@ -86,15 +174,61 @@
     text-align: center;
     font-family: "Engagement", cursive;
     padding-left: 5px;
-    animation: logoDesktopShow 0.4s linear;
+    animation: logoDesktopHide 0.1s linear forwards;
+
+    &--active {
+      color: white;
+      font-size: 2.8rem;
+      text-align: center;
+      font-family: "Engagement", cursive;
+      padding-left: 5px;
+      margin-top: 5px;
+      animation: logoDesktopShow 0.1s linear forwards;
+      //   margin: 10px 0 80px;
+    }
+
+    @include media-queries(large) {
+      font-size: 3.5rem;
+      animation: logoDesktopHide 0.4s linear forwards;
+
+      &--active {
+        color: white;
+        font-size: 3.5rem;
+        text-align: center;
+        font-family: "Engagement", cursive;
+        padding-left: 5px;
+        margin-top: 0px;
+        animation: logoDesktopShow 0.4s linear forwards;
+        //   margin: 10px 0 80px;
+      }
+    }
 
     @include media-queries(xlarge) {
       font-size: 4rem;
+      animation: logoDesktopHide 0.4s linear forwards;
+
+      &--active {
+        color: white;
+        font-size: 4rem;
+        text-align: center;
+        font-family: "Engagement", cursive;
+        padding-left: 5px;
+        margin-top: 0px;
+        animation: logoDesktopShow 0.4s linear forwards;
+        //   margin: 10px 0 80px;
+      }
     }
 
-    &--active {
-      animation: logoDesktopHide 0.1s linear forwards;
-      //   margin: 10px 0 80px;
+    @include media-queries(xxlarge) {
+      color: white;
+      text-align: center;
+      font-family: "Engagement", cursive;
+      padding-left: 5px;
+      animation: logoDesktopShow 0.4s linear;
+
+      &--active {
+        animation: logoDesktopHide 0.1s linear forwards;
+      }
     }
   }
 
@@ -131,6 +265,7 @@
   &__logo-mobile {
     width: 60px;
     height: 128px;
+    margin-top: 5px;
     color: white;
     text-align: center;
     font-size: 2.8rem;
@@ -138,7 +273,12 @@
     animation: logoMobileShow 0.4s linear;
 
     @include media-queries(xlarge) {
+      margin-top: 0;
       font-size: 4rem;
+    }
+
+    @include media-queries(xxlarge) {
+      animation: logoMobileShow 0.4s linear;
     }
   }
 
@@ -167,19 +307,38 @@
     // margin: 0 auto;
   }
 
+  // FIXME:
+
   &__item {
     display: flex;
     // justify-content: flex-start;
-    width: 85%;
+    width: 100%;
     margin-bottom: 20px;
+    transition: 0.4s ease;
 
     &--active {
       display: flex;
-      width: 100%;
+      width: 80%;
       margin-bottom: 20px;
       transition: 0.4s ease;
     }
+
+    @include media-queries(xxlarge) {
+      display: flex;
+      // justify-content: flex-start;
+      width: 85%;
+      margin-bottom: 20px;
+
+      &--active {
+        display: flex;
+        width: 100%;
+        margin-bottom: 20px;
+        transition: 0.4s ease;
+      }
+    }
   }
+
+  // FIXME:
 
   &__link {
     display: flex;
@@ -204,14 +363,29 @@
 
   &__icon {
     width: 10px;
-    margin: 0px 20px 0 20px;
+    margin: 0px 30px 0 20px;
     color: white;
+
+    @include media-queries(xxlarge) {
+      margin: 0px 20px 0 20px;
+    }
   }
 
+  // FIXME:
+
   &__option {
-    animation: optionShow 0.4s linear;
+    animation: optionHide 0.1s linear forwards;
+
     &--active {
-      animation: optionHide 0.1s linear forwards;
+      animation: optionShow 0.4s linear forwards;
+    }
+
+    @include media-queries(xxlarge) {
+      animation: optionShow 0.4s linear forwards;
+
+      &--active {
+        animation: optionHide 0.1s linear forwards;
+      }
     }
   }
 
@@ -247,41 +421,100 @@
 
   //   TODO: right
 
+  // FIXME:
+
   &__right {
-    margin-left: 300px;
+    margin-left: 60px;
     transition: 0.4s ease;
 
     &--active {
-      margin-left: 60px;
+      //   margin-left: 300px;
       transition: 0.4s ease;
     }
+
+    @include media-queries(xxlarge) {
+      margin-left: 300px;
+      transition: 0.4s ease;
+
+      &--active {
+        margin-left: 60px;
+        transition: 0.4s ease;
+      }
+    }
   }
+
+  // FIXME:
 
   &__right-nav {
     display: flex;
     position: fixed;
     top: 0;
     // left: 20%;
-    left: 300px;
+    left: 60px;
     // width: calc(100% - 20%);
-    width: calc(100% - 300px);
+    width: calc(100% - 60px);
     height: 50px;
     background-color: #fff;
-    transition: 0.4s ease;
     box-shadow: 0 4px 2px -2px rgb(222, 222, 222);
     z-index: 100;
+    transition: 0.4s ease;
+    animation: moveLayerNav 0.4s linear;
 
     &--active {
       display: flex;
       position: fixed;
       top: 0;
-      left: 60px;
-      width: calc(100% - 70px);
+      //   left: 300px;
+      left: 0;
+      //   width: calc(100% - 300px);
+      width: 100%;
+      height: 50px;
+      background-color: #fff;
+      transition: 0.4s ease;
+      box-shadow: 0 4px 2px -2px rgb(222, 222, 222);
+      //   z-index: 100;
+    }
+
+    @include media-queries(xxlarge) {
+      display: flex;
+      position: fixed;
+      top: 0;
+      // left: 20%;
+      left: 300px;
+      // width: calc(100% - 20%);
+      width: calc(100% - 300px);
       height: 50px;
       background-color: #fff;
       transition: 0.4s ease;
       box-shadow: 0 4px 2px -2px rgb(222, 222, 222);
       z-index: 100;
+
+      &--active {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 60px;
+        width: calc(100% - 70px);
+        height: 50px;
+        background-color: #fff;
+        transition: 0.4s ease;
+        box-shadow: 0 4px 2px -2px rgb(222, 222, 222);
+        z-index: 100;
+      }
+    }
+  }
+
+  @keyframes moveLayerNav {
+    0% {
+      z-index: 0;
+    }
+
+    50% {
+      z-index: 0;
+    }
+
+    100% {
+      z-index: 4;
     }
   }
 
@@ -300,9 +533,36 @@
     margin: 0 50px;
     border-radius: 50%;
     background-color: #ff4136;
+    transition: 0.4s ease;
+
+    &--active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 42px;
+      height: 38px;
+      margin: 0 50px 0 350px;
+      border-radius: 50%;
+      background-color: #ff4136;
+      transition: 0.4s ease;
+    }
 
     @include media-queries(large) {
       background-color: transparent;
+
+      &--active {
+        background-color: transparent;
+      }
+    }
+
+    @include media-queries(xxlarge) {
+      margin: 0 50px;
+
+      &--active {
+        margin: 0 50px;
+        background-color: transparent;
+        transition: 0.4s ease;
+      }
     }
   }
 
@@ -350,21 +610,64 @@
 
   &__dashboard-panel {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 150px) auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(10, 200px);
     column-gap: 40px;
     row-gap: 20px;
 
     grid-template-areas:
-      "booked canceled customers emails"
-      "income opinions visits time"
-      "chart1 chart1 chart2 chart2";
+      "booked"
+      "canceled"
+      "customers"
+      "emails"
+      "income"
+      "opinions"
+      "visits"
+      "time"
+      "chart1"
+      "chart2";
 
     padding: 80px 20px 20px 20px;
     background-color: #f1f5f9;
     min-height: calc(100vh - 50px);
     transform: translateY(50px);
     // background-color: lightgreen;
+
+    @include media-queries(medium) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto;
+      column-gap: 20px;
+      grid-template-areas:
+        "booked canceled"
+        "customers emails"
+        "income opinions"
+        "visits time"
+        "chart1 chart1"
+        "chart2 chart2";
+    }
+
+    @include media-queries(large) {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      column-gap: 20px;
+      row-gap: 20px;
+      grid-template-areas:
+        "booked canceled customers"
+        "emails income opinions"
+        "chart1 chart1 visits"
+        "chart2 chart2 time";
+    }
+
+    @include media-queries(xlarge) {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 150px) auto;
+      column-gap: 30px;
+      row-gap: 30px;
+      grid-template-areas:
+        "booked canceled customers emails"
+        "income opinions visits time"
+        "chart1 chart1 chart2 chart2";
+    }
   }
 
   &__card {
