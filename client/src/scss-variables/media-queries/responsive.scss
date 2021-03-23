@@ -6,6 +6,7 @@ $breakpoints: (
   medium: "min-width: 500px",
   large: "min-width: 768px",
   xlarge: "min-width: 1024px",
+  xxlarge: "min-width: 1200px",
 );
 
 @mixin media-queries($breakpoint) {
