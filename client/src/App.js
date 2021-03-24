@@ -5,6 +5,7 @@ import "./App.scss";
 
 import MainPage from "./components/mainpage/MainPage";
 import BookingMainPage from "./components/others/booking/BookingMainPage";
+import BookingDetails from "./components/others/booking/BookingDetails";
 import TeamDetails from "./components/content/team/TeamDetails";
 import BookingTermPolicyDetails from "./components/others/booking/BookingTermPolicyDetails";
 import AdminDashboard from "./components/others/admin/AdminDashboard";
@@ -17,7 +18,8 @@ const App = () => {
       <Router>
         <Switch>
           <Route exact path="/" component={MainPage} />
-          <Route path="/booking" component={BookingMainPage} />
+          <Route exact path="/booking" component={BookingMainPage} />
+          <Route path="/booking/:id" component={BookingDetails} />
           <Route path="/team-details" component={TeamDetails} />
           <Route path="/term-policy" component={BookingTermPolicyDetails} />
           <Route path="/admin" component={AdminDashboard} />
