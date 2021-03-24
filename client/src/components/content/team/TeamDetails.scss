@@ -57,6 +57,7 @@
   }
 
   &__team {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
@@ -90,6 +91,118 @@
     }
   }
 
+  &__cover-1 {
+    display: none;
+    position: absolute;
+    top: 9%;
+    right: calc(-20% - 20px);
+    width: 40%;
+    height: 200px;
+    transform: translate(-50%, -50%);
+    background-color: #c4a128;
+    z-index: 0;
+
+    @include media-queries(small) {
+      right: calc(-20% - 50px);
+    }
+
+    @include media-queries(large) {
+      display: block;
+      height: 16.65%;
+      top: 19%;
+      left: 44%;
+      right: 0;
+      width: 40%;
+      height: 160px;
+    }
+
+    @include media-queries(xlarge) {
+      left: 40%;
+      height: 200px;
+    }
+  }
+
+  &__cover-2 {
+    display: none;
+    position: absolute;
+    bottom: 58.4%;
+    left: calc(0% - 20px);
+    width: 50px;
+    height: 16.6%;
+    background-color: #c4a128;
+    z-index: 0;
+
+    @include media-queries(small) {
+      left: calc(0% - 50px);
+    }
+
+    @include media-queries(large) {
+      display: block;
+      bottom: 43%;
+      left: 0;
+      width: 20%;
+      height: 180px;
+    }
+
+    @include media-queries(xlarge) {
+      bottom: 43%;
+      width: 20%;
+      //   height: 111px;
+    }
+  }
+
+  &__cover-3 {
+    display: none;
+    position: absolute;
+    bottom: 33.35%;
+    right: calc(0% - 20px);
+    width: 50px;
+    height: 16.65%;
+    background-color: #c4a128;
+    z-index: 0;
+
+    @include media-queries(small) {
+      right: calc(0% - 50px);
+    }
+
+    @include media-queries(large) {
+      display: block;
+      bottom: 31%;
+      right: 0%;
+      width: 20%;
+      height: 150px;
+    }
+  }
+
+  &__cover-4 {
+    display: none;
+    position: absolute;
+    bottom: 8.35%;
+    left: calc(0% - 20px);
+    width: 50px;
+    height: 16.65%;
+    background-color: #c4a128;
+    z-index: 0;
+
+    @include media-queries(small) {
+      left: calc(0% - 50px);
+    }
+
+    @include media-queries(large) {
+      display: block;
+      width: 15%;
+      left: initial;
+      bottom: 11%;
+      right: 27%;
+      width: 337px;
+      height: 150px;
+    }
+
+    @include media-queries(xlarge) {
+      bottom: 10%;
+    }
+  }
+
   &__box-1,
   &__box-4,
   &__box-5,
@@ -98,6 +211,7 @@
   &__box-12 {
     width: 100%;
     height: 200px;
+    z-index: 1;
   }
 
   &__box-2,
@@ -107,6 +221,7 @@
   &__box-10,
   &__box-11 {
     height: auto;
+    z-index: 1;
   }
 
   &__box-1,
@@ -116,6 +231,7 @@
     flex-direction: column;
     height: auto;
     min-height: 400px;
+    z-index: 1;
 
     @include media-queries(large) {
       height: auto;
@@ -206,7 +322,6 @@
     align-items: center;
     width: 100%;
     height: 94px;
-    background-color: blueviolet;
     background-color: #303030;
   }
 
@@ -216,6 +331,7 @@
   }
 
   &__description-1 {
+    position: relative;
     width: 100%;
     height: 80%;
     padding: 20px;
@@ -238,8 +354,16 @@
   }
 
   &__box-3 {
+    position: relative;
     grid-area: description2;
     height: auto;
+    background-color: #393939;
+  }
+
+  &__description-2 {
+    position: relative;
+    width: 100%;
+    height: 100%;
     padding: 20px;
     background-color: #393939;
   }
@@ -319,7 +443,6 @@
   &__box-7 {
     height: auto;
     grid-area: description4;
-    padding: 20px;
     background-color: #393939;
   }
 
@@ -355,12 +478,41 @@
   &__box-11 {
     height: auto;
     grid-area: description6;
-    padding: 20px;
     background-color: #393939;
   }
 
   &__box-12 {
     grid-area: image6;
     background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Person-details-12.jpg?alt=media&token=c1a6c74f-4f34-49cb-87d8-78374184fb66");
+  }
+
+  &__cover-box-right {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: calc(0% - 20px);
+    width: 100%;
+    height: 100%;
+    background-color: #c4a128;
+    z-index: -1;
+
+    @include media-queries(large) {
+      display: none;
+    }
+  }
+
+  &__cover-box-left {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: calc(0% - 20px);
+    width: 100%;
+    height: 100%;
+    background-color: #c4a128;
+    z-index: -1;
+
+    @include media-queries(large) {
+      display: none;
+    }
   }
 }
