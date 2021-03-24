@@ -9,7 +9,12 @@
 
   &__label {
     margin-bottom: 10px;
+    font-size: 1.4rem;
     color: #f8c822;
+
+    @include media-queries(medium) {
+      font-size: 1.5rem;
+    }
   }
 
   &__input-select {
