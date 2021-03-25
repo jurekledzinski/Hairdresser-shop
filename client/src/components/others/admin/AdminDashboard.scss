@@ -9,19 +9,13 @@
     min-height: inherit;
   }
 
-  //   TODO: left
-  //   FIXME:
-
   &__left {
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
-    // width: 20%;
-    // width: 300px;
-    width: 60px;
+    width: 40px;
     background-color: #303030;
-    z-index: 100;
     transition: 0.4s ease;
 
     &--active {
@@ -29,11 +23,25 @@
       top: 0;
       left: 0;
       bottom: 0;
-      width: 300px;
+      width: calc(100% - 20px);
       background-color: #303030;
-      //   z-index: 200;
       z-index: 100;
       transition: 0.4s ease;
+    }
+
+    @include media-queries(medium) {
+      width: 60px;
+
+      &--active {
+        width: 300px;
+      }
+    }
+
+    @include media-queries(large) {
+      z-index: 100;
+      &--active {
+        z-index: 100;
+      }
     }
 
     @include media-queries(xxlarge) {
@@ -41,7 +49,6 @@
       top: 0;
       left: 0;
       bottom: 0;
-      // width: 20%;
       width: 300px;
       background-color: #303030;
       z-index: 100;
@@ -60,13 +67,11 @@
     }
   }
 
-  // FIXME:
-
   &__logo-wrapper {
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 142px;
+    height: 100px;
     padding: 4px 0;
     margin-left: 0px;
 
@@ -74,25 +79,15 @@
       display: flex;
       justify-content: center;
       width: 100%;
-      height: 142px;
+      height: 100px;
       padding: 4px 0;
       margin-left: 0;
     }
 
     @include media-queries(xxlarge) {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      height: 142px;
-      padding: 4px 0;
       margin-left: -30px;
 
       &--active {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        height: 142px;
-        padding: 4px 0;
         margin-left: 0;
       }
     }
@@ -103,8 +98,6 @@
     justify-content: center;
     width: 100%;
   }
-
-  // FIXME:
 
   &__logo-part-1 {
     color: white;
@@ -120,7 +113,6 @@
       text-align: center;
       font-family: "Engagement", cursive;
       animation: logoDesktopShow 0.1s linear forwards;
-      //   margin: 10px 0 80px;
     }
 
     @include media-queries(large) {
@@ -134,12 +126,10 @@
         text-align: center;
         font-family: "Engagement", cursive;
         animation: logoDesktopShow 0.4s linear forwards;
-        //   margin: 10px 0 80px;
       }
     }
 
     @include media-queries(xlarge) {
-      //   margin: 3px 0 80px;
       font-size: 4rem;
       animation: logoDesktopHide 0.4s linear forwards;
 
@@ -150,7 +140,6 @@
         text-align: center;
         font-family: "Engagement", cursive;
         animation: logoDesktopShow 0.4s linear forwards;
-        //   margin: 10px 0 80px;
       }
     }
 
@@ -184,7 +173,6 @@
       padding-left: 5px;
       margin-top: 5px;
       animation: logoDesktopShow 0.1s linear forwards;
-      //   margin: 10px 0 80px;
     }
 
     @include media-queries(large) {
@@ -199,7 +187,6 @@
         padding-left: 5px;
         margin-top: 0px;
         animation: logoDesktopShow 0.4s linear forwards;
-        //   margin: 10px 0 80px;
       }
     }
 
@@ -215,7 +202,6 @@
         padding-left: 5px;
         margin-top: 0px;
         animation: logoDesktopShow 0.4s linear forwards;
-        //   margin: 10px 0 80px;
       }
     }
 
@@ -263,14 +249,24 @@
   }
 
   &__logo-mobile {
+    position: absolute;
+    top: 55px;
     width: 60px;
-    height: 128px;
+    height: 28px;
     margin-top: 5px;
     color: white;
     text-align: center;
-    font-size: 2.8rem;
+    font-size: 2.2rem;
     font-family: "Engagement", cursive;
     animation: logoMobileShow 0.4s linear;
+    transition: 0.4s ease;
+
+    @media (min-width: 384px) {
+      position: initial;
+      top: 0;
+      height: 90px;
+      font-size: 2.8rem;
+    }
 
     @include media-queries(xlarge) {
       margin-top: 0;
@@ -302,53 +298,69 @@
     flex-direction: column;
     align-items: flex-end;
     width: 100%;
+    height: initial;
     list-style-type: none;
-    // width: fit-content;
-    // margin: 0 auto;
+    overflow-x: initial;
+    overflow-y: initial;
+
+    @include media-queries(medium) {
+      overflow-x: initial;
+      overflow-y: initial;
+    }
+
+    @media (max-width: 823px) and (orientation: landscape) {
+      height: 236px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
   }
 
   // FIXME:
 
   &__item {
     display: flex;
-    // justify-content: flex-start;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     transition: 0.4s ease;
 
     &--active {
       display: flex;
       width: 80%;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       transition: 0.4s ease;
+    }
+
+    @include media-queries(medium) {
+      margin-bottom: 20px;
+
+      &--active {
+        margin-bottom: 20px;
+      }
     }
 
     @include media-queries(xxlarge) {
       display: flex;
-      // justify-content: flex-start;
       width: 85%;
-      margin-bottom: 20px;
 
       &--active {
-        display: flex;
         width: 100%;
-        margin-bottom: 20px;
-        transition: 0.4s ease;
       }
     }
   }
-
-  // FIXME:
 
   &__link {
     display: flex;
     width: 100%;
     color: white;
     text-decoration: none;
-    padding: 10px 0;
+    padding: 6px 0;
     border-radius: 30px 0 0 30px;
     font-weight: 500;
     transition: 0.4s ease;
+
+    @include media-queries(medium) {
+      padding: 10px 0;
+    }
 
     &--active {
       border-radius: 30px 0 0 30px;
@@ -363,8 +375,12 @@
 
   &__icon {
     width: 10px;
-    margin: 0px 30px 0 20px;
+    margin: 0px 30px 0 12px;
     color: white;
+
+    @include media-queries(medium) {
+      margin: 0px 30px 0 20px;
+    }
 
     @include media-queries(xxlarge) {
       margin: 0px 20px 0 20px;
@@ -419,17 +435,16 @@
     }
   }
 
-  //   TODO: right
-
-  // FIXME:
-
   &__right {
-    margin-left: 60px;
+    margin-left: 40px;
     transition: 0.4s ease;
 
     &--active {
-      //   margin-left: 300px;
       transition: 0.4s ease;
+    }
+
+    @include media-queries(medium) {
+      margin-left: 60px;
     }
 
     @include media-queries(xxlarge) {
@@ -443,16 +458,12 @@
     }
   }
 
-  // FIXME:
-
   &__right-nav {
     display: flex;
     position: fixed;
     top: 0;
-    // left: 20%;
-    left: 60px;
-    // width: calc(100% - 20%);
-    width: calc(100% - 60px);
+    left: 0;
+    width: 100%;
     height: 50px;
     background-color: #fff;
     box-shadow: 0 4px 2px -2px rgb(222, 222, 222);
@@ -464,24 +475,47 @@
       display: flex;
       position: fixed;
       top: 0;
-      //   left: 300px;
       left: 0;
-      //   width: calc(100% - 300px);
       width: 100%;
       height: 50px;
       background-color: #fff;
       transition: 0.4s ease;
       box-shadow: 0 4px 2px -2px rgb(222, 222, 222);
-      //   z-index: 100;
+      z-index: 100;
+    }
+
+    @include media-queries(large) {
+      display: flex;
+      position: fixed;
+      top: 0;
+      left: 60px;
+      width: calc(100% - 60px);
+      height: 50px;
+      background-color: #fff;
+      box-shadow: 0 4px 2px -2px rgb(222, 222, 222);
+      z-index: 100;
+      transition: 0.4s ease;
+      animation: moveLayerNav 0.4s linear;
+
+      &--active {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background-color: #fff;
+        transition: 0.4s ease;
+        box-shadow: 0 4px 2px -2px rgb(222, 222, 222);
+        z-index: initial;
+      }
     }
 
     @include media-queries(xxlarge) {
       display: flex;
       position: fixed;
       top: 0;
-      // left: 20%;
       left: 300px;
-      // width: calc(100% - 20%);
       width: calc(100% - 300px);
       height: 50px;
       background-color: #fff;
@@ -521,47 +555,120 @@
   &__nav-left {
     display: flex;
     align-items: center;
-    width: 90%;
+    width: 82%;
+
+    @include media-queries(medium) {
+      width: 80%;
+    }
+  }
+
+  &__menu-option-name {
+    display: none;
+
+    @include media-queries(xxsmall) {
+      display: block;
+    }
+    @include media-queries(xmedium) {
+      font-size: 2.2rem;
+    }
+
+    @include media-queries(medium) {
+      font-size: 2.4rem;
+    }
+  }
+
+  &__extra-logo {
+    display: none;
+    margin: 0 7px;
+    opacity: 1;
+    font-size: 2.8rem;
+    transition: 0.6s ease;
+    text-align: center;
+    font-family: "Engagement", cursive;
+
+    @media (min-width: 384px) {
+      display: block;
+      visibility: visible;
+    }
+
+    @include media-queries(medium) {
+      margin: 0 18px;
+    }
+
+    @include media-queries(large) {
+      opacity: 0;
+      visibility: hidden;
+      transition: none;
+    }
   }
 
   &__hamburger-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 42px;
-    height: 38px;
-    margin: 0 50px;
+    width: 36px;
+    height: 33px;
+    margin: 0 2px 0 2px;
     border-radius: 50%;
-    background-color: #ff4136;
+    background-color: #393939;
     transition: 0.4s ease;
 
     &--active {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 42px;
-      height: 38px;
-      margin: 0 50px 0 350px;
+      width: 36px;
+      height: 33px;
+      margin: 0 2px 0 2px;
       border-radius: 50%;
-      background-color: #ff4136;
+      background-color: #393939;
       transition: 0.4s ease;
     }
 
+    @media (min-width: 320px) {
+      margin: 0 20px 0 2px;
+
+      &--active {
+        margin: 0 20px 0 2px;
+      }
+    }
+
+    @media (min-width: 384px) {
+      margin: 0 20px 0 15px;
+
+      &--active {
+        margin: 0 20px 0 15px;
+      }
+    }
+
+    @include media-queries(medium) {
+      width: 42px;
+      height: 38px;
+      margin: 0 20px 0 20px;
+
+      &--active {
+        width: 42px;
+        height: 38px;
+        margin: 0 20px 0 20px;
+      }
+    }
+
     @include media-queries(large) {
+      margin: 0 12px 0 -53px;
       background-color: transparent;
 
       &--active {
+        margin: 0 12px 0 246px;
         background-color: transparent;
       }
     }
 
     @include media-queries(xxlarge) {
-      margin: 0 50px;
+      margin: 0 12px 0 -53px;
 
       &--active {
-        margin: 0 50px;
+        margin: 0 12px 0 -53px;
         background-color: transparent;
-        transition: 0.4s ease;
       }
     }
   }
@@ -571,9 +678,14 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    width: 25px;
-    height: 19px;
+    width: 21px;
+    height: 17px;
     cursor: pointer;
+
+    @include media-queries(medium) {
+      width: 25px;
+      height: 19px;
+    }
   }
 
   &__hamburger-line {
@@ -581,7 +693,6 @@
     width: 100%;
     height: 3px;
     background-color: white;
-    // background-color: #333;
 
     @include media-queries(large) {
       background-color: #333;
@@ -592,27 +703,94 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    // width: 50%;
-    // margin-right: 50px;
+    width: 20%;
+    margin-right: 20px;
+  }
+
+  &__wrapper-image-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @media (min-width: 319px) {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  &__picture {
+    display: flex;
+    justify-content: center;
+    width: 80px;
+    border-radius: 50%;
+
+    @media (min-width: 319px) {
+      justify-content: flex-end;
+    }
+  }
+
+  &__person-image {
+    display: block;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+
+    @media (min-width: 319px) {
+      width: 30px;
+      height: 30px;
+    }
+
+    @include media-queries(medium) {
+      width: 35px;
+      height: 35px;
+    }
   }
 
   &__box-name {
-    width: fit-content;
+    width: 70px;
   }
 
   &__name {
+    font-size: 1.2rem;
     font-weight: 500;
+
+    @media (min-width: 319px) {
+      font-size: 1.3rem;
+    }
   }
 
   &__function {
-    font-size: 1.3rem;
+    display: none;
+    font-size: 1.1rem;
+
+    @media (min-width: 319px) {
+      display: block;
+    }
+  }
+
+  &__button-logout {
+    display: block;
+    flex-grow: 1;
+    background-color: transparent;
+    border: none;
+    font-size: 1.4rem;
+    color: #303030;
+    outline: none;
+    font-family: arial, serif;
+    font-weight: bold;
+    cursor: pointer;
+
+    @include media-queries(large) {
+      font-size: 1.6rem;
+    }
   }
 
   &__dashboard-panel {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(10, 200px);
-    column-gap: 40px;
     row-gap: 20px;
 
     grid-template-areas:
@@ -627,11 +805,10 @@
       "chart1"
       "chart2";
 
-    padding: 80px 20px 20px 20px;
+    padding: 50px 20px 20px 20px;
     background-color: #f1f5f9;
     min-height: calc(100vh - 50px);
     transform: translateY(50px);
-    // background-color: lightgreen;
 
     @include media-queries(medium) {
       grid-template-columns: repeat(2, 1fr);
