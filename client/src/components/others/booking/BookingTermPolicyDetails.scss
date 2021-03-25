@@ -1,6 +1,6 @@
 @use "../../../scss-variables/media-queries" as *;
 
-.booking {
+.booking-terms {
   position: relative;
   display: flex;
   justify-content: center;
@@ -27,7 +27,7 @@
     min-height: 768px;
   }
 
-  &__terms-policy-wrapper {
+  &__policy-wrapper {
     width: 100%;
     margin: 0 auto;
 
@@ -36,7 +36,7 @@
     }
   }
 
-  &__terms-policy-main-title {
+  &__policy-main-title {
     margin: 25px 0 10px 0;
     color: #d4774a;
     letter-spacing: 1px;
@@ -50,31 +50,31 @@
     }
   }
 
-  &__terms-policy-main-subtitle {
+  &__policy-main-subtitle {
     margin-bottom: 40px;
     color: #ddd;
     font-size: 1.4rem;
     font-weight: 300;
   }
 
-  &__terms-policy-title {
+  &__policy-title {
     font-weight: 500;
     margin-bottom: 20px;
   }
 
-  &__terms-policy-title-strong {
+  &__policy-title-strong {
     font-weight: 500;
   }
 
-  &__terms-policy-subtitle {
+  &__policy-subtitle {
     margin: 20px;
   }
 
-  &__terms-policy-subtitle-strong {
+  &__policy-subtitle-strong {
     color: #d4774a;
   }
 
-  &__terms-policy-text {
+  &__policy-text {
     line-height: 1.6;
     font-weight: 300;
     text-align: left;
@@ -88,12 +88,12 @@
     }
   }
 
-  &__terms-policy-list {
+  &__policy-list {
     padding: 20px;
     list-style-type: none;
   }
 
-  &__terms-policy-item {
+  &__policy-item {
     line-height: 1.4;
     font-weight: 300;
     text-align: left;
@@ -105,7 +105,7 @@
     }
   }
 
-  &__terms-policy-link {
+  &__policy-link {
     font-weight: 300;
     color: #f8c822;
     text-decoration: none;

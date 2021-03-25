@@ -6,13 +6,13 @@ import BookingTermsPolicyButtonBack from "./BookingTermsPolicyButtonBack";
 
 const BookingTermPolicyDetails = () => {
   return (
-    <section className="booking">
-      <div className="booking__terms-policy-wrapper">
-        <h2 className="booking__terms-policy-main-title">
+    <section className="booking-terms">
+      <div className="booking-terms__policy-wrapper">
+        <h2 className="booking-terms__policy-main-title">
           Terms policy hairdresser shop
         </h2>
-        <div className="booking__wrapper-subtitle">
-          <p className="booking__terms-policy-main-subtitle">
+        <div className="booking-terms__wrapper-subtitle">
+          <p className="booking-terms__policy-main-subtitle">
             One should, nevertheless, consider that there is a direct relation
             between the entity integrity and the capacity of the primary
             element.
@@ -20,27 +20,27 @@ const BookingTermPolicyDetails = () => {
           <BookingTermsPolicyButtonBack />
         </div>
 
-        <div className="booking__terms-policy-shop">
-          <h2 className="booking__terms-policy-title">
-            <strong className="booking__terms-policy-title-strong">
+        <div className="booking-terms__policy-shop">
+          <h2 className="booking-terms__policy-title">
+            <strong className="booking-terms__policy-title-strong">
               Terms and Conditions
             </strong>
           </h2>
 
-          <p className="booking__terms-policy-text">Welcome to courseshop!</p>
+          <p className="booking-terms__policy-text">Welcome to courseshop!</p>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             These terms and conditions outline the rules and regulations for the
             use of Courseshop's Website, located at www.courseshop.com.
           </p>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             By accessing this website we assume you accept these terms and
             conditions. Do not continue to use courseshop if you do not agree to
             take all of the terms and conditions stated on this page.
           </p>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             The following terminology applies to these Terms and Conditions,
             Privacy Statement and Disclaimer Notice and all Agreements:
             "Client", "You" and "Your" refers to you, the person log on this
@@ -58,18 +58,18 @@ const BookingTermPolicyDetails = () => {
             referring to same.
           </p>
 
-          <h3 className="booking__terms-policy-subtitle">
-            <strong className="booking__terms-policy-subtitle-strong">
+          <h3 className="booking-terms__policy-subtitle">
+            <strong className="booking-terms__policy-subtitle-strong">
               Cookies
             </strong>
           </h3>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             We employ the use of cookies. By accessing courseshop, you agreed to
             use cookies in agreement with the Courseshop's Privacy Policy.{" "}
           </p>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             Most interactive websites use cookies to let us retrieve the user’s
             details for each visit. Cookies are used by our website to enable
             the functionality of certain areas to make it easier for people
@@ -77,13 +77,13 @@ const BookingTermPolicyDetails = () => {
             also use cookies.
           </p>
 
-          <h3 className="booking__terms-policy-subtitle">
-            <strong className="booking__terms-policy-subtitle-strong">
+          <h3 className="booking-terms__policy-subtitle">
+            <strong className="booking-terms__policy-subtitle-strong">
               License
             </strong>
           </h3>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             Unless otherwise stated, Courseshop and/or its licensors own the
             intellectual property rights for all material on courseshop. All
             intellectual property rights are reserved. You may access this from
@@ -91,34 +91,34 @@ const BookingTermPolicyDetails = () => {
             in these terms and conditions.
           </p>
 
-          <p className="booking__terms-policy-text">You must not:</p>
-          <ul className="booking__terms-policy-list">
-            <li className="booking__terms-policy-item">
+          <p className="booking-terms__policy-text">You must not:</p>
+          <ul className="booking-terms__policy-list">
+            <li className="booking-terms__policy-item">
               Republish material from courseshop
             </li>
-            <li className="booking__terms-policy-item">
+            <li className="booking-terms__policy-item">
               Sell, rent or sub-license material from courseshop
             </li>
-            <li className="booking__terms-policy-item">
+            <li className="booking-terms__policy-item">
               Reproduce, duplicate or copy material from courseshop
             </li>
-            <li className="booking__terms-policy-item">
+            <li className="booking-terms__policy-item">
               Redistribute content from courseshop
             </li>
           </ul>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             This Agreement shall begin on the date hereof. Our Terms and
             Conditions were created with the help of the{" "}
             <a
-              className="booking__terms-policy-link"
+              className="booking-terms__policy-link"
               href="https://www.termsandconditionsgenerator.com"
             >
               Terms And Conditions Generator{" "}
             </a>
             and the{" "}
             <a
-              className="booking__terms-policy-link"
+              className="booking-terms__policy-link"
               href="https://www.generateprivacypolicy.com"
             >
               Privacy Policy Generator
@@ -126,7 +126,7 @@ const BookingTermPolicyDetails = () => {
             .
           </p>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             Parts of this website offer an opportunity for users to post and
             exchange opinions and information in certain areas of the website.
             Courseshop does not filter, edit, publish or review Comments prior
@@ -138,70 +138,70 @@ const BookingTermPolicyDetails = () => {
             or expenses caused and/or suffered as a result of any use of and/or
             posting of and/or appearance of the Comments on this website.
           </p>
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             Courseshop reserves the right to monitor all Comments and to remove
             any Comments which can be considered inappropriate, offensive or
             causes breach of these Terms and Conditions.
           </p>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             You warrant and represent that:
           </p>
 
-          <ul className="booking__terms-policy-list">
-            <li className="booking__terms-policy-item">
+          <ul className="booking-terms__policy-list">
+            <li className="booking-terms__policy-item">
               You are entitled to post the Comments on our website and have all
               necessary licenses and consents to do so;
             </li>
-            <li className="booking__terms-policy-item">
+            <li className="booking-terms__policy-item">
               The Comments do not invade any intellectual property right,
               including without limitation copyright, patent or trademark of any
               third party;
             </li>
-            <li className="booking__terms-policy-item">
+            <li className="booking-terms__policy-item">
               The Comments do not contain any defamatory, libelous, offensive,
               indecent or otherwise unlawful material which is an invasion of
               privacy
             </li>
-            <li className="booking__terms-policy-item">
+            <li className="booking-terms__policy-item">
               The Comments will not be used to solicit or promote business or
               custom or present commercial activities or unlawful activity.
             </li>
           </ul>
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             You hereby grant Courseshop a non-exclusive license to use,
             reproduce, edit and authorize others to use, reproduce and edit any
             of your Comments in any and all forms, formats or media.
           </p>
 
-          <h3 className="booking__terms-policy-subtitle">
-            <strong className="booking__terms-policy-subtitle-strong">
+          <h3 className="booking-terms__policy-subtitle">
+            <strong className="booking-terms__policy-subtitle-strong">
               Hyperlinking to our Content
             </strong>
           </h3>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             The following organizations may link to our Website without prior
             written approval:
           </p>
 
-          <ul className="booking__terms-policy-list">
-            <li className="booking__terms-policy-item">Government agencies;</li>
-            <li className="booking__terms-policy-item">Search engines;</li>
-            <li className="booking__terms-policy-item">News organizations;</li>
-            <li className="booking__terms-policy-item">
+          <ul className="booking-terms__policy-list">
+            <li className="booking-terms__policy-item">Government agencies;</li>
+            <li className="booking-terms__policy-item">Search engines;</li>
+            <li className="booking-terms__policy-item">News organizations;</li>
+            <li className="booking-terms__policy-item">
               Online directory distributors may link to our Website in the same
               manner as they hyperlink to the Websites of other listed
               businesses; and
             </li>
-            <li className="booking__terms-policy-item">
+            <li className="booking-terms__policy-item">
               System wide Accredited Businesses except soliciting non-profit
               organizations, charity shopping malls, and charity fundraising
               groups which may not hyperlink to our Web site.
             </li>
           </ul>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             These organizations may link to our home page, to publications or to
             other Website information so long as the link: (a) is not in any way
             deceptive; (b) does not falsely imply sponsorship, endorsement or
@@ -209,34 +209,34 @@ const BookingTermPolicyDetails = () => {
             (c) fits within the context of the linking party’s site.
           </p>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             We may consider and approve other link requests from the following
             types of organizations:
           </p>
 
-          <ul className="booking__terms-policy-list">
-            <li className="booking__terms-policy-item">
+          <ul className="booking-terms__policy-list">
+            <li className="booking-terms__policy-item">
               commonly-known consumer and/or business information sources;
             </li>
-            <li className="booking__terms-policy-item">
+            <li className="booking-terms__policy-item">
               dot.com community sites;
             </li>
-            <li className="booking__terms-policy-item">
+            <li className="booking-terms__policy-item">
               associations or other groups representing charities;
             </li>
-            <li className="booking__terms-policy-item">
+            <li className="booking-terms__policy-item">
               online directory distributors;
             </li>
-            <li className="booking__terms-policy-item">internet portals;</li>
-            <li className="booking__terms-policy-item">
+            <li className="booking-terms__policy-item">internet portals;</li>
+            <li className="booking-terms__policy-item">
               accounting, law and consulting firms; and
             </li>
-            <li className="booking__terms-policy-item">
+            <li className="booking-terms__policy-item">
               educational institutions and trade associations.
             </li>
           </ul>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             We will approve link requests from these organizations if we decide
             that: (a) the link would not make us look unfavorably to ourselves
             or to our accredited businesses; (b) the organization does not have
@@ -245,7 +245,7 @@ const BookingTermPolicyDetails = () => {
             and (d) the link is in the context of general resource information.
           </p>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             These organizations may link to our home page so long as the link:
             (a) is not in any way deceptive; (b) does not falsely imply
             sponsorship, endorsement or approval of the linking party and its
@@ -253,7 +253,7 @@ const BookingTermPolicyDetails = () => {
             party’s site.
           </p>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             If you are one of the organizations listed in paragraph 2 above and
             are interested in linking to our website, you must inform us by
             sending an e-mail to Courseshop. Please include your name, your
@@ -263,48 +263,48 @@ const BookingTermPolicyDetails = () => {
             to link. Wait 2-3 weeks for a response.
           </p>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             Approved organizations may hyperlink to our Website as follows:
           </p>
 
-          <ul className="booking__terms-policy-list">
-            <li className="booking__terms-policy__item">
+          <ul className="booking-terms__policy-list">
+            <li className="booking-terms__policy__item">
               By use of our corporate name; or
             </li>
-            <li className="booking__terms-policy-item">
+            <li className="booking-terms__policy-item">
               By use of the uniform resource locator being linked to; or
             </li>
-            <li className="booking__terms-policy-item">
+            <li className="booking-terms__policy-item">
               By use of any other description of our Website being linked to
               that makes sense within the context and format of content on the
               linking party’s site.
             </li>
           </ul>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             No use of Courseshop's logo or other artwork will be allowed for
             linking absent a trademark license agreement.
           </p>
 
-          <h3 className="booking__terms-policy-subtitle">
-            <strong className="booking__terms-policy-subtitle-strong">
+          <h3 className="booking-terms__policy-subtitle">
+            <strong className="booking-terms__policy-subtitle-strong">
               iFrames
             </strong>
           </h3>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             Without prior approval and written permission, you may not create
             frames around our Webpages that alter in any way the visual
             presentation or appearance of our Website.
           </p>
 
-          <h3 className="booking__terms-policy-subtitle">
-            <strong className="booking__terms-policy-subtitle-strong">
+          <h3 className="booking-terms__policy-subtitle">
+            <strong className="booking-terms__policy-subtitle-strong">
               Content Liability
             </strong>
           </h3>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             We shall not be hold responsible for any content that appears on
             your Website. You agree to protect and defend us against all claims
             that is rising on your Website. No link(s) should appear on any
@@ -313,23 +313,23 @@ const BookingTermPolicyDetails = () => {
             or other violation of, any third party rights.
           </p>
 
-          <h3 className="booking__terms-policy-subtitle">
-            <strong className="booking__terms-policy-subtitle-strong">
+          <h3 className="booking-terms__policy-subtitle">
+            <strong className="booking-terms__policy-subtitle-strong">
               Your Privacy
             </strong>
           </h3>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             Please read Privacy Policy
           </p>
 
-          <h3 className="booking__terms-policy-subtitle">
-            <strong className="booking__terms-policy-subtitle-strong">
+          <h3 className="booking-terms__policy-subtitle">
+            <strong className="booking-terms__policy-subtitle-strong">
               Reservation of Rights
             </strong>
           </h3>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             We reserve the right to request that you remove all links or any
             particular link to our Website. You approve to immediately remove
             all links to our Website upon request. We also reserve the right to
@@ -338,58 +338,58 @@ const BookingTermPolicyDetails = () => {
             follow these linking terms and conditions.
           </p>
 
-          <h3 className="booking__terms-policy-subtitle">
-            <strong className="booking__terms-policy-subtitle-strong">
+          <h3 className="booking-terms__policy-subtitle">
+            <strong className="booking-terms__policy-subtitle-strong">
               Removal of links from our website
             </strong>
           </h3>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             If you find any link on our Website that is offensive for any
             reason, you are free to contact and inform us any moment. We will
             consider requests to remove links but we are not obligated to or so
             or to respond to you directly.
           </p>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             We do not ensure that the information on this website is correct, we
             do not warrant its completeness or accuracy; nor do we promise to
             ensure that the website remains available or that the material on
             the website is kept up to date.
           </p>
 
-          <h3 className="booking__terms-policy-subtitle">
-            <strong className="booking__terms-policy-subtitle-strong">
+          <h3 className="booking-terms__policy-subtitle">
+            <strong className="booking-terms__policy-subtitle-strong">
               Disclaimer
             </strong>
           </h3>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             To the maximum extent permitted by applicable law, we exclude all
             representations, warranties and conditions relating to our website
             and the use of this website. Nothing in this disclaimer will:
           </p>
 
-          <ul className="booking__terms-policy-list">
-            <li className="booking__terms-policy-item">
+          <ul className="booking-terms__policy-list">
+            <li className="booking-terms__policy-item">
               limit or exclude our or your liability for death or personal
               injury;
             </li>
-            <li className="booking__terms-policy-item">
+            <li className="booking-terms__policy-item">
               limit or exclude our or your liability for fraud or fraudulent
               misrepresentation;
             </li>
-            <li className="booking__terms-policy-item">
+            <li className="booking-terms__policy-item">
               limit any of our or your liabilities in any way that is not
               permitted under applicable law; or
             </li>
-            <li className="booking__terms-policy-item">
+            <li className="booking-terms__policy-item">
               exclude any of our or your liabilities that may not be excluded
               under applicable law.
             </li>
           </ul>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             The limitations and prohibitions of liability set in this Section
             and elsewhere in this disclaimer: (a) are subject to the preceding
             paragraph; and (b) govern all liabilities arising under the
@@ -397,7 +397,7 @@ const BookingTermPolicyDetails = () => {
             for breach of statutory duty.
           </p>
 
-          <p className="booking__terms-policy-text">
+          <p className="booking-terms__policy-text">
             As long as the website and the information and services on the
             website are provided free of charge, we will not be liable for any
             loss or damage of any nature.
