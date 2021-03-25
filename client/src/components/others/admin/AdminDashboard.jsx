@@ -128,6 +128,7 @@ const AdminDashboard = () => {
             }
           >
             <div className="admin__nav-left">
+              <div className="admin__extra-logo">Hp</div>
               <div
                 className={
                   isOpenMenu
@@ -147,10 +148,20 @@ const AdminDashboard = () => {
               <h3 className="admin__menu-option-name">Dashboard</h3>
             </div>
             <div className="admin__nav-right">
-              <div className="admin__box-name">
-                <p className="admin__name">Joe Doe</p>
-                <p className="admin__function">Admin</p>
+              <div className="admin__wrapper-image-name">
+                <div className="admin__picture">
+                  <img
+                    src="https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Man-admin.png?alt=media&token=d10e9823-3db4-4f73-ba51-a64ef2d797e8"
+                    alt="Admin image"
+                    className="admin__person-image"
+                  />
+                </div>
+                <div className="admin__box-name">
+                  <p className="admin__name">Joe Doe</p>
+                  <p className="admin__function">Admin</p>
+                </div>
               </div>
+              <button className="admin__button-logout">Logout</button>
             </div>
           </header>
           <main className="admin__dashboard-panel">
