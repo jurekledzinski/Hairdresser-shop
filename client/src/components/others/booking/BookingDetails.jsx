@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from "react";
 
 import "./BookingDetails.scss";
 
+import BookingGoBackButton from "./BookingGoBackButton";
+
 const BookingDetails = () => {
   const serviceWrapperRef = useRef(null);
 
@@ -14,6 +16,7 @@ const BookingDetails = () => {
   return (
     <section className="bookingDetails">
       <div className="bookingDetails__center-wrapper">
+        <BookingGoBackButton />
         <div className="bookingDetails__wrapper">
           <div className="bookingDetails__left"></div>
           <div className="bookingDetails__right">

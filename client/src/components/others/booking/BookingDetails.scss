@@ -54,6 +54,7 @@
 
   @include media-queries(large) {
     padding: 50px 0 50px 50px;
+    padding: 50px;
   }
 
   @include media-queries(xlarge) {
@@ -76,6 +77,8 @@
     display: flex;
     width: 100%;
     height: auto;
+    // padding: initial;
+    padding: 50px 0;
 
     @include media-queries(large) {
       max-width: 1200px;
