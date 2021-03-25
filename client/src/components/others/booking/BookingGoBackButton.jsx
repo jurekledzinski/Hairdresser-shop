@@ -5,7 +5,6 @@ import "./BookingGoBackButton.scss";
 
 const BookingGoBackButton = () => {
   const history = useHistory();
-
   return (
     <button
       onClick={() => history.goBack()}
