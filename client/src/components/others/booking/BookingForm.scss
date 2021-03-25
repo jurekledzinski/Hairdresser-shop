@@ -2,7 +2,7 @@
 
 @mixin button-booking {
   width: 100%;
-  padding: 2px 0;
+  padding: 5px 0;
   background-color: transparent;
   border: 1px solid #808080;
   color: #dddddd;
@@ -23,7 +23,6 @@
 
   @include media-queries(large) {
     width: 120px;
-    padding: 5px 0;
   }
 }
 
