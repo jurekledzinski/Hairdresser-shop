@@ -19,7 +19,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={MainPage} />
           <Route exact path="/booking" component={BookingMainPage} />
-          <Route path="/booking/:id" component={BookingDetails} />
+          <Route path="/booking/details/:id" component={BookingDetails} />
           <Route path="/team-details" component={TeamDetails} />
           <Route path="/term-policy" component={BookingTermPolicyDetails} />
           <Route path="/admin" component={AdminDashboard} />
