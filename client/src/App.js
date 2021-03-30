@@ -1,5 +1,8 @@
 import React from "react";
+import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import store from "./reduxStore/store/store";
 
 import "./App.scss";
 
@@ -14,20 +17,22 @@ import Register from "./components/others/register/Register";
 
 const App = () => {
   return (
-    <div className="app">
-      <Router>
-        <Switch>
-          <Route exact path="/" component={MainPage} />
-          <Route exact path="/booking" component={BookingMainPage} />
-          <Route path="/booking/details/:id" component={BookingDetails} />
-          <Route path="/team-details" component={TeamDetails} />
-          <Route path="/term-policy" component={BookingTermPolicyDetails} />
-          <Route path="/admin" component={AdminDashboard} />
-          <Route path="/login-admin" component={Login} />
-          <Route path="/register-admin" component={Register} />
-        </Switch>
-      </Router>
-    </div>
+    <Provider store={store}>
+      <div className="app">
+        <Router>
+          <Switch>
+            <Route exact path="/" component={MainPage} />
+            <Route exact path="/booking" component={BookingMainPage} />
+            <Route path="/booking/details/:id" component={BookingDetails} />
+            <Route path="/team-details" component={TeamDetails} />
+            <Route path="/term-policy" component={BookingTermPolicyDetails} />
+            <Route path="/admin" component={AdminDashboard} />
+            <Route path="/login-admin" component={Login} />
+            <Route path="/register-admin" component={Register} />
+          </Switch>
+        </Router>
+      </div>
+    </Provider>
   );
 };
 
