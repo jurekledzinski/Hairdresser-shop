@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+
+import { addSingleSection } from "../../../reduxStore/actions/actionScroll";
 
 import "./Services.scss";
 
@@ -21,12 +24,21 @@ const service = [
 ];
 
 const Services = () => {
+  const servicesRef = useRef(null);
+  const dispatch = useDispatch();
+
   const column1 = service.slice(0, 4);
   const column2 = service.slice(4, 8);
   const column3 = service.slice(8, 12);
 
+  useEffect(() => {
+    if (servicesRef.current) {
+      dispatch(addSingleSection(servicesRef.current));
+    }
+  }, []);
+
   return (
-    <section className="service">
+    <section className="service" ref={servicesRef}>
       <div className="service__wrapper">
         <h2 className="service__title">Services we offer</h2>
         <ServicesIcons />

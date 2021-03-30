@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+
+import { addSingleSection } from "../../../reduxStore/actions/actionScroll";
 
 import "./Gallery.scss";
 
 const Gallery = () => {
+  const galleryRef = useRef(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (galleryRef.current) {
+      dispatch(addSingleSection(galleryRef.current));
+    }
+  }, []);
+
   return (
-    <section className="gallery">
+    <section className="gallery" ref={galleryRef}>
       <div className="gallery__wrapper">
         <h2 className="gallery__title">Gallery</h2>
         <p className="gallery__subtitle">

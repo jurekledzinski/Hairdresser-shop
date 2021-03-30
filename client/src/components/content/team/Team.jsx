@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+
 import { Link } from "react-router-dom";
+
+import { addSingleSection } from "../../../reduxStore/actions/actionScroll";
 
 import "./Team.scss";
 
 const Team = () => {
+  const teamRef = useRef(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (teamRef.current) {
+      dispatch(addSingleSection(teamRef.current));
+    }
+  }, []);
+
   return (
-    <section className="team">
+    <section className="team" ref={teamRef}>
       <div className="team__wrapper">
         <h2 className="team__title">Our Team</h2>
         <p className="team__subtitle">
