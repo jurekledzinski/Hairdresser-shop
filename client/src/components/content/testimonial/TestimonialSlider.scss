@@ -22,12 +22,25 @@
     }
   }
 
+  &__slider-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    @media (min-width: 700px) {
+      flex-direction: row;
+    }
+  }
+
   &__content {
     display: flex;
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    /* transform: translateX(-100%); */
+
+    @media (min-width: 700px) {
+      width: 65%;
+    }
   }
 
   &__text {
@@ -45,8 +58,10 @@
   }
 
   &__text-left {
-    position: relative;
-    flex-basis: 65%;
+    // flex-basis: 65%;
+    display: flex;
+    align-items: center;
+    height: 100%;
     background-color: #424242;
   }
 
@@ -60,6 +75,12 @@
     line-height: 1.2;
     font-size: 1.4rem;
     text-align: left;
+    opacity: 0;
+    transition: opacity 1s linear;
+
+    &--active {
+      opacity: 1;
+    }
 
     @include media-queries(medium) {
       margin: 25px 10px 35px 10px;
@@ -103,7 +124,12 @@
   }
 
   &__text-right {
-    flex-basis: 35%;
+    position: relative;
+    width: 100%;
+
+    @media (min-width: 700px) {
+      width: 35%;
+    }
   }
 
   &__credentials {
@@ -124,11 +150,19 @@
     margin-top: 50px;
     color: #ddd;
 
+    &--active {
+      animation: fadeTestimonial 1s linear forwards;
+    }
+
     @media (min-width: 700px) {
       width: 100%;
       height: 25%;
       margin-top: initial;
       color: #ddd;
+
+      &--active {
+        animation: fadeTestimonial 1s linear forwards;
+      }
     }
   }
 
@@ -178,6 +212,11 @@
     color: #ddd;
     font-size: 3.5rem;
     cursor: pointer;
+    transition: 0.4s ease;
+
+    &:hover {
+      color: #c4a128;
+    }
   }
 
   &__dots-wrapper {
@@ -201,33 +240,61 @@
     margin: 0 5px;
     background-color: #dddddd;
     border-radius: 3px;
-    transform: scale(1);
     transition: 0.5s all;
     cursor: pointer;
+
+    &--active {
+      background-color: #c4a128;
+    }
   }
 
   &__image-wrapper {
     position: absolute;
-    bottom: -35px;
+    bottom: initial;
+    top: -19%;
     left: 50%;
     width: 70px;
     height: 70px;
     transform: translate(-50%, 0);
-    background-color: lightgreen;
     border-radius: 50%;
     box-shadow: 0 0 0 7px #393939;
+    background-color: #393939;
 
     @media (min-width: 700px) {
       position: absolute;
+      top: initial;
       bottom: 50%;
-      left: initial;
-      right: -35px;
+      left: -15%;
       width: 70px;
       height: 70px;
       transform: translateY(50%);
-      background-color: lightgreen;
       border-radius: 50%;
       box-shadow: 0 0 0 7px rgb(57, 57, 57);
+    }
+  }
+
+  &__img-person {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+
+    &--active {
+      animation: fadeTestimonial 1s linear forwards;
+    }
+  }
+
+  @keyframes fadeTestimonial {
+    0% {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    50% {
+      opacity: 0.5;
+      //   transform: scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
     }
   }
 }
