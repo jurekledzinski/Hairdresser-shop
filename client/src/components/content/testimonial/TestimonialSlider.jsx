@@ -47,6 +47,7 @@ const TestimonialSlider = () => {
   const [scrollDiff, setScrollDiff] = useState(0);
   const [slides] = useState(opinions);
   const [changeArraySlides, setChangeArraySlides] = useState([]);
+  const [numSlide, setNumSlide] = useState(0);
 
   const idInterval = useRef(null);
   const sizeWindow = useRef(768);
@@ -55,8 +56,6 @@ const TestimonialSlider = () => {
   const history = useHistory();
 
   const location = history.location.pathname;
-
-  console.log(countCard);
 
   // TODO: Logika slidera
 
@@ -74,7 +73,13 @@ const TestimonialSlider = () => {
       setCountCard((prevValue) => prevValue - 1);
       clearInterval(idInterval.current);
     }
-  }, [countCard]);
+
+    if (numSlide <= 0) {
+      setNumSlide(slides.length - 1);
+    } else {
+      setNumSlide((prevValue) => prevValue - 1);
+    }
+  }, [countCard, numSlide]);
 
   const handleLeftMove = useCallback(() => {
     if (countCard >= slidesContainer.current.children.length - 1) {
@@ -83,7 +88,15 @@ const TestimonialSlider = () => {
       setCountCard((prevValue) => prevValue + 1);
       clearInterval(idInterval.current);
     }
-  }, [countCard]);
+
+    if (numSlide >= slides.length - 1) {
+      setNumSlide(0);
+    } else {
+      setNumSlide((prevValue) => prevValue + 1);
+    }
+  }, [countCard, numSlide]);
+
+  console.log(numSlide, " numSlide");
 
   const handleClickDot = (dotIndex) => {
     setCountCard(dotIndex);
@@ -277,11 +290,11 @@ const TestimonialSlider = () => {
     ></li>
   ));
 
-  const customersNames = slides?.map((item, index) =>
-    countCard === index + 1 ? (
+  const customersNames = slides.map((item, index) =>
+    numSlide === index ? (
       <p
         className={
-          countCard === index + 1
+          numSlide === index
             ? "testimonial__name testimonial__name--active"
             : "testimonial__name"
         }
@@ -292,14 +305,14 @@ const TestimonialSlider = () => {
     ) : null
   );
 
-  const customersImages = slides?.map((item, index) => {
-    return countCard === index + 1 ? (
+  const customersImages = slides.map((item, index) => {
+    return numSlide === index ? (
       <span className="testimonial__image-wrapper" key={index}>
         <img
           src={item.imagePath}
           alt="Customer"
           className={
-            countCard === index + 1
+            numSlide === index
               ? "testimonial__img-person testimonial__img-person--active"
               : "testimonial__img-person"
           }
