@@ -74,7 +74,7 @@
     font-weight: 300;
     line-height: 1.2;
     font-size: 1.4rem;
-    text-align: left;
+    text-align: center;
     opacity: 0;
     transition: opacity 1s linear;
 
@@ -94,17 +94,9 @@
 
     &::before {
       font-family: Georgia, serif;
-      position: absolute;
       font-size: 2rem;
       line-height: 1;
-      top: 5px;
-      left: 0px;
       content: "\201C";
-
-      @include media-queries(medium) {
-        top: 15px;
-        left: 20px;
-      }
     }
 
     &::after {
@@ -114,11 +106,11 @@
       font-size: 2rem;
       line-height: 1;
       right: auto;
-      bottom: -5px;
+      bottom: -3px;
       content: "\201D";
 
       @include media-queries(medium) {
-        bottom: 3px;
+        bottom: 7px;
       }
     }
   }
