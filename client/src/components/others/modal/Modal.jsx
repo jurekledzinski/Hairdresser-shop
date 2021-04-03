@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 import "./Modal.scss";
 
-const Modal = ({ children, isOpen, cantCloseWhenClickModal }) => {
+const Modal = ({ children, isOpen }) => {
   const modalRef = useRef();
 
   const modalAll = isOpen ? (
