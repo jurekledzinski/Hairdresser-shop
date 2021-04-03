@@ -1,68 +1,94 @@
 @use "../../../scss-variables/media-queries" as *;
 
 .gallery-slider {
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 1100px;
-  height: 700px;
+  width: 90%;
+  //   height: 100vh; to gdy chcemy landscape
+  //   height: 700px;
+  //   background-color: #fff;
 
   &__wrapper {
-    width: 1000px;
-    height: 500px;
+    position: relative;
     margin-bottom: 30px;
-    background-color: lightgreen;
+    // margin-bottom: 10px; to gdy chcemy landscape
+    overflow: hidden;
+  }
+
+  &__content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transform: translateX(-100%);
+  }
+
+  &__image {
+    min-width: 100%;
+    height: 100%;
   }
 
   &__buttons-wrapper {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
+    flex-wrap: wrap;
     width: 100%;
-    height: 10vh;
-  }
 
-  &__buttons-top {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-  }
+    @include media-queries(medium) {
+      width: 70%;
+    }
 
-  &__buttons-group {
-    display: flex;
+    @include media-queries(large) {
+      width: 50%;
+    }
   }
 
   &__button {
     display: block;
-    width: 150px;
-    padding: 10px 0;
-    border: 1px solid #808080;
-    background-color: transparent;
-    color: rgba(255, 255, 255, 1);
+    width: 49%;
+    padding: 8px 0;
+    // padding: 2px 0; to gdy chcemy landscape
+    margin-bottom: 8px;
+    border: none;
+    background-color: #f8c822;
+    background-color: #c4a128;
+    color: #333333;
     outline: none;
     cursor: pointer;
+    font-weight: 700;
+    font-family: "Oswald", sans-serif;
+    letter-spacing: 1px;
+    transition: 0.4s ease;
 
-    &:nth-child(1) {
-      margin-right: 15px;
+    &:nth-child(5) {
+      width: 100%;
     }
 
-    &--margin {
-      margin-left: 15px;
+    @include media-queries(xmedium) {
+      width: 49%;
     }
-  }
 
-  &__buttons-bottom {
-    display: flex;
-    justify-content: center;
+    @include media-queries(medium) {
+      padding: 10px 0;
+      //   padding: 3px 0; to gdy chcemy landscape
+
+      &:nth-child(3),
+      &:nth-child(4),
+      &:nth-child(5) {
+        width: 32%;
+      }
+    }
+
+    &:hover {
+      background-color: #f8c822;
+    }
   }
 
   &__close-button {
     position: absolute;
     top: 0px;
-    right: 10px;
+    right: 0px;
     width: 30px;
     height: 30px;
     border: none;
@@ -76,5 +102,34 @@
     &:hover {
       color: #c4a128;
     }
+  }
+
+  &__arrow-left,
+  &__arrow-right {
+    display: none;
+    z-index: 1;
+
+    @include media-queries(large) {
+      display: block;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: white;
+      font-size: 4rem;
+      cursor: pointer;
+      transition: 0.4s ease;
+
+      &:hover {
+        color: #f8c822;
+      }
+    }
+  }
+
+  &__arrow-left {
+    left: 20px;
+  }
+
+  &__arrow-right {
+    right: 20px;
   }
 }
