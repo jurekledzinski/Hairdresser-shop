@@ -1,52 +1,60 @@
+import { use } from "passport";
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { switchToOpenCloseModal } from "../../../reduxStore/actions/actionOpenModal";
 
 import Modal from "../../others/modal/Modal";
 
 import "./GallerySlider.scss";
 
-const dataImages = [
-  {
-    id: 0,
-    imagePath:
-      "https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Example-1.jpg?alt=media&token=118ded5b-9530-41e9-9682-ca716cebb5d7",
-  },
-  {
-    id: 1,
-    imagePath:
-      "https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Example-2.jpg?alt=media&token=d57ca004-0f5f-46b6-ad70-9cc342208ec0",
-  },
-  {
-    id: 2,
-    imagePath:
-      "https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Example-3.jpg?alt=media&token=0ea9726d-f475-46e5-a995-9fb221542824",
-  },
-  {
-    id: 3,
-    imagePath:
-      "https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Example-4.jpg?alt=media&token=ebc16ae1-7b42-484f-a74c-a26fb501f1d9",
-  },
-];
+import CircleSpinner from "../../others/spinner/CircleSpinner";
+import { buttonsGallerySlider } from "./GallerySliderButtons";
 
-const GallerySlider = () => {
-  const [isOpenModal, setIsOpenModal] = useState(true);
+import { imgSliderMen } from "./Images";
+import { imgSliderWomen } from "./Images";
+import { imgSliderChildren } from "./Images";
+import { imgSliderWeddings } from "./Images";
+import { imgSliderOthers } from "./Images";
 
+const GallerySlider = ({
+  clickedImgCounter,
+  indexBtn,
+  resetClickedImgIndex,
+  setIndexBtn,
+  setTurnOffTransitionSlider,
+  turnOffTransitionSlider,
+}) => {
+  const dispatch = useDispatch();
+
+  const [clickBtnTypeImg, setClickBtnTypeImg] = useState(indexBtn);
   const [countCard, setCountCard] = useState(1);
+  const [firstImg, setFirstImg] = useState(0);
   const [heightSizeSlider, setHeighSizetSlider] = useState(0);
+  const [isLoad, setIsLoad] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const [initialX, setInitialX] = useState(null);
   const [initialY, setInitialY] = useState(null);
   const [scrollDiff, setScrollDiff] = useState(0);
-  const [slides, setSlides] = useState(dataImages);
+  const [slides, setSlides] = useState(imgSliderMen);
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
   const [widthSlider, setWidthSlider] = useState(1000);
   const [heightSlider, setHeightSlider] = useState(500);
 
+  const [indexButtonTypeImg, setIndexButtonTypeImg] = useState(0);
+
+  //   tu bedzie w close button clearinterval takze
+
   const handleCloseModalByButton = () => {
+    setCountCard(1);
     setIsOpenModal(false);
+    resetClickedImgIndex(0);
   };
 
   const idInterval = useRef(null);
   const isMounted = useRef(null);
+  const idTimeOut = useRef(null);
   const slidesContainer = useRef(null);
 
   //   TODO: Logika slideru
@@ -80,8 +88,15 @@ const GallerySlider = () => {
     setCountCard(dotIndex);
   };
 
+  console.log(
+    countCard,
+    "liczba counter",
+    turnOffTransitionSlider,
+    "turnoff transition"
+  );
+
   useEffect(() => {
-    if (slides.length > 0) {
+    if (slides.length > 0 && Boolean(slidesContainer.current)) {
       let firstElement = slidesContainer.current.children[0].cloneNode(true);
       let lastElement = slidesContainer.current.children[
         slidesContainer.current.children.length - 1
@@ -95,35 +110,52 @@ const GallerySlider = () => {
 
       slidesContainer.current.style.transitionDuration = "0s";
       slidesContainer.current.style.transform = `translateX(-${100}%)`;
+      turnOffTransitionSlider ? null : setCountCard(1);
     }
-  }, [slides]);
+  }, [isOpenModal, slides]);
 
   useEffect(() => {
-    slidesContainer.current.style.transitionDuration = "0.5s";
-    slidesContainer.current.style.transform = `translateX(-${
-      100 * countCard
-    }%)`;
+    if (slidesContainer.current) {
+      slidesContainer.current.style.transitionDuration = "0s";
+      slidesContainer.current.children[0].remove();
+      slidesContainer.current.children[
+        slidesContainer.current.children.length - 1
+      ].remove();
+    }
+  }, [indexBtn]);
 
-    if (countCard === slidesContainer.current.children.length - 1) {
-      setTimeout(() => {
-        slidesContainer.current.style.transitionDuration = "0.0s";
-        slidesContainer.current.style.transform = `translateX(-${100}%)`;
+  useEffect(() => {
+    if (Boolean(slidesContainer.current)) {
+      turnOffTransitionSlider
+        ? (slidesContainer.current.style.transitionDuration = "0s")
+        : (slidesContainer.current.style.transitionDuration = "0.5s");
+      slidesContainer.current.style.transform = `translateX(-${
+        100 * countCard
+      }%)`;
+
+      setTurnOffTransitionSlider(false);
+
+      if (countCard === slidesContainer.current.children.length - 1) {
         setTimeout(() => {
-          setCountCard(1);
-        }, 15);
-        return;
-      }, 502);
-    } else if (countCard <= 0) {
-      setTimeout(() => {
-        slidesContainer.current.style.transitionDuration = "0.0s";
-        slidesContainer.current.style.transform = `translateX(-${
-          100 * slides.length
-        }%)`;
+          slidesContainer.current.style.transitionDuration = "0.0s";
+          slidesContainer.current.style.transform = `translateX(-${100}%)`;
+          setTimeout(() => {
+            setCountCard(1);
+          }, 15);
+          return;
+        }, 502);
+      } else if (countCard <= 0) {
         setTimeout(() => {
-          setCountCard(slides.length);
-        }, 15);
-        return;
-      }, 502);
+          slidesContainer.current.style.transitionDuration = "0.0s";
+          slidesContainer.current.style.transform = `translateX(-${
+            100 * slides.length
+          }%)`;
+          setTimeout(() => {
+            setCountCard(slides.length);
+          }, 15);
+          return;
+        }, 502);
+      }
     }
   }, [countCard, slides.length]);
 
@@ -154,30 +186,28 @@ const GallerySlider = () => {
     const heightInnerWindow = window.innerHeight;
     const ratio = Math.min(widthInnerWindow / heightInnerWindow);
 
-    setHeighSizetSlider(slidesContainer.current.offsetHeight);
+    if (Boolean(slidesContainer.current)) {
+      setHeighSizetSlider(slidesContainer.current.offsetHeight);
+    }
 
     const sizePrecent = (1000 * 100) / window.innerWidth;
     setWidthSlider(sizePrecent + "%");
-    // SetVisibilityArrows(true);
 
     if (window.innerWidth < 1000 && isMounted.current) {
       let ratioHeight = (heightInnerWindow * ratio) / 2;
       sizeSliderDefaultAndResizeLess1200(ratioHeight);
-      //   SetVisibilityArrows(true);
     }
 
     if (window.innerWidth < 768 && isMounted.current) {
       let heightSliderWrapper = window.innerHeight;
       let heightratio = (heightSliderWrapper * ratio) / 2;
       sizeSliderDefaultAndResizeLess768(heightratio);
-      //   SetVisibilityArrows(false);
     }
 
     if (window.innerWidth <= 411 && isMounted.current) {
       let heightSliderWrapper = window.innerHeight;
       let heightratio = (heightSliderWrapper * ratio) / 1.6;
       sizeSliderDefaultAndResizeLess768(heightratio);
-      //   SetVisibilityArrows(false);
     }
   }, [window.innerWidth, heightSlider, widthSlider]);
 
@@ -199,21 +229,18 @@ const GallerySlider = () => {
       if (window.innerWidth < 1000 && isMounted.current) {
         let ratioHeight = (heightWindowInner * ratio) / 2;
         sizeSliderDefaultAndResizeLess1200(ratioHeight);
-        // SetVisibilityArrows(true);
       }
 
       if (window.innerWidth < 768 && isMounted.current) {
         let heightInnerWindow = window.innerHeight;
         let heightRatio = (heightInnerWindow * ratio) / 2;
         sizeSliderDefaultAndResizeLess768(heightRatio);
-        // SetVisibilityArrows(false);
       }
 
       if (window.innerWidth <= 411 && isMounted.current) {
         let heightInnerWindow = window.innerHeight;
         let heightRatio = (heightInnerWindow * ratio) / 1.6;
         sizeSliderDefaultAndResizeLess768(heightRatio);
-        // SetVisibilityArrows(false);
       }
     };
     window.addEventListener("resize", resizeSlider);
@@ -227,10 +254,8 @@ const GallerySlider = () => {
     const minusMargin = window.innerWidth / 8;
     if (window.innerWidth - 17 < 760) {
       setWidthSlider(window.innerWidth - 17);
-      //   SetVisibilityArrows(false);
     } else {
       setWidthSlider(window.innerWidth - minusMargin);
-      //   SetVisibilityArrows(true);
     }
   }, []);
 
@@ -278,13 +303,17 @@ const GallerySlider = () => {
       setInitialY(null);
     };
 
-    slidesContainer.current.addEventListener("touchstart", startTouchDisplay);
-    slidesContainer.current.addEventListener("touchmove", moveTouchDisplay);
+    if (slidesContainer.current) {
+      slidesContainer.current.addEventListener("touchstart", startTouchDisplay);
+      slidesContainer.current.addEventListener("touchmove", moveTouchDisplay);
+    }
 
     let container = slidesContainer.current;
     return () => {
-      container.removeEventListener("touchstart", startTouchDisplay);
-      container.removeEventListener("touchmove", moveTouchDisplay);
+      if (container) {
+        container.removeEventListener("touchstart", startTouchDisplay);
+        container.removeEventListener("touchmove", moveTouchDisplay);
+      }
     };
   }, [
     events.swipeLeft,
@@ -296,54 +325,83 @@ const GallerySlider = () => {
   ]);
 
   useEffect(() => {
-    slidesContainer.current.addEventListener("swipeUp", () => {
-      if (window.innerWidth > 767) {
-        window.scrollTo({
-          top: heightSizeSlider + 20,
-          behavior: "smooth",
-        });
-      } else {
-        window.scrollTo({
-          top: heightSizeSlider,
-          behavior: "smooth",
-        });
-      }
-    });
-
-    slidesContainer.current.addEventListener("swipeDown", () => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    });
-  }, [scrollDiff, window.innerWidth]);
-
-  useEffect(() => {
-    slidesContainer.current.addEventListener("swipeLeft", handleLeftMove);
-    slidesContainer.current.addEventListener("swipeRight", handleRightMove);
+    if (Boolean(slidesContainer.current)) {
+      slidesContainer.current.addEventListener("swipeLeft", handleLeftMove);
+      slidesContainer.current.addEventListener("swipeRight", handleRightMove);
+    }
 
     let sliderWrapper = slidesContainer.current;
 
     return () => {
-      sliderWrapper.removeEventListener("swipeLeft", handleLeftMove);
-      sliderWrapper.removeEventListener("swipeRight", handleRightMove);
+      if (sliderWrapper) {
+        sliderWrapper.removeEventListener("swipeLeft", handleLeftMove);
+        sliderWrapper.removeEventListener("swipeRight", handleRightMove);
+      }
     };
-  }, [handleLeftMove, handleRightMove]);
+  }, [handleLeftMove, handleRightMove, slidesContainer.current]);
+
+  useEffect(() => {
+    if (Boolean(clickedImgCounter)) {
+      setIsOpenModal(true);
+      setCountCard(clickedImgCounter);
+    }
+  }, [clickedImgCounter]);
+
+  useEffect(() => {
+    switch (indexBtn) {
+      case 0:
+        setSlides(imgSliderMen);
+        break;
+      case 1:
+        setSlides(imgSliderWomen);
+        break;
+      case 2:
+        setSlides(imgSliderChildren);
+        break;
+      case 3:
+        setSlides(imgSliderWeddings);
+        break;
+      case 4:
+        setSlides(imgSliderOthers);
+        break;
+      default:
+        setSlides([]);
+        break;
+    }
+  }, [indexBtn]);
+
+  useEffect(() => {
+    dispatch(switchToOpenCloseModal(isOpenModal));
+  }, [isOpenModal]);
 
   useEffect(() => {
     isMounted.current = true;
     return () => {
       isMounted.current = false;
+      clearTimeout(idTimeOut.current);
     };
   }, []);
+
+  useEffect(() => {
+    setIsLoad(false);
+  }, [indexBtn]);
+
+  const handleChooseImages = (indexNumArrImages) => {
+    setIndexBtn(indexNumArrImages);
+    setFirstImg(1);
+  };
+
+  const handleOnloadImage = () => {
+    idTimeOut.current = setTimeout(() => setIsLoad(true), 500);
+  };
 
   const dotsSlider = slides.map((item, index) => (
     <li
       key={index}
       className={
         countCard === index + 1
-          ? "service__dot service__dot--active "
-          : "service__dot"
+          ? "gallery-slider__dot gallery-slider__dot--active "
+          : "gallery-slider__dot"
       }
       onClick={() => handleClickDot(index + 1)}
     ></li>
@@ -354,41 +412,63 @@ const GallerySlider = () => {
   return (
     <Modal isOpen={isOpenModal}>
       <section className="gallery-slider">
-        <button
-          className="gallery-slider__close-button"
-          onClick={handleCloseModalByButton}
-        >
-          <i className="far fa-window-close"></i>
-        </button>
         <div
           className="gallery-slider__wrapper"
           style={{ width: widthSlider, height: heightSlider }}
         >
-          <span className="gallery-slider__arrow-left" onClick={handleLeftMove}>
-            <i className="fas fa-chevron-left"></i>
-          </span>
-          <span
-            className="gallery-slider__arrow-right"
-            onClick={handleRightMove}
+          <button
+            className="gallery-slider__close-button"
+            onClick={handleCloseModalByButton}
           >
-            <i className="fas fa-chevron-right"></i>
-          </span>
-          <div className="gallery-slider__content" ref={slidesContainer}>
-            {slides.map((item, index) => (
-              <img
-                className="gallery-slider__image"
-                key={item.id}
-                src={item.imagePath}
-              />
-            ))}
+            <i className="far fa-window-close"></i>
+          </button>
+          <div className="gallery-slider__inner">
+            <span
+              className="gallery-slider__arrow-left"
+              onClick={handleLeftMove}
+            >
+              <i className="fas fa-chevron-left"></i>
+            </span>
+            <span
+              className="gallery-slider__arrow-right"
+              onClick={handleRightMove}
+            >
+              <i className="fas fa-chevron-right"></i>
+            </span>
+            <div className="gallery-slider__content" ref={slidesContainer}>
+              {slides.map((item, index) => (
+                <div className="gallery-slider__img-wrapper" key={index}>
+                  <img
+                    className="gallery-slider__image"
+                    key={item.id}
+                    src={item.imagePath}
+                    onLoad={handleOnloadImage}
+                  />
+                  {!isLoad && (
+                    <div className="gallery-slider__overlay">
+                      <CircleSpinner />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+        <ul className="gallery-slider__dots-wrapper">{dotsSlider}</ul>
         <div className="gallery-slider__buttons-wrapper">
-          <button className="gallery-slider__button">Men</button>
-          <button className="gallery-slider__button">Women</button>
-          <button className="gallery-slider__button">Children</button>
-          <button className="gallery-slider__button">Weddings</button>
-          <button className="gallery-slider__button">Others</button>
+          {buttonsGallerySlider.map((item, index) => (
+            <button
+              className={
+                indexBtn === index
+                  ? "gallery-slider__button gallery-slider__button--active"
+                  : "gallery-slider__button"
+              }
+              key={index}
+              onClick={() => handleChooseImages(index)}
+            >
+              {item.text}
+            </button>
+          ))}
         </div>
       </section>
     </Modal>
