@@ -9,11 +9,22 @@
   //   height: 100vh; to gdy chcemy landscape
   //   height: 700px;
   //   background-color: #fff;
-
   &__wrapper {
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     // margin-bottom: 10px; to gdy chcemy landscape
+    @include media-queries(xsmall) {
+      margin-bottom: 30px;
+    }
+
+    @media (min-height: 0px) and (max-height: 414px) and (max-width: 823px) and (orientation: landscape) {
+      margin-bottom: initial;
+    }
+  }
+
+  &__inner {
+    width: 100%;
+    height: 100%;
     overflow: hidden;
   }
 
@@ -24,9 +35,78 @@
     transform: translateX(-100%);
   }
 
+  &__img-wrapper {
+    position: relative;
+    min-width: 100%;
+    height: 100%;
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #303030;
+  }
+
   &__image {
     min-width: 100%;
     height: 100%;
+    // opacity: 0;
+    // transition: 2s ease;
+    // animation: fadeImg linear 0.4s forwards;
+
+    &--active {
+      min-width: 100%;
+      height: 100%;
+      //   opacity: 1;
+      animation: fadeImg linear 1.2s forwards;
+    }
+  }
+
+  @keyframes fadeImg {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.6;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  &__dots-wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-width: 80px;
+    height: 20%;
+    padding: 10px 0 20px 0;
+    list-style-type: none;
+
+    @include media-queries(medium) {
+      min-width: 100px;
+    }
+  }
+
+  &__dot {
+    display: block;
+    width: 20px;
+    height: 5px;
+    margin: 0 5px;
+    background-color: #dddddd;
+    border-radius: 3px;
+    transition: 0.5s all;
+    cursor: pointer;
+
+    &--active {
+      background-color: #c4a128;
+    }
   }
 
   &__buttons-wrapper {
@@ -42,13 +122,16 @@
     @include media-queries(large) {
       width: 50%;
     }
+
+    @media (min-height: 0px) and (max-height: 600px) and (max-width: 1024px) and (orientation: landscape) {
+      display: none;
+    }
   }
 
   &__button {
     display: block;
     width: 49%;
-    padding: 8px 0;
-    // padding: 2px 0; to gdy chcemy landscape
+    padding: 2px 0;
     margin-bottom: 8px;
     border: none;
     background-color: #f8c822;
@@ -60,6 +143,14 @@
     font-family: "Oswald", sans-serif;
     letter-spacing: 1px;
     transition: 0.4s ease;
+
+    &--active {
+      background-color: #f8c822;
+    }
+
+    @include media-queries(xsmall) {
+      padding: 8px 0;
+    }
 
     &:nth-child(5) {
       width: 100%;
@@ -87,20 +178,32 @@
 
   &__close-button {
     position: absolute;
-    top: 0px;
+    top: -45px;
     right: 0px;
-    width: 30px;
-    height: 30px;
+    display: block;
+    float: right;
     border: none;
     background-color: transparent;
     color: #f8c822;
     font-size: 2.4rem;
+    text-align: right;
     outline: none;
-    cursor: pointer;
     transition: 0.4s ease;
+    cursor: pointer;
 
     &:hover {
       color: #c4a128;
+    }
+
+    @media (min-width: 240px) and (max-width: 240px) and (max-height: 320px) and (orientation: portrait) {
+      top: -26px;
+      width: 18px;
+      height: 18px;
+      font-size: 1.8rem;
+    }
+
+    @media (min-height: 0px) and (max-height: 600px) and (max-width: 1024px) and (orientation: landscape) {
+      display: none;
     }
   }
 
