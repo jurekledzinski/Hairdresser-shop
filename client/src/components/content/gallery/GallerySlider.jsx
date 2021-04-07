@@ -1,4 +1,3 @@
-import { use } from "passport";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -27,9 +26,7 @@ const GallerySlider = ({
 }) => {
   const dispatch = useDispatch();
 
-  const [clickBtnTypeImg, setClickBtnTypeImg] = useState(indexBtn);
-  const [countCard, setCountCard] = useState(1);
-  const [firstImg, setFirstImg] = useState(0);
+  const [countCard, setCountCard] = useState(0);
   const [heightSizeSlider, setHeighSizetSlider] = useState(0);
   const [isLoad, setIsLoad] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -42,12 +39,8 @@ const GallerySlider = ({
   const [widthSlider, setWidthSlider] = useState(1000);
   const [heightSlider, setHeightSlider] = useState(500);
 
-  const [indexButtonTypeImg, setIndexButtonTypeImg] = useState(0);
-
-  //   tu bedzie w close button clearinterval takze
-
   const handleCloseModalByButton = () => {
-    setCountCard(1);
+    setCountCard(0);
     setIsOpenModal(false);
     resetClickedImgIndex(0);
   };
@@ -115,7 +108,7 @@ const GallerySlider = ({
   }, [isOpenModal, slides]);
 
   useEffect(() => {
-    if (slidesContainer.current) {
+    if (Boolean(slidesContainer.current)) {
       slidesContainer.current.style.transitionDuration = "0s";
       slidesContainer.current.children[0].remove();
       slidesContainer.current.children[
@@ -132,8 +125,6 @@ const GallerySlider = ({
       slidesContainer.current.style.transform = `translateX(-${
         100 * countCard
       }%)`;
-
-      setTurnOffTransitionSlider(false);
 
       if (countCard === slidesContainer.current.children.length - 1) {
         setTimeout(() => {
@@ -158,14 +149,6 @@ const GallerySlider = ({
       }
     }
   }, [countCard, slides.length]);
-
-  //   const playIntervalSlider = () => {
-  //     if (slides.length > 1) {
-  //       idInterval.current = setInterval(() => {
-  //         setCountCard((prevValue) => prevValue + 1);
-  //       }, 8000);
-  //     }
-  //   };
 
   //   FIXME: Start Resize slider
 
@@ -386,9 +369,12 @@ const GallerySlider = ({
     setIsLoad(false);
   }, [indexBtn]);
 
+  useEffect(() => {
+    setTurnOffTransitionSlider(false);
+  }, [countCard]);
+
   const handleChooseImages = (indexNumArrImages) => {
     setIndexBtn(indexNumArrImages);
-    setFirstImg(1);
   };
 
   const handleOnloadImage = () => {
