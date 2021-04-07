@@ -1,17 +1,30 @@
-import React, { useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useRef, useState } from "react";
 
+import { useDispatch } from "react-redux";
 import { addSingleSection } from "../../../reduxStore/actions/actionScroll";
 
 import GalleryImages from "./GalleryImages";
-
 import GallerySlider from "./GallerySlider";
+
+import { buttonsGallerySlider } from "./GallerySliderButtons";
 
 import "./Gallery.scss";
 
 const Gallery = () => {
+  const [clickedImgIndex, setClikedImgIndex] = useState(0);
+  const [indexBtn, setIndexBtn] = useState(0);
+  const [turnOffTransitionSlider, setTurnOffTransitionSlider] = useState(false);
   const galleryRef = useRef(null);
   const dispatch = useDispatch();
+
+  const handleChooseTypeImages = (index) => {
+    setIndexBtn(index);
+  };
+
+  const handleOpenSliderModal = (indexPicture) => {
+    setClikedImgIndex(indexPicture);
+    setTurnOffTransitionSlider(true);
+  };
 
   useEffect(() => {
     if (galleryRef.current) {
@@ -28,18 +41,32 @@ const Gallery = () => {
           between the entity integrity and the
         </p>
         <div className="gallery__buttons-wrapper">
-          <div className="gallery__buttons-top">
-            <button className="gallery__button-men">Men</button>
-            <button className="gallery__button-women">Women</button>
-            <button className="gallery__button-children">Children</button>
-          </div>
-          <div className="gallery__buttons-bottom">
-            <button className="gallery__button-weddings">Weddings</button>
-            <button className="gallery__button-others">Others</button>
-          </div>
+          {buttonsGallerySlider.map((item, index) => (
+            <button
+              className={
+                indexBtn === index
+                  ? "gallery__button gallery__button--active"
+                  : "gallery__button"
+              }
+              key={index}
+              onClick={() => handleChooseTypeImages(index)}
+            >
+              {item.text}
+            </button>
+          ))}
         </div>
-        <GalleryImages />
-        <GallerySlider />
+        <GalleryImages
+          indexBtn={indexBtn}
+          handleOpenSliderModal={handleOpenSliderModal}
+        />
+        <GallerySlider
+          clickedImgCounter={clickedImgIndex}
+          indexBtn={indexBtn}
+          resetClickedImgIndex={setClikedImgIndex}
+          setIndexBtn={setIndexBtn}
+          setTurnOffTransitionSlider={setTurnOffTransitionSlider}
+          turnOffTransitionSlider={turnOffTransitionSlider}
+        />
       </div>
     </section>
   );
