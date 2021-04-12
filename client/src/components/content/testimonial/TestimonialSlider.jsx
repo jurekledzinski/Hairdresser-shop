@@ -57,8 +57,6 @@ const TestimonialSlider = () => {
 
   const location = history.location.pathname;
 
-  // TODO: Logika slidera
-
   const events = {
     swipeUp: new Event("swipeUp"),
     swipeDown: new Event("swipeDown"),
@@ -95,8 +93,6 @@ const TestimonialSlider = () => {
       setNumSlide((prevValue) => prevValue + 1);
     }
   }, [countCard, numSlide]);
-
-  console.log(numSlide, " numSlide");
 
   const handleClickDot = (dotIndex) => {
     setCountCard(dotIndex);
@@ -153,18 +149,20 @@ const TestimonialSlider = () => {
     }
   }, [countCard, slides.length]);
 
-  //TODO: Nowo dodane
-
   const playIntervalSlider = () => {
     if (slides.length > 1) {
-      //   idInterval.current = setInterval(() => {
-      //     setCountCard((prevValue) => prevValue + 1);
-      //   }, 8000);
+      idInterval.current = setInterval(() => {
+        setCountCard((prevValue) => prevValue + 1);
+        if (numSlide >= slides.length - 1) {
+          setNumSlide(0);
+        } else {
+          setNumSlide((prevValue) => prevValue + 1);
+        }
+      }, 8000);
     }
   };
 
   useEffect(() => {
-    console.log(location);
     if (location === "/") {
       playIntervalSlider();
     } else {
@@ -174,15 +172,7 @@ const TestimonialSlider = () => {
     return () => {
       return clearInterval(idInterval.current);
     };
-  }, [countCard, location, slides]);
-
-  useEffect(() => {
-    if (location === "/") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  }, [location]);
-
-  //TODO: Nowo dodane
+  }, [countCard, location, numSlide, slides]);
 
   const startTouchDisplay = (e) => {
     e.preventDefault();
@@ -244,29 +234,6 @@ const TestimonialSlider = () => {
   ]);
 
   useEffect(() => {
-    slidesContainer.current.addEventListener("swipeUp", () => {
-      if (window.innerWidth > 767) {
-        window.scrollTo({
-          top: heightSizeSlider + 20,
-          behavior: "smooth",
-        });
-      } else {
-        window.scrollTo({
-          top: heightSizeSlider,
-          behavior: "smooth",
-        });
-      }
-    });
-
-    slidesContainer.current.addEventListener("swipeDown", () => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    });
-  }, [scrollDiff, heightSizeSlider]);
-
-  useEffect(() => {
     slidesContainer.current.addEventListener("swipeLeft", handleLeftMove);
     slidesContainer.current.addEventListener("swipeRight", handleRightMove);
 
@@ -321,6 +288,24 @@ const TestimonialSlider = () => {
     ) : null;
   });
 
+  const ratesValue = [1, 2, 3, 4, 5];
+
+  const rateStars = slides.map((item1, index) => {
+    return numSlide === index
+      ? ratesValue.map((item2) => (
+          <i
+            key={item2}
+            data-value={item2}
+            className={
+              item2 <= item1.rate
+                ? "fas fa-star active rate-star"
+                : "far fa-star rate-star"
+            }
+          ></i>
+        ))
+      : null;
+  });
+
   useEffect(() => {
     let copyDeepSlides = [];
 
@@ -335,12 +320,8 @@ const TestimonialSlider = () => {
     copyDeepSlides = [...lastSlide, ...copyDeepSlides];
     copyDeepSlides = [...copyDeepSlides, ...firstSlide];
 
-    console.log(copyDeepSlides);
-
     setChangeArraySlides(copyDeepSlides);
   }, []);
-
-  // TODO: Logika slidera
 
   return (
     <div className="testimonial__slider">
@@ -366,13 +347,7 @@ const TestimonialSlider = () => {
           {customersImages}
           <div className="testimonial__credentials">
             {customersNames}
-            <div className="testimonial__rate-stars">
-              <i className="fas fa-star"></i>
-              <i className="fas fa-star"></i>
-              <i className="fas fa-star"></i>
-              <i className="far fa-star"></i>
-              <i className="far fa-star"></i>
-            </div>
+            <div className="testimonial__rate-stars">{rateStars}</div>
             <div className="testimonial__control-wrapper">
               <span
                 className="testimonial__arrow-left"
@@ -387,7 +362,7 @@ const TestimonialSlider = () => {
                 <i className="fas fa-angle-right"></i>
               </span>
             </div>
-            <div className="testimonial__dots-wrapper">{dotsSlider}</div>
+            <ul className="testimonial__dots-wrapper">{dotsSlider}</ul>
           </div>
         </div>
       </div>
