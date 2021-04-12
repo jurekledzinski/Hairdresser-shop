@@ -81,13 +81,6 @@ const GallerySlider = ({
     setCountCard(dotIndex);
   };
 
-  console.log(
-    countCard,
-    "liczba counter",
-    turnOffTransitionSlider,
-    "turnoff transition"
-  );
-
   useEffect(() => {
     if (slides.length > 0 && Boolean(slidesContainer.current)) {
       let firstElement = slidesContainer.current.children[0].cloneNode(true);
