@@ -10,11 +10,11 @@ import "./Header.scss";
 
 const Header = () => {
   const [isActiveHamburgerMenu, setIsActiveHamburgerMenu] = useState(false);
-  const [isActiveMenuLink, setIsActiveMenuLink] = useState(false);
   const [isActiveHeaderWrapper, setIsActiveHeaderWrapper] = useState(false);
   const [isActiveLogo, setIsActiveLogo] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const isMounted = useRef(null);
   const headerRef = useRef(null);
   const logoRef = useRef(null);
   const menuLinksRef = useRef([]);
@@ -51,14 +51,17 @@ const Header = () => {
   useEffect(() => {
     if (headerRef.current) {
       dispatch(addSingleSection(headerRef.current));
-      //   menuLinksRef.current[0].childNodes[0].classList.add(
-      //     "header__menu-link--active"
-      //   );
+      menuLinksRef.current[0].childNodes[0].classList.add(
+        "header__menu-link--active"
+      );
     }
   }, []);
 
   const moveScroll = () => {
-    if (dataForScrollAnimation.length > 0) {
+    if (
+      dataForScrollAnimation.length > 0 &&
+      Boolean(navigationHeader.current && Boolean(menuLinksRef.current))
+    ) {
       dataForScrollAnimation.forEach((item, index) => {
         if (
           item.offsetTop - window.scrollY - 1 <
@@ -91,35 +94,43 @@ const Header = () => {
     window.addEventListener("scroll", moveScroll);
 
     () => removeEventListener("scroll", moveScroll);
-  }, [dataForScrollAnimation]);
+  }, [dataForScrollAnimation, navigationHeader.current, menuLinksRef.current]);
 
   useEffect(() => {
-    if (dataForScrollAnimation.length > 0) {
-      const sectionOneOptions = {
-        rootMargin: "-50% 0px 0px 0px",
-      };
+    const sectionOneOptions = {
+      rootMargin: "-50% 0px 0px 0px",
+    };
 
-      const sectionOneObserver = new IntersectionObserver(function (
-        entries,
-        sectionOneObserver
-      ) {
+    const sectionOneObserver = new IntersectionObserver((entries) => {
+      if (Boolean(isMounted.current)) {
         entries.forEach((item) => {
-          if (!item.isIntersecting) {
-            setIsActiveHeaderWrapper(true);
-            setIsActiveLogo(true);
-            setIsActiveHamburgerMenu(true);
-          } else {
+          if (item.isIntersecting) {
             setIsActiveHeaderWrapper(false);
             setIsActiveLogo(false);
             setIsActiveHamburgerMenu(false);
+          } else {
+            setIsActiveHeaderWrapper(true);
+            setIsActiveLogo(true);
+            setIsActiveHamburgerMenu(true);
           }
         });
-      },
-      sectionOneOptions);
+      }
+    }, sectionOneOptions);
 
-      sectionOneObserver.observe(dataForScrollAnimation[0]);
+    if (Boolean(headerRef.current)) {
+      sectionOneObserver.observe(headerRef.current);
     }
-  }, [dataForScrollAnimation]);
+
+    return () => {
+      if (Boolean(headerRef.current))
+        sectionOneObserver.unobserve(headerRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    isMounted.current = true;
+    return () => (isMounted.current = false);
+  }, []);
 
   const menuOptions = headerMenuLinks.map((item, index) => {
     return (
