@@ -21,8 +21,9 @@ const initialValues = {
   fileImg: "",
 };
 
-const onSubmit = (values) => {
+const onSubmit = (values, submitProps) => {
   console.log(values);
+  submitProps.resetForm();
 };
 
 const validationSchema = Yup.object({
@@ -191,7 +192,11 @@ const TestimonialForm = () => {
                 name="opinion"
                 placeholder="Type in your opinion"
               />
-              <button className="testimonial__form-button" type="submit">
+              <button
+                className="testimonial__form-button"
+                type="submit"
+                disabled={!formik.isValid}
+              >
                 Send
               </button>
             </Form>

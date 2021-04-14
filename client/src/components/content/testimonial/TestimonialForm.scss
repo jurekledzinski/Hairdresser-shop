@@ -1,4 +1,5 @@
 @use "../../../scss-variables/media-queries" as *;
+@use "../../../scss-variables/abstracts" as *;
 
 @mixin button-form-opinion {
   display: block;
@@ -45,20 +46,37 @@
   &__form-input {
     display: block;
     width: 100%;
-    padding: 5px 0;
+    padding: 8px 10px;
+    margin-bottom: 10px;
     border: none;
     outline: none;
+    font-size: 1.4rem;
     font-family: Arial, Helvetica, sans-serif;
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      box-shadow: 0 0 0 30px white inset !important;
+      -webkit-box-shadow: 0 0 0 30px white inset !important;
+    }
+
+    &:placeholder-shown {
+      font-size: 1.4rem;
+    }
+
+    &:focus::placeholder {
+      color: transparent;
+    }
   }
 
   &__form-rating {
     display: flex;
     flex-direction: column;
-    margin: 0 0 15px;
+    margin: 0 0 10px;
   }
 
   &__add-rate {
-    margin: 15px 0;
     color: #dddddd;
     text-align: left;
   }
@@ -84,20 +102,81 @@
     }
   }
 
+  &__star-active {
+    color: #f8c822;
+  }
+
   &__input-file {
     display: block;
+  }
+
+  &__form-file {
+    margin-bottom: 10px;
   }
 
   &__form-textarea {
     display: block;
     width: 100%;
+    height: 100px;
+    padding: 10px;
     border: none;
     outline: none;
     resize: none;
+    font-size: 1.4rem;
     font-family: Arial, Helvetica, sans-serif;
+
+    scrollbar-width: $scrollFirefoxWidth;
+    scrollbar-color: $scrollThumbColor $scrollBarBgc;
+
+    &::-webkit-scrollbar {
+      width: $scrollWidthChromeSafari;
+      height: $scrollHeightChromeSafari;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: $scrollBarBgc;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $scrollThumbColor;
+      border-radius: 6px;
+    }
+
+    &:placeholder-shown {
+      font-size: 1.4rem;
+    }
+
+    &:focus::placeholder {
+      color: transparent;
+    }
   }
 
   &__form-button {
     @include button-form-opinion();
+  }
+
+  &__error-msg {
+    margin-bottom: 10px;
+    color: #ff4136;
+    text-align: left;
+    font-size: 1.1rem;
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    // animation: fadeInErrorMsg 0.4s linear forwards;
+  }
+
+  @keyframes fadeInErrorMsg {
+    0% {
+      opacity: 0;
+      margin-bottom: 0;
+    }
+    50% {
+      opacity: 0;
+      margin-bottom: 0;
+    }
+    100% {
+      opacity: 1;
+      margin-bottom: 5px;
+    }
   }
 }
