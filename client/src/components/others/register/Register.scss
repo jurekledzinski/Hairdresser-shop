@@ -295,4 +295,15 @@
     @include button-login-sing-up();
     margin-top: 30px;
   }
+
+  &__error-msg {
+    position: absolute;
+    top: -15px;
+    margin-bottom: 10px;
+    color: #ff4136;
+    text-align: left;
+    font-size: 1.1rem;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+  }
 }
