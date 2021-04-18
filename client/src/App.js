@@ -11,7 +11,7 @@ import BookingMainPage from "./components/others/booking/BookingMainPage";
 import BookingDetails from "./components/others/booking/BookingDetails";
 import TeamDetails from "./components/content/team/TeamDetails";
 import BookingTermPolicyDetails from "./components/others/booking/BookingTermPolicyDetails";
-import AdminDashboard from "./components/others/admin/AdminDashboard";
+import AdminDashboard from "./components/others/admin/adminDashboard/AdminDashboard";
 import Login from "./components/others/login/Login";
 import Register from "./components/others/register/Register";
 
