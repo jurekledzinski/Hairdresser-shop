@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { switchToOpenCloseModal } from "../../../reduxStore/actions/actionOpenModal";
-
 import Modal from "../../others/modal/Modal";
 
 import "./GallerySlider.scss";
@@ -345,10 +343,6 @@ const GallerySlider = ({
         break;
     }
   }, [indexBtn]);
-
-  useEffect(() => {
-    dispatch(switchToOpenCloseModal(isOpenModal));
-  }, [isOpenModal]);
 
   useEffect(() => {
     isMounted.current = true;
