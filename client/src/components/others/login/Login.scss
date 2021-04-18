@@ -42,7 +42,6 @@
   padding: 0px 20px;
   margin: 0 auto;
   box-sizing: border-box;
-  //   background-color: #303030;
 
   @include media-queries(xlarge) {
     max-width: 1200px;
@@ -61,8 +60,6 @@
     // margin: 0 auto;
     padding: 50px 0;
 
-    // tutaj dałem min-height: inherit
-
     @include media-queries(large) {
       flex-direction: row;
       min-height: inherit;
@@ -75,8 +72,6 @@
       padding: 0;
     }
   }
-
-  //TODO: Lewa strona
 
   &__left {
     position: relative;
@@ -105,7 +100,7 @@
     left: 0;
     bottom: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
   }
 
   &__left-redirects {
@@ -131,8 +126,6 @@
     width: 100%;
     color: rgba(255, 255, 255, 1);
   }
-
-  //TODO: Prawa strona
 
   &__right {
     position: relative;

@@ -1,28 +1,85 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import "./Login.scss";
 
+import {
+  addServerErrorMessage,
+  addServerSuccessMessage,
+  removeServerErrorMessage,
+  removeServerSuccessMessage,
+} from "../../../reduxStore/actions/actionAlertsMessages";
+
+import { loginAdmin } from "../../../utils/sessions";
+
+import ErrorSuccessMessage from "../../others/errorSuccessMessages/ErrorSuccessMessages";
+
 import ButtonGoBackLoginRegister from "../buttonGoBackLoginRegister/ButtonGoBackLoginRegister";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const dataAlert = useSelector((store) => store.alertData);
+
+  const flagSubmit = useRef(false);
+  const idTimeoutSubmit = useRef(null);
+  const idTimeout = useRef(null);
+  const history = useHistory();
+
+  console.log(flagSubmit.current);
+
   const initialValues = {
     email: "",
     password: "",
   };
+
+  console.log("login");
 
   const validationSchema = Yup.object({
     email: Yup.string().email("Invalid email").required("Email required"),
     password: Yup.string().required("Password required"),
   });
 
-  const onSubmit = (values, submitProps) => {
+  const onSubmit = async (values, submitProps) => {
     console.log(values);
     console.log(submitProps);
+
+    const { data, status } = await loginAdmin(values);
+    console.log(data, status);
+
+    if (status !== 200) {
+      dispatch(addServerErrorMessage(data.alert, "registerForm"));
+    } else {
+      dispatch(addServerSuccessMessage(data.success, "registerForm"));
+      idTimeoutSubmit.current = true;
+      flagSubmit.current = true;
+    }
+
     submitProps.resetForm();
   };
+
+  useEffect(() => {
+    if (dataAlert.successServerMsg || dataAlert.errorServerMsg) {
+      setTimeout(() => {
+        idTimeout.current = dispatch(removeServerSuccessMessage(null, null));
+        idTimeout.current = dispatch(removeServerErrorMessage(null, null));
+      }, 1000);
+    }
+
+    return () => clearTimeout(idTimeout.current);
+  }, [dataAlert.errorServerMsg, dataAlert.successServerMsg]);
+
+  useEffect(() => {
+    if (flagSubmit.current) {
+      idTimeoutSubmit.current = setTimeout(() => {
+        history.push("/admin");
+      }, 1100);
+    }
+    return () => clearTimeout(idTimeoutSubmit.current);
+  }, [flagSubmit.current]);
 
   const errorMsg = (props) => {
     return <p className="login__error-msg">{props.children}</p>;
@@ -53,6 +110,12 @@ const Login = () => {
               <div className="login__right">
                 <h2 className="login__right-title">Log in</h2>
                 <Form className="login__form">
+                  {!Boolean(Object.keys(formik.errors).length) &&
+                  dataAlert.errorServerMsg ? (
+                    <ErrorSuccessMessage />
+                  ) : (
+                    <ErrorSuccessMessage />
+                  )}
                   <ErrorMessage name="email" component={errorMsg} />
                   <div className="login__input-wrapper">
                     <label className="login__label">Email</label>
