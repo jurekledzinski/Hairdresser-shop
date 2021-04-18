@@ -2,12 +2,13 @@ const express = require("express");
 const router = express.Router();
 
 const Testimonial = require("../models/testimonial.model");
+const { ErrorHandler } = require("../errors/error");
 
 function shuffle(array) {
   return array.sort(() => Math.random() - 0.5);
 }
 
-router.get("/", (req, res) => {
+router.get("/", (req, res, next) => {
   Testimonial.find({})
     .then((response) => {
       let shuffleArr = shuffle(response);
@@ -16,11 +17,11 @@ router.get("/", (req, res) => {
       return res.status(200).json(ShuffleFour);
     })
     .catch((err) => {
-      console.log(err);
+      next(new ErrorHandler(500, "Internal server error", err.message));
     });
 });
 
-router.post("/", (req, res) => {
+router.post("/", (req, res, next) => {
   const { name, imageUrl, opinion, rateStar } = req.body;
 
   const info = {
@@ -51,8 +52,8 @@ router.post("/", (req, res) => {
           return res.status(200).json(info);
         }
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        next(new ErrorHandler(500, "Internal server error", err.message));
       });
   }
 });
