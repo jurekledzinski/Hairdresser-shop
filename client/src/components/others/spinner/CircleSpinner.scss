@@ -13,6 +13,11 @@
     stroke-dashoffset: 0;
     animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
     stroke-linecap: round;
+
+    &--admin {
+      animation: dash 1.5s ease-in-out infinite,
+        colorAdmin 6s ease-in-out infinite;
+    }
   }
 }
 
@@ -35,6 +40,7 @@
     stroke-dashoffset: -124;
   }
 }
+
 @keyframes color {
   100%,
   0% {
@@ -49,5 +55,22 @@
   80%,
   90% {
     stroke: white;
+  }
+}
+
+@keyframes colorAdmin {
+  100%,
+  0% {
+    stroke: #808080;
+  }
+  40% {
+    stroke: #808080;
+  }
+  66% {
+    stroke: #808080;
+  }
+  80%,
+  90% {
+    stroke: #808080;
   }
 }
