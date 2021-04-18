@@ -1,111 +1,68 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useHistory, withRouter } from "react-router-dom";
+import React, { useRef } from "react";
+import { withRouter } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  addServerErrorMessage,
+  addServerSuccessMessage,
+} from "../../../reduxStore/actions/actionAlertsMessages";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
 
 import "./TestimonialForm.scss";
 
-import { projectStorage } from "../../../firebase/config";
+import useValidationFormik from "./customTestimonialHooks/useValidationFormik";
+import useRemoveErrorMessage from "./customTestimonialHooks/useRemoveErrorMessage";
+import useHandleFile from "./customTestimonialHooks/useHandleFile";
+import useFirebseDeleteFile from "../../../customHooks/useFirebaseDeleteFile";
 
+import ErrorSuccessMessage from "../../others/errorSuccessMessages/ErrorSuccessMessages";
 import ProgressBar from "../../others/progreeBar/ProgressBar";
 import TestimonialStarRating from "./TestimonialStarRating";
 
-const FILE_SIZE = 100 * 75;
-const FILE_FORMATS = ["image/png", "image/jpeg"];
-
-const initialValues = {
-  name: "",
-  opinion: "",
-  rateStar: 0,
-  fileImg: "",
-};
-
-const onSubmit = (values, submitProps) => {
-  console.log(values);
-  submitProps.resetForm();
-};
-
-const validationSchema = Yup.object({
-  name: Yup.string()
-    .required("Name is required")
-    .min(2, "Name is too short")
-    .max(15, "Name is too long"),
-  opinion: Yup.string()
-    .min(100, "Please write a little more")
-    .max(315, "Opininon is too long")
-    .required("Opinion is required"),
-  fileImg: Yup.mixed()
-    .required("Image is required")
-    .test(
-      "fileSize",
-      "Image is too large, use very small one",
-      (value) => value && value.size <= FILE_SIZE
-    )
-    .test(
-      "fileFormat",
-      "Please use image type png or jpeg",
-      (value) => value && FILE_FORMATS.includes(value.type)
-    ),
-});
-
-const validateRating = (value) => {
-  let error;
-  if (!value) {
-    error = "Rating is required";
-  }
-  return error;
-};
+import { addOpinion } from "../../../utils/sessions";
 
 const TestimonialForm = () => {
-  const [fileImage, setFileImage] = useState(null);
+  const {
+    initialValues,
+    validationSchema,
+    validateRating,
+  } = useValidationFormik();
+  useRemoveErrorMessage();
+  const { handleFile } = useHandleFile();
+
+  const dispatch = useDispatch();
+  const dataAlert = useSelector((store) => store.alertData);
+  const dataFile = useSelector((store) => store.fileDate);
 
   const rates = [1, 2, 3, 4, 5];
 
   const imgLink = useRef(null);
 
-  const history = useHistory();
+  useFirebseDeleteFile(imgLink);
+
+  const onSubmit = async (values, submitProps) => {
+    delete values.fileImg;
+
+    if (Boolean(imgLink.current)) {
+      values.imageUrl = imgLink.current;
+    }
+
+    submitProps.resetForm();
+
+    const { data, status } = await addOpinion(values);
+
+    if (status !== 200) {
+      dispatch(addServerErrorMessage(data.alert, "default"));
+    } else {
+      dispatch(addServerSuccessMessage(data.success, "default"));
+    }
+    imgLink.current = null;
+  };
 
   const handleRating = (e, setFieldValue) => {
     const rate = parseInt(e.target.dataset.value);
     setFieldValue("rateStar", rate);
-  };
-
-  useEffect(() => {
-    history.listen(() => {
-      const fireBaseUrlStorage = "firebasestorage";
-      if (history.location.pathname !== "/" && Boolean(imgLink.current)) {
-        if (
-          Boolean(imgLink.current) &&
-          imgLink.current.indexOf(fireBaseUrlStorage) !== -1
-        ) {
-          const image = projectStorage.refFromURL(imgLink.current);
-          imgLink.current = null;
-          image
-            .delete()
-            .then((responese) => responese)
-            .catch((err) => {
-              console.warn(err);
-            });
-        }
-      }
-    });
-  }, [history.location.pathname, imgLink]);
-
-  const handleFile = (e, callbackFile, callbackTouch) => {
-    callbackTouch("fileImg");
-    let selectFile = e.target.files[0];
-    callbackFile("fileImg", selectFile);
-
-    if (
-      Boolean(selectFile) &&
-      FILE_FORMATS.includes(selectFile.type) &&
-      selectFile.size <= FILE_SIZE
-    ) {
-      setFileImage(selectFile);
-    } else {
-      setFileImage(null);
-    }
   };
 
   const inputFile = ({ setFieldValue, setFieldTouched }) => (
@@ -133,12 +90,14 @@ const TestimonialForm = () => {
               className="testimonial__form-wrapper"
               onSubmit={formik.handleSubmit}
             >
-              {Boolean(fileImage) && (
-                <ProgressBar
-                  fileImage={fileImage}
-                  setFileImage={setFileImage}
-                  imgLink={imgLink}
-                />
+              {Boolean(dataFile.fileImageTestimonial) && (
+                <ProgressBar imgLink={imgLink} />
+              )}
+              {!Boolean(Object.keys(formik.errors).length) &&
+              dataAlert.errorServerMsg ? (
+                <ErrorSuccessMessage />
+              ) : (
+                <ErrorSuccessMessage />
               )}
               <ErrorMessage name="name" component={errorMsg} />
               <Field

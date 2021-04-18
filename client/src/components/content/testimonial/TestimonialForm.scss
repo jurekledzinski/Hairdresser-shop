@@ -162,21 +162,5 @@
     font-size: 1.1rem;
     font-family: "Roboto", sans-serif;
     font-weight: 100;
-    // animation: fadeInErrorMsg 0.4s linear forwards;
-  }
-
-  @keyframes fadeInErrorMsg {
-    0% {
-      opacity: 0;
-      margin-bottom: 0;
-    }
-    50% {
-      opacity: 0;
-      margin-bottom: 0;
-    }
-    100% {
-      opacity: 1;
-      margin-bottom: 5px;
-    }
   }
 }
