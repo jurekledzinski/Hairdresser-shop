@@ -4,9 +4,11 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const nodemailer = require("nodemailer");
 const session = require("express-session");
 const passport = require("passport");
 const MongoStore = require("connect-mongo")(session);
+require("./configs/passport")(passport);
 
 const port = process.env.PORT || 5000;
 
@@ -19,11 +21,11 @@ const {
   secretSession,
 } = require("./configs/config");
 
-console.log(atlasUrl, "atlas url");
-console.log(nodeEnv, "nodeEnv");
-console.log(sessionName, "sessionName");
-console.log(secretSession, "secretSession");
-console.log(port, "port");
+// console.log(atlasUrl, "atlas url");
+// console.log(nodeEnv, "nodeEnv");
+// console.log(sessionName, "sessionName");
+// console.log(secretSession, "secretSession");
+// console.log(port, "port");
 
 mongoose.connect(atlasUrl, {
   useNewUrlParser: true,
@@ -46,6 +48,8 @@ const galleryRouter = require("./routes/gallery");
 const testimonialRouter = require("./routes/testimonial");
 const openHoursRouter = require("./routes/openhours");
 const emailRouter = require("./routes/email");
+const registerAdmin = require("./routes/registerAdmin");
+const loginAdmin = require("./routes/loginAdmin");
 
 const app = express();
 
@@ -84,6 +88,9 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(function (req, res, next) {
   res.setHeader(
     "Content-Security-Policy",
@@ -92,16 +99,15 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.use("/men-service", menServiceRouter);
 app.use("/women-service", womenServiceRouter);
 app.use("/team", teamRouter);
 app.use("/gallery", galleryRouter);
-app.use("/testimonial", testimonialRouter);
+app.use("/opinions", testimonialRouter);
 app.use("/open-hours", openHoursRouter);
 app.use("/email", emailRouter);
+app.use("/register-admin", registerAdmin);
+app.use("/login-admin", loginAdmin);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
