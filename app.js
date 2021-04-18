@@ -12,20 +12,12 @@ require("./configs/passport")(passport);
 
 const port = process.env.PORT || 5000;
 
-// require("./configs/passport")(passport);
-
 const {
   atlasUrl,
   nodeEnv,
   sessionName,
   secretSession,
 } = require("./configs/config");
-
-// console.log(atlasUrl, "atlas url");
-// console.log(nodeEnv, "nodeEnv");
-// console.log(sessionName, "sessionName");
-// console.log(secretSession, "secretSession");
-// console.log(port, "port");
 
 mongoose.connect(atlasUrl, {
   useNewUrlParser: true,
@@ -130,13 +122,13 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.use((error, req, res, next) => {
-  console.log(error, "error middleware");
+  console.log(error, "error middleware w app");
   res.status(error.status || 500);
 
   res.json({
-    alert: error.message,
+    where: error.message,
     statusCode: error.status,
-    errorMsg: error.msgError,
+    alert: error.msgError,
   });
 });
 
