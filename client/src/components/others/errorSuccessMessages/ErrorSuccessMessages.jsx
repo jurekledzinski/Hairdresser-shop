@@ -6,6 +6,9 @@ import "./ErrorSuccessMessages.scss";
 const ErrorSuccessMessages = () => {
   let dataAlert = useSelector((store) => store.alertData);
   const { errorServerMsg, successServerMsg, where } = dataAlert;
+
+  console.log(dataAlert);
+
   switch (where) {
     case "default":
       return (
@@ -19,7 +22,6 @@ const ErrorSuccessMessages = () => {
           {errorServerMsg || successServerMsg}
         </p>
       );
-      break;
     case "registerForm":
       return (
         <p
@@ -32,10 +34,8 @@ const ErrorSuccessMessages = () => {
           {errorServerMsg || successServerMsg}
         </p>
       );
-      break;
     default:
       return null;
-      break;
   }
 };
 
