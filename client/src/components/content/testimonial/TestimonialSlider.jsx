@@ -3,40 +3,7 @@ import { useHistory, withRouter } from "react-router-dom";
 
 import "./TestimonialSlider.scss";
 
-const opinions = [
-  {
-    name: "Joe Doe",
-    rate: 5,
-    imagePath:
-      "https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Person-1.png?alt=media&token=c2f870e8-ae4e-4552-b38d-be6ea1e75459",
-    opinion:
-      "Somehow, something tells me Hank is here because of you. And I'mnot forgetting that. Walt, please, let's both of us stop trying to justify this whole thing and admit you're in danger! Someone has to protect this family from the man who protects thisfamily.",
-  },
-  {
-    name: "Kate Mike",
-    rate: 3,
-    imagePath:
-      "https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Person-2.png?alt=media&token=64833208-7f93-4043-8858-6fcba534fb39",
-    opinion:
-      "You talk about rehab oh gee, isn't that wonderful? Okay, you know what you need? I'll tell you exactly what you need. I am calling the police. I have tried ten years of love and understanding, maybe what it takes is you drying out in a jail cell.",
-  },
-  {
-    name: "Moly Boo",
-    rate: 2,
-    imagePath:
-      "https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Person-3.png?alt=media&token=c28e70a0-f2af-45da-b27d-2427d70cd3f4",
-    opinion:
-      "Nice, thank you. Stay classy. Well, I'll tell you one thing. Your Hardy Boys routine is over. No more asking him to drive you on stakeouts. It's too dangerous, you hear me?",
-  },
-  {
-    name: "Maya Mool",
-    rate: 4,
-    imagePath:
-      "https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Person-4.png?alt=media&token=0a6eff9a-5b12-40b2-8626-bd3d1c76c8a8",
-    opinion:
-      "He was just having fun. You'll get over it. Marco. Grab your old uncle a beer, would you? No, no. A cold one. This is what you wanted. Your brother dead. Right? You're going to have to try harder than that if you want to save him. How much longer do you think he has down there? One minute? Maybe more? Maybe less?",
-  },
-];
+import { fetchOpinions } from "../../../utils/sessions";
 
 const TestimonialSlider = () => {
   const [checkSizeWindow, setCheckSizeWindow] = useState(window.innerWidth);
@@ -45,7 +12,7 @@ const TestimonialSlider = () => {
   const [initialX, setInitialX] = useState(null);
   const [initialY, setInitialY] = useState(null);
   const [scrollDiff, setScrollDiff] = useState(0);
-  const [slides] = useState(opinions);
+  const [slides, setSlides] = useState([]);
   const [changeArraySlides, setChangeArraySlides] = useState([]);
   const [numSlide, setNumSlide] = useState(0);
 
@@ -276,7 +243,7 @@ const TestimonialSlider = () => {
     return numSlide === index ? (
       <span className="testimonial__image-wrapper" key={index}>
         <img
-          src={item.imagePath}
+          src={item.imageUrl}
           alt="Customer"
           className={
             numSlide === index
@@ -297,7 +264,7 @@ const TestimonialSlider = () => {
             key={item2}
             data-value={item2}
             className={
-              item2 <= item1.rate
+              item2 <= item1.rateStar
                 ? "fas fa-star active rate-star"
                 : "far fa-star rate-star"
             }
@@ -321,6 +288,18 @@ const TestimonialSlider = () => {
     copyDeepSlides = [...copyDeepSlides, ...firstSlide];
 
     setChangeArraySlides(copyDeepSlides);
+  }, []);
+
+  const getRandomOpionions = async () => {
+    const { data, status } = await fetchOpinions();
+
+    if (status === 200) {
+      setSlides(data);
+    }
+  };
+
+  useEffect(() => {
+    getRandomOpionions();
   }, []);
 
   return (
