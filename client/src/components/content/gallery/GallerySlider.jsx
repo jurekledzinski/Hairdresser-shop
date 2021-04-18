@@ -39,6 +39,7 @@ const GallerySlider = ({
 
   const handleCloseModalByButton = () => {
     setCountCard(0);
+    setIsLoad(false);
     setIsOpenModal(false);
     resetClickedImgIndex(0);
   };
