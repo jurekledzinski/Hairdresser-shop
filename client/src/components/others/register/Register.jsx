@@ -1,18 +1,52 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useRef } from "react";
+import { Link, withRouter } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  addImageFile,
+  removeImageFile,
+} from "../../../reduxStore/actions/actionFile";
+
+import {
+  addServerErrorMessage,
+  addServerSuccessMessage,
+  removeServerErrorMessage,
+  removeServerSuccessMessage,
+} from "../../../reduxStore/actions/actionAlertsMessages";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import "./Register.scss";
 
+import { registerAdmin } from "../../../utils/sessions";
+
+import ProgressBar from "../progreeBar/ProgressBar";
 import ButtonGoBackLoginRegister from "../buttonGoBackLoginRegister/ButtonGoBackLoginRegister";
 
+import useFirebseDeleteFile from "../../../customHooks/useFirebaseDeleteFile";
+
+import ErrorSuccessMessage from "../../others/errorSuccessMessages/ErrorSuccessMessages";
+
+const FILE_SIZE = 100 * 75;
+const FILE_FORMATS = ["image/png", "image/jpeg"];
+
 const Register = () => {
+  const dispatch = useDispatch();
+  const dataFile = useSelector((store) => store.fileDate);
+  const dataAlert = useSelector((store) => store.alertData);
+
+  const idTimeout = useRef(null);
+  const imgLink = useRef(null);
+
+  useFirebseDeleteFile(imgLink);
+
   const initialValues = {
     name: "",
     lastName: "",
     email: "",
+    fileImg: "",
     password: "",
     confirmPassword: "",
   };
@@ -29,13 +63,76 @@ const Register = () => {
         "Both passwords have to be the same"
       ),
     }),
+    fileImg: Yup.mixed()
+      .required("Image is required")
+      .test(
+        "fileSize",
+        "Image is too large, use very small one",
+        (value) => value && value.size <= FILE_SIZE
+      )
+      .test(
+        "fileFormat",
+        "Please use image type png or jpeg",
+        (value) => value && FILE_FORMATS.includes(value.type)
+      ),
   });
 
-  const onSubmit = (values, submitProps) => {
+  const onSubmit = async (values, submitProps) => {
+    delete values.fileImg;
+
+    if (Boolean(imgLink.current)) {
+      values.imageUrl = imgLink.current;
+    }
+
     console.log(values);
-    console.log(submitProps);
+
+    const { data, status } = await registerAdmin(values);
+    console.log(data, status);
+
+    if (status !== 200) {
+      dispatch(addServerErrorMessage(data.alert, "registerForm"));
+    } else {
+      dispatch(addServerSuccessMessage(data.success, "registerForm"));
+    }
+
+    imgLink.current = null;
     submitProps.resetForm();
   };
+
+  const handleFile = (e, callbackFile, callbackTouch) => {
+    callbackTouch("fileImg");
+    let selectFile = e.target.files[0];
+    callbackFile("fileImg", selectFile);
+
+    if (
+      Boolean(selectFile) &&
+      FILE_FORMATS.includes(selectFile.type) &&
+      selectFile.size <= FILE_SIZE
+    ) {
+      dispatch(addImageFile(null, selectFile));
+    } else {
+      dispatch(removeImageFile(null, null));
+    }
+  };
+
+  useEffect(() => {
+    if (dataAlert.successServerMsg || dataAlert.errorServerMsg) {
+      setTimeout(() => {
+        idTimeout.current = dispatch(removeServerSuccessMessage(null, null));
+        idTimeout.current = dispatch(removeServerErrorMessage(null, null));
+      }, 1000);
+    }
+
+    return () => clearTimeout(idTimeout.current);
+  }, [dataAlert.errorServerMsg, dataAlert.successServerMsg]);
+
+  const inputFile = ({ setFieldValue, setFieldTouched }) => (
+    <input
+      type="file"
+      onChange={(e) => handleFile(e, setFieldValue, setFieldTouched)}
+      className="testimonial__input-file"
+    />
+  );
 
   const errorMsg = (props) => {
     return <p className="register__error-msg">{props.children}</p>;
@@ -74,6 +171,15 @@ const Register = () => {
                 <ButtonGoBackLoginRegister />
                 <h2 className="register__right-title">Sign Up</h2>
                 <Form className="register__form">
+                  {Boolean(dataFile.fileImageRegister) && (
+                    <ProgressBar imgLink={imgLink} />
+                  )}
+                  {!Boolean(Object.keys(formik.errors).length) &&
+                  dataAlert.errorServerMsg ? (
+                    <ErrorSuccessMessage />
+                  ) : (
+                    <ErrorSuccessMessage />
+                  )}
                   <div className="register__input-wrapper-name-surname">
                     <div className="register__wrapper-name">
                       <ErrorMessage name="name" component={errorMsg} />
@@ -116,7 +222,16 @@ const Register = () => {
                       <i className="far fa-envelope"></i>
                     </span>
                   </div>
-
+                  <div className="register__input-wrapper">
+                    <ErrorMessage name="fileImg" component={errorMsg} />
+                    <Field
+                      as={inputFile}
+                      name="fileImg"
+                      type="file"
+                      setFieldValue={formik.setFieldValue}
+                      setFieldTouched={formik.setFieldTouched}
+                    ></Field>
+                  </div>
                   <div className="register__input-wrapper">
                     <ErrorMessage name="password" component={errorMsg} />
                     <label className="register__label">Password</label>
@@ -160,4 +275,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default withRouter(Register);
