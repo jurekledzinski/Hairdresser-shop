@@ -15,20 +15,24 @@ import AdminDashboard from "./components/others/admin/adminDashboard/AdminDashbo
 import Login from "./components/others/login/Login";
 import Register from "./components/others/register/Register";
 
+import ServerError from "./components/others/errorSuccessMessages/ServerErrors";
+
 const App = () => {
   return (
     <Provider store={store}>
       <div className="app">
         <Router>
           <Switch>
-            <Route exact path="/" component={MainPage} />
-            <Route exact path="/booking" component={BookingMainPage} />
-            <Route path="/booking/details/:id" component={BookingDetails} />
-            <Route path="/team-details" component={TeamDetails} />
-            <Route path="/term-policy" component={BookingTermPolicyDetails} />
-            <Route path="/admin" component={AdminDashboard} />
-            <Route path="/login-admin" component={Login} />
-            <Route path="/register-admin" component={Register} />
+            <ServerError>
+              <Route exact path="/" component={MainPage} />
+              <Route exact path="/booking" component={BookingMainPage} />
+              <Route path="/booking/details/:id" component={BookingDetails} />
+              <Route path="/team-details" component={TeamDetails} />
+              <Route path="/term-policy" component={BookingTermPolicyDetails} />
+              <Route path="/admin" component={AdminDashboard} />
+              <Route path="/login-admin" component={Login} />
+              <Route path="/register-admin" component={Register} />
+            </ServerError>
           </Switch>
         </Router>
       </div>
