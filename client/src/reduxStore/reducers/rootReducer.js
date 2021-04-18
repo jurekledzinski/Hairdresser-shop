@@ -6,6 +6,7 @@ import { headerReducer } from "./headerReducer";
 import { opinionsReducer } from "./opinionsReducer";
 import { resizeWindowReducer } from "./resizeWindowReducer";
 import { scrollReducer } from "./scrollReducer";
+import { serverErrorReducer } from "./serverErrorReducer";
 
 export const rootReducer = combineReducers({
   alertData: alertMessagesReducer,
@@ -13,6 +14,7 @@ export const rootReducer = combineReducers({
   headerData: headerReducer,
   resizeData: resizeWindowReducer,
   scrollData: scrollReducer,
+  serverErrorData: serverErrorReducer,
   testimonialData: opinionsReducer,
   userData: usersReducer,
 });
