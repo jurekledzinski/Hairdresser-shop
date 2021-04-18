@@ -4,6 +4,8 @@ const nodemailer = require("nodemailer");
 
 const Email = require("../models/email.model");
 
+const { ErrorHandler } = require("../errors/error");
+
 const {
   emailAddressSendTo,
   emailOfUser,
@@ -12,17 +14,17 @@ const {
   passwordUserEmail,
 } = require("../configs/config");
 
-router.get("/", (req, res) => {
+router.get("/", (req, res, next) => {
   Email.find({})
     .then((response) => {
       return res.status(200).json(response);
     })
     .catch((err) => {
-      console.log(err, "to jest err Email");
+      next(new ErrorHandler(500, "Internal server error", err.message));
     });
 });
 
-router.post("/", (req, res) => {
+router.post("/", (req, res, next) => {
   const { name, email, message } = req.body;
 
   const info = {
@@ -58,8 +60,8 @@ router.post("/", (req, res) => {
     newEmail
       .save()
       .then()
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        next(new ErrorHandler(500, "Internal server error", err.message));
       });
 
     let transporter = nodemailer.createTransport({
