@@ -6,11 +6,7 @@ const testimonialSchema = new Schema({
     type: String,
     required: true,
   },
-  surname: {
-    type: String,
-    required: true,
-  },
-  title: {
+  imageUrl: {
     type: String,
     required: true,
   },
@@ -18,7 +14,7 @@ const testimonialSchema = new Schema({
     type: String,
     required: true,
   },
-  rate: {
+  rateStar: {
     type: Number,
     required: true,
   },
