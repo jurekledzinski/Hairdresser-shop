@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import "./ContactForm.scss";
 
+import { sendEmail } from "../../../utils/sessions";
+
+import {
+  addServerErrorMessage,
+  addServerSuccessMessage,
+  removeServerErrorMessage,
+  removeServerSuccessMessage,
+} from "../../../reduxStore/actions/actionAlertsMessages";
+
+import ErrorSuccessMessage from "../../others/errorSuccessMessages/ErrorSuccessMessages";
+
 const ContactForm = () => {
+  const dispatch = useDispatch();
+  const dataAlert = useSelector((store) => store.alertData);
+
+  const idTimeout = useRef(null);
+
   const initialValues = {
     name: "",
     email: "",
@@ -19,15 +37,31 @@ const ContactForm = () => {
     email: Yup.string().email("Invalid email").required("Email required"),
     message: Yup.string()
       .min(100, "Please write a little more")
-      .max(315, "Opininon is too long")
       .required("Opinion is required"),
   });
 
-  const onSubmit = (values, submitProps) => {
-    console.log(values);
-    console.log(submitProps);
+  const onSubmit = async (values, submitProps) => {
     submitProps.resetForm();
+
+    const { data, status } = await sendEmail(values);
+
+    if (status !== 200) {
+      dispatch(addServerErrorMessage(data.alert, "default"));
+    } else {
+      dispatch(addServerSuccessMessage(data.success, "default"));
+    }
   };
+
+  useEffect(() => {
+    if (dataAlert.successServerMsg || dataAlert.errorServerMsg) {
+      setTimeout(() => {
+        idTimeout.current = dispatch(removeServerSuccessMessage(null, null));
+        idTimeout.current = dispatch(removeServerErrorMessage(null, null));
+      }, 1000);
+    }
+
+    return () => clearTimeout(idTimeout.current);
+  }, [dataAlert.errorServerMsg, dataAlert.successServerMsg]);
 
   const errorMsg = (props) => {
     return <p className="contact__error-msg">{props.children}</p>;
@@ -50,6 +84,12 @@ const ContactForm = () => {
             </p>
 
             <Form className="contact__form" onSubmit={formik.handleSubmit}>
+              {!Boolean(Object.keys(formik.errors).length) &&
+              dataAlert.errorServerMsg ? (
+                <ErrorSuccessMessage />
+              ) : (
+                <ErrorSuccessMessage />
+              )}
               <ErrorMessage name="name" component={errorMsg} />
               <Field
                 className="contact__input"
