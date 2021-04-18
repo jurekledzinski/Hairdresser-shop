@@ -1,0 +1,309 @@
+@use "../../scss-variables/media-queries" as *;
+
+.header {
+  &__cover {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(211, 211, 211, 0.1);
+    transition: left 0.4s linear 0.1s;
+
+    &--active {
+      left: calc(100% - 50px);
+    }
+  }
+
+  &__wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    z-index: 2;
+    transition: 0.4s ease;
+    background-color: transparent;
+
+    &--active {
+      height: 50px;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    &--hide {
+      height: 50px;
+      background-color: transparent;
+    }
+  }
+
+  &__logo {
+    padding: 5px 0 5px 5px;
+    color: white;
+    font-size: 3.2rem;
+    font-family: "Engagement", cursive;
+    transition: 0.6s ease;
+    visibility: visible;
+
+    &--active {
+      font-size: 2.8rem;
+    }
+
+    &--hide {
+      visibility: hidden;
+    }
+
+    @include media-queries(xsmall) {
+      padding: 5px 0 5px 15px;
+      margin: initial;
+      font-size: 4rem;
+
+      &--active {
+        font-size: 2.8rem;
+      }
+    }
+
+    @include media-queries(xlarge) {
+      flex-basis: 30%;
+      margin: 0 0 0 10px;
+      text-align: center;
+    }
+
+    @media (min-width: 1130px) {
+      margin: 0 0 0 25px;
+    }
+  }
+
+  &__nav {
+    position: absolute;
+    top: 0;
+    width: calc(100% - 50px);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(48, 48, 48, 0.9);
+    transform: translateX(-100%);
+    transition: 0.4s linear;
+    visibility: hidden;
+
+    &--active {
+      transform: translateX(0);
+      visibility: visible;
+    }
+
+    @include media-queries(xlarge) {
+      position: initial;
+      height: initial;
+      align-items: flex-end;
+      flex-basis: 70%;
+      transform: inherit;
+      transition: initial;
+      background-color: initial;
+      visibility: visible;
+    }
+  }
+
+  &__logo-mobile-show {
+    display: block;
+    margin-bottom: 15px;
+    color: white;
+    font-size: 2.6rem;
+    font-family: "Engagement", cursive;
+    letter-spacing: 2px;
+
+    @include media-queries(xsmall) {
+      margin-bottom: 50px;
+      font-size: 4rem;
+    }
+
+    @include media-queries(xlarge) {
+      display: none;
+    }
+
+    @media (min-width: 100px) and (orientation: landscape) {
+      margin-bottom: 6px;
+      font-size: 2.6rem;
+    }
+
+    @media (min-width: 321px) and (orientation: landscape) {
+      margin-bottom: 12px;
+      font-size: 3.6rem;
+    }
+
+    @media (min-width: 823px) and (orientation: landscape) {
+      margin-bottom: 50px;
+      font-size: 4rem;
+    }
+  }
+
+  &__menu {
+    list-style-type: none;
+
+    @include media-queries(xlarge) {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  &__menu-item {
+    margin-bottom: 15px;
+    color: #d3d3d3;
+    cursor: pointer;
+
+    @include media-queries(xsmall) {
+      margin-bottom: 20px;
+    }
+
+    @include media-queries(xlarge) {
+      margin-bottom: initial;
+      margin-right: 40px;
+    }
+
+    @media (min-width: 100px) and (orientation: landscape) {
+      margin-bottom: 10px;
+    }
+
+    @media (min-width: 321px) and (orientation: landscape) {
+      margin-bottom: 12px;
+    }
+
+    @media (min-width: 823px) and (orientation: landscape) {
+      margin-bottom: 20px;
+    }
+
+    @media (min-width: 1024px) and (orientation: landscape) {
+      margin-bottom: initial;
+    }
+  }
+
+  &__menu-link {
+    color: #d3d3d3;
+    font-size: 1.4rem;
+    text-decoration: none;
+    transition: 0.6s ease;
+
+    @include media-queries(xsmall) {
+      font-size: 1.6rem;
+    }
+
+    &--active {
+      color: #f8c822;
+    }
+
+    @media (min-width: 100px) and (orientation: landscape) {
+      font-size: 1.4rem;
+    }
+
+    @media (min-width: 321px) and (orientation: landscape) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__menu-social-wrapper {
+    display: flex;
+    justify-content: space-around;
+    width: 130px;
+    margin-top: 10px;
+
+    @include media-queries(xsmall) {
+      width: 200px;
+      margin-top: 20px;
+    }
+
+    @include media-queries(xlarge) {
+      display: none;
+    }
+
+    @media (min-width: 100px) and (orientation: landscape) {
+      margin-top: 0px;
+    }
+
+    @media (min-width: 321px) and (orientation: landscape) {
+      margin-top: 20px;
+    }
+  }
+
+  &__menu-social-icon {
+    color: white;
+    font-size: 1.7rem;
+    cursor: pointer;
+    transition: 0.2s ease;
+
+    @include media-queries(xsmall) {
+      font-size: 2.5rem;
+    }
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    @media (min-width: 100px) and (orientation: landscape) {
+      font-size: 1.7rem;
+    }
+
+    @media (min-width: 321px) and (orientation: landscape) {
+      font-size: 2.2rem;
+    }
+
+    @media (min-width: 823px) and (orientation: landscape) {
+      font-size: 2.5rem;
+    }
+  }
+
+  &__hamburger-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    visibility: visible;
+    z-index: 0;
+    @include media-queries(xlarge) {
+      visibility: hidden;
+    }
+  }
+
+  &__hamburger {
+    position: absolute;
+    top: 30px;
+    right: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 20px;
+    height: 15px;
+    cursor: pointer;
+    transition: 0.4s ease;
+    z-index: 1;
+
+    &--active {
+      top: 15px;
+    }
+
+    @include media-queries(xlarge) {
+      visibility: hidden;
+    }
+  }
+
+  &__hamburger-line1,
+  &__hamburger-line2,
+  &__hamburger-line3 {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+  }
+
+  &__hamburger-line2 {
+    width: 80%;
+  }
+  &__hamburger-line3 {
+    width: 60%;
+  }
+}
