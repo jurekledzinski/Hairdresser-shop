@@ -1,9 +1,15 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
-import { addSingleSection } from "../../reduxStore/actions/actionScroll";
-import { addLinksMenuHeader } from "../../reduxStore/actions/actionsHeader";
+import {
+  addSingleSection,
+  clearSections,
+} from "../../reduxStore/actions/actionScroll";
+import {
+  addLinksMenuHeader,
+  removeLinksMenuHeader,
+} from "../../reduxStore/actions/actionsHeader";
 
 import "./Header.scss";
 
@@ -18,6 +24,7 @@ import useSectionObserver from "./customHeaderHooks/useSectionObserver";
 
 const Header = () => {
   const dispatch = useDispatch();
+  const dataHeader = useSelector((store) => store.headerData);
 
   const [clickLogo, setClickLogo] = useState(0);
   const [isActiveHamburgerMenu, setIsActiveHamburgerMenu] = useState(false);
@@ -34,12 +41,9 @@ const Header = () => {
   const navigationHeader = useRef(null);
 
   const history = useHistory();
-  console.log(menuLinksRef, navigationHeader);
 
-  useMoveScroll(menuLinksRef, navigationHeader);
-  const { handleScrollSectionAfterClickLink } = useHandleScrollToSection(
-    menuLinksRef
-  );
+  useMoveScroll(navigationHeader);
+  const { handleScrollSectionAfterClickLink } = useHandleScrollToSection();
   useSectionObserver(
     headerRef,
     setIsActiveHeaderWrapper,
@@ -48,7 +52,8 @@ const Header = () => {
   );
 
   const addRefs = (element) => {
-    if (element !== null && !menuLinksRef.current.includes(element)) {
+    if (element !== null && !dataHeader.includes(element)) {
+      dispatch(addLinksMenuHeader(element));
       menuLinksRef.current = [...menuLinksRef.current, element];
     }
   };
@@ -85,6 +90,14 @@ const Header = () => {
   useEffect(() => {
     isMounted.current = true;
     return () => (isMounted.current = false);
+  }, []);
+
+  useEffect(() => {
+    history.listen(() => {
+      console.log(history, "history header");
+      dispatch(removeLinksMenuHeader([]));
+      dispatch(clearSections([]));
+    });
   }, []);
 
   return (
