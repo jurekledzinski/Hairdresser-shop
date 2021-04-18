@@ -6,11 +6,6 @@ import "./ErrorSuccessMessages.scss";
 const ErrorSuccessMessages = () => {
   let dataAlert = useSelector((store) => store.alertData);
   const { errorServerMsg, successServerMsg, where } = dataAlert;
-
-  //   console.log(dataAlert, " errors");
-
-  console.log(dataAlert);
-
   switch (where) {
     case "default":
       return (
