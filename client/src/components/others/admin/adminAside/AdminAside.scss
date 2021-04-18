@@ -1,0 +1,371 @@
+@use "../../../../scss-variables/media-queries" as *;
+
+.admin {
+  &__logo-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100px;
+    padding: 4px 0;
+    margin-left: 0px;
+
+    &--active {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      height: 100px;
+      padding: 4px 0;
+      margin-left: 0;
+    }
+
+    @include media-queries(xxlarge) {
+      margin-left: -30px;
+
+      &--active {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &__logo {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &__logo-part-1 {
+    color: white;
+    font-size: 2.8rem;
+    text-align: center;
+    font-family: "Engagement", cursive;
+    animation: logoDesktopHide 0.1s linear forwards;
+
+    &--active {
+      margin-top: 5px;
+      color: white;
+      font-size: 2.8rem;
+      text-align: center;
+      font-family: "Engagement", cursive;
+      animation: logoDesktopShow 0.1s linear forwards;
+    }
+
+    @include media-queries(large) {
+      font-size: 3.5rem;
+      animation: logoDesktopHide 0.4s linear forwards;
+
+      &--active {
+        margin-top: 0px;
+        color: white;
+        font-size: 3.5rem;
+        text-align: center;
+        font-family: "Engagement", cursive;
+        animation: logoDesktopShow 0.4s linear forwards;
+      }
+    }
+
+    @include media-queries(xlarge) {
+      font-size: 4rem;
+      animation: logoDesktopHide 0.4s linear forwards;
+
+      &--active {
+        margin-top: 0px;
+        color: white;
+        font-size: 4rem;
+        text-align: center;
+        font-family: "Engagement", cursive;
+        animation: logoDesktopShow 0.4s linear forwards;
+      }
+    }
+
+    @include media-queries(xxlarge) {
+      color: white;
+      text-align: center;
+      font-family: "Engagement", cursive;
+      animation: logoDesktopShow 0.4s linear;
+
+      &--active {
+        animation: logoDesktopHide 0.1s linear forwards;
+      }
+    }
+  }
+
+  // FIXME:
+
+  &__logo-part-2 {
+    color: white;
+    font-size: 2.8rem;
+    text-align: center;
+    font-family: "Engagement", cursive;
+    padding-left: 5px;
+    animation: logoDesktopHide 0.1s linear forwards;
+
+    &--active {
+      color: white;
+      font-size: 2.8rem;
+      text-align: center;
+      font-family: "Engagement", cursive;
+      padding-left: 5px;
+      margin-top: 5px;
+      animation: logoDesktopShow 0.1s linear forwards;
+    }
+
+    @include media-queries(large) {
+      font-size: 3.5rem;
+      animation: logoDesktopHide 0.4s linear forwards;
+
+      &--active {
+        color: white;
+        font-size: 3.5rem;
+        text-align: center;
+        font-family: "Engagement", cursive;
+        padding-left: 5px;
+        margin-top: 0px;
+        animation: logoDesktopShow 0.4s linear forwards;
+      }
+    }
+
+    @include media-queries(xlarge) {
+      font-size: 4rem;
+      animation: logoDesktopHide 0.4s linear forwards;
+
+      &--active {
+        color: white;
+        font-size: 4rem;
+        text-align: center;
+        font-family: "Engagement", cursive;
+        padding-left: 5px;
+        margin-top: 0px;
+        animation: logoDesktopShow 0.4s linear forwards;
+      }
+    }
+
+    @include media-queries(xxlarge) {
+      color: white;
+      text-align: center;
+      font-family: "Engagement", cursive;
+      padding-left: 5px;
+      animation: logoDesktopShow 0.4s linear;
+
+      &--active {
+        animation: logoDesktopHide 0.1s linear forwards;
+      }
+    }
+  }
+
+  @keyframes logoDesktopShow {
+    0% {
+      visibility: hidden;
+      opacity: 0;
+    }
+    50% {
+      visibility: hidden;
+      opacity: 0;
+    }
+    100% {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  @keyframes logoDesktopHide {
+    0% {
+      visibility: visible;
+      opacity: 1;
+    }
+    50% {
+      visibility: visible;
+      opacity: 1;
+    }
+    100% {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+
+  &__logo-mobile {
+    position: absolute;
+    top: 55px;
+    width: 60px;
+    height: 28px;
+    margin-top: 5px;
+    color: white;
+    text-align: center;
+    font-size: 2.2rem;
+    font-family: "Engagement", cursive;
+    animation: logoMobileShow 0.4s linear;
+    transition: 0.4s ease;
+
+    @media (min-width: 384px) {
+      position: initial;
+      top: 0;
+      height: 90px;
+      font-size: 2.8rem;
+    }
+
+    @include media-queries(xlarge) {
+      margin-top: 0;
+      font-size: 4rem;
+    }
+
+    @include media-queries(xxlarge) {
+      animation: logoMobileShow 0.4s linear;
+    }
+  }
+
+  @keyframes logoMobileShow {
+    0% {
+      visibility: hidden;
+      opacity: 0;
+    }
+    50% {
+      visibility: hidden;
+      opacity: 0;
+    }
+    100% {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+    height: initial;
+    list-style-type: none;
+    overflow-x: initial;
+    overflow-y: initial;
+
+    @include media-queries(medium) {
+      overflow-x: initial;
+      overflow-y: initial;
+    }
+
+    @media (max-width: 823px) and (orientation: landscape) {
+      height: 236px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
+  }
+
+  // FIXME:
+
+  &__item {
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
+    transition: 0.4s ease;
+
+    &--active {
+      display: flex;
+      width: 80%;
+      margin-bottom: 10px;
+      transition: 0.4s ease;
+    }
+
+    @include media-queries(medium) {
+      margin-bottom: 20px;
+
+      &--active {
+        margin-bottom: 20px;
+      }
+    }
+
+    @include media-queries(xxlarge) {
+      display: flex;
+      width: 85%;
+
+      &--active {
+        width: 100%;
+      }
+    }
+  }
+
+  &__link {
+    display: flex;
+    width: 100%;
+    color: white;
+    text-decoration: none;
+    padding: 6px 0;
+    border-radius: 30px 0 0 30px;
+    font-weight: 500;
+    transition: 0.4s ease;
+
+    @include media-queries(medium) {
+      padding: 10px 0;
+    }
+
+    &--active {
+      border-radius: 30px 0 0 30px;
+      background-color: white;
+      color: #333333;
+    }
+
+    &--active > .admin__icon {
+      color: #333333;
+    }
+  }
+
+  &__icon {
+    width: 10px;
+    margin: 0px 30px 0 12px;
+    color: white;
+
+    @include media-queries(medium) {
+      margin: 0px 30px 0 20px;
+    }
+
+    @include media-queries(xxlarge) {
+      margin: 0px 20px 0 20px;
+    }
+  }
+
+  // FIXME:
+
+  &__option {
+    animation: optionHide 0.1s linear forwards;
+
+    &--active {
+      animation: optionShow 0.4s linear forwards;
+    }
+
+    @include media-queries(xxlarge) {
+      animation: optionShow 0.4s linear forwards;
+
+      &--active {
+        animation: optionHide 0.1s linear forwards;
+      }
+    }
+  }
+
+  @keyframes optionShow {
+    0% {
+      visibility: hidden;
+      opacity: 0;
+    }
+    50% {
+      visibility: hidden;
+      opacity: 0;
+    }
+    100% {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  @keyframes optionHide {
+    0% {
+      visibility: visible;
+      opacity: 1;
+    }
+    50% {
+      visibility: visible;
+      opacity: 1;
+    }
+    100% {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+}
