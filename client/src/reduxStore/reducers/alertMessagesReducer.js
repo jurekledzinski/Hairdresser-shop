@@ -5,14 +5,13 @@ import {
   REMOVE_SUCCESS_SERVER_MSG,
 } from "../actions/actionAlertsMessages";
 
-export const alertMessagesReducer = (
-  state = {
-    errorServerMsg: null,
-    successServerMsg: null,
-    where: null,
-  },
-  action
-) => {
+const initialValues = {
+  errorServerMsg: null,
+  successServerMsg: null,
+  where: null,
+};
+
+export const alertMessagesReducer = (state = initialValues, action) => {
   switch (action.type) {
     case ADD_ERROR_SERVER_MSG:
       return action.payload;
