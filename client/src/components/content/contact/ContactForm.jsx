@@ -74,7 +74,6 @@ const ContactForm = () => {
       onSubmit={onSubmit}
     >
       {(formik) => {
-        console.log(formik);
         return (
           <div className="contact__form-wrapper">
             <h3 className="contact__contact-title">Contact</h3>
