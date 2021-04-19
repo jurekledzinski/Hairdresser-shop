@@ -7,6 +7,7 @@
     grid-template-columns: 1fr;
     grid-template-rows: repeat(10, 200px);
     row-gap: 20px;
+    z-index: -1;
 
     grid-template-areas:
       "booked"
@@ -20,10 +21,14 @@
       "chart1"
       "chart2";
 
-    padding: 50px 20px 20px 20px;
+    padding: 50px 10px 20px 10px;
     background-color: #f1f5f9;
     min-height: calc(100vh - 50px);
     transform: translateY(50px);
+
+    @include media-queries(small) {
+      padding: 50px 20px 20px 20px;
+    }
 
     @include media-queries(medium) {
       grid-template-columns: repeat(2, 1fr);
@@ -48,6 +53,7 @@
         "emails income opinions"
         "chart1 chart1 visits"
         "chart2 chart2 time";
+      z-index: initial;
     }
 
     @include media-queries(xlarge) {
