@@ -79,7 +79,11 @@ const AdminDashboard = () => {
   return (
     <section className="admin">
       <div className="admin__wrapper">
-        <div className={isOpenMenu ? "admin__left--active" : "admin__left"}>
+        <div
+          className={
+            isOpenMenu ? "admin__left admin__left--active" : "admin__left"
+          }
+        >
           <header className="admin__header">
             <AdminAside
               checkSizeWindow={checkSizeWindow}
@@ -87,7 +91,11 @@ const AdminDashboard = () => {
             />
           </header>
         </div>
-        <div className={isOpenMenu ? "admin__right--active" : "admin__right"}>
+        <div
+          className={
+            isOpenMenu ? "admin__right admin__right--active" : "admin__right"
+          }
+        >
           <AdminHeader
             handleCloseOpenMenu={handleCloseOpenMenu}
             handleLogout={handleLogout}
