@@ -20,7 +20,7 @@ const AdminHeader = ({
         <div
           className={
             isOpenMenu
-              ? "admin__hamburger-wrapper--active"
+              ? "admin__hamburger-wrapper admin__hamburger-wrapper--active"
               : "admin__hamburger-wrapper"
           }
         >
