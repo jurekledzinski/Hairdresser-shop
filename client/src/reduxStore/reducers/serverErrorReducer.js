@@ -7,7 +7,6 @@ const initialValues = {
 };
 
 export const serverErrorReducer = (state = initialValues, action) => {
-  console.log(action);
   switch (action.type) {
     case ADD_SERVER_ERROR_FETCH:
       return action.payload;
