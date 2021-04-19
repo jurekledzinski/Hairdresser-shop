@@ -1,5 +1,7 @@
 .app {
   width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
 
   //TODO: whne /booking url
   &--booking-endpoint {
