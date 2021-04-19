@@ -19,14 +19,13 @@
     transition: 0.4s ease;
 
     &--active {
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      width: calc(100% - 20px);
+      width: calc(100% - 10px);
       background-color: #303030;
-      z-index: 100;
       transition: 0.4s ease;
+
+      @include media-queries(small) {
+        width: calc(100% - 20px);
+      }
     }
 
     @include media-queries(medium) {
@@ -55,13 +54,7 @@
       transition: 0.4s ease;
 
       &--active {
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
         width: 60px;
-        background-color: #303030;
-        z-index: 100;
         transition: 0.4s ease;
       }
     }
