@@ -1,11 +1,17 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useHistory, withRouter } from "react-router-dom";
 
+import { useDispatch } from "react-redux";
+
+import { addServerErrorMessage } from "../../../reduxStore/actions/actionAlertsMessages";
+import { addErrorServerWhenFetchData } from "../../../reduxStore/actions/actionServerError";
+
 import "./TestimonialSlider.scss";
 
 import { fetchOpinions } from "../../../utils/sessions";
 
 const TestimonialSlider = () => {
+  const dispatch = useDispatch();
   const [checkSizeWindow, setCheckSizeWindow] = useState(window.innerWidth);
   const [countCard, setCountCard] = useState(1);
   const [heightSizeSlider] = useState(0);
@@ -295,6 +301,9 @@ const TestimonialSlider = () => {
 
     if (status === 200) {
       setSlides(data);
+    } else {
+      const { alert, where, statusCode } = data;
+      dispatch(addErrorServerWhenFetchData(alert, where, statusCode));
     }
   };
 
