@@ -89,8 +89,6 @@
     }
   }
 
-  // FIXME:
-
   &__logo-part-2 {
     color: white;
     font-size: 2.8rem;
@@ -232,24 +230,77 @@
     flex-direction: column;
     align-items: flex-end;
     width: 100%;
-    height: initial;
+    height: 216px;
     list-style-type: none;
-    overflow-x: initial;
-    overflow-y: initial;
+    overflow-x: hidden;
+    overflow-y: scroll;
 
-    @include media-queries(medium) {
-      overflow-x: initial;
+    scrollbar-width: thin;
+    scrollbar-color: auto;
+
+    &::-webkit-scrollbar {
+      width: 3px;
+      height: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #303030;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #bdb6b6;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-corner {
+      background-color: rgb(240, 239, 239);
+    }
+
+    @include media-queries(xsmall) {
+      height: initial;
       overflow-y: initial;
     }
 
-    @media (max-width: 823px) and (orientation: landscape) {
+    @include media-queries(medium) {
+      overflow-y: initial;
+    }
+
+    @media (min-height: 240px) and (max-height: 240px) and (min-width: 320px) and (max-width: 320px) and (orientation: landscape) {
+      height: 120px !important;
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
+
+    @media (min-height: 320px) and (max-height: 320px) and (min-width: 480px) and (max-width: 480px) and (orientation: landscape) {
+      height: 200px !important;
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
+
+    @media (min-height: 280px) and (max-height: 280px) and (min-width: 653px) and (max-width: 653px) and (orientation: landscape) {
+      height: 170px !important;
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
+
+    @media (min-height: 280px) and (max-height: 499px) and (min-width: 200px) and (max-width: 854px) and (orientation: landscape) {
       height: 236px;
       overflow-x: hidden;
       overflow-y: scroll;
     }
-  }
 
-  // FIXME:
+    @media (min-height: 500px) and (max-height: 540px) and (min-width: 200px) and (max-width: 720px) and (orientation: landscape) {
+      height: 413px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
+
+    @media (min-height: 600px) and (max-height: 600px) and (min-width: 200px) and (max-width: 1024px) and (orientation: landscape) {
+      height: 472px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
+  }
 
   &__item {
     display: flex;
@@ -320,8 +371,6 @@
       margin: 0px 20px 0 20px;
     }
   }
-
-  // FIXME:
 
   &__option {
     animation: optionHide 0.1s linear forwards;
