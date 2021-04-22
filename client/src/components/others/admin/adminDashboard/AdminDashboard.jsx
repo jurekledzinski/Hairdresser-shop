@@ -10,7 +10,7 @@ import { logoutAdmin } from "../../../../utils/sessions";
 
 import AdminAside from "../adminAside/AdminAside";
 import AdminHeader from "../adminHeader/AdminHeader";
-import AdminDashboardPanel from "./AdminDashboardPanel";
+import AdminContent from "../AdminContent";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
@@ -19,13 +19,12 @@ const AdminDashboard = () => {
 
   const [isLogOut, setIsLogOut] = useState(false);
   const [isLogOutMsg, setIsLogOutMsg] = useState(false);
-  const [loadImg, setLoadImg] = useState(true);
   const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [loadImg, setLoadImg] = useState(true);
 
   const idTimeOutLogout = useRef(null);
   const idTimeOut = useRef(null);
   const history = useHistory();
-  console.log(dataUser);
 
   const [checkSizeWindow, setCheckSizeWindow] = useState(
     window.innerWidth >= 1200 ? true : false
@@ -40,10 +39,7 @@ const AdminDashboard = () => {
   };
 
   const handleLogout = async () => {
-    console.log("click");
     const { data, status } = await logoutAdmin();
-
-    console.log(data, status);
 
     if (status === 200) {
       setIsLogOutMsg(data.success);
@@ -61,7 +57,6 @@ const AdminDashboard = () => {
   }, []);
 
   useEffect(() => {
-    console.log(isLogOut);
     if (isLogOut) {
       idTimeOutLogout.current = setTimeout(() => history.push("/"), 1000);
     }
@@ -104,7 +99,7 @@ const AdminDashboard = () => {
             loadImg={loadImg}
             users={users}
           />
-          <AdminDashboardPanel isLogOutMsg={isLogOutMsg} />
+          <AdminContent isLogOutMsg={isLogOutMsg} />
         </div>
       </div>
     </section>
