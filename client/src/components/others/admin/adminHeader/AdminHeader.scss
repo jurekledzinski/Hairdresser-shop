@@ -12,6 +12,9 @@
     box-shadow: 0 4px 2px -2px rgb(222, 222, 222);
     transition: 0.4s ease;
     animation: moveLayerNav 0.4s linear;
+    z-index: 110 !important;
+
+    // FIXME:
 
     &--active {
       display: flex;
@@ -23,7 +26,10 @@
       background-color: #fff;
       transition: 0.4s ease;
       box-shadow: 0 4px 2px -2px rgb(222, 222, 222);
+      z-index: 110;
     }
+
+    // FIXME:
 
     @include media-queries(large) {
       display: flex;
@@ -37,6 +43,7 @@
       z-index: 100;
       transition: 0.4s ease;
       animation: moveLayerNav 0.4s linear;
+      z-index: initial !important;
 
       &--active {
         display: flex;
@@ -150,7 +157,7 @@
     width: 30px;
     height: 27px;
 
-    margin: 0 12px 0 5px;
+    margin: 0 12px 0 10px;
     border-radius: 50%;
     background-color: #393939;
     transition: 0.4s ease;
@@ -164,7 +171,7 @@
     @include media-queries(xsmall) {
       width: 36px;
       height: 33px;
-      margin: 0 10px 0 2px;
+      margin: 0 20px 0 10px;
 
       &--active {
         width: 36px;
@@ -173,10 +180,17 @@
     }
 
     @include media-queries(small) {
-      margin: 0 20px 0 2px;
+      margin: 0 20px 0 20px;
 
       &--active {
         margin: 0 20px 0 2px;
+      }
+    }
+
+    @media (min-width: 359px) {
+      margin: 0 20px 0 5px;
+      &--active {
+        margin: 0 20px 0 5px;
       }
     }
 
@@ -368,5 +382,9 @@
     @include media-queries(large) {
       font-size: 1.6rem;
     }
+  }
+
+  &__menu-option-name {
+    text-transform: capitalize;
   }
 }

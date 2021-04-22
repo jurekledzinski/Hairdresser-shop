@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 import "./AdminHeader.scss";
 
@@ -11,6 +12,10 @@ const AdminHeader = ({
   loadImg,
   users,
 }) => {
+  const history = useHistory();
+  let currentUrl = history.location.pathname;
+  const sectionAdmin = currentUrl.slice(7);
+
   return (
     <header
       className={isOpenMenu ? "admin__right-nav--active" : "admin__right-nav"}
@@ -30,7 +35,9 @@ const AdminHeader = ({
             <span className="admin__hamburger-line"></span>
           </div>
         </div>
-        <h3 className="admin__menu-option-name">Dashboard</h3>
+        <h3 className="admin__menu-option-name">
+          {currentUrl !== "/admin" ? sectionAdmin : "Dashboard"}
+        </h3>
       </div>
       <div className="admin__nav-right">
         <div className="admin__wrapper-image-name">
