@@ -3,6 +3,7 @@ const router = express.Router();
 
 const Testimonial = require("../models/testimonial.model");
 const { ErrorHandler } = require("../errors/error");
+const { response } = require("express");
 
 function shuffle(array) {
   return array.sort(() => Math.random() - 0.5);
@@ -15,6 +16,18 @@ router.get("/", (req, res, next) => {
       let ShuffleFour = shuffleArr.slice(0, 4);
 
       return res.status(200).json(ShuffleFour);
+    })
+    .catch((err) => {
+      next(new ErrorHandler(500, "Internal server error", err.message));
+    });
+});
+
+router.get("/all", (req, res) => {
+  Testimonial.find({})
+    .then((response) => {
+      if (response) {
+        return res.status(200).json(response);
+      }
     })
     .catch((err) => {
       next(new ErrorHandler(500, "Internal server error", err.message));
@@ -56,6 +69,27 @@ router.post("/", (req, res, next) => {
         next(new ErrorHandler(500, "Internal server error", err.message));
       });
   }
+});
+
+router.delete("/:id", (req, res, next) => {
+  const id = req.params.id;
+
+  console.log(id, " to jest id opinion");
+  const info = {
+    alert: "",
+    success: "",
+  };
+
+  Testimonial.findByIdAndDelete({ _id: id })
+    .then((response) => {
+      if (response) {
+        info.success = "Opinion removed successfully";
+        return res.status(200).json(info);
+      }
+    })
+    .catch((err) => {
+      next(new ErrorHandler(500, "Internal server error", err.message));
+    });
 });
 
 module.exports = router;
