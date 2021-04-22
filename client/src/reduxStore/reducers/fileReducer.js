@@ -1,7 +1,12 @@
 import { ADD_FILE, REMOVE_FILE } from "../actions/actionFile";
 
 export const fileReducer = (
-  state = { fileImageTestimonial: null, fileImageRegister: null },
+  state = {
+    fileImageTestimonial: null,
+    fileImageRegister: null,
+    fileImageGallery: null,
+    fileImageGalleryEdit: null,
+  },
   action
 ) => {
   switch (action.type) {
