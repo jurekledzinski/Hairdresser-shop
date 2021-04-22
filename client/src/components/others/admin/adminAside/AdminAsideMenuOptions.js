@@ -27,7 +27,7 @@ export const menuOptions = [
     classOption: "admin__option",
     activeClassLink: "admin__link--active",
     text: "Canceled",
-    pathLink: "/admin/cancel",
+    pathLink: "/admin/canceled",
   },
   {
     classFontAwesome: "fas fa-at",
@@ -67,7 +67,7 @@ export const menuOptions = [
     classOption: "admin__option",
     activeClassLink: "admin__link--active",
     text: "Shop",
-    pathLink: "/admin/open-shop",
+    pathLink: "/admin/shop",
   },
   {
     classFontAwesome: "far fa-comments",
