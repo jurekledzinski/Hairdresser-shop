@@ -45,7 +45,7 @@ const GalleryImages = ({ handleOpenSliderModal, indexBtn }) => {
             src={item.imagePath}
             alt={item.alt}
             className="gallery__img"
-            onClick={() => handleOpenSliderModal(item.numImg)}
+            onClick={() => handleOpenSliderModal(index + 1)}
           />
         </div>
       ))}
