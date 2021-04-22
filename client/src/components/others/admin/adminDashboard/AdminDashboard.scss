@@ -9,21 +9,37 @@
     min-height: inherit;
   }
 
+  //   FIXME:
+
+  // Chowa sie waski pasek aside
+
   &__left {
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
-    width: 40px;
+    width: 0px;
     background-color: #303030;
     transition: 0.4s ease;
+    z-index: 2;
 
     &--active {
       width: calc(100% - 10px);
       background-color: #303030;
       transition: 0.4s ease;
+      z-index: 2;
 
       @include media-queries(small) {
+        width: calc(100% - 20px);
+      }
+    }
+
+    // pokazuje sie waski pasek aside
+
+    @media (min-width: 360px) {
+      width: 40px;
+
+      &--active {
         width: calc(100% - 20px);
       }
     }
@@ -61,11 +77,15 @@
   }
 
   &__right {
-    margin-left: 40px;
+    margin-left: 0px;
     transition: 0.4s ease;
 
     &--active {
       transition: 0.4s ease;
+    }
+
+    @media (min-width: 360px) {
+      margin-left: 40px;
     }
 
     @include media-queries(medium) {
