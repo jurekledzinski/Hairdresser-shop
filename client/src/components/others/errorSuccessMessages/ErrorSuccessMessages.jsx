@@ -7,8 +7,6 @@ const ErrorSuccessMessages = () => {
   let dataAlert = useSelector((store) => store.alertData);
   const { errorServerMsg, successServerMsg, where } = dataAlert;
 
-  console.log(dataAlert);
-
   switch (where) {
     case "default":
       return (
@@ -29,6 +27,18 @@ const ErrorSuccessMessages = () => {
             Boolean(errorServerMsg)
               ? "alert-server alert-server--error-register"
               : "alert-server alert-server--success-register"
+          }
+        >
+          {errorServerMsg || successServerMsg}
+        </p>
+      );
+    case "removeAtTableAdmin":
+      return (
+        <p
+          className={
+            Boolean(errorServerMsg)
+              ? "alert-server alert-server--error-remove-email"
+              : "alert-server alert-server--success-remove-email"
           }
         >
           {errorServerMsg || successServerMsg}
