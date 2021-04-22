@@ -21,10 +21,14 @@ const useFirebaseStorage = (fileImage) => {
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
         console.log(precentUpload);
-        setProgressBar(precentUpload);
+        if (isMounted.current) {
+          setProgressBar(precentUpload);
+        }
       },
       (err) => {
-        setError(err);
+        if (isMounted.current) {
+          setError(err);
+        }
       },
       async () => {
         const url = await storageRef.getDownloadURL();
