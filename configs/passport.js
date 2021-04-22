@@ -32,7 +32,6 @@ module.exports = function (passport) {
 
   passport.deserializeUser((id, done) => {
     RegisterAdmin.findById(id, function (err, user) {
-      console.log(user, "passport");
       const adminUser = {
         user: user.name,
         email: user.email,
