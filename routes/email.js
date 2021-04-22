@@ -15,6 +15,7 @@ const {
 } = require("../configs/config");
 
 router.get("/", (req, res, next) => {
+  console.log("email");
   Email.find({})
     .then((response) => {
       return res.status(200).json(response);
@@ -98,6 +99,25 @@ router.post("/", (req, res, next) => {
       }
     );
   }
+});
+
+router.delete("/:id", (req, res, next) => {
+  const id = req.params.id;
+
+  const info = {
+    alert: "",
+    success: "",
+  };
+  Email.findByIdAndDelete({ _id: id })
+    .then((response) => {
+      if (response) {
+        info.success = "Email removed successfully";
+        return res.status(200).json(info);
+      }
+    })
+    .catch((err) => {
+      next(new ErrorHandler(500, "Internal server error", err.message));
+    });
 });
 
 module.exports = router;
