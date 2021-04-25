@@ -10,6 +10,7 @@ import {
   addLinksMenuHeader,
   removeLinksMenuHeader,
 } from "../../reduxStore/actions/actionsHeader";
+import { fetchPermissionToRegister } from "../../reduxStore/actions/actionFetchPermissionRegister";
 
 import "./Header.scss";
 
@@ -25,13 +26,19 @@ import useSectionObserver from "./customHeaderHooks/useSectionObserver";
 const Header = () => {
   const dispatch = useDispatch();
   const dataHeader = useSelector((store) => store.headerData);
+  const dataPermission = useSelector((store) => store.permissionData);
+  const { permission } = dataPermission;
 
+  console.log(dataPermission, " dane permission ");
+
+  const [checkPermission, setCheckPermission] = useState(true);
   const [clickLogo, setClickLogo] = useState(0);
   const [isActiveHamburgerMenu, setIsActiveHamburgerMenu] = useState(false);
   const [isActiveHeaderWrapper, setIsActiveHeaderWrapper] = useState(false);
   const [isActiveLogo, setIsActiveLogo] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [nameRedirect, setNameRedirect] = useState("register");
 
   const idTimeout = useRef(null);
   const isMounted = useRef(null);
@@ -41,6 +48,8 @@ const Header = () => {
   const navigationHeader = useRef(null);
 
   const history = useHistory();
+
+  console.log(checkPermission, "checkPermission ");
 
   useMoveScroll(navigationHeader);
   const { handleScrollSectionAfterClickLink } = useHandleScrollToSection();
@@ -79,9 +88,26 @@ const Header = () => {
   useEffect(() => {
     if (clickLogo === 7) {
       setIsOpenModal(true);
-      idTimeout.current = setTimeout(() => {
-        history.push("/login-admin");
-      }, 1700);
+      switch (checkPermission) {
+        case true:
+          setNameRedirect("register");
+          idTimeout.current = setTimeout(() => {
+            history.push("/register-admin");
+          }, 1700);
+          break;
+        case false:
+          setNameRedirect("login");
+          idTimeout.current = setTimeout(() => {
+            history.push("/login-admin");
+          }, 1700);
+          break;
+        default:
+          setNameRedirect("home");
+          idTimeout.current = setTimeout(() => {
+            history.push("/");
+          }, 1700);
+          break;
+      }
     }
 
     return () => clearTimeout(idTimeout.current);
@@ -94,11 +120,21 @@ const Header = () => {
 
   useEffect(() => {
     history.listen(() => {
-      console.log(history, "history header");
       dispatch(removeLinksMenuHeader([]));
       dispatch(clearSections([]));
     });
   }, []);
+
+  useEffect(() => {
+    dispatch(fetchPermissionToRegister());
+  }, []);
+
+  useEffect(() => {
+    if (permission.length > 0) {
+      const [checkEnable] = permission;
+      setCheckPermission(checkEnable.enableRegisterForm);
+    }
+  }, [permission]);
 
   return (
     <Fragment>
@@ -129,7 +165,7 @@ const Header = () => {
         <div className="header__redirect">
           <p className="header__redirect-text">Please wait</p>
           <p className="header__redirect-text">soon you will be redirect</p>
-          <p className="header__redirect-text">to admin login page</p>
+          <p className="header__redirect-text">to admin {nameRedirect} page</p>
           <CircleSpinner />
         </div>
       </Modal>
