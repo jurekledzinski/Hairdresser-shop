@@ -22,6 +22,8 @@ router.get("/:type", (req, res, next) => {
 router.post("/", (req, res, next) => {
   const { title, imageUrl, type } = req.body;
 
+  console.log(req.body);
+
   let info = {
     alert: "",
     success: "",
@@ -29,7 +31,7 @@ router.post("/", (req, res, next) => {
 
   if (!title || !imageUrl || !type) {
     info.alert = "Please fill in all fields";
-    return res.status(200).json(info);
+    return res.status(404).json(info);
   }
 
   if (!Boolean(info.alert)) {
@@ -106,51 +108,3 @@ router.delete("/:id", (req, res, next) => {
 });
 
 module.exports = router;
-
-// router.put("/update/:id", isLoggedIn, (req, res, next) => {
-//     const id = req.params.id;
-
-//     const {
-//       title,
-//       imagePath,
-//       price,
-//       author,
-//       amount,
-//       description,
-//       averageRate,
-//       dateMilliseconds,
-//       dateString,
-//     } = req.body;
-
-//     let info = {
-//       success: "",
-//       course: {},
-//     };
-
-//     Course.findById(id)
-//       .then((course) => {
-//         if (course) {
-//           course.title = title;
-//           course.imagePath = imagePath;
-//           course.price = price;
-//           course.author = author;
-//           course.amount = amount;
-//           course.description = description;
-//           course.averageRate = averageRate;
-//           course.dateMilliseconds = dateMilliseconds;
-//           course.dateString = dateString;
-
-//           info.success = "Course updated succesfully";
-
-//           course.save().then((response) => {
-//             info.course = response;
-//             return res.status(200).json(info);
-//           });
-//         }
-//       })
-//       .catch((err) => {
-//         if (err) {
-//           next(new ErrorHandler(500, "Internal server error", err.message));
-//         }
-//       });
-//   });
