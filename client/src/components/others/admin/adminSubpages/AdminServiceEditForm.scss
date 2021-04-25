@@ -1,0 +1,42 @@
+@use "../../../../scss-variables/media-queries" as *;
+
+.admin-service {
+  &__edit-form-wrapper {
+    width: 100%;
+  }
+
+  &__form-edit {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    @include media-queries(large) {
+      flex-direction: row;
+    }
+  }
+
+  &__error-msg-edit {
+    position: initial;
+    color: #ff4136;
+    margin-bottom: 3px;
+    text-align: left;
+    font-size: 1.1rem;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+
+    &:nth-of-type(2) {
+      left: 150px;
+    }
+
+    @include media-queries(large) {
+      position: absolute;
+      top: 5px;
+      left: 0;
+      margin-bottom: initial;
+
+      &:nth-of-type(2) {
+        left: 220px;
+      }
+    }
+  }
+}
