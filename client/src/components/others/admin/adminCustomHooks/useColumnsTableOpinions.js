@@ -31,7 +31,6 @@ const useColumnsTableOpinions = (
             className="admin-opinions__btn-remove"
             onClick={() => {
               const id = propsTable.row.original._id;
-              console.log(propsTable.row.original);
               setIdOpinion(id);
               setIsOpenModal(true);
             }}
