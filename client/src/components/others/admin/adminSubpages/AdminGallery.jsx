@@ -37,6 +37,7 @@ const AdminGallery = () => {
   const dataAlert = useSelector((store) => store.alertData);
   const dataFile = useSelector((store) => store.fileDate);
   const dataImages = useSelector((store) => store.galleryImgData);
+  const dataFirebaseUrl = useSelector((store) => store.firebaseUrlData);
   const { images } = dataImages;
   const [chooseButton, setChooseButton] = useState("men");
   const [currentImages, setCurrentImages] = useState([]);
@@ -45,10 +46,8 @@ const AdminGallery = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [nameFile, setNameFile] = useState(null);
 
-  const imgLink = useRef(null);
   const imgUrl = useRef(null);
-
-  console.log(imgLink, " to jest admin gallery link");
+  const imgLink = useRef(null);
 
   useFirebseDeleteFile(imgLink);
 
@@ -63,18 +62,14 @@ const AdminGallery = () => {
   const onSubmit = async (values, submitProps) => {
     delete values.fileImg;
 
-    if (Boolean(imgLink.current)) {
-      values.imageUrl = imgLink.current;
-      values.type = chooseButton;
-    }
-
-    console.log(values, " admin gallery");
+    values.imageUrl = imgLink.current;
+    values.type = chooseButton;
 
     const { data, status } = await addImageGallery(values);
 
-    delete data.image.__v;
+    console.log(data, status);
 
-    console.log(data, status, "gallery submit");
+    delete data.image.__v;
 
     if (status !== 200) {
       dispatch(addServerErrorMessage(data.alert, "default"));
@@ -89,15 +84,11 @@ const AdminGallery = () => {
     submitProps.resetForm();
   };
 
-  //   TODO: HandleChooseImages
-
   const handleChooseImages = (e, index) => {
     setIndexButton(index);
     const nameBtn = e.target.innerHTML;
     setChooseButton(nameBtn.toLowerCase());
   };
-
-  //   TODO: HandleChooseImages
 
   const handleNotRemoveItem = () => {
     setIsOpenModal(false);

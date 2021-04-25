@@ -144,7 +144,6 @@
   }
 
   &__input-file {
-    // width: 100%;
     padding: 7px 0;
     border: none;
     outline: none;
@@ -214,20 +213,26 @@
   }
 
   &__number {
+    width: 100%;
+    text-align: left;
+    font-family: "Oswald", sans-serif;
+
+    @include media-queries(large) {
+      width: 20%;
+    }
+  }
+
+  &__action {
+    display: none;
     width: 49.5%;
     font-family: "Oswald", sans-serif;
 
     @include media-queries(medium) {
       width: 20%;
     }
-  }
 
-  &__action {
-    width: 49.5%;
-    font-family: "Oswald", sans-serif;
-
-    @include media-queries(medium) {
-      width: 20%;
+    @include media-queries(large) {
+      display: block;
     }
   }
 
