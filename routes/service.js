@@ -1,15 +1,19 @@
 const express = require("express");
 const router = express.Router();
 
-const OpenShop = require("../models/openHours.model");
+const Service = require("../models/service.model");
 
 const { ErrorHandler } = require("../errors/error");
 
-router.get("/", (req, res, next) => {
-  console.log("To jest get shop");
-  OpenShop.find({})
+router.get("/:query", (req, res, next) => {
+  const gender = req.query.qender;
+  const card = req.query.card;
+
+  Service.find({ gender: gender, card: card })
     .then((response) => {
-      return res.status(200).json(response);
+      if (response) {
+        return res.status(200).json(response);
+      }
     })
     .catch((err) => {
       next(new ErrorHandler(500, "Internal server error", err.message));
@@ -17,33 +21,34 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/", (req, res, next) => {
-  const { day, time } = req.body;
-  console.log(req.body);
+  const { title, price, gender, card } = req.body;
 
   let info = {
     alert: "",
     success: "",
   };
 
-  if (!day || !time) {
+  if (!title || !price || !gender || !card) {
     info.alert = "Please fill in all fields";
-    return res.status(200).json(info);
+    return res.status(404).json(info);
   }
 
   if (!Boolean(info.alert)) {
-    const newDayTime = {
-      day,
-      time,
+    const currentService = {
+      title,
+      price,
+      gender,
+      card,
     };
 
-    const newOpenShop = new OpenShop(newDayTime);
+    const newService = new Service(currentService);
 
-    newOpenShop
+    newService
       .save()
       .then((response) => {
         if (response) {
-          info.openshop = response;
-          info.success = "Open hours added successfully";
+          info.success = "Service added successfully";
+          info.service = response;
           return res.status(200).json(info);
         }
       })
@@ -53,28 +58,27 @@ router.post("/", (req, res, next) => {
   }
 });
 
-router.put("/:id", (req, res, next) => {
+router.put("/:id", (req, res) => {
   const id = req.params.id;
-  const { day, time } = req.body;
-
-  console.log(req.params, " update shop params");
-  console.log(req.body, " update shop req body");
+  const { title, price } = req.body;
+  console.log(req.params);
+  console.log(req.body);
 
   let info = {
     alert: "",
     success: "",
   };
 
-  OpenShop.findById(id)
+  Service.findById(id)
     .then((response) => {
       if (response) {
-        response.day = day;
-        response.time = time;
+        response.title = title;
+        response.price = price;
 
-        info.success = "Open hours updated succesfully";
+        info.success = "Service updated succesfully";
 
         response.save().then((response) => {
-          info.openshop = response;
+          info.service = response;
           return res.status(200).json(info);
         });
       }
@@ -87,17 +91,17 @@ router.put("/:id", (req, res, next) => {
 router.delete("/:id", (req, res, next) => {
   const id = req.params.id;
 
-  console.log(req.params, "delete");
+  console.log(req.params, " delete service");
 
-  let info = {
+  const info = {
     alert: "",
     success: "",
   };
 
-  OpenShop.findByIdAndDelete({ _id: id })
+  Service.findByIdAndDelete({ _id: id })
     .then((response) => {
       if (response) {
-        info.success = "Open hours removed successfully";
+        info.success = "Service removed successfully";
         return res.status(200).json(info);
       }
     })
