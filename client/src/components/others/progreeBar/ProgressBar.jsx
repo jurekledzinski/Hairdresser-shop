@@ -4,11 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import "./ProgressBar.scss";
 
 import { removeImageFile } from "../../../reduxStore/actions/actionFile";
-import { addFirebaseUrl } from "../../../reduxStore/actions/actionUrlFirebase";
 
 import useFirebaseStorage from "../../../customHooks/useFirebaseStorage";
 
-const ProgressBar = () => {
+const ProgressBar = ({ imgLink }) => {
   const dispatch = useDispatch();
   const dataFile = useSelector((store) => store.fileDate);
   const isMount = useRef(null);
@@ -17,14 +16,14 @@ const ProgressBar = () => {
     dataFile.fileImageTestimonial ||
       dataFile.fileImageRegister ||
       dataFile.fileImageGallery ||
-      dataFile.fileImageGalleryEdit
+      dataFile.fileImageGalleryEdit ||
+      dataFile.fileImageEditProfile
   );
 
   useEffect(() => {
     isMount.current = true;
     if (imgUrl && isMount.current) {
-      //   imgLink.current = imgUrl;
-      dispatch(addFirebaseUrl(imgUrl));
+      imgLink.current = imgUrl;
       dispatch(removeImageFile(null, null, null, null));
     }
     return () => (isMount.current = false);
