@@ -7,7 +7,6 @@ const RegisterAdmin = require("../models/registerAdmin.model.js");
 router.get("/", (req, res) => {});
 
 router.post("/", (req, res) => {
-  console.log(req.body);
   const {
     name,
     lastName,
@@ -44,7 +43,7 @@ router.post("/", (req, res) => {
           RegisterAdmin.countDocuments()
             .then((count) => {
               let newRegistration = [];
-              if (count <= 3) {
+              if (count < 1) {
                 newRegistration.push({
                   name,
                   lastName,
@@ -52,6 +51,31 @@ router.post("/", (req, res) => {
                   password,
                   imageUrl,
                   role: "Admin",
+                  enableBook: true,
+                  enableCancel: true,
+                  enableEmails: true,
+                  enableGallery: true,
+                  enableOpinions: true,
+                  enableOpenShop: true,
+                  enableServices: true,
+                  enablePermission: true,
+                });
+              } else if (count >= 1 && count < 3) {
+                newRegistration.push({
+                  name,
+                  lastName,
+                  email,
+                  password,
+                  imageUrl,
+                  role: "Admin",
+                  enableBook: false,
+                  enableCancel: false,
+                  enableEmails: false,
+                  enableGallery: false,
+                  enableOpinions: false,
+                  enableOpenShop: false,
+                  enableServices: false,
+                  enablePermission: false,
                 });
               } else {
                 info.alert = "Only three admins can be registered";
@@ -89,6 +113,12 @@ router.post("/", (req, res) => {
         console.log(err);
       });
   }
+});
+
+router.put("/:id", (req, res) => {
+  const id = req.params.id;
+
+  console.log(req.params, " register update");
 });
 
 module.exports = router;
