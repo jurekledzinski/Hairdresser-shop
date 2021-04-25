@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
@@ -6,8 +6,6 @@ import {
   addServerErrorMessage,
   addServerSuccessMessage,
 } from "../../../../reduxStore/actions/actionAlertsMessages";
-
-import { removeFirebaseUrl } from "../../../../reduxStore/actions/actionUrlFirebase";
 
 import "./AdminGalleryEditForm.scss";
 
@@ -20,8 +18,6 @@ import ErrorSuccessMessage from "../../errorSuccessMessages/ErrorSuccessMessages
 import ProgressBar from "../../progreeBar/ProgressBar";
 
 import { editImagesGallery } from "../../../../utils/sessions";
-
-import useRemoveGalleryImage from "../adminCustomHooks/useRemoveGalleryImage";
 
 const AdminGalleryEditForm = ({
   currentImages,
@@ -38,6 +34,7 @@ const AdminGalleryEditForm = ({
     fileImg: "",
   };
 
+  console.log(title, type, " edit");
   const [formValues, setFormValues] = useState(editValues);
   const { initialValues, validationSchema } = useValidationEditGalleryFormik();
   useDeleteErrorMessage();
@@ -47,20 +44,20 @@ const AdminGalleryEditForm = ({
   const dispatch = useDispatch();
   const dataAlert = useSelector((store) => store.alertData);
   const dataFile = useSelector((store) => store.fileDate);
-  const dataFirebaseUrl = useSelector((store) => store.firebaseUrlData);
 
   const [nameFile, setNameFile] = useState(null);
 
-  //   useFirebseDeleteFile(imgLink);
-  //   console.log(imageUrl, "stare photo");
+  console.log(formValues, " formValues edit");
+
+  const imgLink = useRef(null);
+
+  useFirebseDeleteFile(imgLink);
 
   const onSubmit = async (values, submitProps) => {
     delete values.fileImg;
 
-    values.imageUrl = dataFirebaseUrl.firebaseUrl;
+    values.imageUrl = imgLink.current;
     values.id = idRow;
-
-    deleteImgFirebase(imageUrl);
 
     const { data, status } = await editImagesGallery(values);
 
@@ -75,6 +72,7 @@ const AdminGalleryEditForm = ({
       dispatch(addServerSuccessMessage(data.success, "default"));
       setIsVisiblePanel(false);
       setNameFile(null);
+      deleteImgFirebase(imageUrl);
 
       const editedImage = currentImages.map((item) => {
         if (item._id === imageUpdate._id) {
@@ -89,9 +87,14 @@ const AdminGalleryEditForm = ({
       });
 
       setCurrentImages(editedImage);
+      let editValues = {
+        title,
+        type,
+        fileImg: "",
+      };
+      setFormValues(editValues);
     }
-
-    removeFirebaseUrl();
+    imgLink.current = null;
     submitProps.resetForm();
   };
 
@@ -123,7 +126,9 @@ const AdminGalleryEditForm = ({
       {(formik) => {
         return (
           <div className="admin-gallery__edit-form-wrapper">
-            {Boolean(dataFile.fileImageGalleryEdit) && <ProgressBar />}
+            {Boolean(dataFile.fileImageGalleryEdit) && (
+              <ProgressBar imgLink={imgLink} />
+            )}
             {!Boolean(Object.keys(formik.errors).length) &&
             dataAlert.errorServerMsg ? (
               <ErrorSuccessMessage />

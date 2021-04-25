@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import "./AdminGalleryImageRow.scss";
 
@@ -32,6 +32,8 @@ const AdminGalleryImageRow = ({
     setImage("");
     setIdRow(_id);
   };
+
+  console.log(title, type, " row");
 
   return (
     <div className="admin-gallery__row">
