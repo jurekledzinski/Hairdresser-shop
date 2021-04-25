@@ -4,7 +4,6 @@ import {
 } from "../actions/actionUrlFirebase";
 
 export const firebaseUrlReducer = (state = { url: null }, action) => {
-  console.log(action, " firebase reducer");
   switch (action.type) {
     case ADD_URL_FIREBASE:
       return action.payload;
