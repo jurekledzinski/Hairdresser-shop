@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { Link, withRouter } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useHistory, withRouter } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -20,7 +20,10 @@ import * as Yup from "yup";
 
 import "./Register.scss";
 
-import { registerAdmin } from "../../../utils/sessions";
+import {
+  addEnableRegisterPermission,
+  registerAdmin,
+} from "../../../utils/sessions";
 
 import ProgressBar from "../progreeBar/ProgressBar";
 import ButtonGoBackLoginRegister from "../buttonGoBackLoginRegister/ButtonGoBackLoginRegister";
@@ -36,8 +39,12 @@ const Register = () => {
   const dispatch = useDispatch();
   const dataFile = useSelector((store) => store.fileDate);
   const dataAlert = useSelector((store) => store.alertData);
+  const [enableRegisterAdmin, setEnableRegisterAdmin] = useState(false);
+  const [nameFile, setNameFile] = useState(null);
 
+  const history = useHistory();
   const idTimeout = useRef(null);
+  const idTimeOutLogin = useRef(null);
   const imgLink = useRef(null);
 
   useFirebseDeleteFile(imgLink);
@@ -84,15 +91,15 @@ const Register = () => {
       values.imageUrl = imgLink.current;
     }
 
-    console.log(values);
-
     const { data, status } = await registerAdmin(values);
-    console.log(data, status);
 
     if (status !== 200) {
       dispatch(addServerErrorMessage(data.alert, "registerForm"));
+      setNameFile(null);
     } else {
       dispatch(addServerSuccessMessage(data.success, "registerForm"));
+      setEnableRegisterAdmin(true);
+      setNameFile(null);
     }
 
     imgLink.current = null;
@@ -126,11 +133,38 @@ const Register = () => {
     return () => clearTimeout(idTimeout.current);
   }, [dataAlert.errorServerMsg, dataAlert.successServerMsg]);
 
+  useEffect(() => {
+    if (Boolean(dataFile.fileImageRegister)) {
+      setNameFile(dataFile.fileImageRegister.name);
+    }
+  }, [dataFile]);
+
+  const enableRegister = async () => {
+    const enable = {
+      enableRegisterForm: false,
+    };
+
+    const { data, status } = await addEnableRegisterPermission(enable);
+  };
+
+  useEffect(() => {
+    if (enableRegisterAdmin) {
+      enableRegister();
+
+      idTimeOutLogin.current = setTimeout(
+        () => history.push("/login-admin"),
+        1200
+      );
+    }
+
+    return () => clearTimeout(idTimeOutLogin.current);
+  }, [enableRegisterAdmin]);
+
   const inputFile = ({ setFieldValue, setFieldTouched }) => (
     <input
       type="file"
       onChange={(e) => handleFile(e, setFieldValue, setFieldTouched)}
-      className="testimonial__input-file"
+      className="register__input-file"
     />
   );
 
@@ -222,15 +256,23 @@ const Register = () => {
                       <i className="far fa-envelope"></i>
                     </span>
                   </div>
-                  <div className="register__input-wrapper">
+                  <div className="register__input-file-add">
                     <ErrorMessage name="fileImg" component={errorMsg} />
-                    <Field
-                      as={inputFile}
-                      name="fileImg"
-                      type="file"
-                      setFieldValue={formik.setFieldValue}
-                      setFieldTouched={formik.setFieldTouched}
-                    ></Field>
+                    <label className="register__label-file">
+                      Choose File
+                      <Field
+                        as={inputFile}
+                        name="fileImg"
+                        type="file"
+                        setFieldValue={formik.setFieldValue}
+                        setFieldTouched={formik.setFieldTouched}
+                      ></Field>
+                    </label>
+                    {nameFile ? (
+                      <span className="register__file-name">{nameFile}</span>
+                    ) : (
+                      <span className="register__file-name">No file ...</span>
+                    )}
                   </div>
                   <div className="register__input-wrapper">
                     <ErrorMessage name="password" component={errorMsg} />

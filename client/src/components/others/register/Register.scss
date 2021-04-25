@@ -148,6 +148,8 @@
     }
   }
 
+  //   Prawa strona
+
   &__right {
     display: flex;
     flex-direction: column;
@@ -209,6 +211,49 @@
     width: 100%;
     margin-bottom: 20px;
   }
+
+  //   TO jest do file
+
+  &__input-file-add {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  &__label-file {
+    display: flex;
+    justify-content: center;
+    width: 48%;
+    padding: 7px 0;
+    background-color: #393939;
+    color: #f8cd38;
+    font-size: 1.4rem;
+    cursor: pointer;
+
+    @include media-queries(large) {
+      padding: 10px 0;
+    }
+  }
+
+  &__file-name {
+    display: inline-block;
+    margin-left: 10px;
+    color: #393939;
+    font-size: 1rem;
+  }
+
+  &__input-file {
+    padding: 7px 0;
+    border: none;
+    outline: none;
+    height: 0;
+    width: 0;
+    opacity: 0;
+  }
+
+  //   TO jest do file u gory
 
   &__wrapper-name {
     position: relative;
