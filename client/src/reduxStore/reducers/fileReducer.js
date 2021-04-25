@@ -6,6 +6,7 @@ export const fileReducer = (
     fileImageRegister: null,
     fileImageGallery: null,
     fileImageGalleryEdit: null,
+    fileImageEditProfile: null,
   },
   action
 ) => {
