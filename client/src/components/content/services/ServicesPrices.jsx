@@ -8,6 +8,38 @@ import React, {
 
 import "./ServicesPrices.scss";
 
+import ServiceCards from "./ServiceCards";
+
+const menServices = [
+  { title: "Classic haircut", price: 3.25, id: "1" },
+  { title: "Classic haircut long hair", price: 5.5, id: "2" },
+  { title: "Classic haircut & hair washing", price: 7.5, id: "3" },
+  { title: "Trimming", price: 5.0, id: "4" },
+  { title: "Trimming & arranging long beard", price: 8.5, id: "5" },
+  { title: "Stylization & arranging beard", price: 10.5, id: "6" },
+  { title: "Classic haircut & shaving", price: 10.5, id: "7" },
+  { title: "Haircut & trimming long beard", price: 6.5, id: "8" },
+  { title: "Classic shaving", price: 4.5, id: "9" },
+  { title: "Hair washing", price: 3.5, id: "10" },
+  { title: "Beard washing", price: 2.5, id: "11" },
+  { title: "Beard & Hair washing", price: 5.0, id: "12" },
+];
+
+const womenServices = [
+  { title: "Classic women’s haircuts", price: 3.25, id: "1" },
+  { title: "Classic haircut long hair", price: 5.5, id: "2" },
+  { title: "Classic haircut & hair washing", price: 7.5, id: "3" },
+  { title: "Ladies’ fashion style cuts", price: 5.0, id: "4" },
+  { title: "Trending celebrity-inspired hairstyles", price: 8.5, id: "5" },
+  { title: "Short female haircuts", price: 10.5, id: "6" },
+  { title: "Classic haircut and colour", price: 10.5, id: "7" },
+  { title: "Balayage colour", price: 6.5, id: "8" },
+  { title: "Hair extensions", price: 4.5, id: "9" },
+  { title: "Keratin hair treatments", price: 3.5, id: "10" },
+  { title: "Stylization haircut", price: 2.5, id: "11" },
+  { title: "Hair washing", price: 5.0, id: "12" },
+];
+
 const slidesData = [
   {
     imgFront:
@@ -321,6 +353,13 @@ const ServicesPrices = () => {
     return () => window.removeEventListener("resize", getCurrentWindowSize);
   }, []);
 
+  const slidesMenOne = menServices.slice(0, 4);
+  const slidesWomenOne = womenServices.slice(0, 4);
+  const slidesMenTwo = menServices.slice(4, 8);
+  const slidesWomenTwo = womenServices.slice(4, 8);
+  const slidesMenThree = menServices.slice(8, 12);
+  const slidesWomenThree = womenServices.slice(8, 12);
+
   return (
     <div className="service__prices">
       <div className="service__button-wrapper">
@@ -350,79 +389,12 @@ const ServicesPrices = () => {
       </div>
       <div className="service__plans-prices">
         <div className="service__content" ref={slidesContainer}>
-          {slides.map((slide, index) => (
-            <div
-              className={
-                checkSizeWindow >= sizeWindow.current
-                  ? isServiceMenOrWomen
-                    ? "service__plan-cut service__plan-cut--active"
-                    : "service__plan-cut"
-                  : "service__plan-cut"
-              }
-              key={index}
-            >
-              <div
-                className={
-                  checkSizeWindow >= sizeWindow.current
-                    ? isServiceMenOrWomen
-                      ? "service__inner-card service__inner-card--active"
-                      : "service__inner-card"
-                    : "service__inner-card"
-                }
-              >
-                <div className="service__card-front">
-                  <div className="service__card-front-top">
-                    <img
-                      src={slide.imgFront}
-                      alt="Icon"
-                      className="service__icon-img"
-                    />
-                  </div>
-                  <div className="service__card-front-bottom">
-                    {slide.men.map((serviceMen, index) => (
-                      <Fragment key={serviceMen.id}>
-                        <p className="service__service-title">
-                          {serviceMen.title}
-                        </p>
-                        <span className="service__service-price">
-                          {serviceMen.price}€
-                        </span>
-                      </Fragment>
-                    ))}
-                  </div>
-                </div>
-                <div
-                  className={
-                    checkSizeWindow >= sizeWindow.current
-                      ? "service__card-back"
-                      : chooseGenderMobile
-                      ? "service__card-back service__card-back--active"
-                      : "service__card-back"
-                  }
-                >
-                  <div className="service__card-back-top">
-                    <img
-                      src={slide.imgBack}
-                      alt="Icon"
-                      className="service__icon-img"
-                    />
-                  </div>
-                  <div className="service__card-back-bottom">
-                    {slide.women.map((serviceWomen, index) => (
-                      <Fragment key={serviceWomen.id}>
-                        <p className="service__service-title">
-                          {serviceWomen.title}
-                        </p>
-                        <span className="service__service-price">
-                          {serviceWomen.price}€
-                        </span>
-                      </Fragment>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+          <ServiceCards
+            checkSizeWindow={checkSizeWindow}
+            chooseGenderMobile={chooseGenderMobile}
+            isServiceMenOrWomen={isServiceMenOrWomen}
+            sizeWindow={sizeWindow}
+          />
         </div>
       </div>
       <ul className="service__dots-list">{dotsSlider}</ul>
