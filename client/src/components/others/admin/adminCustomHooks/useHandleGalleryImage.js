@@ -14,7 +14,19 @@ const useHandleGalleryImage = () => {
 
   const handleFile = (e, callbackFile, callbackTouch) => {
     callbackTouch("fileImg");
+
+    let currentEditTime = new Date();
+    let timeEditMilliseconds = currentEditTime.getTime().toString();
+
     let selectFile = e.target.files[0];
+
+    Object.defineProperty(selectFile, "name", {
+      value: selectFile.name,
+      writable: true,
+    });
+
+    selectFile.name = `${selectFile.name}-${timeEditMilliseconds}`;
+
     callbackFile("fileImg", selectFile);
 
     if (
