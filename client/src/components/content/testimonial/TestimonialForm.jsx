@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -34,6 +34,7 @@ const TestimonialForm = () => {
   const dispatch = useDispatch();
   const dataAlert = useSelector((store) => store.alertData);
   const dataFile = useSelector((store) => store.fileDate);
+  const [nameFile, setNameFile] = useState(null);
 
   const rates = [1, 2, 3, 4, 5];
 
@@ -44,9 +45,7 @@ const TestimonialForm = () => {
   const onSubmit = async (values, submitProps) => {
     delete values.fileImg;
 
-    if (Boolean(imgLink.current)) {
-      values.imageUrl = imgLink.current;
-    }
+    values.imageUrl = imgLink.current;
 
     submitProps.resetForm();
 
@@ -54,8 +53,10 @@ const TestimonialForm = () => {
 
     if (status !== 200) {
       dispatch(addServerErrorMessage(data.alert, "default"));
+      setNameFile(null);
     } else {
       dispatch(addServerSuccessMessage(data.success, "default"));
+      setNameFile(null);
     }
     imgLink.current = null;
   };
@@ -64,6 +65,12 @@ const TestimonialForm = () => {
     const rate = parseInt(e.target.dataset.value);
     setFieldValue("rateStar", rate);
   };
+
+  useEffect(() => {
+    if (Boolean(dataFile.fileImageTestimonial)) {
+      setNameFile(dataFile.fileImageTestimonial.name);
+    }
+  }, [dataFile]);
 
   const inputFile = ({ setFieldValue, setFieldTouched }) => (
     <input
@@ -135,14 +142,22 @@ const TestimonialForm = () => {
                 </label>
               </div>
               <ErrorMessage name="fileImg" component={errorMsg} />
-              <div className="testimonial__form-file">
-                <Field
-                  as={inputFile}
-                  name="fileImg"
-                  type="file"
-                  setFieldValue={formik.setFieldValue}
-                  setFieldTouched={formik.setFieldTouched}
-                ></Field>
+              <div className="testimonial__input-file-add">
+                <label className="testimonial__label-file">
+                  Choose File
+                  <Field
+                    as={inputFile}
+                    name="fileImg"
+                    type="file"
+                    setFieldValue={formik.setFieldValue}
+                    setFieldTouched={formik.setFieldTouched}
+                  ></Field>
+                </label>
+                {nameFile ? (
+                  <span className="testimonial__file-name">{nameFile}</span>
+                ) : (
+                  <span className="testimonial__file-name">No file ...</span>
+                )}
               </div>
               <ErrorMessage name="opinion" component={errorMsg} />
               <Field
