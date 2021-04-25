@@ -38,7 +38,6 @@ const useRemoveGalleryImage = (
       dispatch(addServerSuccessMessage(data.success, "removeAtTableAdmin"));
       let newCopy = deepCopyCurrentImages();
       const updatedImages = newCopy.filter((item) => item._id !== idImage);
-      console.log(updatedImages);
       setCurrentImages(updatedImages);
       setIsOpenModal(false);
     } else {
