@@ -33,8 +33,7 @@ mongoose.connection.once("open", () => {
   console.log("Baza danych podłaczona poprawnie");
 });
 
-const menServiceRouter = require("./routes/menService");
-const womenServiceRouter = require("./routes/womenService");
+const serviceRouter = require("./routes/service");
 const teamRouter = require("./routes/team");
 const galleryRouter = require("./routes/gallery");
 const testimonialRouter = require("./routes/testimonial");
@@ -42,6 +41,7 @@ const openHoursRouter = require("./routes/openhours");
 const emailRouter = require("./routes/email");
 const registerAdmin = require("./routes/registerAdmin");
 const loginAdmin = require("./routes/loginAdmin");
+const enableRegisterFormRouter = require("./routes/enableRegisterForm");
 
 const app = express();
 
@@ -91,15 +91,15 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use("/men-service", menServiceRouter);
-app.use("/women-service", womenServiceRouter);
+app.use("/service", serviceRouter);
 app.use("/team", teamRouter);
 app.use("/gallery", galleryRouter);
 app.use("/opinions", testimonialRouter);
-app.use("/open-hours", openHoursRouter);
+app.use("/open-shop", openHoursRouter);
 app.use("/email", emailRouter);
 app.use("/register-admin", registerAdmin);
 app.use("/login-admin", loginAdmin);
+app.use("/enable-register", enableRegisterFormRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
