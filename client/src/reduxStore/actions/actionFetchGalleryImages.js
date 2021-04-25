@@ -22,7 +22,6 @@ export const fetchGalleryImgs = (type) => {
   return async (dispatch) => {
     await dispatch(fetchImagesRequest());
     const { data, status } = await fetchImagesGallery(type);
-    console.log(data, status);
 
     if (status === 200) {
       await dispatch(fetchImagesSuccess(data));

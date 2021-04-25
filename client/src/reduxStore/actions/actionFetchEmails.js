@@ -22,7 +22,6 @@ export const fetchEmails = () => {
   return async (dispatch) => {
     await dispatch(fetchEmailsRequest());
     const { data, status } = await fetchAllEmails();
-    console.log(data, status);
 
     if (status === 200) {
       await dispatch(fetchEmailsSuccess(data));
