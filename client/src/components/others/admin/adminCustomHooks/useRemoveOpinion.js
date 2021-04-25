@@ -29,13 +29,10 @@ const useRemoveOpinion = (
   const handleRemoveItem = async () => {
     const { data, status } = await deleteOpinion(idOpinion);
 
-    console.log(data, status, " use Remove opinion");
-
     if (status === 200) {
       dispatch(addServerSuccessMessage(data.success, "removeAtTableAdmin"));
       let newCopy = deepCopyCurrentOpinions();
       const updatedOpinions = newCopy.filter((item) => item._id !== idOpinion);
-      console.log(updatedOpinions);
       setCurrentOpinions(updatedOpinions);
       setIsOpenModal(false);
     } else {
