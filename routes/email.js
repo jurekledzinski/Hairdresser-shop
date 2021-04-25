@@ -15,7 +15,6 @@ const {
 } = require("../configs/config");
 
 router.get("/", (req, res, next) => {
-  console.log("email");
   Email.find({})
     .then((response) => {
       return res.status(200).json(response);
