@@ -8,9 +8,9 @@ export const addFirebaseUrl = (url) => ({
   },
 });
 
-export const removeFirebaseUrl = () => ({
+export const removeFirebaseUrl = (url) => ({
   type: REMOVE_URL_FIREBASE,
   payload: {
-    firebaseUrl: null,
+    firebaseUrl: url,
   },
 });
