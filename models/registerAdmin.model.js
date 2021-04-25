@@ -30,6 +30,38 @@ const registerAdminSchema = new Schema({
     type: String,
     required: false,
   },
+  enableBook: {
+    type: Boolean,
+    required: true,
+  },
+  enableCancel: {
+    type: Boolean,
+    required: true,
+  },
+  enableEmails: {
+    type: Boolean,
+    required: true,
+  },
+  enableGallery: {
+    type: Boolean,
+    required: true,
+  },
+  enableOpinions: {
+    type: Boolean,
+    required: true,
+  },
+  enableOpenShop: {
+    type: Boolean,
+    required: true,
+  },
+  enableServices: {
+    type: Boolean,
+    required: true,
+  },
+  enablePermission: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("RegisterAdmin", registerAdminSchema);
