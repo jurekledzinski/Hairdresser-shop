@@ -4,7 +4,7 @@
   text-align: left;
   font-size: 1.1rem;
   font-family: "Roboto", sans-serif;
-  font-weight: 100;
+  font-weight: 400;
 
   &--error-register {
     font-weight: 400;
@@ -12,6 +12,7 @@
 
   &--success {
     color: #2ecc40;
+    font-weight: 400;
   }
 
   &--success-register {
