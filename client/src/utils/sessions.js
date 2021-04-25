@@ -59,7 +59,6 @@ export const deleteOpinion = async (id) => {
 };
 
 export const fetchAllEmails = async () => {
-  console.log("get emails");
   const { data, status } = await request.get("/email");
 
   return { data, status };
@@ -89,6 +88,12 @@ export const fetchRegisterAdmin = async () => {
   return { data, status };
 };
 
+export const updateAdmin = async (id) => {
+  const { data, status } = await request.put(`/register-admin/${id}`);
+
+  return { data, status };
+};
+
 export const loginAdmin = async (personalData) => {
   const { data, status } = await request.post("/login-admin", personalData);
 
@@ -103,6 +108,73 @@ export const fetchAdminData = async () => {
 
 export const logoutAdmin = async () => {
   const { data, status } = await request.get("/login-admin/logout");
+
+  return { data, status };
+};
+
+export const fetchEnableRegisterPermission = async () => {
+  const { data, status } = await request.get("/enable-register");
+
+  return { data, status };
+};
+
+export const addEnableRegisterPermission = async (add) => {
+  const { data, status } = await request.put("/enable-register", add);
+
+  return { data, status };
+};
+
+// TODO: Service
+
+export const fetchAdminService = async (match) => {
+  console.log(match);
+  const { data, status } = await request.get(
+    `/service/search?qender=${match.gender}&card=${match.card}`
+  );
+
+  return { data, status };
+};
+
+export const addAdminService = async (service) => {
+  const { data, status } = await request.post("/service", service);
+
+  return { data, status };
+};
+
+export const editAdminService = async (edit) => {
+  const { data, status } = await request.put(`/service/${edit.id}`, edit);
+
+  return { data, status };
+};
+
+export const deleteAdminService = async (id) => {
+  const { data, status } = await request.delete(`/service/${id}`);
+
+  return { data, status };
+};
+
+// TODO: Shop
+
+export const fetchAdminOpenShop = async () => {
+  const { data, status } = await request.get("/open-shop");
+
+  return { data, status };
+};
+
+export const addAdminOpenShop = async (open) => {
+  const { data, status } = await request.post("/open-shop", open);
+
+  return { data, status };
+};
+
+export const editAdminOpenShop = async (edit) => {
+  const { data, status } = await request.put(`/open-shop/${edit.id}`, edit);
+
+  return { data, status };
+};
+
+export const deleteAdminOpenShop = async (id) => {
+  const { data, status } = await request.delete(`/open-shop/${id}`);
 
   return { data, status };
 };
