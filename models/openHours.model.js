@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const openHoursSchema = new Schema({
+const openShopSchema = new Schema({
   day: {
     type: String,
     required: true,
@@ -12,4 +12,4 @@ const openHoursSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("OpenHours", openHoursSchema);
+module.exports = mongoose.model("OpenShop", openShopSchema);
