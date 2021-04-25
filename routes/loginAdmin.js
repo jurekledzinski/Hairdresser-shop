@@ -42,6 +42,14 @@ router.post("/", (req, res, next) => {
         info.email = user.email;
         info.userId = user._id;
         info.role = user.role;
+        info.enableBook = user.enableBook;
+        info.enableCancel = user.enableCancel;
+        info.enableEmails = user.enableEmails;
+        info.enableGallery = user.enableGallery;
+        info.enableOpinions = user.enableOpinions;
+        info.enableOpenShop = user.enableOpenShop;
+        info.enableServices = user.enableServices;
+        info.enablePremissions = user.enablePremissions;
 
         return res.status(200).json(info);
       });
