@@ -179,7 +179,6 @@ const Register = () => {
       onSubmit={onSubmit}
     >
       {(formik) => {
-        console.log(formik);
         return (
           <section className="register">
             <div className="register__wrapper">
