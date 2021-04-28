@@ -122,6 +122,7 @@ const AdminOpinions = () => {
         isOpenModal={isOpenModal}
         handleRemoveItem={handleRemoveItem}
         handleNotRemoveItem={handleNotRemoveItem}
+        purpose="opinion"
       />
     </article>
   );

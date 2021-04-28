@@ -121,6 +121,7 @@ const AdminEmails = () => {
         isOpenModal={isOpenModal}
         handleRemoveItem={handleRemoveItem}
         handleNotRemoveItem={handleNotRemoveItem}
+        purpose="email"
       />
     </article>
   );

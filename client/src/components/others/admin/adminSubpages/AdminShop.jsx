@@ -149,6 +149,7 @@ const AdminShop = () => {
               isOpenModal={isOpenModal}
               handleRemoveItem={handleRemoveItem}
               handleNotRemoveItem={handleNotRemoveItem}
+              purpose="day"
             />
           </article>
         );

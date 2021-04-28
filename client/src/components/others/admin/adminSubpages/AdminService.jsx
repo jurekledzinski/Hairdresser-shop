@@ -220,6 +220,7 @@ const AdminService = () => {
               isOpenModal={isOpenModal}
               handleRemoveItem={handleRemoveItem}
               handleNotRemoveItem={handleNotRemoveItem}
+              purpose="service"
             />
           </article>
         );
