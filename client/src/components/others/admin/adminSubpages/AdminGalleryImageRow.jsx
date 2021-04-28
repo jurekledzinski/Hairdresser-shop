@@ -33,8 +33,6 @@ const AdminGalleryImageRow = ({
     setIdRow(_id);
   };
 
-  console.log(title, type, " row");
-
   return (
     <div className="admin-gallery__row">
       <div className="admin-gallery__row-image">

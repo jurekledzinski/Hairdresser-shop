@@ -11,7 +11,6 @@ import "./AdminShopEditForm.scss";
 
 import useValidationOpenShopFormEdit from "../adminCustomHooks/useValidationOpenShopFormEdit";
 import useDeleteErrorMessage from "../../../../customHooks/useDeleteErrorMessage";
-import ErrorSuccessMessage from "../../errorSuccessMessages/ErrorSuccessMessages";
 
 import { editAdminOpenShop } from "../../../../utils/sessions";
 
@@ -28,26 +27,19 @@ const AdminShopEditForm = ({
     time,
   };
 
-  console.log(day, time, " edit");
   const [formValues, setFormValues] = useState(editValues);
   const { initialValues, validationSchema } = useValidationOpenShopFormEdit();
   useDeleteErrorMessage();
 
   const dispatch = useDispatch();
-  const dataAlert = useSelector((store) => store.alertData);
-
-  console.log(formValues, " formValues edit");
+  const adminDateUse = useSelector((store) => store.useAdminData);
 
   const onSubmit = async (values, submitProps) => {
     values.id = idRow;
 
     const { data, status } = await editAdminOpenShop(values);
 
-    console.log(data, status);
-
     const { openshop } = data;
-
-    console.log(openshop, " edit openshop");
 
     if (status !== 200) {
       dispatch(addServerErrorMessage(data.alert, "default"));
@@ -92,12 +84,6 @@ const AdminShopEditForm = ({
       {(formik) => {
         return (
           <div className="admin-shop__edit-form-wrapper">
-            {!Boolean(Object.keys(formik.errors).length) &&
-            dataAlert.errorServerMsg ? (
-              <ErrorSuccessMessage />
-            ) : (
-              <ErrorSuccessMessage />
-            )}
             <Form
               className="admin-shop__form-edit"
               onSubmit={formik.handleSubmit}
@@ -119,7 +105,7 @@ const AdminShopEditForm = ({
               <button
                 className="admin-shop__button-add-image"
                 type="submit"
-                disabled={!formik.isValid}
+                disabled={adminDateUse.enableOpenShop ? !formik.isValid : true}
               >
                 Edit Open Time
               </button>

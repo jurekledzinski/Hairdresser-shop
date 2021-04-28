@@ -30,8 +30,6 @@ const AdminShopRow = ({
     setIdRow(_id);
   };
 
-  console.log(day, time, " row");
-
   return (
     <div className="admin-shop__row">
       <div className="admin-shop__row-service">

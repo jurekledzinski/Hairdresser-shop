@@ -15,11 +15,6 @@
     color: #393939;
   }
 
-  //   &:hover {
-  //     background-color: #f8cd38;
-  //     color: #393939;
-  //   }
-
   @include media-queries(large) {
     padding: initial;
   }
