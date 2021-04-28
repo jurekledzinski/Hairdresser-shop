@@ -9,7 +9,7 @@ import {
   addServerSuccessMessage,
 } from "../../../../reduxStore/actions/actionAlertsMessages";
 
-// import { fetchGalleryImgs } from "../../../../reduxStore/actions/actionFetchGalleryImages";
+import { fetchUsers } from "../../../../reduxStore/actions/actionFetchAdmin";
 
 import useValidationFormikUpdateProfile from "../adminCustomHooks/useValidationFormikUpdateProfile";
 import useDeleteErrorMessage from "../../../../customHooks/useDeleteErrorMessage";
@@ -20,10 +20,12 @@ import ErrorSuccessMessage from "../../errorSuccessMessages/ErrorSuccessMessages
 
 import ProgressBar from "../../progreeBar/ProgressBar";
 
-import { updateAdmin } from "../../../../utils/sessions";
+import { updateAdminProfile } from "../../../../utils/sessions";
+
+import AdminProfilePermission from "./AdminProfilePermission";
+import AdminProfileUsers from "./AdminProfileUsers";
 
 const AdminProfile = () => {
-  const [formValues, setFormValues] = useState("");
   const {
     initialValues,
     validationSchema,
@@ -33,71 +35,72 @@ const AdminProfile = () => {
   const { deleteImgFirebase } = useDeleteFileFirebase();
 
   const dispatch = useDispatch();
+  const dataAdmin = useSelector((store) => store.userData);
   const dataAlert = useSelector((store) => store.alertData);
   const dataFile = useSelector((store) => store.fileDate);
 
+  console.log(dataAdmin);
+
   const [currentAdminData, setCurrentAdminData] = useState([]);
+  const [formValues, setFormValues] = useState(null);
+  const [previousImageUrl, setPreviousImageUrl] = useState("");
   const [nameFile, setNameFile] = useState(null);
 
   const imgLink = useRef(null);
 
   useFirebseDeleteFile(imgLink);
 
-  console.log(dataFile, "admin profile file data");
-  console.log(imgLink, " url zdjecia");
-
   const onSubmit = async (values, submitProps) => {
     delete values.fileImg;
 
     if (Boolean(imgLink.current)) {
       values.imageUrl = imgLink.current;
+      values.id = dataAdmin.users.userId;
     }
 
-    console.log(values, "values update");
-    // tu trzeba przeslax id admina plus nowe dane zmienione
+    const { data, status } = await updateAdminProfile(values);
 
-    // const { data, status } = await updateAdmin(values);
+    delete data.updateAdmin.__v;
 
-    // delete data.updateAdmin.__v;
+    const { updateAdmin } = data;
 
-    // const { updateAdmin } = data;
+    if (status !== 200) {
+      dispatch(addServerErrorMessage(data.alert, "adminProfileEdit"));
+      setNameFile(null);
+    } else {
+      dispatch(addServerSuccessMessage(data.success, "adminProfileEdit"));
+      setNameFile(null);
 
-    // if (status !== 200) {
-    //   dispatch(addServerErrorMessage(data.alert, "registerForm"));
-    //   setNameFile(null);
-    // } else {
-    //   dispatch(addServerSuccessMessage(data.success, "registerForm"));
-    //   setNameFile(null);
-    //   link starego zdjecia
-    //   deleteImgFirebase(imageUrl);
+      const editedAdmin = currentAdminData.map((item) => {
+        if (item._id === updateAdmin._id) {
+          return {
+            ...item,
+            name: updateAdmin.name,
+            lastName: updateAdmin.lastName,
+            email: updateAdmin.email,
+            imageUrl: updateAdmin.imageUrl,
+            password: updateAdmin.password,
+          };
+        }
+        return item;
+      });
 
-    //   const editedAdmin = currentAdminData.map((item) => {
-    //     if (item._id === updateAdmin._id) {
-    //       return {
-    //         ...item,
-    //         name: updateAdmin.name,
-    //         lastName: updateAdmin.lastName,
-    //         email: updateAdmin.email,
-    //         imageUrl: updateAdmin.imageUrl,
-    //         password: updateAdmin.password,
-    //       };
-    //     }
-    //     return item;
-    //   });
+      setCurrentAdminData(editedAdmin);
 
-    //   setCurrentAdminData(editedAdmin);
-
-    //   let editValues = {
-    //     name: updateAdmin.name,
-    //     lastName: updateAdmin.lastName,
-    //     email: updateAdmin.email,
-    //     imageUrl: updateAdmin.imageUrl,
-    //     password: updateAdmin.password,
-    //   };
-    //   setFormValues(editValues);
-    // }
+      let editValues = {
+        name: updateAdmin.name,
+        lastName: updateAdmin.lastName,
+        email: updateAdmin.email,
+        imageUrl: "",
+        password: "",
+        confirmPassword: "",
+      };
+      setFormValues(editValues);
+    }
+    deleteImgFirebase(previousImageUrl);
     imgLink.current = null;
     submitProps.resetForm();
+    setPreviousImageUrl("");
   };
 
   useEffect(() => {
@@ -105,6 +108,27 @@ const AdminProfile = () => {
       setNameFile(dataFile.fileImageEditProfile.name);
     }
   }, [dataFile]);
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, []);
+
+  useEffect(() => {
+    const { users } = dataAdmin;
+    if (!Array.isArray(users) && typeof users === "object") {
+      const { users } = dataAdmin;
+      let adminData = {
+        name: users.user,
+        lastName: users.lastName,
+        email: users.email,
+        fileImg: "",
+        password: "",
+        confirmPassword: "",
+      };
+      setFormValues(adminData);
+      setPreviousImageUrl(users.imageUrl);
+    }
+  }, [dataAdmin]);
 
   const inputFile = ({ setFieldValue, setFieldTouched }) => (
     <input
@@ -120,13 +144,17 @@ const AdminProfile = () => {
 
   return (
     <article className="admin-profile">
+      {dataAlert.errorServerMsg
+        ? dataAlert.where === "permissionAdmin" && <ErrorSuccessMessage />
+        : dataAlert.where === "permissionAdmin" && <ErrorSuccessMessage />}
       <div className="admin-profile__wrapper">
         <div className="admin-profile__left-side">
           <div className="admin-profile__wrapper-title">
             <p className="admin-profile__title">Update profile</p>
           </div>
           <Formik
-            initialValues={initialValues}
+            enableReinitialize
+            initialValues={formValues || initialValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
           >
@@ -140,11 +168,13 @@ const AdminProfile = () => {
                           <ProgressBar imgLink={imgLink} />
                         )}
                         {!Boolean(Object.keys(formik.errors).length) &&
-                        dataAlert.errorServerMsg ? (
-                          <ErrorSuccessMessage />
-                        ) : (
-                          <ErrorSuccessMessage />
-                        )}
+                        dataAlert.errorServerMsg
+                          ? dataAlert.where === "adminProfileEdit" && (
+                              <ErrorSuccessMessage />
+                            )
+                          : dataAlert.where === "adminProfileEdit" && (
+                              <ErrorSuccessMessage />
+                            )}
                         <div className="admin-profile__input-wrapper-name-surname">
                           <div className="admin-profile__wrapper-name">
                             <ErrorMessage name="name" component={errorMsg} />
@@ -268,6 +298,8 @@ const AdminProfile = () => {
           <div className="admin-profile__wrapper-title">
             <p className="admin-profile__title">Control premission</p>
           </div>
+          <AdminProfilePermission />
+          <AdminProfileUsers />
         </div>
       </div>
     </article>
