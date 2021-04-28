@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { useDispatch } from "react-redux";
 
@@ -10,7 +10,6 @@ const useDeleteFileFirebase = () => {
   const dispatch = useDispatch();
 
   const deleteImgFirebase = (imgLink) => {
-    console.log(imgLink, " w useDelete file firebase");
     const fireBaseUrlStorage = "firebasestorage";
     if (Boolean(imgLink) && imgLink.indexOf(fireBaseUrlStorage) !== -1) {
       const image = projectStorage.refFromURL(imgLink);
@@ -24,24 +23,6 @@ const useDeleteFileFirebase = () => {
         });
     }
   };
-
-  //   useEffect(() => {
-  //     const fireBaseUrlStorage = "firebasestorage";
-  //     if (
-  //       Boolean(imgLink.current) &&
-  //       imgLink.current.indexOf(fireBaseUrlStorage) !== -1
-  //     ) {
-  //       const image = projectStorage.refFromURL(imgLink.current);
-  //       imgLink.current = null;
-  //       dispatch(removeImageFile(null, null));
-  //       image
-  //         .delete()
-  //         .then((responese) => responese)
-  //         .catch((err) => {
-  //           console.warn(err);
-  //         });
-  //     }
-  //   }, [imgLink]);
 
   return { deleteImgFirebase };
 };
