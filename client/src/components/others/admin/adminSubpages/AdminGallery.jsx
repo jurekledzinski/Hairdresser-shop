@@ -37,7 +37,6 @@ const AdminGallery = () => {
   const dataAlert = useSelector((store) => store.alertData);
   const dataFile = useSelector((store) => store.fileDate);
   const dataImages = useSelector((store) => store.galleryImgData);
-  const dataFirebaseUrl = useSelector((store) => store.firebaseUrlData);
   const { images } = dataImages;
   const [chooseButton, setChooseButton] = useState("men");
   const [currentImages, setCurrentImages] = useState([]);
@@ -224,6 +223,7 @@ const AdminGallery = () => {
               isOpenModal={isOpenModal}
               handleRemoveItem={handleRemoveItem}
               handleNotRemoveItem={handleNotRemoveItem}
+              purpose="image"
             />
           </article>
         );
