@@ -8,6 +8,7 @@ const MessagePopup = ({
   isOpenModal,
   handleRemoveItem,
   handleNotRemoveItem,
+  purpose,
 }) => {
   return (
     <Modal isOpen={isOpenModal}>
@@ -17,7 +18,7 @@ const MessagePopup = ({
         }
       >
         <h4 className="message-popup__title">
-          Are you sure you want remove this email?
+          Are you sure you want remove this {purpose}?
         </h4>
         <div className="message-popup__wrapper-btns">
           <button
