@@ -23,7 +23,6 @@ export const fetchServices = (type) => {
     await dispatch(fetchServicesRequest());
     const { data, status } = await fetchAdminService(type);
 
-    console.log(data, status, "services react");
     if (status === 200) {
       await dispatch(fetchServicesSuccess(data));
     } else {

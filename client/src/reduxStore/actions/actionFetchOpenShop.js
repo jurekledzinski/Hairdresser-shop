@@ -23,7 +23,6 @@ export const fetchOpenShop = () => {
     await dispatch(fetchOpenShopRequest());
     const { data, status } = await fetchAdminOpenShop();
 
-    console.log(data, status, "shop react");
     if (status === 200) {
       await dispatch(fetchOpenShopSuccess(data));
     } else {
