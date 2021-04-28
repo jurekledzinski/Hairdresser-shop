@@ -4,9 +4,22 @@ const bcrypt = require("bcrypt");
 
 const RegisterAdmin = require("../models/registerAdmin.model.js");
 
-router.get("/", (req, res) => {});
+const { ErrorHandler } = require("../errors/error");
 
-router.post("/", (req, res) => {
+router.get("/", (req, res, next) => {
+  RegisterAdmin.find({})
+    .select("-password")
+    .then((response) => {
+      if (response) {
+        return res.status(200).json(response);
+      }
+    })
+    .catch((err) => {
+      next(new ErrorHandler(500, "Internal server error", err.message));
+    });
+});
+
+router.post("/", (req, res, next) => {
   const {
     name,
     lastName,
@@ -99,30 +112,179 @@ router.post("/", (req, res) => {
                       }
                     })
                     .catch((err) => {
-                      console.log(err);
+                      next(
+                        new ErrorHandler(
+                          500,
+                          "Internal server error",
+                          err.message
+                        )
+                      );
                     });
                 });
               });
             })
             .catch((err) => {
-              console.log(err);
+              next(new ErrorHandler(500, "Internal server error", err.message));
             });
         }
       })
       .catch((err) => {
-        console.log(err);
+        next(new ErrorHandler(500, "Internal server error", err.message));
       });
   }
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", (req, res, next) => {
+  const id = req.params.id;
+  const {
+    checkBook,
+    checkCancel,
+    checkEmails,
+    checkGallery,
+    checkOpinions,
+    checkOpenShop,
+    checkServices,
+    checkPermissions,
+  } = req.body;
+
+  let info = {
+    alert: "",
+    success: "",
+  };
+
+  RegisterAdmin.findById(id)
+    .select("-password")
+    .then((response) => {
+      if (response) {
+        response.enableBook = checkBook;
+        response.enableCancel = checkCancel;
+        response.enableEmails = checkEmails;
+        response.enableGallery = checkGallery;
+        response.enableOpinions = checkOpinions;
+        response.enableOpenShop = checkOpenShop;
+        response.enableServices = checkServices;
+        response.enablePermission = checkPermissions;
+
+        info.success = "Permissions updated succesfully";
+
+        response.save().then((response) => {
+          info.permissions = response;
+          return res.status(200).json(info);
+        });
+      }
+    })
+    .catch((err) => {
+      next(new ErrorHandler(500, "Internal server error", err.message));
+    });
+});
+
+router.put("/profile/:id", (req, res, next) => {
+  const id = req.params.id;
+  const {
+    name,
+    lastName,
+    email,
+    password,
+    confirmPassword,
+    imageUrl,
+  } = req.body;
+
+  let info = {
+    alert: "",
+    success: "",
+  };
+
+  if (
+    !name ||
+    !lastName ||
+    !email ||
+    !password ||
+    !confirmPassword ||
+    !imageUrl
+  ) {
+    info.alert = "Please fill in all fields";
+    return res.status(401).json(info);
+  }
+
+  if (!Boolean(info.alert)) {
+    RegisterAdmin.find(
+      { $or: [{ email: email }, { name: name }] },
+      (err, data) => {
+        if (err) {
+          info.alert = "Internal server error";
+          return res.status(500).json(info);
+        }
+
+        let checkData = data.find((item) => item._id.toString() !== id);
+
+        if (Boolean(checkData) && checkData._id.toString() !== id) {
+          if (checkData.name === req.body.name) {
+            info.alert = "User name already exist!";
+            return res.status(401).json(info);
+          } else {
+            info.alert = "User email already exist!";
+            return res.status(401).json(info);
+          }
+        } else {
+          data[0].name = name;
+          data[0].lastName = lastName;
+          data[0].email = email;
+          data[0].password = password;
+          data[0].imageUrl = imageUrl;
+
+          bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(data[0].password, salt, (err, hash) => {
+              if (err) throw err;
+              data[0].password = hash;
+
+              data[0]
+                .save()
+                .then((response) => {
+                  let userObj = response.toObject();
+                  delete userObj.password;
+
+                  info.updateAdmin = userObj;
+                  info.success = "Profile updated successfully";
+
+                  return res.status(200).json(info);
+                })
+                .catch((err) => {
+                  if (err) {
+                    next(
+                      new ErrorHandler(
+                        500,
+                        "Internal server error",
+                        err.message
+                      )
+                    );
+                  }
+                });
+            });
+          });
+        }
+      }
+    );
+  }
+});
+
+router.delete("/:id", (req, res, next) => {
   const id = req.params.id;
 
-  console.log(req.params, " register update");
+  const info = {
+    alert: "",
+    success: "",
+  };
+
+  RegisterAdmin.findByIdAndDelete({ _id: id })
+    .then((response) => {
+      if (response) {
+        info.success = "Admin removed successfully";
+        return res.status(200).json(info);
+      }
+    })
+    .catch((err) => {
+      next(new ErrorHandler(500, "Internal server error", err.message));
+    });
 });
 
 module.exports = router;
-
-// const newRegisterAdmin = new RegisterAdmin(dataAdmin);
-
-// newRegisterAdmin.save().then(response);
