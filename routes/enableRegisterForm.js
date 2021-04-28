@@ -28,7 +28,7 @@ router.put("/", (req, res) => {
       if (response) {
         response.enableRegisterForm = enableRegisterForm;
 
-        info.success = "Registration enabled";
+        info.success = enableRegisterForm ? "Enable Register" : "Enable login";
 
         response.save().then((response) => {
           return res.status(200).json(info);
