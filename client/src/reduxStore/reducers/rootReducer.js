@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { adminDataReducer } from "./adminDataReducer";
 import { alertMessagesReducer } from "./alertMessagesReducer";
 import { usersReducer } from "./actionFetchAdminReducer";
 import { fetchAllAdminsReducer } from "./fetchAllAdminsReducer";
@@ -33,4 +34,5 @@ export const rootReducer = combineReducers({
   serverErrorData: serverErrorReducer,
   testimonialData: opinionsReducer,
   userData: usersReducer,
+  useAdminData: adminDataReducer,
 });
