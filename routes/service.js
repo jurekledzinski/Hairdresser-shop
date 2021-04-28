@@ -61,8 +61,6 @@ router.post("/", (req, res, next) => {
 router.put("/:id", (req, res) => {
   const id = req.params.id;
   const { title, price } = req.body;
-  console.log(req.params);
-  console.log(req.body);
 
   let info = {
     alert: "",
