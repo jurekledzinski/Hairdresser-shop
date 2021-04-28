@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import { alertMessagesReducer } from "./alertMessagesReducer";
 import { usersReducer } from "./actionFetchAdminReducer";
+import { fetchAllAdminsReducer } from "./fetchAllAdminsReducer";
 import { fetchEmailsReducer } from "./fetchEmailsReducer";
 import { fetchImagesGalleryReducer } from "./fetchGalleryImagesReducer";
 import { fetchOpinionsReducer } from "./fetchOpinionsReducer";
@@ -16,6 +17,7 @@ import { scrollReducer } from "./scrollReducer";
 import { serverErrorReducer } from "./serverErrorReducer";
 
 export const rootReducer = combineReducers({
+  adminsData: fetchAllAdminsReducer,
   alertData: alertMessagesReducer,
   emailsData: fetchEmailsReducer,
   galleryImgData: fetchImagesGalleryReducer,
