@@ -11,7 +11,6 @@ import "./AdminServiceEditForm.scss";
 
 import useValidationServiceFormEdit from "../adminCustomHooks/useValidationServiceFormEdit";
 import useDeleteErrorMessage from "../../../../customHooks/useDeleteErrorMessage";
-import ErrorSuccessMessage from "../../errorSuccessMessages/ErrorSuccessMessages";
 
 import { editAdminService } from "../../../../utils/sessions";
 
@@ -28,13 +27,11 @@ const AdminServiceEditForm = ({
     price,
   };
 
-  console.log(title, price, " edit");
   const [formValues, setFormValues] = useState(editValues);
   const { initialValues, validationSchema } = useValidationServiceFormEdit();
   useDeleteErrorMessage();
 
   const dispatch = useDispatch();
-  const dataAlert = useSelector((store) => store.alertData);
 
   console.log(formValues, " formValues edit");
 
@@ -42,8 +39,6 @@ const AdminServiceEditForm = ({
     values.id = idRow;
 
     const { data, status } = await editAdminService(values);
-
-    console.log(data, status);
 
     const { service } = data;
 
@@ -81,6 +76,7 @@ const AdminServiceEditForm = ({
 
   return (
     <Formik
+      enableReinitialize
       initialValues={formValues || initialValues}
       validationSchema={validationSchema}
       validateOnBlur={false}

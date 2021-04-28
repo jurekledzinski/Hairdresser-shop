@@ -83,6 +83,7 @@ const AdminShopEditForm = ({
 
   return (
     <Formik
+      enableReinitialize
       initialValues={formValues || initialValues}
       validationSchema={validationSchema}
       validateOnBlur={false}
