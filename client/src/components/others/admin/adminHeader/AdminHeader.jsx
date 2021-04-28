@@ -55,8 +55,8 @@ const AdminHeader = ({
             )}
           </div>
           <div className="admin__box-name">
-            <p className="admin__name">Joe Doe</p>
-            <p className="admin__function">Admin</p>
+            <p className="admin__name">{users.user}</p>
+            <p className="admin__function">{users.role}</p>
           </div>
         </div>
         <button className="admin__button-logout" onClick={handleLogout}>
