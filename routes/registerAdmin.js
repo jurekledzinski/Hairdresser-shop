@@ -137,14 +137,14 @@ router.post("/", (req, res, next) => {
 router.put("/:id", (req, res, next) => {
   const id = req.params.id;
   const {
-    checkBook,
-    checkCancel,
-    checkEmails,
-    checkGallery,
-    checkOpinions,
-    checkOpenShop,
-    checkServices,
-    checkPermissions,
+    enableBook,
+    enableCancel,
+    enableEmails,
+    enableGallery,
+    enableOpinions,
+    enableOpenShop,
+    enableServices,
+    enablePermission,
   } = req.body;
 
   let info = {
@@ -156,14 +156,14 @@ router.put("/:id", (req, res, next) => {
     .select("-password")
     .then((response) => {
       if (response) {
-        response.enableBook = checkBook;
-        response.enableCancel = checkCancel;
-        response.enableEmails = checkEmails;
-        response.enableGallery = checkGallery;
-        response.enableOpinions = checkOpinions;
-        response.enableOpenShop = checkOpenShop;
-        response.enableServices = checkServices;
-        response.enablePermission = checkPermissions;
+        response.enableBook = enableBook;
+        response.enableCancel = enableCancel;
+        response.enableEmails = enableEmails;
+        response.enableGallery = enableGallery;
+        response.enableOpinions = enableOpinions;
+        response.enableOpenShop = enableOpenShop;
+        response.enableServices = enableServices;
+        response.enablePermission = enablePermission;
 
         info.success = "Permissions updated succesfully";
 
