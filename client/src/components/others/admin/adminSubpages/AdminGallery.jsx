@@ -34,6 +34,7 @@ const AdminGallery = () => {
   const { handleFile } = useHandleGalleryImage();
 
   const dispatch = useDispatch();
+  const adminDateUse = useSelector((store) => store.useAdminData);
   const dataAlert = useSelector((store) => store.alertData);
   const dataFile = useSelector((store) => store.fileDate);
   const dataImages = useSelector((store) => store.galleryImgData);
@@ -192,7 +193,9 @@ const AdminGallery = () => {
                   <button
                     className="admin-gallery__button-add-image"
                     type="submit"
-                    disabled={!formik.isValid}
+                    disabled={
+                      adminDateUse.enableGallery ? !formik.isValid : true
+                    }
                   >
                     Add Image
                   </button>
@@ -220,6 +223,7 @@ const AdminGallery = () => {
               </div>
             </div>
             <MessagePopup
+              enableAction={adminDateUse.enableGallery}
               isOpenModal={isOpenModal}
               handleRemoveItem={handleRemoveItem}
               handleNotRemoveItem={handleNotRemoveItem}

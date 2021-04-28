@@ -30,8 +30,6 @@ const AdminServiceRow = ({
     setIdRow(_id);
   };
 
-  console.log(title, price, " row");
-
   return (
     <div className="admin-service__row">
       <div className="admin-service__row-service">

@@ -35,11 +35,10 @@ const AdminProfile = () => {
   const { deleteImgFirebase } = useDeleteFileFirebase();
 
   const dispatch = useDispatch();
+  const adminDateUse = useSelector((store) => store.useAdminData);
   const dataAdmin = useSelector((store) => store.userData);
   const dataAlert = useSelector((store) => store.alertData);
   const dataFile = useSelector((store) => store.fileDate);
-
-  console.log(dataAdmin);
 
   const [currentAdminData, setCurrentAdminData] = useState([]);
   const [formValues, setFormValues] = useState(null);
@@ -147,9 +146,27 @@ const AdminProfile = () => {
       {dataAlert.errorServerMsg
         ? dataAlert.where === "permissionAdmin" && <ErrorSuccessMessage />
         : dataAlert.where === "permissionAdmin" && <ErrorSuccessMessage />}
-      <div className="admin-profile__wrapper">
-        <div className="admin-profile__left-side">
-          <div className="admin-profile__wrapper-title">
+      <div
+        className={
+          adminDateUse.enablePermission
+            ? "admin-profile__wrapper"
+            : "admin-profile__wrapper admin-profile__wrapper--center"
+        }
+      >
+        <div
+          className={
+            adminDateUse.enablePermission
+              ? "admin-profile__left-side"
+              : "admin-profile__left-side admin-profile__left-side--expand"
+          }
+        >
+          <div
+            className={
+              adminDateUse.enablePermission
+                ? "admin-profile__wrapper-title"
+                : "admin-profile__wrapper-title admin-profile__wrapper-title--shrink"
+            }
+          >
             <p className="admin-profile__title">Update profile</p>
           </div>
           <Formik
@@ -294,13 +311,15 @@ const AdminProfile = () => {
             }}
           </Formik>
         </div>
-        <div className="admin-profile__right-side">
-          <div className="admin-profile__wrapper-title">
-            <p className="admin-profile__title">Control premission</p>
+        {adminDateUse.enablePermission && (
+          <div className="admin-profile__right-side">
+            <div className="admin-profile__wrapper-title">
+              <p className="admin-profile__title">Control premission</p>
+            </div>
+            <AdminProfilePermission />
+            <AdminProfileUsers />
           </div>
-          <AdminProfilePermission />
-          <AdminProfileUsers />
-        </div>
+        )}
       </div>
     </article>
   );

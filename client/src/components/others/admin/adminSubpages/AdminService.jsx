@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
@@ -30,6 +30,7 @@ const AdminService = () => {
   useDeleteErrorMessage();
 
   const dispatch = useDispatch();
+  const adminDateUse = useSelector((store) => store.useAdminData);
   const dataAlert = useSelector((store) => store.alertData);
   const dataService = useSelector((store) => store.serviceData);
   const { services } = dataService;
@@ -40,10 +41,6 @@ const AdminService = () => {
   const [gender, setGender] = useState("men");
   const [indexCard, setIndexCard] = useState(0);
   const [isOpenModal, setIsOpenModal] = useState(false);
-
-  console.log(currentServices, "currentServices");
-
-  console.log(card);
 
   const { handleRemoveItem } = useRemoveService(
     currentServices,
@@ -120,6 +117,7 @@ const AdminService = () => {
       onSubmit={onSubmit}
     >
       {(formik) => {
+        console.log(formik);
         return (
           <article className="admin-service">
             <div className="admin-service__wrapper">
@@ -188,7 +186,9 @@ const AdminService = () => {
                   <button
                     className="admin-service__button-add-image"
                     type="submit"
-                    disabled={!formik.isValid}
+                    disabled={
+                      adminDateUse.enableServices ? !formik.isValid : true
+                    }
                   >
                     Add Service
                   </button>
@@ -217,6 +217,7 @@ const AdminService = () => {
               </div>
             </div>
             <MessagePopup
+              enableAction={adminDateUse.enableServices}
               isOpenModal={isOpenModal}
               handleRemoveItem={handleRemoveItem}
               handleNotRemoveItem={handleNotRemoveItem}

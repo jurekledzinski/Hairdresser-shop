@@ -32,8 +32,7 @@ const AdminServiceEditForm = ({
   useDeleteErrorMessage();
 
   const dispatch = useDispatch();
-
-  console.log(formValues, " formValues edit");
+  const adminDateUse = useSelector((store) => store.useAdminData);
 
   const onSubmit = async (values, submitProps) => {
     values.id = idRow;
@@ -108,7 +107,7 @@ const AdminServiceEditForm = ({
               <button
                 className="admin-service__button-add-image"
                 type="submit"
-                disabled={!formik.isValid}
+                disabled={adminDateUse.enableServices ? !formik.isValid : true}
               >
                 Edit Service
               </button>

@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import "./AdminProfileUsers.scss";
 
 import { fetchAllAdmins } from "../../../../reduxStore/actions/actionFetchRegisteredAdmins";
+import { updateAdminData } from "../../../../reduxStore/actions/actionAdminData";
 
 import {
   addServerErrorMessage,
@@ -22,10 +23,12 @@ import useRemoveAdmin from "../adminCustomHooks/useRemoveAdmin";
 
 const AdminProfileUsers = () => {
   const dispatch = useDispatch();
+  const adminDateUse = useSelector((store) => store.useAdminData);
   const dataAdmin = useSelector((store) => store.adminsData);
   const { admins } = dataAdmin;
   const [adminsAllData, setAdminsAllData] = useState([]);
   const [currentIdAdmin, setCurrentIdAdmin] = useState("");
+  const [flagSubmit, setFlagSubmit] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const { handleRemoveItem } = useRemoveAdmin(
@@ -121,36 +124,36 @@ const AdminProfileUsers = () => {
 
     let permissions1 = {
       id: idAdmin1.current,
-      checkBook: checkBook1,
-      checkCancel: checkCancel1,
-      checkEmails: checkEmails1,
-      checkGallery: checkGallery1,
-      checkOpinions: checkOpinions1,
-      checkOpenShop: checkOpenShop1,
-      checkServices: checkServices1,
-      checkPermissions: checkPermissions1,
+      enableBook: checkBook1,
+      enableCancel: checkCancel1,
+      enableEmails: checkEmails1,
+      enableGallery: checkGallery1,
+      enableOpinions: checkOpinions1,
+      enableOpenShop: checkOpenShop1,
+      enableServices: checkServices1,
+      enablePermission: checkPermissions1,
     };
     let permissions2 = {
       id: idAdmin2.current,
-      checkBook: checkBook2,
-      checkCancel: checkCancel2,
-      checkEmails: checkEmails2,
-      checkGallery: checkGallery2,
-      checkOpinions: checkOpinions2,
-      checkOpenShop: checkOpenShop2,
-      checkServices: checkServices2,
-      checkPermissions: checkPermissions2,
+      enableBook: checkBook2,
+      enableCancel: checkCancel2,
+      enableEmails: checkEmails2,
+      enableGallery: checkGallery2,
+      enableOpinions: checkOpinions2,
+      enableOpenShop: checkOpenShop2,
+      enableServices: checkServices2,
+      enablePermission: checkPermissions2,
     };
     let permissions3 = {
       id: idAdmin3.current,
-      checkBook: checkBook3,
-      checkCancel: checkCancel3,
-      checkEmails: checkEmails3,
-      checkGallery: checkGallery3,
-      checkOpinions: checkOpinions3,
-      checkOpenShop: checkOpenShop3,
-      checkServices: checkServices3,
-      checkPermissions: checkPermissions3,
+      enableBook: checkBook3,
+      enableCancel: checkCancel3,
+      enableEmails: checkEmails3,
+      enableGallery: checkGallery3,
+      enableOpinions: checkOpinions3,
+      enableOpenShop: checkOpenShop3,
+      enableServices: checkServices3,
+      enablePermission: checkPermissions3,
     };
 
     const { data, status } = await updateAdmin(
@@ -187,7 +190,12 @@ const AdminProfileUsers = () => {
       });
 
       setAdminsAllData(updatedAdmin);
+
+      if (adminDateUse.userId === permissions._id) {
+        dispatch(updateAdminData(permissions));
+      }
     }
+    setFlagSubmit((prevValue) => !prevValue);
   };
 
   const handleNotRemoveItem = () => {
@@ -201,7 +209,7 @@ const AdminProfileUsers = () => {
 
   useEffect(() => {
     dispatch(fetchAllAdmins());
-  }, []);
+  }, [flagSubmit, dispatch]);
 
   useEffect(() => {
     if (admins.length > 0) {
@@ -314,7 +322,10 @@ const AdminProfileUsers = () => {
                   </label>
                 ))}
               </div>
-              <button className="admin-profile__button-permission-confirm">
+              <button
+                className="admin-profile__button-permission-confirm"
+                disabled={adminDateUse.enablePermission ? false : true}
+              >
                 Confirm
               </button>
             </form>
@@ -322,6 +333,7 @@ const AdminProfileUsers = () => {
         </div>
       ))}
       <MessagePopup
+        enableAction={adminDateUse.enablePermission}
         isOpenModal={isOpenModal}
         handleRemoveItem={handleRemoveItem}
         handleNotRemoveItem={handleNotRemoveItem}

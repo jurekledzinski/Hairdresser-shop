@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
@@ -28,14 +28,13 @@ const AdminShop = () => {
   useDeleteErrorMessage();
 
   const dispatch = useDispatch();
+  const adminDateUse = useSelector((store) => store.useAdminData);
   const dataAlert = useSelector((store) => store.alertData);
   const dataOpenShop = useSelector((store) => store.openShopData);
   const { shop } = dataOpenShop;
   const [currentOpenShop, setCurrentOpenShop] = useState([]);
   const [idOpenShop, setIdOpenShop] = useState("");
   const [isOpenModal, setIsOpenModal] = useState(false);
-
-  console.log(currentOpenShop, "currentSopenshop");
 
   const { handleRemoveItem } = useRemoveOpenShop(
     currentOpenShop,
@@ -45,8 +44,6 @@ const AdminShop = () => {
   );
 
   const onSubmit = async (values, submitProps) => {
-    console.log(values);
-
     const { data, status } = await addAdminOpenShop(values);
 
     const { openshop } = data;
@@ -117,7 +114,9 @@ const AdminShop = () => {
                   <button
                     className="admin-shop__button-add-image"
                     type="submit"
-                    disabled={!formik.isValid}
+                    disabled={
+                      adminDateUse.enableOpenShop ? !formik.isValid : true
+                    }
                   >
                     Add Open Time
                   </button>
@@ -146,6 +145,7 @@ const AdminShop = () => {
               </div>
             </div>
             <MessagePopup
+              enableAction={adminDateUse.enableOpenShop}
               isOpenModal={isOpenModal}
               handleRemoveItem={handleRemoveItem}
               handleNotRemoveItem={handleNotRemoveItem}

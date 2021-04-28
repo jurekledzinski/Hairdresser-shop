@@ -26,6 +26,7 @@ import useRemoveEmail from "../adminCustomHooks/useRemoveEmail";
 
 const AdminEmails = () => {
   const dispatch = useDispatch();
+  const adminDateUse = useSelector((store) => store.useAdminData);
   const dataEmails = useSelector((store) => store.emailsData);
   const dataAlert = useSelector((store) => store.alertData);
   const { emails } = dataEmails;
@@ -118,6 +119,7 @@ const AdminEmails = () => {
         />
       </div>
       <MessagePopup
+        enableAction={adminDateUse.enableEmails}
         isOpenModal={isOpenModal}
         handleRemoveItem={handleRemoveItem}
         handleNotRemoveItem={handleNotRemoveItem}

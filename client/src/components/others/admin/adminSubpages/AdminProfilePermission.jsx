@@ -17,6 +17,7 @@ import ErrorSuccessMessage from "../../errorSuccessMessages/ErrorSuccessMessages
 
 const AdminProfilePermission = () => {
   const dispatch = useDispatch();
+  const adminDateUse = useSelector((store) => store.useAdminData);
   const dataPermission = useSelector((store) => store.permissionData);
   const { permission } = dataPermission;
   const [checked, setChecked] = useState(false);
@@ -38,6 +39,7 @@ const AdminProfilePermission = () => {
     } else {
       dispatch(addServerErrorMessage(data.alert, "enableRegister"));
     }
+    setIsDisabled(true);
   };
 
   const handleChangePermission = () => {
@@ -76,7 +78,7 @@ const AdminProfilePermission = () => {
         {!isDisabled && (
           <button
             className="admin-profile__button-confirm"
-            disabled={isDisabled}
+            disabled={adminDateUse.enablePermission ? false : true}
           >
             Confirm
           </button>

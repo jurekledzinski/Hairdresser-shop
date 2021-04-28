@@ -27,6 +27,7 @@ import useRemoveOpinion from "../adminCustomHooks/useRemoveOpinion";
 
 const AdminOpinions = () => {
   const dispatch = useDispatch();
+  const adminDateUse = useSelector((store) => store.useAdminData);
   const dataOpinions = useSelector((store) => store.opinionsData);
   const dataAlert = useSelector((store) => store.alertData);
   const { opinions } = dataOpinions;
@@ -119,6 +120,7 @@ const AdminOpinions = () => {
         />
       </div>
       <MessagePopup
+        enableAction={adminDateUse.enableOpinions}
         isOpenModal={isOpenModal}
         handleRemoveItem={handleRemoveItem}
         handleNotRemoveItem={handleNotRemoveItem}

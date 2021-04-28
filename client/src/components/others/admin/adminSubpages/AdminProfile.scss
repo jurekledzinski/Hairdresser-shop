@@ -56,6 +56,10 @@
     @include media-queries(large) {
       width: 1350px;
       flex-direction: row;
+
+      &--center {
+        justify-content: center;
+      }
     }
   }
 
@@ -64,6 +68,10 @@
 
     @include media-queries(large) {
       width: 50%;
+
+      &--expand {
+        width: 60%;
+      }
     }
   }
 
@@ -82,6 +90,13 @@
     padding: 10px 10px;
     background-color: #393939;
     color: #f8cd38;
+
+    @include media-queries(large) {
+      &--shrink {
+        width: 88%;
+        margin: 0 auto;
+      }
+    }
   }
 
   &__title {

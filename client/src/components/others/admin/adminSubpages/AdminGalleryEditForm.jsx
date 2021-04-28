@@ -34,7 +34,6 @@ const AdminGalleryEditForm = ({
     fileImg: "",
   };
 
-  console.log(title, type, " edit");
   const [formValues, setFormValues] = useState(editValues);
   const { initialValues, validationSchema } = useValidationEditGalleryFormik();
   useDeleteErrorMessage();
@@ -42,12 +41,11 @@ const AdminGalleryEditForm = ({
   const { deleteImgFirebase } = useDeleteFileFirebase();
 
   const dispatch = useDispatch();
+  const adminDateUse = useSelector((store) => store.useAdminData);
   const dataAlert = useSelector((store) => store.alertData);
   const dataFile = useSelector((store) => store.fileDate);
 
   const [nameFile, setNameFile] = useState(null);
-
-  console.log(formValues, " formValues edit");
 
   const imgLink = useRef(null);
 
@@ -168,7 +166,7 @@ const AdminGalleryEditForm = ({
               <button
                 className="admin-gallery__button-add-image"
                 type="submit"
-                disabled={!formik.isValid}
+                disabled={adminDateUse.enableGallery ? !formik.isValid : true}
               >
                 Edit Image
               </button>
