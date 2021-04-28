@@ -5,6 +5,7 @@ import "./MessagePopup.scss";
 import Modal from "../../modal/Modal";
 
 const MessagePopup = ({
+  enableAction,
   isOpenModal,
   handleRemoveItem,
   handleNotRemoveItem,
@@ -18,12 +19,15 @@ const MessagePopup = ({
         }
       >
         <h4 className="message-popup__title">
-          Are you sure you want remove this {purpose}?
+          {enableAction
+            ? `Are you sure you want remove this ${purpose}?`
+            : "You don't have permission to this action"}
         </h4>
         <div className="message-popup__wrapper-btns">
           <button
             className="message-popup__button-yes"
             onClick={handleRemoveItem}
+            disabled={enableAction ? false : true}
           >
             Yes
           </button>
