@@ -147,7 +147,6 @@ export const addEnableRegisterPermission = async (add) => {
 // TODO: Service
 
 export const fetchAdminService = async (match) => {
-  console.log(match);
   const { data, status } = await request.get(
     `/service/search?qender=${match.gender}&card=${match.card}`
   );
