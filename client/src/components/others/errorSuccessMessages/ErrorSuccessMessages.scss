@@ -35,4 +35,20 @@
     color: #ff4136;
     font-weight: 400;
   }
+
+  &--remove-success-admin {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    color: #2ecc40;
+    font-weight: 400;
+  }
+
+  &--remove-error-admin {
+    position: absolute;
+    top: -20px;
+    left: 0;
+    color: #ff4136;
+    font-weight: 400;
+  }
 }

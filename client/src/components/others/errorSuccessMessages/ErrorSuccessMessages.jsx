@@ -44,6 +44,42 @@ const ErrorSuccessMessages = () => {
           {errorServerMsg || successServerMsg}
         </p>
       );
+    case "enableRegister":
+      return (
+        <p
+          className={
+            Boolean(errorServerMsg)
+              ? "alert-server"
+              : "alert-server alert-server--success"
+          }
+        >
+          {errorServerMsg || successServerMsg}
+        </p>
+      );
+    case "adminProfileEdit":
+      return (
+        <p
+          className={
+            Boolean(errorServerMsg)
+              ? "alert-server "
+              : "alert-server alert-server--success"
+          }
+        >
+          {errorServerMsg || successServerMsg}
+        </p>
+      );
+    case "permissionAdmin":
+      return (
+        <p
+          className={
+            Boolean(errorServerMsg)
+              ? "alert-server alert-server--remove-error-admin"
+              : "alert-server alert-server--remove-success-admin"
+          }
+        >
+          {errorServerMsg || successServerMsg}
+        </p>
+      );
     default:
       return null;
   }
