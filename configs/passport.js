@@ -34,10 +34,19 @@ module.exports = function (passport) {
     RegisterAdmin.findById(id, function (err, user) {
       const adminUser = {
         user: user.name,
+        lastName: user.lastName,
         email: user.email,
         imageUrl: user.imageUrl,
         userId: user._id,
         role: user.role,
+        enableBook: user.enableBook,
+        enableCancel: user.enableCancel,
+        enableEmails: user.enableEmails,
+        enableGallery: user.enableGallery,
+        enableOpinions: user.enableOpinions,
+        enableOpenShop: user.enableOpenShop,
+        enableServices: user.enableServices,
+        enablePermission: user.enablePermission,
       };
       done(err, adminUser);
     });
