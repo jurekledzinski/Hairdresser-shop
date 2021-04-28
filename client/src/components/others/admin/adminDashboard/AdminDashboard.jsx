@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./AdminDashboard.scss";
 
 import { fetchUsers } from "../../../../reduxStore/actions/actionFetchAdmin";
+import { addAdminData } from "../../../../reduxStore/actions/actionAdminData";
 
 import { logoutAdmin } from "../../../../utils/sessions";
 
@@ -15,6 +16,7 @@ import AdminContent from "../AdminContent";
 const AdminDashboard = () => {
   const dispatch = useDispatch();
   const dataUser = useSelector((store) => store.userData);
+  const adminDateUse = useSelector((store) => store.useAdminData);
   const { users } = dataUser;
 
   const [isLogOut, setIsLogOut] = useState(false);
@@ -50,6 +52,12 @@ const AdminDashboard = () => {
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!Array.isArray(users) && typeof users === "object") {
+      dispatch(addAdminData(users));
+    }
+  }, [users]);
 
   useEffect(() => {
     idTimeOut.current = setTimeout(() => setLoadImg(false), 700);
