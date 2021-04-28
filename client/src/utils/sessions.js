@@ -82,14 +82,34 @@ export const registerAdmin = async (personalData) => {
   return { data, status };
 };
 
+// TODO: pobierz wszytkich adminow
+
 export const fetchRegisterAdmin = async () => {
   const { data, status } = await request.get("/register-admin");
 
   return { data, status };
 };
 
-export const updateAdmin = async (id) => {
-  const { data, status } = await request.put(`/register-admin/${id}`);
+export const updateAdmin = async (permission) => {
+  const { data, status } = await request.put(
+    `/register-admin/${permission.id}`,
+    permission
+  );
+
+  return { data, status };
+};
+
+export const updateAdminProfile = async (dataProfile) => {
+  const { data, status } = await request.put(
+    `/register-admin/profile/${dataProfile.id}`,
+    dataProfile
+  );
+
+  return { data, status };
+};
+
+export const deleteAdmin = async (id) => {
+  const { data, status } = await request.delete(`/register-admin/${id}`);
 
   return { data, status };
 };
