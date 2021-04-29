@@ -20,9 +20,16 @@ import ErrorSuccessMessage from "../../others/errorSuccessMessages/ErrorSuccessM
 
 import ButtonGoBackLoginRegister from "../buttonGoBackLoginRegister/ButtonGoBackLoginRegister";
 
+import useLoadBgImg from "../../../customHooks/useLoadBgImg";
+import CircleSpinner from "../spinner/CircleSpinner";
+
 const Login = () => {
   const dispatch = useDispatch();
   const dataAlert = useSelector((store) => store.alertData);
+  const urlImgSignIn =
+    "https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Background-register.jpg?alt=media&token=1aaaebea-8a46-4dd2-bed2-f6b55509fb37";
+
+  const isLoad = useLoadBgImg(urlImgSignIn);
 
   const flagSubmit = useRef(false);
   const idTimeoutSubmit = useRef(null);
@@ -98,14 +105,21 @@ const Login = () => {
             <div className="login__wrapper">
               <ButtonGoBackLoginRegister />
               <div className="login__left">
+                {!isLoad && (
+                  <div className="login__overlay">
+                    <CircleSpinner />
+                  </div>
+                )}
                 <span className="login__cover-left"></span>
-                <div className="login__left-redirects">
-                  <h2 className="login__left-title">Log in</h2>
-                  <p className="login__left-subtitle">
-                    Please fill in your credentials to enter into admin
-                    dashboard
-                  </p>
-                </div>
+                {isLoad && (
+                  <div className="login__left-redirects">
+                    <h2 className="login__left-title">Log in</h2>
+                    <p className="login__left-subtitle">
+                      Please fill in your credentials to enter into admin
+                      dashboard
+                    </p>
+                  </div>
+                )}
               </div>
               <div className="login__right">
                 <h2 className="login__right-title">Log in</h2>

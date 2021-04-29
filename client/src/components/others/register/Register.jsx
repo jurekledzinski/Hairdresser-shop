@@ -35,6 +35,9 @@ import ErrorSuccessMessage from "../../others/errorSuccessMessages/ErrorSuccessM
 const FILE_SIZE = 100 * 75;
 const FILE_FORMATS = ["image/png", "image/jpeg"];
 
+import useLoadBgImg from "../../../customHooks/useLoadBgImg";
+import CircleSpinner from "../spinner/CircleSpinner";
+
 const Register = () => {
   const dispatch = useDispatch();
   const dataFile = useSelector((store) => store.fileDate);
@@ -46,6 +49,11 @@ const Register = () => {
   const idTimeout = useRef(null);
   const idTimeOutLogin = useRef(null);
   const imgLink = useRef(null);
+
+  const urlImgSignUp =
+    "https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Background-register.jpg?alt=media&token=1aaaebea-8a46-4dd2-bed2-f6b55509fb37";
+
+  const isLoad = useLoadBgImg(urlImgSignUp);
 
   useFirebseDeleteFile(imgLink);
 
@@ -183,22 +191,29 @@ const Register = () => {
           <section className="register">
             <div className="register__wrapper">
               <div className="register__left">
+                {!isLoad && (
+                  <div className="register__overlay">
+                    <CircleSpinner />
+                  </div>
+                )}
                 <span className="login__cover-left"></span>
-                <div className="register__left-redirects">
-                  <h2 className="register__left-title">Sign up</h2>
-                  <p className="register__left-subtitle">
-                    Please fill in your details
-                  </p>
-                  <p className="register__left-login-text">
-                    Already have an account?
-                  </p>
-                  <Link
-                    className="register__left-login-button"
-                    to="/login-admin"
-                  >
-                    Sign in
-                  </Link>
-                </div>
+                {isLoad && (
+                  <div className="register__left-redirects">
+                    <h2 className="register__left-title">Sign up</h2>
+                    <p className="register__left-subtitle">
+                      Please fill in your details
+                    </p>
+                    <p className="register__left-login-text">
+                      Already have an account?
+                    </p>
+                    <Link
+                      className="register__left-login-button"
+                      to="/login-admin"
+                    >
+                      Sign in
+                    </Link>
+                  </div>
+                )}
               </div>
               <div className="register__right">
                 <ButtonGoBackLoginRegister />

@@ -4,6 +4,9 @@ import "./AdminGalleryImageRow.scss";
 
 import AdminGalleryEditForm from "./AdminGalleryEditForm";
 
+import useLoadBgImg from "../../../../customHooks/useLoadBgImg";
+import CircleSpinner from "../../../others/spinner/CircleSpinner";
+
 const AdminGalleryImageRow = ({
   _id,
   imageUrl,
@@ -18,6 +21,8 @@ const AdminGalleryImageRow = ({
 }) => {
   const [idRow, setIdRow] = useState("");
   const [isVisiblePanel, setIsVisiblePanel] = useState(false);
+
+  const isLoad = useLoadBgImg(imageUrl);
 
   const handleDeleteImage = () => {
     setIdRow(_id);
@@ -39,7 +44,13 @@ const AdminGalleryImageRow = ({
         <div
           className="admin-gallery__image-frame"
           style={{ backgroundImage: `url(${imageUrl})` }}
-        ></div>
+        >
+          {!isLoad && (
+            <div className="admin-gallery__overlay">
+              <CircleSpinner />
+            </div>
+          )}
+        </div>
         <div className="admin-gallery__buttons-wrapper">
           <button
             className={
