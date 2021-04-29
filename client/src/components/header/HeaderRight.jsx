@@ -1,5 +1,8 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { fetchUsers } from "../../reduxStore/actions/actionFetchAdmin";
 
 import "./HeaderRight.scss";
 
@@ -17,20 +20,20 @@ const HeaderRight = ({
   navigationHeader,
   logoRef,
 }) => {
-  const menuOptions = headerMenuLinks.map((item, index) => {
-    return (
-      <li
-        className={item.classItem}
-        key={index}
-        onClick={() => handleScrollSectionAfterClickLink(index)}
-        ref={addRefs}
-      >
-        <Link className={item.classLink} to={item.pathName}>
-          {item.nameLink}
-        </Link>
-      </li>
-    );
-  });
+  const dispatch = useDispatch();
+  const dataUser = useSelector((store) => store.userData);
+  const { users } = dataUser;
+  const [islogAdmin, setIsLogAdmin] = useState(null);
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (!Array.isArray(users) && typeof users === "object") {
+      setIsLogAdmin(users);
+    }
+  }, [users]);
 
   return (
     <Fragment>
@@ -72,6 +75,13 @@ const HeaderRight = ({
         >
           <p className="header__logo-mobile-show">Hair Planet</p>
           <ul className="header__menu">
+            {Boolean(islogAdmin) && islogAdmin.role === "Admin" && (
+              <li className="header__menu-item">
+                <Link className="header__menu-link" to="/admin">
+                  Admin
+                </Link>
+              </li>
+            )}
             {headerMenuLinks.map((item, index) => {
               return (
                 <li
