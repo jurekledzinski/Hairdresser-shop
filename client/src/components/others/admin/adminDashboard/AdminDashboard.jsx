@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import "./AdminDashboard.scss";
 
-import { fetchUsers } from "../../../../reduxStore/actions/actionFetchAdmin";
+import {
+  clearAdminLogOut,
+  fetchUsers,
+} from "../../../../reduxStore/actions/actionFetchAdmin";
 import { addAdminData } from "../../../../reduxStore/actions/actionAdminData";
 
 import { logoutAdmin } from "../../../../utils/sessions";
@@ -66,7 +69,10 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     if (isLogOut) {
-      idTimeOutLogout.current = setTimeout(() => history.push("/"), 1000);
+      idTimeOutLogout.current = setTimeout(() => {
+        dispatch(clearAdminLogOut());
+        history.push("/"), 1000;
+      });
     }
     return () => clearTimeout(idTimeOutLogout.current);
   }, [isLogOut]);
