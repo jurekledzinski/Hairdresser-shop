@@ -12,8 +12,6 @@ const InternalServerError = () => {
   const history = useHistory();
   const timeOutClear = useRef();
 
-  console.log(serverError);
-
   const handleReloadPage = () => {
     if (history.location.pathname !== "/") {
       history.push("/");
