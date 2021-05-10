@@ -9,6 +9,8 @@ import "./App.scss";
 import MainPage from "./components/mainpage/MainPage";
 import BookingMainPage from "./components/others/booking/BookingMainPage";
 import BookingDetails from "./components/others/booking/BookingDetails";
+import BookingSuccess from "./components/others/booking/BookingSuccess";
+import BookingCancel from "./components/others/booking/BookingCancel";
 import TeamDetails from "./components/content/team/TeamDetails";
 import BookingTermPolicyDetails from "./components/others/booking/BookingTermPolicyDetails";
 import AdminDashboard from "./components/others/admin/adminDashboard/AdminDashboard";
@@ -27,6 +29,8 @@ const App = () => {
               <Route exact path="/" component={MainPage} />
               <Route exact path="/booking" component={BookingMainPage} />
               <Route path="/booking/details/:id" component={BookingDetails} />
+              <Route path="/booking/success/:id" component={BookingSuccess} />
+              <Route path="/booking/cancel/:id" component={BookingCancel} />
               <Route path="/team-details" component={TeamDetails} />
               <Route path="/term-policy" component={BookingTermPolicyDetails} />
               <Route path="/admin" component={AdminDashboard} />
