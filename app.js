@@ -42,6 +42,9 @@ const emailRouter = require("./routes/email");
 const registerAdmin = require("./routes/registerAdmin");
 const loginAdmin = require("./routes/loginAdmin");
 const enableRegisterFormRouter = require("./routes/enableRegisterForm");
+const bookingRouter = require("./routes/booking");
+const checkoutRouter = require("./routes/checkout");
+const emailConfirmation = require("./routes/emailBookingConfirmation");
 
 const app = express();
 
@@ -100,6 +103,9 @@ app.use("/email", emailRouter);
 app.use("/register-admin", registerAdmin);
 app.use("/login-admin", loginAdmin);
 app.use("/enable-register", enableRegisterFormRouter);
+app.use("/booking", bookingRouter);
+app.use("/create-checkout-session", checkoutRouter);
+app.use("/email-confirmation", emailConfirmation);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
