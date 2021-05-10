@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
@@ -13,9 +13,13 @@ import { adminServiceButtons } from "./AdminServiceButtons";
 
 import { fetchServices } from "../../../../reduxStore/actions/actionFetchServices";
 
+import useHandleServiceImage from "../adminCustomHooks/useHandleServiceImage";
+import useFirebseDeleteFile from "../../../../customHooks/useFirebaseDeleteFile";
 import useValidationServiceForm from "../adminCustomHooks/useValidationServiceForm";
 import useDeleteErrorMessage from "../../../../customHooks/useDeleteErrorMessage";
 import ErrorSuccessMessage from "../../errorSuccessMessages/ErrorSuccessMessages";
+
+import ProgressBar from "../../progreeBar/ProgressBar";
 
 import MessagePopup from "../adminPopUpMessage/MessagePopup";
 
@@ -27,11 +31,13 @@ import useRemoveService from "../adminCustomHooks/useRemoveService";
 
 const AdminService = () => {
   const { initialValues, validationSchema } = useValidationServiceForm();
+  const { handleFile } = useHandleServiceImage();
   useDeleteErrorMessage();
 
   const dispatch = useDispatch();
   const adminDateUse = useSelector((store) => store.useAdminData);
   const dataAlert = useSelector((store) => store.alertData);
+  const dataFile = useSelector((store) => store.fileDate);
   const dataService = useSelector((store) => store.serviceData);
   const { services } = dataService;
   const [card, setCard] = useState("card 1");
@@ -41,18 +47,26 @@ const AdminService = () => {
   const [gender, setGender] = useState("men");
   const [indexCard, setIndexCard] = useState(0);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [nameFile, setNameFile] = useState(null);
+
+  const imgUrl = useRef(null);
+  const imgLink = useRef(null);
+
+  useFirebseDeleteFile(imgLink);
 
   const { handleRemoveItem } = useRemoveService(
     currentServices,
     idService,
+    imgUrl,
     setCurrentServices,
     setIsOpenModal
   );
 
   const onSubmit = async (values, submitProps) => {
+    delete values.fileImg;
     values.gender = gender;
     values.card = card;
-    console.log(values);
+    values.imageUrl = imgLink.current;
 
     const { data, status } = await addAdminService(values);
 
@@ -62,10 +76,13 @@ const AdminService = () => {
 
     if (status !== 200) {
       dispatch(addServerErrorMessage(data.alert, "default"));
+      setNameFile(null);
     } else {
       dispatch(addServerSuccessMessage(data.success, "default"));
       setCurrentServices([...currentServices, service]);
+      setNameFile(null);
     }
+    imgLink.current = null;
     submitProps.resetForm();
   };
 
@@ -95,6 +112,12 @@ const AdminService = () => {
   };
 
   useEffect(() => {
+    if (Boolean(dataFile.fileImageService)) {
+      setNameFile(dataFile.fileImageService.name);
+    }
+  }, [dataFile]);
+
+  useEffect(() => {
     let type = {
       gender,
       card,
@@ -105,6 +128,14 @@ const AdminService = () => {
   useEffect(() => {
     setCurrentServices(services);
   }, [services]);
+
+  const inputFile = ({ setFieldValue, setFieldTouched }) => (
+    <input
+      type="file"
+      onChange={(e) => handleFile(e, setFieldValue, setFieldTouched)}
+      className="admin-gallery__input-file"
+    />
+  );
 
   const errorMsg = (props) => {
     return <p className="admin-service__error-msg">{props.children}</p>;
@@ -117,7 +148,6 @@ const AdminService = () => {
       onSubmit={onSubmit}
     >
       {(formik) => {
-        console.log(formik);
         return (
           <article className="admin-service">
             <div className="admin-service__wrapper">
@@ -156,6 +186,9 @@ const AdminService = () => {
                   </button>
                 ))}
               </div>
+              {Boolean(dataFile.fileImageService) && (
+                <ProgressBar imgLink={imgLink} />
+              )}
               {!Boolean(Object.keys(formik.errors).length) &&
               dataAlert.errorServerMsg ? (
                 <ErrorSuccessMessage />
@@ -167,6 +200,28 @@ const AdminService = () => {
                   className="admin-service__wrapper-form-add"
                   onSubmit={formik.handleSubmit}
                 >
+                  <ErrorMessage name="fileImg" component={errorMsg} />
+                  <div className="admin-gallery__input-file-add">
+                    <label className="admin-gallery__label-file">
+                      Choose File
+                      <Field
+                        as={inputFile}
+                        name="fileImg"
+                        type="file"
+                        setFieldValue={formik.setFieldValue}
+                        setFieldTouched={formik.setFieldTouched}
+                      ></Field>
+                    </label>
+                    {nameFile ? (
+                      <span className="admin-gallery__file-name">
+                        {nameFile}
+                      </span>
+                    ) : (
+                      <span className="admin-gallery__file-name">
+                        No file ...
+                      </span>
+                    )}
+                  </div>
                   <ErrorMessage name="title" component={errorMsg} />
                   <Field
                     type="text"
@@ -209,6 +264,7 @@ const AdminService = () => {
                       {...item}
                       setIdService={setIdService}
                       idService={idService}
+                      imgUrl={imgUrl}
                       setIsOpenModal={setIsOpenModal}
                       currentServices={currentServices}
                       setCurrentServices={setCurrentServices}
