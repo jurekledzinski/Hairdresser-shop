@@ -19,8 +19,6 @@ const useFirebaseStorage = (fileImage) => {
       (snapshot) => {
         let precentUpload =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
-        console.log(precentUpload);
         if (isMounted.current) {
           setProgressBar(precentUpload);
         }
