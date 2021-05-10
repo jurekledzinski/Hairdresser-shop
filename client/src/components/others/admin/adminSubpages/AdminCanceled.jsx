@@ -43,7 +43,6 @@ const AdminCanceled = () => {
   const dispatch = useDispatch();
   //   const dataOpinions = useSelector((store) => store.opinionsData);
   //   const { opinions } = dataOpinions;
-  //   console.log(opinions);
 
   const columns = useMemo(
     () => [
