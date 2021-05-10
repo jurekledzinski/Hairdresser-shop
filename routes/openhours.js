@@ -6,7 +6,6 @@ const OpenShop = require("../models/openHours.model");
 const { ErrorHandler } = require("../errors/error");
 
 router.get("/", (req, res, next) => {
-  console.log("To jest get shop");
   OpenShop.find({})
     .then((response) => {
       return res.status(200).json(response);
@@ -18,7 +17,6 @@ router.get("/", (req, res, next) => {
 
 router.post("/", (req, res, next) => {
   const { day, time } = req.body;
-  console.log(req.body);
 
   let info = {
     alert: "",
@@ -57,9 +55,6 @@ router.put("/:id", (req, res, next) => {
   const id = req.params.id;
   const { day, time } = req.body;
 
-  console.log(req.params, " update shop params");
-  console.log(req.body, " update shop req body");
-
   let info = {
     alert: "",
     success: "",
@@ -86,8 +81,6 @@ router.put("/:id", (req, res, next) => {
 
 router.delete("/:id", (req, res, next) => {
   const id = req.params.id;
-
-  console.log(req.params, "delete");
 
   let info = {
     alert: "",

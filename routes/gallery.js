@@ -22,8 +22,6 @@ router.get("/:type", (req, res, next) => {
 router.post("/", (req, res, next) => {
   const { title, imageUrl, type } = req.body;
 
-  console.log(req.body);
-
   let info = {
     alert: "",
     success: "",

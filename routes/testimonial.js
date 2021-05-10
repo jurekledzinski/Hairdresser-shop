@@ -74,7 +74,6 @@ router.post("/", (req, res, next) => {
 router.delete("/:id", (req, res, next) => {
   const id = req.params.id;
 
-  console.log(id, " to jest id opinion");
   const info = {
     alert: "",
     success: "",
