@@ -124,9 +124,9 @@ const Register = () => {
       FILE_FORMATS.includes(selectFile.type) &&
       selectFile.size <= FILE_SIZE
     ) {
-      dispatch(addImageFile(null, selectFile, null, null));
+      dispatch(addImageFile(null, selectFile, null, null, null));
     } else {
-      dispatch(removeImageFile(null, null, null, null));
+      dispatch(removeImageFile(null, null, null, null, null));
     }
   };
 

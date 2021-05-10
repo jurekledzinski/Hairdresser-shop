@@ -26,7 +26,7 @@ const useFirebseDeleteFile = (imgLink) => {
         ) {
           const image = projectStorage.refFromURL(imgLink.current);
           imgLink.current = null;
-          dispatch(removeImageFile(null, null, null, null, null));
+          dispatch(removeImageFile(null, null, null, null, null, null));
           image
             .delete()
             .then((responese) => responese)
