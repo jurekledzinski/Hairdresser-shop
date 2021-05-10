@@ -29,8 +29,6 @@ const Header = () => {
   const dataPermission = useSelector((store) => store.permissionData);
   const { permission } = dataPermission;
 
-  console.log(dataPermission, " dane permission ");
-
   const [checkPermission, setCheckPermission] = useState(true);
   const [clickLogo, setClickLogo] = useState(0);
   const [isActiveHamburgerMenu, setIsActiveHamburgerMenu] = useState(false);
@@ -48,8 +46,6 @@ const Header = () => {
   const navigationHeader = useRef(null);
 
   const history = useHistory();
-
-  console.log(checkPermission, "checkPermission ");
 
   useMoveScroll(navigationHeader);
   const { handleScrollSectionAfterClickLink } = useHandleScrollToSection();
