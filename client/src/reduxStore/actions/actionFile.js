@@ -6,7 +6,9 @@ export const addImageFile = (
   fileImageRegister,
   fileImageGallery,
   fileImageGalleryEdit,
-  fileImageEditProfile
+  fileImageEditProfile,
+  fileImageService,
+  fileEditImageService
 ) => ({
   type: ADD_FILE,
   payload: {
@@ -15,6 +17,8 @@ export const addImageFile = (
     fileImageGallery,
     fileImageGalleryEdit,
     fileImageEditProfile,
+    fileImageService,
+    fileEditImageService,
   },
 });
 
@@ -23,7 +27,9 @@ export const removeImageFile = (
   fileImageRegister,
   fileImageGallery,
   fileImageGalleryEdit,
-  fileImageEditProfile
+  fileImageEditProfile,
+  fileImageService,
+  fileEditImageService
 ) => ({
   type: REMOVE_FILE,
   payload: {
@@ -32,5 +38,7 @@ export const removeImageFile = (
     fileImageGallery,
     fileImageGalleryEdit,
     fileImageEditProfile,
+    fileImageService,
+    fileEditImageService,
   },
 });
