@@ -12,4 +12,6 @@ module.exports = {
   emailOfUser: process.env.EMAIL_USER,
   passwordUserEmail: process.env.PASSWORD_USER,
   emailAddressSendTo: process.env.EMAIL_SENDTO,
+  stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
+  stripeSecretKey: process.env.STRIPE_SECRET_KEY,
 };
