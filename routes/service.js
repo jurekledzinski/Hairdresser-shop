@@ -5,6 +5,18 @@ const Service = require("../models/service.model");
 
 const { ErrorHandler } = require("../errors/error");
 
+router.get("/", (req, res) => {
+  Service.find({})
+    .then((response) => {
+      if (response) {
+        return res.status(200).json(response);
+      }
+    })
+    .catch((err) => {
+      next(new ErrorHandler(500, "Internal server error", err.message));
+    });
+});
+
 router.get("/:query", (req, res, next) => {
   const gender = req.query.qender;
   const card = req.query.card;
@@ -21,20 +33,21 @@ router.get("/:query", (req, res, next) => {
 });
 
 router.post("/", (req, res, next) => {
-  const { title, price, gender, card } = req.body;
+  const { imageUrl, title, price, gender, card } = req.body;
 
   let info = {
     alert: "",
     success: "",
   };
 
-  if (!title || !price || !gender || !card) {
+  if (!imageUrl || !title || !price || !gender || !card) {
     info.alert = "Please fill in all fields";
     return res.status(404).json(info);
   }
 
   if (!Boolean(info.alert)) {
     const currentService = {
+      imageUrl,
       title,
       price,
       gender,
@@ -60,7 +73,7 @@ router.post("/", (req, res, next) => {
 
 router.put("/:id", (req, res) => {
   const id = req.params.id;
-  const { title, price } = req.body;
+  const { imageUrl, title, price } = req.body;
 
   let info = {
     alert: "",
@@ -70,6 +83,7 @@ router.put("/:id", (req, res) => {
   Service.findById(id)
     .then((response) => {
       if (response) {
+        response.imageUrl = imageUrl;
         response.title = title;
         response.price = price;
 
@@ -88,8 +102,6 @@ router.put("/:id", (req, res) => {
 
 router.delete("/:id", (req, res, next) => {
   const id = req.params.id;
-
-  console.log(req.params, " delete service");
 
   const info = {
     alert: "",
