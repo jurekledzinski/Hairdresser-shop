@@ -36,14 +36,10 @@ const Login = () => {
   const idTimeout = useRef(null);
   const history = useHistory();
 
-  console.log(flagSubmit.current);
-
   const initialValues = {
     email: "",
     password: "",
   };
-
-  console.log("login");
 
   const validationSchema = Yup.object({
     email: Yup.string().email("Invalid email").required("Email required"),
@@ -51,9 +47,6 @@ const Login = () => {
   });
 
   const onSubmit = async (values, submitProps) => {
-    console.log(values);
-    console.log(submitProps);
-
     const { data, status } = await loginAdmin(values);
     console.log(data, status);
 
