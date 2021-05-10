@@ -63,8 +63,8 @@
       align-items: center;
       overflow-y: scroll;
 
-      scrollbar-width: thin;
-      scrollbar-color: auto;
+      scrollbar-width: thin !important;
+      scrollbar-color: auto !important;
 
       &::-webkit-scrollbar {
         width: 3px;
