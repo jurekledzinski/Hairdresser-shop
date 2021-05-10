@@ -34,9 +34,9 @@ const useHandleGalleryImage = () => {
       FILE_FORMATS.includes(selectFile.type) &&
       selectFile.size <= FILE_SIZE
     ) {
-      dispatch(addImageFile(null, null, selectFile, null));
+      dispatch(addImageFile(null, null, selectFile, null, null, null, null));
     } else {
-      dispatch(removeImageFile(null, null, null, null));
+      dispatch(removeImageFile(null, null, null, null, null, null, null));
     }
   };
 
