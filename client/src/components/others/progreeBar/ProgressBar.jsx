@@ -17,14 +17,16 @@ const ProgressBar = ({ imgLink }) => {
       dataFile.fileImageRegister ||
       dataFile.fileImageGallery ||
       dataFile.fileImageGalleryEdit ||
-      dataFile.fileImageEditProfile
+      dataFile.fileImageEditProfile ||
+      dataFile.fileImageService ||
+      dataFile.fileEditImageService
   );
 
   useEffect(() => {
     isMount.current = true;
     if (imgUrl && isMount.current) {
       imgLink.current = imgUrl;
-      dispatch(removeImageFile(null, null, null, null));
+      dispatch(removeImageFile(null, null, null, null, null, null, null));
     }
     return () => (isMount.current = false);
   }, [imgUrl]);
