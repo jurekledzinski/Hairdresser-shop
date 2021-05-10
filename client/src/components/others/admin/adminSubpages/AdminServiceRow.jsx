@@ -4,9 +4,14 @@ import "./AdminServiceRow.scss";
 
 import AdminServiceEditForm from "./AdminServiceEditForm";
 
+import useLoadBgImg from "../../../../customHooks/useLoadBgImg";
+import CircleSpinner from "../../../others/spinner/CircleSpinner";
+
 const AdminServiceRow = ({
   _id,
   idService,
+  imageUrl,
+  imgUrl,
   currentServices,
   setCurrentServices,
   setIdService,
@@ -17,11 +22,14 @@ const AdminServiceRow = ({
   const [idRow, setIdRow] = useState("");
   const [isVisiblePanel, setIsVisiblePanel] = useState(false);
 
+  const isLoad = useLoadBgImg(imageUrl);
+
   const handleDeleteService = () => {
     setIdRow(_id);
     setIdService(_id);
     setIsOpenModal(true);
     setIsVisiblePanel(false);
+    imgUrl.current = imageUrl;
   };
 
   const handleEditService = () => {
@@ -33,6 +41,16 @@ const AdminServiceRow = ({
   return (
     <div className="admin-service__row">
       <div className="admin-service__row-service">
+        <div
+          className="admin-service__image-frame"
+          style={{ backgroundImage: `url(${imageUrl})` }}
+        >
+          {!isLoad && (
+            <div className="admin-service__overlay">
+              <CircleSpinner />
+            </div>
+          )}
+        </div>
         <div className="admin-service__text-wrapper">
           <p className="admin-service__text-span-1">Service:</p>
           <p className="admin-service__text-1"> {title}</p>
@@ -76,6 +94,7 @@ const AdminServiceRow = ({
           setCurrentServices={setCurrentServices}
           setIsVisiblePanel={setIsVisiblePanel}
           idRow={idRow}
+          imageUrl={imageUrl}
           title={title}
           price={price}
         />
