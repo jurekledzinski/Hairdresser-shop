@@ -2,16 +2,22 @@
 
 @mixin button-cancel {
   width: 100%;
-  padding: 2px 0;
-  background-color: transparent;
-  border: 1px solid #808080;
-  color: #dddddd;
+  padding: 5px 0;
+  background-color: #ff4136;
+  border: none;
+  color: #f9f5f1;
   font-size: 1.3rem;
   letter-spacing: 1px;
   font-weight: 500;
   outline: none;
   font-family: "Oswald", sans-serif;
   cursor: pointer;
+  transition: 0.4s ease;
+
+  &:hover {
+    background-color: #ef372d;
+    color: white;
+  }
 
   @include media-queries(xmedium) {
     font-size: 1.6rem;
@@ -23,7 +29,6 @@
 
   @include media-queries(large) {
     width: 120px;
-    padding: 5px 0;
   }
 }
 
@@ -69,6 +74,5 @@
     @include button-cancel();
     float: right;
     margin-top: 10px;
-    border: 1px solid #ff4136;
   }
 }
