@@ -61,13 +61,10 @@ const AdminGallery = () => {
 
   const onSubmit = async (values, submitProps) => {
     delete values.fileImg;
-
     values.imageUrl = imgLink.current;
     values.type = chooseButton;
 
     const { data, status } = await addImageGallery(values);
-
-    console.log(data, status);
 
     delete data.image.__v;
 
