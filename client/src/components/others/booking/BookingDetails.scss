@@ -307,11 +307,8 @@
     cursor: pointer;
   }
 
-  &__button-wrapper {
-    margin-top: 13px;
-  }
-
   &__button-checkout {
+    margin-top: 13px;
     @include btn-checkout();
   }
 }

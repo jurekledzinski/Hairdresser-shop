@@ -1,67 +1,175 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { Formik, Form } from "formik";
+
+import addDays from "date-fns/addDays";
+import setHours from "date-fns/setHours";
+import setMinutes from "date-fns/setMinutes";
+
+import { v4 as uuidv4 } from "uuid";
 
 import "./BookingForm.scss";
+
+import {
+  addServerErrorMessage,
+  addServerSuccessMessage,
+} from "../../../reduxStore/actions/actionAlertsMessages";
+
+import { addBooking, addExcludedDates } from "../../../utils/sessions";
+
+import { addOrderDetails } from "../../../reduxStore/actions/actionOrderDetails";
+// import { addExcludTimes } from "../../../reduxStore/actions/actionExcludedTimes";
+import { addSingleExcludTimes } from "../../../reduxStore/actions/actionSingleExcludedTime";
+
+import { fetchBookingUser } from "../../../reduxStore/actions/actionFetchOrderDetails";
 
 import BookingFormChooseHairDresser from "./BookingFormChooseHairDresser";
 import BookingFormDayTime from "./BookingFormDayTime";
 import BookingFormChooseService from "./BookingFormChooseService";
 import BookingFormNameEmailPhone from "./BookingFormNameEmailPhone";
 
+import validationBookingFormik from "./bookingCustomHooks/validationBookingFormik";
+
+import ErrorSuccessMessage from "../../others/errorSuccessMessages/ErrorSuccessMessages";
+
 const BookingForm = () => {
+  const dispatch = useDispatch();
+  const dataDetailsOrder = useSelector((store) => store.orderDetailsData);
+  const dataAlert = useSelector((store) => store.alertData);
+  const [exludedTimeDate, setExcludedTimeDate] = useState();
+  const [choosedTime, setChoosedTime] = useState(null);
+  const [disableBtn, setDisableBtn] = useState(null);
+  const [formValues, setFormValues] = useState(null);
+  const [selectServices, setSelectServices] = useState([]);
+
+  const { initialValues, validationSchema } = validationBookingFormik();
+
   const history = useHistory();
 
-  const initialValues = {
-    hairdresserName: "",
-    day: "",
-    time: "",
-    services: [],
-    name: "",
-    email: "",
-    phone: "",
-    cancelCode: "",
-    isPayed: false,
-    dataPayed: null,
-    isCancel: false,
-    dataCancel: null,
-    bookingId: "",
-  };
+  const onSubmit = async (values, submitProps) => {
+    setChoosedTime(values.date);
 
-  const validationSchema = Yup.object({
-    name: Yup.string()
-      .min(2, "Name is too short")
-      .max(15, "Name is too long")
-      .required("Name is required"),
-    email: Yup.string().email("Invalid email").required("Email required"),
-    message: Yup.string()
-      .min(100, "Please write a little more")
-      .max(315, "Opininon is too long")
-      .required("Opinion is required"),
-  });
+    let dataService = new Date(values.date);
 
-  const onSubmit = (values) => {
-    console.log(values);
+    let dayEx = dataService.getDate();
+    let monthEx = dataService.getMonth();
+    let yearEx = dataService.getFullYear();
+    let hoursEx = dataService.getHours();
+    let minutesEx = dataService.getMinutes();
+    let generateCodeCancel = uuidv4();
+    let generateBookingId = uuidv4();
+
+    const excludedTimeData = {
+      codeCancel: generateCodeCancel,
+      isCancel: false,
+      timeService: setHours(
+        setMinutes(addDays(new Date(yearEx, monthEx, dayEx), 0), minutesEx),
+        hoursEx
+      ),
+      bookingId: generateBookingId,
+    };
+
+    setExcludedTimeDate(excludedTimeData);
+
+    let copyValues = values;
+    copyValues.bookingId = generateBookingId;
+    copyValues.cancelCode = generateCodeCancel;
+    copyValues.dataPayed = new Date().toLocaleString();
+    copyValues.services = selectServices;
+
+    let subTotal = copyValues.services.reduce(function (acc, curr) {
+      return acc + curr.price;
+    }, 0);
+
+    let total = copyValues.services.reduce(function (acc, curr) {
+      return acc + curr.price + curr.price * 0.19;
+    }, 0);
+
+    // let tax = 1.4;
+
+    // copyValues.totalPrice = total + tax;
+    copyValues.subTotalPrice = subTotal;
+    copyValues.totalPrice = Math.round(total * 100) / 100;
+
+    console.log(total);
+
+    console.log(copyValues);
+
+    dispatch(addOrderDetails(copyValues));
+    dispatch(addSingleExcludTimes(excludedTimeData));
+
+    // dispatch(addExcludTimes(excludedTimeData));
+
+    // const { data, status } = await addBooking(copyValues);
+
+    // if (status === 200) {
+    //   setFlagSubmit(true);
+    //   dispatch(addServerSuccessMessage(data.success, "registerForm"));
+    // } else {
+    //   dispatch(addServerErrorMessage(data.alert, "registerForm"));
+    // }
+
+    submitProps.setSubmitting(false);
+    submitProps.resetForm();
+    setDisableBtn(null);
+    setSelectServices([]);
+
+    history.push(`/booking/details/${excludedTimeData.bookingId}`);
   };
 
   const errorMsg = (props) => {
-    return <p className="contact__error-msg">{props.children}</p>;
+    return <p className="booking__error-msg">{props.children}</p>;
   };
 
-  const handleBookingForm = (e) => {
-    e.preventDefault();
-    const id = "123fkgsehddsfrt342dsf";
-  };
+  useEffect(() => {
+    sessionStorage.removeItem("page");
+  }, []);
 
   return (
-    <form className="booking__form" onSubmit={handleBookingForm}>
-      <BookingFormChooseHairDresser />
-      <BookingFormDayTime />
-      <BookingFormChooseService />
-      <BookingFormNameEmailPhone />
-      <button className="booking__button-continue">Continue</button>
-    </form>
+    <Formik
+      enableReinitialize
+      initialValues={formValues || initialValues}
+      validationSchema={validationSchema}
+      onSubmit={onSubmit}
+    >
+      {(formik) => {
+        return (
+          <Form className="booking__form">
+            {!Boolean(Object.keys(formik.errors).length) &&
+            dataAlert.errorServerMsg ? (
+              <ErrorSuccessMessage />
+            ) : (
+              <ErrorSuccessMessage />
+            )}
+            <BookingFormChooseHairDresser errorMsg={errorMsg} />
+            <BookingFormDayTime
+              choosedTime={choosedTime}
+              disableBtn={disableBtn}
+              errorMsg={errorMsg}
+              setChoosedTime={setChoosedTime}
+              setDisableBtn={setDisableBtn}
+            />
+            <BookingFormChooseService
+              errorMsg={errorMsg}
+              selectServices={selectServices}
+              setSelectServices={setSelectServices}
+            />
+            <BookingFormNameEmailPhone errorMsg={errorMsg} />
+            <button
+              className="booking__button-continue"
+              type="submit"
+              disabled={
+                (formik.isValid && !Boolean(disableBtn)) ||
+                (formik.isSubmitting && !Boolean(disableBtn))
+              }
+            >
+              Continue
+            </button>
+          </Form>
+        );
+      }}
+    </Formik>
   );
 };
 

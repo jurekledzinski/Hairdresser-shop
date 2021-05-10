@@ -1,138 +1,190 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { loadStripe } from "@stripe/stripe-js/pure";
 
 import "./BookingDetails.scss";
 
+import { addServerErrorMessage } from "../../../reduxStore/actions/actionAlertsMessages";
+import {
+  addExcludTimes,
+  removeExcludTimes,
+} from "../../../reduxStore/actions/actionExcludedTimes";
+
+import {
+  addBooking,
+  addExcludedDates,
+  collectPay,
+} from "../../../utils/sessions";
+
 import BookingGoBackButton from "./BookingGoBackButton";
 
+import BookingPersonalDetails from "./BookingPersonalDetails";
+import BookingDetailsSummary from "./BookingDetailsSummary";
+import BookingOrderedServices from "./BookingOrderedServices";
+
+import useValidationAgreePolicy from "./bookingCustomHooks/useValidationAgreePolicy";
+import ErrorSuccessMessage from "../../others/errorSuccessMessages/ErrorSuccessMessages";
+
 const BookingDetails = () => {
-  const serviceWrapperRef = useRef(null);
+  const { initialValues, validationSchema } = useValidationAgreePolicy();
+  const dispatch = useDispatch();
+  const dataAlert = useSelector((store) => store.alertData);
+  const dataAllExcludedTimes = useSelector((store) => store.excludedTimesData);
+  const dataDetailsOrder = useSelector((store) => store.orderDetailsData);
+  const dataSingleExcludedTime = useSelector(
+    (store) => store.singleExcludedTimeData
+  );
+  const [stripe, setStripe] = useState(null);
+
+  //   const dataBookingUser = useSelector((store) => store.bookingUserData);
+
+  console.log(dataSingleExcludedTime, "pojedynczy czas");
+
+  const history = useHistory();
+  const location = useLocation();
+
+  //   const bookingID = location.pathname.slice(17);
+
+  const onSubmit = async (values, submitProps) => {
+    let updateDetailsOrder = dataDetailsOrder;
+    updateDetailsOrder.agreePolicy = values.agreePolicy;
+    await addBooking(updateDetailsOrder);
+    const [objExTime] = dataSingleExcludedTime;
+    await addExcludedDates(objExTime);
+
+    const stripeData = {
+      bookingId: dataDetailsOrder.bookingId,
+      services: dataDetailsOrder.services,
+    };
+
+    const { data, status } = await collectPay(stripeData);
+
+    if (status === 200) {
+      const { error } = await stripe.redirectToCheckout({
+        sessionId: data.sessionId,
+      });
+
+      if (error.message) {
+        dispatch(addServerErrorMessage(error.message, "registerForm"));
+      }
+    }
+
+    submitProps.setSubmitting(false);
+    submitProps.resetForm();
+  };
 
   useEffect(() => {
-    if (serviceWrapperRef.current) {
-      console.log(serviceWrapperRef.current.offsetHeight);
+    const item = sessionStorage.getItem("page");
+    if (item) {
+      console.log("strona ");
+      history.push("/booking");
     }
+    sessionStorage.setItem("page", true);
   }, []);
 
+  const loadingStripe = async () => {
+    const stripe = await loadStripe(
+      "pk_test_51HK927EW1gldDKWc0QVK2ehsteG1SDRe8BPAhkbCbIKfwFJPMbqiBeKGtbihghlcC6TphYpeLZfrPdy7wo3100a7008JnQvZi1"
+    );
+    setStripe(stripe);
+  };
+
+  useEffect(() => {
+    loadingStripe();
+  }, []);
+
+  const handleGoBackToBooking = () => {
+    // dispatch(removeExcludTimes(dataDetailsOrder.bookingId));
+    history.push(`/booking`);
+  };
+
+  const errorMsg = (props) => {
+    return <p className="booking__error-msg">{props.children}</p>;
+  };
+
   return (
-    <section className="bookingDetails">
-      <div className="bookingDetails__center-wrapper">
-        <BookingGoBackButton />
-        <div className="bookingDetails__wrapper">
-          <div className="bookingDetails__left"></div>
-          <div className="bookingDetails__right">
-            <div className="bookingDetails__inside-wrapper">
-              <h2 className="bookingDetails__title">Booking details</h2>
-              <div className="bookingDetails__details">
-                <div className="bookingDetails__personal-details">
-                  <h4 className="bookingDetails__subtitle bookingDetails__subtitle--reduce-margin">
-                    Personal details
-                  </h4>
-                  <p className="bookingDetails__service-title">
-                    HairDresser:
-                    <span className="bookingDetails__service-text">
-                      Joe Doe
-                    </span>
-                  </p>
-                  <p className="bookingDetails__service-title">
-                    Day:
-                    <span className="bookingDetails__service-text">
-                      27.03.2021
-                    </span>
-                  </p>
-                  <p className="bookingDetails__service-title">
-                    Time:
-                    <span className="bookingDetails__service-text">
-                      9:45 a.m.
-                    </span>
-                  </p>
-                  <p className="bookingDetails__service-title">
-                    Name:
-                    <span className="bookingDetails__service-text">
-                      Kate Swanson
-                    </span>
-                  </p>
-                  <p className="bookingDetails__service-title">
-                    Email:
-                    <span className="bookingDetails__service-text">
-                      kateswanson@gmail.com
-                    </span>
-                  </p>
-                  <p className="bookingDetails__service-title">
-                    Phone number:
-                    <span className="bookingDetails__service-text">
-                      651344774
-                    </span>
-                  </p>
-                </div>
-                <div className="bookingDetails__services">
-                  <h4 className="bookingDetails__subtitle">Ordered service</h4>
-                  <div
-                    className="bookingDetails__service-wrapper"
-                    ref={serviceWrapperRef}
-                  >
-                    <div className="bookingDetails__service">
-                      <div className="bookingDetails__image">
-                        <img
-                          src="https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Haircut-men.png?alt=media&token=deab2f3f-ea58-421e-9eb6-df411c448163"
-                          alt="Icon"
-                        />
-                      </div>
-                      <div className="bookingDetails__tax-price-wrapper">
-                        <p className="bookingDetails__service-name">
-                          Classic haircut
-                        </p>
-                        <p className="bookingDetails__service-price">3.25€</p>
-                      </div>
-                    </div>
-                    <div className="bookingDetails__service">
-                      <div className="bookingDetails__image">
-                        <img
-                          src="https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Haircut-men.png?alt=media&token=deab2f3f-ea58-421e-9eb6-df411c448163"
-                          alt="Icon"
-                        />
-                      </div>
-                      <div className="bookingDetails__tax-price-wrapper">
-                        <p className="bookingDetails__service-name">
-                          Classic haircut
-                        </p>
-                        <p className="bookingDetails__service-price">3.25€</p>
-                      </div>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={onSubmit}
+    >
+      {(formik) => {
+        return (
+          <section className="bookingDetails">
+            <div className="bookingDetails__center-wrapper">
+              <button
+                className="booking__button-go-back"
+                onClick={handleGoBackToBooking}
+              >
+                Go back
+              </button>
+              <div className="bookingDetails__wrapper">
+                <div className="bookingDetails__left"></div>
+                <div className="bookingDetails__right">
+                  <div className="bookingDetails__inside-wrapper">
+                    <h2 className="bookingDetails__title">Booking details</h2>
+                    <div className="bookingDetails__details">
+                      <BookingPersonalDetails
+                        email={dataDetailsOrder.email}
+                        date={dataDetailsOrder.date}
+                        hairdresserName={dataDetailsOrder.hairdresserName}
+                        name={dataDetailsOrder.name}
+                        phone={dataDetailsOrder.phone}
+                      />
+                      <BookingOrderedServices
+                        services={dataDetailsOrder.services}
+                      />
+                      <BookingDetailsSummary
+                        // totalPrice={
+                        //   Boolean(dataDetailsOrder.totalPrice) &&
+                        //   dataDetailsOrder.totalPrice.toFixed(2)
+                        // }
+                        totalPrice={
+                          Boolean(dataDetailsOrder.totalPrice) &&
+                          dataDetailsOrder.totalPrice
+                        }
+                        subTotalPrice={dataDetailsOrder.subTotalPrice}
+                      />
+
+                      <Form className="bookingDetails__confirm-terms-shop">
+                        {!Boolean(Object.keys(formik.errors).length) &&
+                        dataAlert.errorServerMsg ? (
+                          <ErrorSuccessMessage />
+                        ) : (
+                          <ErrorSuccessMessage />
+                        )}
+                        <ErrorMessage name="agreePolicy" component={errorMsg} />
+                        <label
+                          className="bookingDetails__confirm-terms"
+                          htmlFor="agree"
+                        >
+                          <Field
+                            name="agreePolicy"
+                            className="bookingDetails__confirm-checkbox"
+                            type="checkbox"
+                            id="agree"
+                          />
+                          I agree with terms policy of Hair planet shop
+                        </label>
+                        <button
+                          className="bookingDetails__button-checkout"
+                          type="submit"
+                          disabled={!formik.isValid}
+                        >
+                          Checkout
+                        </button>
+                      </Form>
                     </div>
                   </div>
-                </div>
-                <div className="bookingDetails__summary">
-                  <h4 className="bookingDetails__subtitle">Summary</h4>
-                  <div className="bookingDetails__details-summary">
-                    <p className="bookingDetails__tax">
-                      Tax:
-                      <span className="bookingDetails__tax-price">1.40€</span>
-                    </p>
-                    <p className="bookingDetails__price">
-                      Total price:
-                      <span className="bookingDetails__total-price">4.65€</span>
-                    </p>
-                  </div>
-                </div>
-                <div className="bookingDetails__confirm-terms-shop">
-                  <label className="bookingDetails__confirm-terms">
-                    <input
-                      className="bookingDetails__confirm-checkbox"
-                      type="checkbox"
-                    />
-                    I agree with terms policy of Hair planet shop
-                  </label>
-                </div>
-                <div className="bookingDetails__button-wrapper">
-                  <button className="bookingDetails__button-checkout">
-                    Checkout
-                  </button>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
+          </section>
+        );
+      }}
+    </Formik>
   );
 };
 

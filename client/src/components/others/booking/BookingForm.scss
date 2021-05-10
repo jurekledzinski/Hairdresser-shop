@@ -35,4 +35,13 @@
     @include button-booking();
     margin-top: 20px;
   }
+
+  &__error-msg {
+    margin-bottom: 10px;
+    color: #ff4136;
+    text-align: left;
+    font-size: 1.1rem;
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+  }
 }
