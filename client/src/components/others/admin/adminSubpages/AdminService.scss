@@ -108,6 +108,8 @@
     }
   }
 
+  //   ok
+
   &__label-file {
     display: flex;
     justify-content: center;
@@ -123,12 +125,16 @@
     }
   }
 
+  //   ok
+
   &__file-name {
     display: inline-block;
     margin-left: 10px;
     color: #393939;
     font-size: 1.4rem;
   }
+
+  //   ok
 
   &__input-file-add {
     display: flex;
@@ -156,11 +162,11 @@
     padding: 7px 10px;
     margin-bottom: 10px;
     background-color: lightcyan;
-    border: none;
+    border: none !important;
     outline: none;
 
     @include media-queries(large) {
-      width: 50%;
+      width: 25%;
       margin-bottom: initial;
     }
   }
@@ -180,6 +186,7 @@
 
   &__error-msg {
     position: initial;
+    margin-bottom: 5px;
     color: #ff4136;
     text-align: left;
     font-size: 1.1rem;
@@ -193,6 +200,9 @@
 
       &:nth-of-type(2) {
         left: 100px;
+      }
+      &:nth-of-type(3) {
+        left: 200px;
       }
     }
   }
