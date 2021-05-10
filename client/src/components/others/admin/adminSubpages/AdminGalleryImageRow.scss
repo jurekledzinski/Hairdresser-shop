@@ -42,7 +42,6 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: orange;
 
     @include media-queries(large) {
       width: 90px;
