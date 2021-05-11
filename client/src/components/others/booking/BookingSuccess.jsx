@@ -14,11 +14,9 @@ const BookingSuccess = () => {
   const dispatch = useDispatch();
   const dataBookingUser = useSelector((store) => store.bookingUserData);
 
-  console.log(dataBookingUser, " dataBookingUser");
-
   const history = useHistory();
 
-  const bookingID = history.location.pathname.slice(17);
+  let bookingID = history.location.pathname.slice(17);
 
   const updateBookingCustomer = async (booking) => {
     await updateSingleBooking(booking);
@@ -37,7 +35,8 @@ const BookingSuccess = () => {
   useEffect(() => {
     if (
       !Array.isArray(dataBookingUser.bookingUser) &&
-      dataBookingUser.bookingUser !== null
+      dataBookingUser.bookingUser !== null &&
+      bookingID
     ) {
       let updatedBooking = dataBookingUser.bookingUser;
 
@@ -51,7 +50,8 @@ const BookingSuccess = () => {
   useEffect(() => {
     if (
       !Array.isArray(dataBookingUser.bookingUser) &&
-      dataBookingUser.bookingUser !== null
+      dataBookingUser.bookingUser !== null &&
+      bookingID
     ) {
       const details = {
         bookingId: dataBookingUser.bookingUser.bookingId,
