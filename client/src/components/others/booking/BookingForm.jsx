@@ -74,8 +74,10 @@ const BookingForm = () => {
 
     let copyValues = values;
     copyValues.bookingId = generateBookingId;
+    copyValues.bookingWhere = "Website";
     copyValues.cancelCode = generateCodeCancel;
-    copyValues.dataPayed = new Date().toLocaleString();
+    copyValues.cancelPaymentReturnPercent = "";
+    copyValues.dataPayed = new Date();
     copyValues.services = selectServices;
 
     let subTotal = copyValues.services.reduce(function (acc, curr) {
@@ -86,9 +88,6 @@ const BookingForm = () => {
       return acc + curr.price + curr.price * 0.19;
     }, 0);
 
-    // let tax = 1.4;
-
-    // copyValues.totalPrice = total + tax;
     copyValues.subTotalPrice = subTotal;
     copyValues.totalPrice = Math.round(total * 100) / 100;
 
