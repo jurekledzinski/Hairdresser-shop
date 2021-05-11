@@ -40,7 +40,7 @@ const BookingDetails = () => {
 
   //   const dataBookingUser = useSelector((store) => store.bookingUserData);
 
-  console.log(dataSingleExcludedTime, "pojedynczy czas");
+  //   console.log(dataSingleExcludedTime, "pojedynczy czas");
 
   const history = useHistory();
   const location = useLocation();
@@ -137,10 +137,6 @@ const BookingDetails = () => {
                         services={dataDetailsOrder.services}
                       />
                       <BookingDetailsSummary
-                        // totalPrice={
-                        //   Boolean(dataDetailsOrder.totalPrice) &&
-                        //   dataDetailsOrder.totalPrice.toFixed(2)
-                        // }
                         totalPrice={
                           Boolean(dataDetailsOrder.totalPrice) &&
                           dataDetailsOrder.totalPrice
