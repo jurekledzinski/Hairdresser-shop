@@ -195,6 +195,16 @@ export const addBooking = async (book) => {
   return { data, status };
 };
 
+export const getBookingBooked = async () => {
+  const { data, status } = await request.get(`/booking/booked`);
+  return { data, status };
+};
+
+export const getBookingCanceled = async () => {
+  const { data, status } = await request.get(`/booking/canceled`);
+  return { data, status };
+};
+
 export const updateSingleBooking = async (book) => {
   const { data, status } = await request.put(`/booking/${book._id}`, book);
   return { data, status };
@@ -227,6 +237,15 @@ export const deleteExcludedDate = async (id) => {
   return { data, status };
 };
 
+// deleteExcludedDateCancelCode
+
+export const deleteExcludedDateCancelCode = async (id) => {
+  console.log(id);
+  const { data, status } = await request.delete(`/booking/excluded-code/${id}`);
+
+  return { data, status };
+};
+
 // Checkout
 
 export const collectPay = async (dataPay) => {
@@ -250,8 +269,27 @@ export const bookingConfirmCancelOrSuccess = async (confirmation) => {
   return { data, status };
 };
 
+// Send email cancel by code
+
+export const cancelBookingSendEmailUser = async (cancelData) => {
+  const { data, status } = await request.post(
+    "/email-booking-cancel",
+    cancelData
+  );
+
+  return { data, status };
+};
+
 //Usuwanie exluded times ktore sa juz po terminie czyli minely
 
 export const deleteExcludedTimesExpired = async () => {
   await request.delete("/booking/excluded/many");
+};
+
+//Cancel code usuwanie po kodzie bookingu
+
+export const cancelBookingByUser = async (code) => {
+  const { data, status } = await request.put(`/booking/cancel/code/${code}`);
+
+  return { data, status };
 };
