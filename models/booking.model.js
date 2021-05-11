@@ -10,16 +10,24 @@ const bookingSchema = new Schema({
     type: String,
     required: true,
   },
+  bookingWhere: {
+    type: String,
+    required: true,
+  },
   cancelCode: {
     type: String,
     required: true,
   },
-  dataCancel: {
+  cancelPaymentReturnPercent: {
     type: String,
     required: false,
   },
+  dataCancel: {
+    type: Date,
+    required: false,
+  },
   dataPayed: {
-    type: String,
+    type: Date,
     required: true,
   },
   date: {
