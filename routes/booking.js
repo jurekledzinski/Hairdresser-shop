@@ -5,6 +5,27 @@ const Booking = require("../models/booking.model");
 const ExcludedTime = require("../models/excludedTimes.model");
 
 const { ErrorHandler } = require("../errors/error");
+const { response } = require("express");
+
+router.get("/booked", (req, res, next) => {
+  Booking.find({ isCancel: false })
+    .then((response) => {
+      return res.status(200).json(response);
+    })
+    .catch((err) => {
+      next(new ErrorHandler(500, "Internal server error", err.message));
+    });
+});
+
+router.get("/canceled", (req, res, next) => {
+  Booking.find({ isCancel: true })
+    .then((response) => {
+      return res.status(200).json(response);
+    })
+    .catch((err) => {
+      next(new ErrorHandler(500, "Internal server error", err.message));
+    });
+});
 
 router.get("/excluded", (req, res, next) => {
   ExcludedTime.find({})
@@ -24,7 +45,12 @@ router.get("/:id", (req, res, next) => {
     dataPayed: false,
   };
 
-  Booking.findOne({ bookingId: idBooking }, userProjection)
+  //    Booking.findOne({ bookingId: idBooking }, userProjection)
+
+  Booking.findOne(
+    { $or: [{ bookingId: idBooking }, { cancelCode: idBooking }] },
+    userProjection
+  )
     .then((response) => {
       return res.status(200).json(response);
     })
@@ -42,7 +68,9 @@ router.post("/", (req, res, next) => {
   const {
     agreePolicy,
     bookingId,
+    bookingWhere,
     cancelCode,
+    cancelPaymentReturnPercent,
     dataCancel,
     dataPayed,
     date,
@@ -76,7 +104,9 @@ router.post("/", (req, res, next) => {
     const createBooking = {
       agreePolicy,
       bookingId,
+      bookingWhere,
       cancelCode,
+      cancelPaymentReturnPercent,
       dataCancel,
       dataPayed,
       date,
@@ -139,7 +169,9 @@ router.put("/:id", (req, res, next) => {
 
       response
         .save()
-        .then()
+        .then((response) => {
+          return res.end();
+        })
         .catch((err) => {
           next(new ErrorHandler(500, "Internal server error", err.message));
         });
@@ -147,11 +179,64 @@ router.put("/:id", (req, res, next) => {
   });
 });
 
+router.put("/cancel/code/:id", (req, res, next) => {
+  let info = {
+    alert: "",
+    success: "",
+  };
+
+  const id = req.params.id;
+
+  Booking.findOne({ cancelCode: id })
+    .then((response) => {
+      if (response) {
+        let currentDate = new Date();
+        response.isCancel = true;
+        response.dataCancel = currentDate;
+
+        let dateBookingByUser = new Date(response.dataPayed);
+        let dateTimesService = new Date(response.date);
+        let daysBack = dateTimesService - 1000 * 60 * 60 * 24 * 3;
+        let threeDaysBack = new Date(daysBack);
+
+        console.log(
+          currentDate < threeDaysBack && dateBookingByUser < threeDaysBack,
+          "currentDate < threeDaysBack && dateBookingByUser < threeDaysBack"
+        );
+
+        console.log(currentDate > threeDaysBack, "currentDate > threeDaysBack");
+
+        if (currentDate < threeDaysBack && dateBookingByUser < threeDaysBack) {
+          response.cancelPaymentReturnPercent = "100%";
+        } else if (currentDate > threeDaysBack) {
+          response.cancelPaymentReturnPercent = "50%";
+        }
+
+        response.save().then((result) => {
+          info.success = "Your order has been canceled successfully";
+          info.cancelCode = result.cancelCode;
+          return res.status(200).json(info);
+        });
+
+        console.log(dateTimesService, " dateTimesService");
+        console.log(threeDaysBack, " threeDaysBack");
+      } else {
+        info.alert = "Incorrect cancel code";
+        return res.status(404).json(info);
+      }
+    })
+    .catch((err) => {
+      next(new ErrorHandler(500, "Internal server error", err.message));
+    });
+});
+
 router.delete("/:id", (req, res, next) => {
   const id = req.params.id;
 
   Booking.findOneAndDelete({ bookingId: id })
-    .then()
+    .then((response) => {
+      return res.status(200).end();
+    })
     .catch((err) => {
       next(new ErrorHandler(500, "Internal server error", err.message));
     });
@@ -167,11 +252,29 @@ router.delete("/excluded/many", (req, res, next) => {
     });
 });
 
+router.delete("/excluded-code/:id", (req, res, next) => {
+  const id = req.params.id;
+
+  console.log("usuwa przez code cancel", id);
+
+  ExcludedTime.findOneAndDelete({ codeCancel: id })
+    .then((response) => {
+      return res.status(200).end();
+    })
+    .catch((err) => {
+      next(new ErrorHandler(500, "Internal server error", err.message));
+    });
+});
+
 router.delete("/excluded/:id", (req, res, next) => {
   const id = req.params.id;
 
+  console.log("usuwa nie code cancel");
+
   ExcludedTime.findOneAndDelete({ bookingId: id })
-    .then()
+    .then((response) => {
+      return res.status(200).end();
+    })
     .catch((err) => {
       next(new ErrorHandler(500, "Internal server error", err.message));
     });
