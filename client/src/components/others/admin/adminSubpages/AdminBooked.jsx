@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo } from "react";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   useGlobalFilter,
@@ -13,7 +14,7 @@ import "./AdminBooked.scss";
 
 import ControlPrevNextPage from "../adminTablesControl/ControlPrevNextPage";
 import GlobalFilter from "../adminTablesGlobalFilter/GlobalFilter";
-import TableOpinions from "../adminTables/TableOpinions";
+import TableOpinions from "../adminTables/TabelBookedCanceled";
 
 const dummyBooking = [
   {
@@ -45,6 +46,8 @@ const AdminBooked = () => {
   //   const { opinions } = dataOpinions;
   //   console.log(opinions);
 
+  const history = useHistory();
+
   const columns = useMemo(
     () => [
       { Header: "Name Surname", accessor: "name" },
@@ -64,16 +67,35 @@ const AdminBooked = () => {
       {
         Header: "Details",
         disableSortBy: true,
-        id: "delete",
-        accessor: (str) => "delete",
+        id: "details",
+        accessor: (str) => "details",
         Cell: (propsTable) => (
           <button
             className="admin-booked__btn-remove"
             onClick={() => {
-              console.log(propsTable.row.original._id);
+              console.log(propsTable.row.original);
+              history.push(
+                `/admin/details-booked-order/${propsTable.row.original._id}`
+              );
             }}
           >
             Details
+          </button>
+        ),
+      },
+      {
+        Header: "Remove",
+        disableSortBy: true,
+        id: "remove",
+        accessor: (str) => "remove",
+        Cell: (propsTable) => (
+          <button
+            className="admin-booked__btn-remove"
+            onClick={() => {
+              console.log(propsTable.row.original);
+            }}
+          >
+            <i className="fas fa-trash-alt"></i>
           </button>
         ),
       },
