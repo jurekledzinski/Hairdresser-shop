@@ -1,13 +1,13 @@
 import React from "react";
 import * as Yup from "yup";
 
-const useValidationAgreePolicy = () => {
+const useValidationCancelBooking = () => {
   const initialValues = {
-    cancelCode: "",
+    codeCancel: "",
   };
 
   const validationSchema = Yup.object({
-    cancelCode: Yup.string().required("Cancel code is required"),
+    codeCancel: Yup.string().required("Cancel code is required"),
   });
 
   return {
@@ -16,4 +16,4 @@ const useValidationAgreePolicy = () => {
   };
 };
 
-export default useValidationAgreePolicy;
+export default useValidationCancelBooking;
