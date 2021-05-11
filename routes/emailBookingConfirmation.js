@@ -173,6 +173,8 @@ router.post("/:id", (req, res, next) => {
       if (err) {
         return res.status(500).json("Oops, something went wrong try later");
       }
+
+      return res.end();
     }
   );
 });
