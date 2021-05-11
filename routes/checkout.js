@@ -30,8 +30,6 @@ router.post("/", async (req, res) => {
     client_reference_id: bookingId,
   });
 
-  console.log(session);
-
   return res.status(200).json({ sessionId: session.id });
 });
 
