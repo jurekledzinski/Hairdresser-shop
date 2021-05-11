@@ -45,6 +45,7 @@ const enableRegisterFormRouter = require("./routes/enableRegisterForm");
 const bookingRouter = require("./routes/booking");
 const checkoutRouter = require("./routes/checkout");
 const emailConfirmation = require("./routes/emailBookingConfirmation");
+const emailBookingCancel = require("./routes/emailBookingCancel");
 
 const app = express();
 
@@ -106,6 +107,7 @@ app.use("/enable-register", enableRegisterFormRouter);
 app.use("/booking", bookingRouter);
 app.use("/create-checkout-session", checkoutRouter);
 app.use("/email-confirmation", emailConfirmation);
+app.use("/email-booking-cancel", emailBookingCancel);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
