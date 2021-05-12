@@ -9,6 +9,10 @@ import {
   fetchUsers,
 } from "../../../../reduxStore/actions/actionFetchAdmin";
 import { addAdminData } from "../../../../reduxStore/actions/actionAdminData";
+import { fetchAllBookedOrders } from "../../../../reduxStore/actions/actionFetchBookedOrders";
+import { fetchAllCanceledOrders } from "../../../../reduxStore/actions/actionFetchCanceledOrders";
+import { addBookedOrder } from "../../../../reduxStore/actions/actionBookedOrders";
+import { addCanceledOrder } from "../../../../reduxStore/actions/actionCanceledOrders";
 
 import { logoutAdmin } from "../../../../utils/sessions";
 
@@ -18,6 +22,12 @@ import AdminContent from "../AdminContent";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
+  const dataBookedOrders = useSelector((store) => store.allBookedOrdersData);
+  const { allBookedOrders } = dataBookedOrders;
+  const dataCanceledOrders = useSelector(
+    (store) => store.allCanceledOrdersData
+  );
+  const { allCanceledOrders } = dataCanceledOrders;
   const dataUser = useSelector((store) => store.userData);
   const adminDateUse = useSelector((store) => store.useAdminData);
   const { users } = dataUser;
@@ -30,6 +40,12 @@ const AdminDashboard = () => {
   const idTimeOutLogout = useRef(null);
   const idTimeOut = useRef(null);
   const history = useHistory();
+
+  //   console.log(allBookedOrders, " dataBookedOrders admin dashboard");
+  //   console.log(
+  //     allCanceledOrders,
+  //     " dataCanceledOrders admin dashboard pobranie all canceled orders"
+  //   );
 
   const [checkSizeWindow, setCheckSizeWindow] = useState(
     window.innerWidth >= 1200 ? true : false
@@ -54,6 +70,8 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     dispatch(fetchUsers());
+    dispatch(fetchAllBookedOrders());
+    dispatch(fetchAllCanceledOrders());
   }, [dispatch]);
 
   useEffect(() => {
@@ -61,6 +79,22 @@ const AdminDashboard = () => {
       dispatch(addAdminData(users));
     }
   }, [users]);
+
+  useEffect(() => {
+    if (allBookedOrders.length > 0) {
+      allBookedOrders.forEach((item) => {
+        dispatch(addBookedOrder(item));
+      });
+    }
+  }, [allBookedOrders]);
+
+  useEffect(() => {
+    if (allCanceledOrders.length > 0) {
+      allCanceledOrders.forEach((item) => {
+        dispatch(addCanceledOrder(item));
+      });
+    }
+  }, [allCanceledOrders]);
 
   useEffect(() => {
     idTimeOut.current = setTimeout(() => setLoadImg(false), 700);
