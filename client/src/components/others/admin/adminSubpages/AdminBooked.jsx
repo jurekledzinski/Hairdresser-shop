@@ -1,5 +1,4 @@
-import React, { useEffect, useMemo } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   useGlobalFilter,
@@ -8,101 +7,43 @@ import {
   useSortBy,
 } from "react-table";
 
-// Fetch booked z action
-
 import "./AdminBooked.scss";
 
+import useColumnsTableBookedOrders from "../adminCustomHooks/useColumnsTableBookedOrders";
 import ControlPrevNextPage from "../adminTablesControl/ControlPrevNextPage";
 import GlobalFilter from "../adminTablesGlobalFilter/GlobalFilter";
 import TableOpinions from "../adminTables/TabelBookedCanceled";
 
-const dummyBooking = [
-  {
-    _id: 1,
-    name: "Jerzy Ledzinski",
-    date: "29.04.2021",
-    time: "13:00",
-    hairdresser: "Joe doe",
-  },
-  {
-    _id: 2,
-    name: "Molly Be",
-    date: "23.04.2021",
-    time: "10:00",
-    hairdresser: "Mike Bobo",
-  },
-  {
-    _id: 3,
-    name: "Merry Bike",
-    date: "26.04.2021",
-    time: "16:00",
-    hairdresser: "John Case",
-  },
-];
+import MessagePopup from "../adminPopUpMessage/MessagePopup";
+import ErrorSuccessMessage from "../../errorSuccessMessages/ErrorSuccessMessages";
+import useDeleteErrorMessage from "../../../../customHooks/useDeleteErrorMessage";
+import useRemoveBookedOrder from "../adminCustomHooks/useRemoveBookedOrder";
 
 const AdminBooked = () => {
   const dispatch = useDispatch();
-  //   const dataOpinions = useSelector((store) => store.opinionsData);
-  //   const { opinions } = dataOpinions;
-  //   console.log(opinions);
+  const adminDateUse = useSelector((store) => store.useAdminData);
+  const dataBookedOrdersToUse = useSelector((store) => store.bookedOrdersData);
+  const dataAlert = useSelector((store) => store.alertData);
+  const [idBookedOrder, setIdBookedOrder] = useState(null);
+  const [idCancelOrder, setIdCancelOrder] = useState(null);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const history = useHistory();
+  console.log(dataBookedOrdersToUse, " dataBookedOrdersToUse");
+  console.log(dataAlert, " dataAlert");
 
-  const columns = useMemo(
-    () => [
-      { Header: "Name Surname", accessor: "name" },
-      {
-        Header: "Date booking",
-        accessor: "date",
-      },
-      {
-        Header: "Time booking",
-        accessor: "time",
-      },
-
-      {
-        Header: "Hairdresser",
-        accessor: "hairdresser",
-      },
-      {
-        Header: "Details",
-        disableSortBy: true,
-        id: "details",
-        accessor: (str) => "details",
-        Cell: (propsTable) => (
-          <button
-            className="admin-booked__btn-remove"
-            onClick={() => {
-              console.log(propsTable.row.original);
-              history.push(
-                `/admin/details-booked-order/${propsTable.row.original._id}`
-              );
-            }}
-          >
-            Details
-          </button>
-        ),
-      },
-      {
-        Header: "Remove",
-        disableSortBy: true,
-        id: "remove",
-        accessor: (str) => "remove",
-        Cell: (propsTable) => (
-          <button
-            className="admin-booked__btn-remove"
-            onClick={() => {
-              console.log(propsTable.row.original);
-            }}
-          >
-            <i className="fas fa-trash-alt"></i>
-          </button>
-        ),
-      },
-    ],
-    [dummyBooking]
+  const { columns, data } = useColumnsTableBookedOrders(
+    setIdBookedOrder,
+    setIdCancelOrder,
+    setIsOpenModal
   );
-  const data = useMemo(() => dummyBooking, [dummyBooking]);
+
+  const { handleRemoveItem } = useRemoveBookedOrder(
+    idBookedOrder,
+    idCancelOrder,
+    setIsOpenModal
+  );
+
+  useDeleteErrorMessage();
 
   const tableInstance = useTable(
     {
@@ -131,15 +72,20 @@ const AdminBooked = () => {
 
   const { globalFilter, pageIndex } = state;
 
-  //   useEffect(() => {
-  //     dispatch(fetchOpinions());
-  //   }, [dispatch]);
+  const handleNotRemoveItem = () => {
+    setIsOpenModal(false);
+  };
 
   return (
     <article className="admin-booked">
+      {dataAlert.errorServerMsg ? (
+        <ErrorSuccessMessage />
+      ) : (
+        <ErrorSuccessMessage />
+      )}
       <div className="admin-booked__wrapper">
         <GlobalFilter
-          data={dummyBooking}
+          data={dataBookedOrdersToUse}
           filter={globalFilter}
           setFilter={setGlobalFilter}
         />
@@ -157,6 +103,13 @@ const AdminBooked = () => {
           pageIndex={pageIndex}
           pageOptions={pageOptions}
           previousPage={previousPage}
+        />
+        <MessagePopup
+          enableAction={adminDateUse.enableBook}
+          isOpenModal={isOpenModal}
+          handleRemoveItem={handleRemoveItem}
+          handleNotRemoveItem={handleNotRemoveItem}
+          purpose="order"
         />
       </div>
     </article>
