@@ -215,6 +215,16 @@ export const deleteBooking = async (id) => {
   return { data, status };
 };
 
+export const deleteBookedOrder = async (id) => {
+  const { data, status } = await request.delete(`/booking/booked/${id}`);
+  return { data, status };
+};
+
+export const deleteCanceledOrder = async (id) => {
+  const { data, status } = await request.delete(`/booking/canceled/${id}`);
+  return { data, status };
+};
+
 // TODO: exlcluded dates
 
 export const getExcludedDates = async () => {
@@ -231,7 +241,7 @@ export const addExcludedDates = async (date) => {
 };
 
 export const deleteExcludedDate = async (id) => {
-  console.log(id);
+  console.log(id, "ex tims session");
   const { data, status } = await request.delete(`/booking/excluded/${id}`);
 
   return { data, status };
