@@ -1,9 +1,13 @@
 import { combineReducers } from "redux";
 import { adminDataReducer } from "./adminDataReducer";
 import { alertMessagesReducer } from "./alertMessagesReducer";
+import { bookedOrdersReducer } from "./bookedOrdersReducer";
+import { canceledOrdersReducer } from "./canceledOrdersReducer";
 import { orderDetailsReducer } from "./orderDetailsReducer";
 import { usersReducer } from "./actionFetchAdminReducer";
 import { fetchAllAdminsReducer } from "./fetchAllAdminsReducer";
+import { fetchAllBookedOrdersReducer } from "./fetchBookedOrdersReducer";
+import { fetchAllCancledOrdersReducer } from "./fetchCanceledOrdersReducer";
 import { fetchAllExcludedTimesReducer } from "./fetchAllExcludedTimesReducer";
 import { fetchAllServicesReducer } from "./fetchAllservicesReducer";
 import { fetchBookingUserReducer } from "./fetchOrderDetailsReducer";
@@ -24,9 +28,13 @@ import { singleExcludedTimeReducer } from "./singleExcludedTimeReducer.";
 
 export const rootReducer = combineReducers({
   adminsData: fetchAllAdminsReducer,
+  allBookedOrdersData: fetchAllBookedOrdersReducer,
+  allCanceledOrdersData: fetchAllCancledOrdersReducer,
   alertData: alertMessagesReducer,
   allServicesData: fetchAllServicesReducer,
+  bookedOrdersData: bookedOrdersReducer,
   bookingUserData: fetchBookingUserReducer,
+  canceledOrderData: canceledOrdersReducer,
   orderDetailsData: orderDetailsReducer,
   emailsData: fetchEmailsReducer,
   galleryImgData: fetchImagesGalleryReducer,
