@@ -5,9 +5,9 @@ const Booking = require("../models/booking.model");
 const ExcludedTime = require("../models/excludedTimes.model");
 
 const { ErrorHandler } = require("../errors/error");
-const { response } = require("express");
 
 router.get("/booked", (req, res, next) => {
+  console.log("pobiera booked");
   Booking.find({ isCancel: false })
     .then((response) => {
       return res.status(200).json(response);
@@ -68,9 +68,11 @@ router.post("/", (req, res, next) => {
   const {
     agreePolicy,
     bookingId,
+    bookTime,
     bookingWhere,
     cancelCode,
     cancelPaymentReturnPercent,
+    cancelTime,
     dataCancel,
     dataPayed,
     date,
@@ -104,9 +106,11 @@ router.post("/", (req, res, next) => {
     const createBooking = {
       agreePolicy,
       bookingId,
+      bookTime,
       bookingWhere,
       cancelCode,
       cancelPaymentReturnPercent,
+      cancelTime,
       dataCancel,
       dataPayed,
       date,
@@ -193,6 +197,7 @@ router.put("/cancel/code/:id", (req, res, next) => {
         let currentDate = new Date();
         response.isCancel = true;
         response.dataCancel = currentDate;
+        response.cancelTime = currentDate;
 
         let dateBookingByUser = new Date(response.dataPayed);
         let dateTimesService = new Date(response.date);
@@ -246,6 +251,42 @@ router.delete("/excluded/many", (req, res, next) => {
   ExcludedTime.deleteMany({ timeService: { $lt: new Date() } })
     .then((response) => {
       return res.status(200).end();
+    })
+    .catch((err) => {
+      next(new ErrorHandler(500, "Internal server error", err.message));
+    });
+});
+
+router.delete("/booked/:id", (req, res) => {
+  const id = req.params.id;
+  console.log(req.params, " usuwa booked order");
+
+  let info = {
+    alert: "",
+    success: "",
+  };
+
+  Booking.findOneAndDelete({ _id: id })
+    .then((response) => {
+      info.success = "Order removed successfully";
+      return res.status(200).json(info);
+    })
+    .catch((err) => {
+      next(new ErrorHandler(500, "Internal server error", err.message));
+    });
+});
+
+router.delete("/canceled/:id", (req, res) => {
+  const id = req.params.id;
+
+  let info = {
+    alert: "",
+    success: "",
+  };
+  Booking.findOneAndDelete({ _id: id })
+    .then((response) => {
+      info.success = "Order removed successfully";
+      return res.status(200).json(info);
     })
     .catch((err) => {
       next(new ErrorHandler(500, "Internal server error", err.message));
