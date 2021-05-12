@@ -15,6 +15,12 @@ const AdminHeader = ({
   const history = useHistory();
   let currentUrl = history.location.pathname;
   const sectionAdmin = currentUrl.slice(7);
+  let sectionDetails = currentUrl.slice(7);
+  let indexSign = sectionDetails.indexOf("/");
+  let changeToName = sectionDetails.slice(0, indexSign);
+  let nameSection = changeToName.replace("-", " ").replace("-", " ");
+  const newNameSection =
+    nameSection.charAt(0).toUpperCase() + nameSection.slice(1);
 
   return (
     <header
@@ -36,7 +42,11 @@ const AdminHeader = ({
           </div>
         </div>
         <h3 className="admin__menu-option-name">
-          {currentUrl !== "/admin" ? sectionAdmin : "Dashboard"}
+          {currentUrl !== "/admin"
+            ? sectionAdmin.indexOf("details") !== -1
+              ? newNameSection
+              : sectionAdmin
+            : "Dashboard"}
         </h3>
       </div>
       <div className="admin__nav-right">
