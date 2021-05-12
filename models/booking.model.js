@@ -10,6 +10,10 @@ const bookingSchema = new Schema({
     type: String,
     required: true,
   },
+  bookTime: {
+    type: Date,
+    required: true,
+  },
   bookingWhere: {
     type: String,
     required: true,
@@ -20,6 +24,10 @@ const bookingSchema = new Schema({
   },
   cancelPaymentReturnPercent: {
     type: String,
+    required: false,
+  },
+  cancelTime: {
+    type: Date,
     required: false,
   },
   dataCancel: {
