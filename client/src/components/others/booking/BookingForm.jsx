@@ -74,8 +74,10 @@ const BookingForm = () => {
 
     let copyValues = values;
     copyValues.bookingId = generateBookingId;
+    copyValues.bookTime = values.date;
     copyValues.bookingWhere = "Website";
     copyValues.cancelCode = generateCodeCancel;
+    copyValues.cancelTime = "";
     copyValues.cancelPaymentReturnPercent = "";
     copyValues.dataPayed = new Date();
     copyValues.services = selectServices;
