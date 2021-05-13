@@ -7,6 +7,8 @@ import "./BookingFormChooseService.scss";
 import { fetchAllCurrentServices } from "../../../reduxStore/actions/actionFetchAllServices";
 
 const BookingFormChooseService = ({
+  adminPanelClassLabel,
+  adminPanelClassInput,
   errorMsg,
   selectServices,
   setSelectServices,
@@ -73,10 +75,25 @@ const BookingFormChooseService = ({
 
   return (
     <div className="booking__input-wrapper-services">
-      <label className="booking__label">Choose service</label>
+      <label
+        className={
+          adminPanelClassLabel === "adminPanelClassLabel"
+            ? "booking__label--admin"
+            : "booking__label"
+        }
+      >
+        Choose service
+      </label>
       <ErrorMessage component={errorMsg} name="services" />
       <div className="booking__select-wrapper" onClick={handleShowServices}>
-        <select className="booking__input-select" name="service">
+        <select
+          className={
+            adminPanelClassInput === "adminPanelClassInput"
+              ? "booking__input-select--admin"
+              : "booking__input-select"
+          }
+          name="service"
+        >
           <option>Choose service</option>
         </select>
         <div className="booking__coverSelect"></div>

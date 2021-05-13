@@ -10,18 +10,33 @@ const options = [
   { key: "John Johson", value: "John Johson" },
 ];
 
-const BookingFormChooseHairDresser = ({ errorMsg }) => {
+const BookingFormChooseHairDresser = ({
+  errorMsg,
+  adminPanelClassLabel,
+  adminPanelClassInput,
+}) => {
   return (
     <div className="booking__input-wrapper">
       <ErrorMessage name="hairdresserName" component={errorMsg} />
-      <label className="booking__label" htmlFor="selectOption">
+      <label
+        className={
+          adminPanelClassLabel === "adminPanelClassLabel"
+            ? "booking__label--admin"
+            : "booking__label"
+        }
+        htmlFor="selectOption"
+      >
         Choose hairdresser
       </label>
       <Field
         as="select"
         id="selectOption"
         name="hairdresserName"
-        className="booking__input-select"
+        className={
+          adminPanelClassInput === "adminPanelClassInput"
+            ? "booking__input-select--admin"
+            : "booking__input-select"
+        }
       >
         {options.map((option) => {
           return (

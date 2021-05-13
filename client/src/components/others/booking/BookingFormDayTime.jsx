@@ -20,7 +20,12 @@ import { fetchAllTimesExcluded } from "../../../reduxStore/actions/actionFetchEx
 
 import "react-datepicker/dist/react-datepicker.css";
 
-const BookingFormDayTime = ({ choosedTime, errorMsg, setDisableBtn }) => {
+const BookingFormDayTime = ({
+  adminPanelClassLabel,
+  choosedTime,
+  errorMsg,
+  setDisableBtn,
+}) => {
   const dispatch = useDispatch();
   const dataAllExcludedTimes = useSelector((store) => store.excludedTimesData);
   const dataAllExTimes = useSelector((store) => store.allFetchExTimesData);
@@ -169,7 +174,15 @@ const BookingFormDayTime = ({ choosedTime, errorMsg, setDisableBtn }) => {
       <ErrorMessage component={errorMsg} name="date" />
       <div className="booking__inputs-wrapper">
         <div className="booking__input-wrapper-day">
-          <label className="booking__label">Choose day of appointment</label>
+          <label
+            className={
+              adminPanelClassLabel === "adminPanelClassLabel"
+                ? "booking__label--admin"
+                : "booking__label"
+            }
+          >
+            Choose day of appointment
+          </label>
           <Field name="date">
             {({ field, form }) => {
               const { setFieldValue } = form;
@@ -220,7 +233,15 @@ const BookingFormDayTime = ({ choosedTime, errorMsg, setDisableBtn }) => {
           </Field>
         </div>
         <div className="booking__input-wrapper-time">
-          <label className="booking__label">Choose time of appointment</label>
+          <label
+            className={
+              adminPanelClassLabel === "adminPanelClassLabel"
+                ? "booking__label--admin"
+                : "booking__label"
+            }
+          >
+            Choose time of appointment
+          </label>
           <Field name="date">
             {({ field, form }) => {
               const { setFieldValue } = form;

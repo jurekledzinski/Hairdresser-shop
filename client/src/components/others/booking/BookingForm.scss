@@ -13,8 +13,27 @@
   font-family: "Oswald", sans-serif;
   cursor: pointer;
 
+  &--admin {
+    width: 100%;
+    padding: 5px 0;
+    margin-top: 20px;
+    background-color: #f8c822;
+    border: none;
+    color: #333333;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    font-weight: 500;
+    outline: none;
+    font-family: "Oswald", sans-serif;
+    cursor: pointer;
+  }
+
   @include media-queries(xmedium) {
     font-size: 1.6rem;
+
+    &--admin {
+      font-size: 1.6rem;
+    }
   }
 
   @include media-queries(medium) {
@@ -42,6 +61,6 @@
     text-align: left;
     font-size: 1.1rem;
     font-family: "Roboto", sans-serif;
-    font-weight: 100;
+    font-weight: 400;
   }
 }

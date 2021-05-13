@@ -42,6 +42,11 @@
 
   &__input-select {
     width: 100%;
+
+    &--admin {
+      width: 100%;
+      border: 1px solid #ccc;
+    }
   }
 
   &__coverSelect {

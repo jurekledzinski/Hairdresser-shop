@@ -33,7 +33,13 @@ import validationBookingFormik from "./bookingCustomHooks/validationBookingFormi
 
 import ErrorSuccessMessage from "../../others/errorSuccessMessages/ErrorSuccessMessages";
 
-const BookingForm = () => {
+const BookingForm = ({
+  adminPanelClassLabel,
+  adminPanelClassInput,
+  adminPanelClassButton,
+  adminPanelClassWhere,
+  adminPanelClassRedirect,
+}) => {
   const dispatch = useDispatch();
   const dataDetailsOrder = useSelector((store) => store.orderDetailsData);
   const dataAlert = useSelector((store) => store.alertData);
@@ -75,7 +81,9 @@ const BookingForm = () => {
     let copyValues = values;
     copyValues.bookingId = generateBookingId;
     copyValues.bookTime = values.date;
-    copyValues.bookingWhere = "Website";
+    adminPanelClassWhere === "adminPanelClassWhere"
+      ? (copyValues.bookingWhere = "Shop")
+      : (copyValues.bookingWhere = "Website");
     copyValues.cancelCode = generateCodeCancel;
     copyValues.cancelTime = "";
     copyValues.cancelPaymentReturnPercent = "";
@@ -116,7 +124,9 @@ const BookingForm = () => {
     setDisableBtn(null);
     setSelectServices([]);
 
-    history.push(`/booking/details/${excludedTimeData.bookingId}`);
+    adminPanelClassRedirect = "adminPanelClassRedirect"
+      ? history.push(`/admin/details-appointment/${excludedTimeData.bookingId}`)
+      : history.push(`/booking/details/${excludedTimeData.bookingId}`);
   };
 
   const errorMsg = (props) => {
@@ -143,8 +153,13 @@ const BookingForm = () => {
             ) : (
               <ErrorSuccessMessage />
             )}
-            <BookingFormChooseHairDresser errorMsg={errorMsg} />
+            <BookingFormChooseHairDresser
+              errorMsg={errorMsg}
+              adminPanelClassLabel={adminPanelClassLabel}
+              adminPanelClassInput={adminPanelClassInput}
+            />
             <BookingFormDayTime
+              adminPanelClassLabel={adminPanelClassLabel}
               choosedTime={choosedTime}
               disableBtn={disableBtn}
               errorMsg={errorMsg}
@@ -152,13 +167,23 @@ const BookingForm = () => {
               setDisableBtn={setDisableBtn}
             />
             <BookingFormChooseService
+              adminPanelClassLabel={adminPanelClassLabel}
+              adminPanelClassInput={adminPanelClassInput}
               errorMsg={errorMsg}
               selectServices={selectServices}
               setSelectServices={setSelectServices}
             />
-            <BookingFormNameEmailPhone errorMsg={errorMsg} />
+            <BookingFormNameEmailPhone
+              adminPanelClassLabel={adminPanelClassLabel}
+              adminPanelClassInput={adminPanelClassInput}
+              errorMsg={errorMsg}
+            />
             <button
-              className="booking__button-continue"
+              className={
+                adminPanelClassButton === "adminPanelClassButton"
+                  ? "booking__button-continue--admin"
+                  : "booking__button-continue"
+              }
               type="submit"
               disabled={
                 (formik.isValid && !Boolean(disableBtn)) ||

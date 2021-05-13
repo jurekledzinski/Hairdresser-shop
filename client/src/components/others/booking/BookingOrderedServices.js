@@ -2,10 +2,23 @@ import React from "react";
 
 import "./BookingOrderedServices.scss";
 
-const BookingOrderedServices = ({ services }) => {
+const BookingOrderedServices = ({
+  adminPanelClassDetailsTitle,
+  adminPanelClassServiceName,
+  adminPanelClassServicePrice,
+  services,
+}) => {
   return (
     <div className="bookingDetails__services">
-      <h4 className="bookingDetails__subtitle">Ordered service</h4>
+      <h4
+        className={
+          adminPanelClassDetailsTitle === "adminPanelClassDetailsTitle"
+            ? "bookingDetails__subtitle--admin"
+            : "bookingDetails__subtitle"
+        }
+      >
+        Ordered service
+      </h4>
       <div className="bookingDetails__service-wrapper">
         {Boolean(services) &&
           services.map((item) => (
@@ -14,8 +27,23 @@ const BookingOrderedServices = ({ services }) => {
                 <img src={item.imageUrl} alt="Icon" />
               </div>
               <div className="bookingDetails__tax-price-wrapper">
-                <p className="bookingDetails__service-name">{item.title}</p>
-                <p className="bookingDetails__service-price">
+                <p
+                  className={
+                    adminPanelClassServiceName === "adminPanelClassServiceName"
+                      ? "bookingDetails__service-name--admin"
+                      : "bookingDetails__service-name"
+                  }
+                >
+                  {item.title}
+                </p>
+                <p
+                  className={
+                    adminPanelClassServicePrice ===
+                    "adminPanelClassServicePrice"
+                      ? "bookingDetails__service-price--admin"
+                      : "bookingDetails__service-price"
+                  }
+                >
                   {Boolean(item.price) && item.price.toFixed(2)}€
                 </p>
               </div>

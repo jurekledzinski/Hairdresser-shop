@@ -148,9 +148,16 @@
   outline: none;
 }
 
-input[type="text"] {
-  border: 1px solid #393939;
+.react-datepicker__input-container > input[type="text"] {
+  border: 1px solid #cccccc;
   color: #393939;
   padding: 5px 0;
   text-indent: 5px;
 }
+
+// input[type="text"] {
+//   border: 1px solid #393939;
+//   color: #393939;
+//   padding: 5px 0;
+//   text-indent: 5px;
+// }
