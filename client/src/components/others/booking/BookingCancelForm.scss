@@ -55,9 +55,22 @@
     text-align: center;
     font-size: 1.2rem;
 
+    &--admin {
+      display: block;
+      margin-bottom: 10px;
+      color: #333333;
+      text-align: center;
+      font-size: 1.2rem;
+    }
+
     @include media-queries(small) {
       font-size: 1.4rem;
       text-align: left;
+
+      &--admin {
+        font-size: 1.4rem;
+        text-align: left;
+      }
     }
   }
 
@@ -68,6 +81,15 @@
     margin: 10px 0;
     border: none;
     outline: none;
+
+    &--admin {
+      display: block;
+      width: 100%;
+      padding: 5px 0;
+      margin: 10px 0;
+      border: 1px solid #cccccc;
+      outline: none;
+    }
   }
 
   &__button-cancel {
