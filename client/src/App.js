@@ -31,13 +31,11 @@ const App = () => {
               <Route exact path="/booking" component={BookingMainPage} />
               <Route path="/booking/details/:id" component={BookingDetails} />
               <Route path="/booking/success/:id" component={BookingSuccess} />
-
               <Route path="/booking/cancel/:id" component={BookingCancel} />
               <Route
                 path="/booking/cancel-code/:id"
                 component={BookingCancelByCode}
               />
-
               <Route path="/team-details" component={TeamDetails} />
               <Route path="/term-policy" component={BookingTermPolicyDetails} />
               <Route path="/admin" component={AdminDashboard} />

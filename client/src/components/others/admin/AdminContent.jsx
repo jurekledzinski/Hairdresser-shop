@@ -11,6 +11,7 @@ import AdminCanceledDetails from "./adminSubpages/AdminCanceledDetails";
 import AdminEmails from "./adminSubpages/AdminEmails";
 import AdminGallery from "./adminSubpages/AdminGallery";
 import AdminAppointments from "./adminSubpages/AdminAppointments";
+import AdminAppointmentDetails from "./adminSubpages/AdminAppointmentDetails";
 import AdminShop from "./adminSubpages/AdminShop";
 import AdminOpinions from "./adminSubpages/AdminOpinions";
 import AdminProfile from "./adminSubpages/AdminProfile";
@@ -23,7 +24,10 @@ const AdminContent = ({ isLogOutMsg }) => {
       <Switch>
         <Route exact path="/admin" component={AdminDashboardPanel} />
         <Route path="/admin/booked" component={AdminBooked} />
-        <Route path="/admin/details-booked-order/:id" component={AdminBookedDetails} />
+        <Route
+          path="/admin/details-booked-order/:id"
+          component={AdminBookedDetails}
+        />
         <Route path="/admin/canceled" component={AdminCanceled} />
         <Route
           path="/admin/details-canceled-order/:id"
@@ -32,6 +36,10 @@ const AdminContent = ({ isLogOutMsg }) => {
         <Route path="/admin/emails" component={AdminEmails} />
         <Route path="/admin/gallery" component={AdminGallery} />
         <Route path="/admin/apponitments" component={AdminAppointments} />
+        <Route
+          path="/admin/details-appointment/:id"
+          component={AdminAppointmentDetails}
+        />
         <Route path="/admin/shop" component={AdminShop} />
         <Route path="/admin/opinions" component={AdminOpinions} />
         <Route path="/admin/profile" component={AdminProfile} />
