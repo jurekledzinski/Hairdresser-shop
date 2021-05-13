@@ -55,7 +55,7 @@ const BookingCancelByCode = () => {
         bookingId: dataBookingUser.bookingUser.bookingId,
         cancelPaymentReturnPercent:
           dataBookingUser.bookingUser.cancelPaymentReturnPercent,
-        dateAppointment: dataBookingUser.bookingUser.date,
+        date: dataBookingUser.bookingUser.date,
         email: dataBookingUser.bookingUser.email,
         hairdresserName: dataBookingUser.bookingUser.hairdresserName,
         name: dataBookingUser.bookingUser.name,
