@@ -220,6 +220,7 @@ router.put("/cancel/code/:id", (req, res, next) => {
         response.save().then((result) => {
           info.success = "Your order has been canceled successfully";
           info.cancelCode = result.cancelCode;
+          info.dataOrder = result;
           return res.status(200).json(info);
         });
 

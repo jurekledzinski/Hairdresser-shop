@@ -14,7 +14,7 @@ router.post("/", (req, res, next) => {
   const {
     bookingId,
     cancelPaymentReturnPercent,
-    dateAppointment,
+    date,
     email,
     hairdresserName,
     name,
@@ -72,13 +72,11 @@ router.post("/", (req, res, next) => {
                     <td style="color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 24px; padding: 20px 0 10px 0;">
                     <h3 style="font-size: 18px; margin: 0;">Your Order Details:</h3>
                         <p style="margin: 0;">Hairdresser name: ${hairdresserName}</p>
-                        <p style="margin: 0;">Date appointment: ${new Date(
-                          dateAppointment
-                        )
+                        <p style="margin: 0;">Date appointment: ${new Date(date)
                           .toLocaleDateString()
                           .split("-")
                           .reverse()
-                          .join(".")} ${new Date(dateAppointment)
+                          .join(".")} ${new Date(date)
     .toLocaleTimeString()
     .slice(0, 5)}</p>
                         <p style="margin: 0;">Customer name: ${name}</p>
