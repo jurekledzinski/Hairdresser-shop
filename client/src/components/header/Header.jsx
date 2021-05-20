@@ -2,6 +2,8 @@ import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
+import { createVistisPageNumber } from "../../utils/sessions";
+
 import {
   addSingleSection,
   clearSections,
@@ -129,8 +131,22 @@ const Header = () => {
     if (permission.length > 0) {
       const [checkEnable] = permission;
       setCheckPermission(checkEnable.enableRegisterForm);
+    } else {
+      setCheckPermission(false);
     }
   }, [permission]);
+
+  const countVistis = async () => {
+    await createVistisPageNumber();
+  };
+
+  useEffect(() => {
+    const item = sessionStorage.getItem("first");
+    if (!item) {
+      countVistis();
+    }
+    sessionStorage.setItem("first", true);
+  }, []);
 
   return (
     <Fragment>
