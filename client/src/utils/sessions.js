@@ -65,6 +65,8 @@ export const deleteEmail = async (id) => {
   return { data, status };
 };
 
+// Register admin
+
 export const registerAdmin = async (personalData) => {
   const { data, status } = await request.post("/register-admin", personalData);
   return { data, status };
@@ -98,6 +100,8 @@ export const deleteAdmin = async (id) => {
   return { data, status };
 };
 
+// Login admin
+
 export const loginAdmin = async (personalData) => {
   const { data, status } = await request.post("/login-admin", personalData);
   return { data, status };
@@ -112,6 +116,8 @@ export const logoutAdmin = async () => {
   const { data, status } = await request.get("/login-admin/logout");
   return { data, status };
 };
+
+// Enable register
 
 export const fetchEnableRegisterPermission = async () => {
   const { data, status } = await request.get("/enable-register");
@@ -131,7 +137,6 @@ export const fetchAllServices = async () => {
 };
 
 export const fetchAdminService = async (match) => {
-  console.log(match, " w sessions fetch admin service");
   const { data, status } = await request.get(
     `/service/search?qender=${match.gender}&card=${match.card}`
   );
@@ -178,11 +183,13 @@ export const deleteAdminOpenShop = async (id) => {
 
 // TODO: booking
 
-export const getBookings = async () => {
-  const { data, status } = await request.get("/booking");
+// to jest nie uzywane api callback
 
-  return { data, status };
-};
+// export const getBookings = async () => {
+//   const { data, status } = await request.get("/booking");
+
+//   return { data, status };
+// };
 
 export const getBookingUser = async (id) => {
   const { data, status } = await request.get(`/booking/${id}`);
@@ -225,7 +232,7 @@ export const deleteCanceledOrder = async (id) => {
   return { data, status };
 };
 
-// TODO: exlcluded dates
+// TODO: exl dates
 
 export const getExcludedDates = async () => {
   console.log(" exlcuded get times all");
@@ -247,7 +254,7 @@ export const deleteExcludedDate = async (id) => {
   return { data, status };
 };
 
-// deleteExcludedDateCancelCode
+// deleteCancelCode
 
 export const deleteExcludedDateCancelCode = async (id) => {
   console.log(id);
@@ -300,6 +307,50 @@ export const deleteExcludedTimesExpired = async () => {
 
 export const cancelBookingByUser = async (code) => {
   const { data, status } = await request.put(`/booking/cancel/code/${code}`);
+
+  return { data, status };
+};
+
+// Aggregate liczba bookingow w kazdym miesiacu w roku obecnym
+
+export const getAmountBookingsEachMonthShop = async () => {
+  const { data, status } = await request.get(
+    "/booking/amount-month/bookings/shop"
+  );
+
+  return { data, status };
+};
+
+export const getAmountBookingsEachMonthWebsite = async () => {
+  const { data, status } = await request.get(
+    "/booking/amount-month/bookings/website"
+  );
+
+  return { data, status };
+};
+
+export const getPaymentBookingsEachMonthShop = async () => {
+  const { data, status } = await request.get("/booking/payment-month/shop");
+
+  return { data, status };
+};
+
+export const getPaymentBookingsEachMonthWebsite = async () => {
+  const { data, status } = await request.get("/booking/payment-month/website");
+
+  return { data, status };
+};
+
+// check visits
+
+export const getVistisPageNumber = async () => {
+  const { data, status } = await request.get("/");
+
+  return { data, status };
+};
+
+export const createVistisPageNumber = async () => {
+  const { data, status } = await request.put("/");
 
   return { data, status };
 };
