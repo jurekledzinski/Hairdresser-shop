@@ -12,6 +12,14 @@
     color: #f8c822;
     font-size: 1.4rem;
 
+    &--small-device {
+      margin: 10px 0;
+      @include media-queries(xmedium) {
+        margin: initial;
+        margin-bottom: 10px;
+      }
+    }
+
     &--admin {
       margin-bottom: 10px;
       color: #333333;
