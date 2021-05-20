@@ -3,11 +3,11 @@
   overflow-x: hidden;
   overflow-y: hidden;
 
-  //TODO: whne /booking url
   &--booking-endpoint {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    background-color: #303030;
   }
 }
