@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Modal from "../../others/modal/Modal";
 
@@ -15,6 +15,7 @@ import { imgSliderWeddings } from "./Images";
 import { imgSliderOthers } from "./Images";
 
 const GallerySlider = ({
+  setChooseButton,
   clickedImgCounter,
   indexBtn,
   resetClickedImgIndex,
@@ -23,6 +24,7 @@ const GallerySlider = ({
   turnOffTransitionSlider,
 }) => {
   const dispatch = useDispatch();
+  const imagesGalleryData = useSelector((store) => store.galleryImagesData);
 
   const [countCard, setCountCard] = useState(0);
   const [heightSizeSlider, setHeighSizetSlider] = useState(0);
@@ -81,11 +83,12 @@ const GallerySlider = ({
   };
 
   useEffect(() => {
-    if (slides.length > 0 && Boolean(slidesContainer.current)) {
+    if (imagesGalleryData.length > 0 && Boolean(slidesContainer.current)) {
       let firstElement = slidesContainer.current.children[0].cloneNode(true);
-      let lastElement = slidesContainer.current.children[
-        slidesContainer.current.children.length - 1
-      ].cloneNode(true);
+      let lastElement =
+        slidesContainer.current.children[
+          slidesContainer.current.children.length - 1
+        ].cloneNode(true);
 
       slidesContainer.current.insertBefore(
         lastElement,
@@ -97,10 +100,10 @@ const GallerySlider = ({
       slidesContainer.current.style.transform = `translateX(-${100}%)`;
       turnOffTransitionSlider ? null : setCountCard(1);
     }
-  }, [isOpenModal, slides]);
+  }, [isOpenModal, imagesGalleryData]);
 
   useEffect(() => {
-    if (Boolean(slidesContainer.current)) {
+    if (Boolean(slidesContainer.current && imagesGalleryData.length > 0)) {
       slidesContainer.current.style.transitionDuration = "0s";
       slidesContainer.current.children[0].remove();
       slidesContainer.current.children[
@@ -131,16 +134,16 @@ const GallerySlider = ({
         setTimeout(() => {
           slidesContainer.current.style.transitionDuration = "0.0s";
           slidesContainer.current.style.transform = `translateX(-${
-            100 * slides.length
+            100 * imagesGalleryData.length
           }%)`;
           setTimeout(() => {
-            setCountCard(slides.length);
+            setCountCard(imagesGalleryData.length);
           }, 15);
           return;
         }, 502);
       }
     }
-  }, [countCard, slides.length]);
+  }, [countCard, imagesGalleryData.length]);
 
   //   FIXME: Start Resize slider
 
@@ -322,28 +325,28 @@ const GallerySlider = ({
     }
   }, [clickedImgCounter]);
 
-  useEffect(() => {
-    switch (indexBtn) {
-      case 0:
-        setSlides(imgSliderMen);
-        break;
-      case 1:
-        setSlides(imgSliderWomen);
-        break;
-      case 2:
-        setSlides(imgSliderChildren);
-        break;
-      case 3:
-        setSlides(imgSliderWeddings);
-        break;
-      case 4:
-        setSlides(imgSliderOthers);
-        break;
-      default:
-        setSlides([]);
-        break;
-    }
-  }, [indexBtn]);
+  //   useEffect(() => {
+  //     switch (indexBtn) {
+  //       case 0:
+  //         setSlides(imgSliderMen);
+  //         break;
+  //       case 1:
+  //         setSlides(imgSliderWomen);
+  //         break;
+  //       case 2:
+  //         setSlides(imgSliderChildren);
+  //         break;
+  //       case 3:
+  //         setSlides(imgSliderWeddings);
+  //         break;
+  //       case 4:
+  //         setSlides(imgSliderOthers);
+  //         break;
+  //       default:
+  //         setSlides([]);
+  //         break;
+  //     }
+  //   }, [indexBtn]);
 
   useEffect(() => {
     isMounted.current = true;
@@ -361,7 +364,11 @@ const GallerySlider = ({
     setTurnOffTransitionSlider(false);
   }, [countCard]);
 
-  const handleChooseImages = (indexNumArrImages) => {
+  const handleChooseImages = (e, indexNumArrImages) => {
+    const nameBtn = e.target.innerHTML;
+    setChooseButton(nameBtn.toLowerCase());
+
+    console.log(nameBtn, "slider button", indexNumArrImages);
     setIndexBtn(indexNumArrImages);
   };
 
@@ -369,7 +376,7 @@ const GallerySlider = ({
     idTimeOut.current = setTimeout(() => setIsLoad(true), 500);
   };
 
-  const dotsSlider = slides.map((item, index) => (
+  const dotsSlider = imagesGalleryData.map((item, index) => (
     <li
       key={index}
       className={
@@ -410,12 +417,13 @@ const GallerySlider = ({
               <i className="fas fa-chevron-right"></i>
             </span>
             <div className="gallery-slider__content" ref={slidesContainer}>
-              {slides.map((item, index) => (
+              {imagesGalleryData.map((item, index) => (
                 <div className="gallery-slider__img-wrapper" key={index}>
                   <img
                     className="gallery-slider__image"
                     key={item.id}
-                    src={item.imagePath}
+                    src={item.imageUrl}
+                    alt={item.title}
                     onLoad={handleOnloadImage}
                   />
                   {!isLoad && (
@@ -438,7 +446,7 @@ const GallerySlider = ({
                   : "gallery-slider__button"
               }
               key={index}
-              onClick={() => handleChooseImages(index)}
+              onClick={(e) => handleChooseImages(e, index)}
             >
               {item.text}
             </button>

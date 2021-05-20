@@ -1,52 +1,73 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./GalleryImages.scss";
 
-import { imgSliderMen } from "./Images";
-import { imgSliderWomen } from "./Images";
-import { imgSliderChildren } from "./Images";
-import { imgSliderWeddings } from "./Images";
-import { imgSliderOthers } from "./Images";
+import { fetchGalleryImgs } from "../../../reduxStore/actions/actionFetchGalleryImages";
+import { addImageGallery } from "../../../reduxStore/actions/actionGalleryImages";
 
-const GalleryImages = ({ handleOpenSliderModal, indexBtn }) => {
-  const [imagesMainPage, setImagesMainPage] = useState(imgSliderMen);
+import CircleSpinner from "../../others/spinner/CircleSpinner";
+
+const GalleryImages = ({
+  chooseButton,
+  handleOpenSliderModal,
+  indexBtn,
+  isLoadImg,
+  setIsLoadImg,
+}) => {
+  const dispatch = useDispatch();
+  const dataImages = useSelector((store) => store.galleryImgData);
+  const imagesGalleryData = useSelector((store) => store.galleryImagesData);
+  const { images } = dataImages;
+
+  const idTimeOut = useRef(null);
+  const isMount = useRef(null);
 
   useEffect(() => {
-    switch (indexBtn) {
-      case 0:
-        setImagesMainPage(imgSliderMen);
-        break;
-      case 1:
-        setImagesMainPage(imgSliderWomen);
-        break;
-      case 2:
-        setImagesMainPage(imgSliderChildren);
-        break;
-      case 3:
-        setImagesMainPage(imgSliderWeddings);
-        break;
-      case 4:
-        setImagesMainPage(imgSliderOthers);
-        break;
-      default:
-        setImagesMainPage([]);
-        break;
+    dispatch(fetchGalleryImgs(chooseButton));
+  }, [chooseButton, dispatch]);
+
+  useEffect(() => {
+    if (isMount.current && images.length > 0) {
+      dispatch(addImageGallery(images));
     }
+  }, [chooseButton, images]);
+
+  useEffect(() => {
+    isMount.current = true;
+    return () => {
+      isMount.current = false;
+      clearTimeout(idTimeOut.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    setIsLoadImg(false);
   }, [indexBtn]);
+
+  const handleOnloadImage = (e) => {
+    idTimeOut.current = setTimeout(() => setIsLoadImg(true), 500);
+  };
 
   return (
     <div className="gallery__images-wrapper">
-      <span className="gallery__below-cover-1"></span>
-      <span className="gallery__below-cover-2"></span>
-      <span className="gallery__below-cover-3"></span>
-      {imagesMainPage.map((item, index) => (
+      {isLoadImg && <span className="gallery__below-cover-1"></span>}
+      {isLoadImg && <span className="gallery__below-cover-2"></span>}
+      {isLoadImg && <span className="gallery__below-cover-3"></span>}
+      {imagesGalleryData.map((item, index) => (
         <div className={`gallery__image-${index + 1}`} key={index}>
           <img
-            src={item.imagePath}
-            alt={item.alt}
+            src={item.imageUrl}
+            alt={item.title}
             className="gallery__img"
             onClick={() => handleOpenSliderModal(index + 1)}
+            onLoad={handleOnloadImage}
           />
+          {!isLoadImg && (
+            <div className="gallery-slider__overlay">
+              <CircleSpinner />
+            </div>
+          )}
         </div>
       ))}
     </div>

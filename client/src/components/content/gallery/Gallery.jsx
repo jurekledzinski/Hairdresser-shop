@@ -11,13 +11,17 @@ import { buttonsGallerySlider } from "./GallerySliderButtons";
 import "./Gallery.scss";
 
 const Gallery = () => {
+  const [chooseButton, setChooseButton] = useState("men");
   const [clickedImgIndex, setClikedImgIndex] = useState(0);
   const [indexBtn, setIndexBtn] = useState(0);
+  const [isLoadImg, setIsLoadImg] = useState(false);
   const [turnOffTransitionSlider, setTurnOffTransitionSlider] = useState(false);
   const galleryRef = useRef(null);
   const dispatch = useDispatch();
 
-  const handleChooseTypeImages = (index) => {
+  const handleChooseTypeImages = (e, index) => {
+    const nameBtn = e.target.innerHTML;
+    setChooseButton(nameBtn.toLowerCase());
     setIndexBtn(index);
   };
 
@@ -49,17 +53,21 @@ const Gallery = () => {
                   : "gallery__button"
               }
               key={index}
-              onClick={() => handleChooseTypeImages(index)}
+              onClick={(e) => handleChooseTypeImages(e, index)}
             >
               {item.text}
             </button>
           ))}
         </div>
         <GalleryImages
+          chooseButton={chooseButton}
           indexBtn={indexBtn}
+          isLoadImg={isLoadImg}
           handleOpenSliderModal={handleOpenSliderModal}
+          setIsLoadImg={setIsLoadImg}
         />
         <GallerySlider
+          setChooseButton={setChooseButton}
           clickedImgCounter={clickedImgIndex}
           indexBtn={indexBtn}
           resetClickedImgIndex={setClikedImgIndex}

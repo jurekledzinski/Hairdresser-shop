@@ -46,15 +46,17 @@
   }
 
   &__image-1 {
+    position: relative;
     grid-area: img1;
-    background-color: red;
+    background-color: #303030;
     z-index: 1;
   }
 
   &__image-2 {
+    position: relative;
     grid-area: img2;
     display: block;
-    background-color: green;
+    background-color: #303030;
     z-index: 1;
 
     @include media-queries(large) {
@@ -66,26 +68,30 @@
     }
   }
   &__image-3 {
+    position: relative;
     grid-area: img3;
-    background-color: yellow;
+    background-color: #393939;
     z-index: 1;
   }
   &__image-4 {
+    position: relative;
     grid-area: img4;
-    background-color: pink;
+    background-color: #393939;
     z-index: 1;
   }
 
   &__image-5 {
+    position: relative;
     grid-area: img5;
-    background-color: orange;
+    background-color: #393939;
     z-index: 1;
   }
 
   &__image-6 {
+    position: relative;
     display: block;
     grid-area: img6;
-    background-color: coral;
+    background-color: #393939;
     z-index: 1;
 
     @include media-queries(xlarge) {
