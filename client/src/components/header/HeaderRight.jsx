@@ -75,6 +75,13 @@ const HeaderRight = ({
         >
           <p className="header__logo-mobile-show">Hair Planet</p>
           <ul className="header__menu">
+            {Boolean(islogAdmin) && islogAdmin.role === "Super Admin" && (
+              <li className="header__menu-item">
+                <Link className="header__menu-link" to="/admin">
+                  Admin
+                </Link>
+              </li>
+            )}
             {Boolean(islogAdmin) && islogAdmin.role === "Admin" && (
               <li className="header__menu-item">
                 <Link className="header__menu-link" to="/admin">
