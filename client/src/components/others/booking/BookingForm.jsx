@@ -124,7 +124,7 @@ const BookingForm = ({
     setDisableBtn(null);
     setSelectServices([]);
 
-    adminPanelClassRedirect = "adminPanelClassRedirect"
+    adminPanelClassRedirect === "adminPanelClassRedirect"
       ? history.push(`/admin/details-appointment/${excludedTimeData.bookingId}`)
       : history.push(`/booking/details/${excludedTimeData.bookingId}`);
   };

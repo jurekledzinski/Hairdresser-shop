@@ -47,7 +47,11 @@
 
 .booking {
   &__form {
-    width: 350px;
+    width: 100%;
+
+    @include media-queries(xmedium) {
+      width: 350px;
+    }
   }
 
   &__button-continue {
