@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   useGlobalFilter,
@@ -6,8 +6,6 @@ import {
   usePagination,
   useSortBy,
 } from "react-table";
-
-import { fetchEmails } from "../../../../reduxStore/actions/actionFetchEmails";
 
 import "./AdminEmails.scss";
 
@@ -27,25 +25,14 @@ import useRemoveEmail from "../adminCustomHooks/useRemoveEmail";
 const AdminEmails = () => {
   const dispatch = useDispatch();
   const adminDateUse = useSelector((store) => store.useAdminData);
-  const dataEmails = useSelector((store) => store.emailsData);
   const dataAlert = useSelector((store) => store.alertData);
-  const { emails } = dataEmails;
+  const emailsData = useSelector((store) => store.emailDataToUse);
 
-  const [currentEmails, setCurrentEmails] = useState([]);
   const [idEmail, setIdEmail] = useState("");
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const { columns, data } = useColumnsTableEmails(
-    currentEmails,
-    setIdEmail,
-    setIsOpenModal
-  );
-  const { handleRemoveItem } = useRemoveEmail(
-    currentEmails,
-    idEmail,
-    setCurrentEmails,
-    setIsOpenModal
-  );
+  const { columns, data } = useColumnsTableEmails(setIdEmail, setIsOpenModal);
+  const { handleRemoveItem } = useRemoveEmail(idEmail, setIsOpenModal);
   useDeleteErrorMessage();
 
   const tableInstance = useTable(
@@ -79,16 +66,6 @@ const AdminEmails = () => {
     setIsOpenModal(false);
   };
 
-  useEffect(() => {
-    dispatch(fetchEmails());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (emails.length > 0) {
-      setCurrentEmails(emails);
-    }
-  }, [emails]);
-
   return (
     <article className="admin-email">
       {dataAlert.errorServerMsg ? (
@@ -98,7 +75,7 @@ const AdminEmails = () => {
       )}
       <div className="admin-email__wrapper">
         <GlobalFilter
-          data={currentEmails}
+          data={emailsData}
           filter={globalFilter}
           setFilter={setGlobalFilter}
         />
