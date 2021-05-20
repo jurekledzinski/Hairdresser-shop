@@ -1,10 +1,8 @@
 import React, { useMemo } from "react";
+import { useSelector } from "react-redux";
 
-const useColumnsTableOpinions = (
-  currentOpinions,
-  setIdOpinion,
-  setIsOpenModal
-) => {
+const useColumnsTableOpinions = (setIdOpinion, setIsOpenModal) => {
+  const opinionsData = useSelector((store) => store.opinionsDataToUse);
   const columns = useMemo(
     () => [
       { Header: "Name Surname", accessor: "name" },
@@ -40,9 +38,9 @@ const useColumnsTableOpinions = (
         ),
       },
     ],
-    [currentOpinions]
+    [opinionsData]
   );
-  const data = useMemo(() => currentOpinions, [currentOpinions]);
+  const data = useMemo(() => opinionsData, [opinionsData]);
 
   return { columns, data };
 };

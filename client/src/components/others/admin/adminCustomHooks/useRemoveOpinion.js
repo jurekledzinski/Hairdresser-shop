@@ -8,32 +8,17 @@ import {
 
 import { deleteOpinion } from "../../../../utils/sessions";
 
-const useRemoveOpinion = (
-  currentOpinions,
-  idOpinion,
-  setCurrentOpinions,
-  setIsOpenModal
-) => {
+import { removeOpinion } from "../../../../reduxStore/actions/actionOpinionsData";
+
+const useRemoveOpinion = (idOpinion, setIsOpenModal) => {
   const dispatch = useDispatch();
-
-  const deepCopyCurrentOpinions = () => {
-    let copy = [];
-    currentOpinions.forEach((item) => {
-      const singleItem = { ...item };
-      copy = [...copy, singleItem];
-    });
-
-    return copy;
-  };
 
   const handleRemoveItem = async () => {
     const { data, status } = await deleteOpinion(idOpinion);
 
     if (status === 200) {
       dispatch(addServerSuccessMessage(data.success, "removeAtTableAdmin"));
-      let newCopy = deepCopyCurrentOpinions();
-      const updatedOpinions = newCopy.filter((item) => item._id !== idOpinion);
-      setCurrentOpinions(updatedOpinions);
+      dispatch(removeOpinion(idOpinion));
       setIsOpenModal(false);
     } else {
       dispatch(addServerErrorMessage(data.alert, "removeAtTableAdmin"));
