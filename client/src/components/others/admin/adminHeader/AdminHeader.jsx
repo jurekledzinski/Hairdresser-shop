@@ -41,13 +41,13 @@ const AdminHeader = ({
             <span className="admin__hamburger-line"></span>
           </div>
         </div>
-        <h3 className="admin__menu-option-name">
+        <h4 className="admin__menu-option-name">
           {currentUrl !== "/admin"
             ? sectionAdmin.indexOf("details") !== -1
               ? newNameSection
               : sectionAdmin
             : "Dashboard"}
-        </h3>
+        </h4>
       </div>
       <div className="admin__nav-right">
         <div className="admin__wrapper-image-name">

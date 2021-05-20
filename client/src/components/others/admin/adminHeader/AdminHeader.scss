@@ -43,7 +43,7 @@
       z-index: 100;
       transition: 0.4s ease;
       animation: moveLayerNav 0.4s linear;
-      z-index: initial !important;
+      z-index: 1 !important;
 
       &--active {
         display: flex;
@@ -112,10 +112,21 @@
 
   &__menu-option-name {
     display: none;
+    font-size: 1.4rem;
 
     @include media-queries(xxsmall) {
       display: block;
     }
+
+    @include media-queries(xsmall) {
+      display: block;
+      font-size: 1.6rem;
+    }
+
+    @include media-queries(small) {
+      font-size: 1.6rem;
+    }
+
     @include media-queries(xmedium) {
       font-size: 2.2rem;
     }
@@ -157,7 +168,7 @@
     width: 30px;
     height: 27px;
 
-    margin: 0 12px 0 10px;
+    margin: 0 5px 0 10px;
     border-radius: 50%;
     background-color: #393939;
     transition: 0.4s ease;
@@ -180,10 +191,10 @@
     }
 
     @include media-queries(small) {
-      margin: 0 20px 0 20px;
+      margin: 0 5px 0 20px;
 
       &--active {
-        margin: 0 20px 0 2px;
+        margin: 0 5px 0 20px;
       }
     }
 
