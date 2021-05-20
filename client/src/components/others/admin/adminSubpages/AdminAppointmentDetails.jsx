@@ -6,10 +6,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import "./AdminAppointmentDetails.scss";
 
 import { addServerErrorMessage } from "../../../../reduxStore/actions/actionAlertsMessages";
-import {
-  addExcludTimes,
-  removeExcludTimes,
-} from "../../../../reduxStore/actions/actionExcludedTimes";
 
 import { addBookedOrder } from "../../../../reduxStore/actions/actionBookedOrders";
 
