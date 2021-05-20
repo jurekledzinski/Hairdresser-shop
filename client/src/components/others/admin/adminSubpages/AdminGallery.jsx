@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
@@ -12,12 +13,15 @@ import "./AdminGallery.scss";
 import { adminGalleryButtons } from "./AdminGalleryButtons";
 
 import { fetchGalleryImgs } from "../../../../reduxStore/actions/actionFetchGalleryImages";
+import { removeImageFile } from "../../../../reduxStore/actions/actionFile";
+import { projectStorage } from "../../../../firebase/config";
 
 import useValidationGalleryFormik from "../adminCustomHooks/useValidationGalleryFormik";
 import useDeleteErrorMessage from "../../../../customHooks/useDeleteErrorMessage";
 import useHandleGalleryImage from "../adminCustomHooks/useHandleGalleryImage";
 import useFirebseDeleteFile from "../../../../customHooks/useFirebaseDeleteFile";
 import ErrorSuccessMessage from "../../errorSuccessMessages/ErrorSuccessMessages";
+
 import ProgressBar from "../../progreeBar/ProgressBar";
 
 import MessagePopup from "../adminPopUpMessage/MessagePopup";
@@ -41,13 +45,22 @@ const AdminGallery = () => {
   const { images } = dataImages;
   const [chooseButton, setChooseButton] = useState("men");
   const [currentImages, setCurrentImages] = useState([]);
+  const [setErrMsg] = useState("");
   const [idImage, setImage] = useState("");
   const [indexButton, setIndexButton] = useState(0);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [nameFile, setNameFile] = useState(null);
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const imgUrl = useRef(null);
   const imgLink = useRef(null);
+  const imamgeNewEditLink = useRef(null);
+  const isMount = useRef(null);
+
+  const history = useHistory();
+
+  console.log(imamgeNewEditLink, " gallery imamgeNewEditLink");
+  console.log(imgLink, " do dodawania link");
 
   useFirebseDeleteFile(imgLink);
 
@@ -103,8 +116,39 @@ const AdminGallery = () => {
   }, [chooseButton, dispatch]);
 
   useEffect(() => {
-    setCurrentImages(images);
+    if (isMount.current) {
+      setCurrentImages(images);
+    }
   }, [images]);
+
+  useEffect(() => {
+    isMount.current = true;
+    return () => (isMount.current = false);
+  }, []);
+
+  useEffect(() => {
+    console.log("history effect");
+    const fireBaseUrlStorage = "firebasestorage";
+    history.listen(() => {
+      if (
+        history.location.pathname !== "/admin/gallery" &&
+        imamgeNewEditLink.current &&
+        imamgeNewEditLink.current.indexOf(fireBaseUrlStorage) !== -1
+      ) {
+        console.log("USUWWAMY LINK GDY ZMIENIONY ROUTE BEZ SUBMIT");
+        const image = projectStorage.refFromURL(imamgeNewEditLink.current);
+        imamgeNewEditLink.current = null;
+
+        dispatch(removeImageFile(null, null, null, null, null, null));
+        image
+          .delete()
+          .then((responese) => responese)
+          .catch((err) => {
+            setErrMsg(err);
+          });
+      }
+    });
+  }, [isSubmit, imamgeNewEditLink.current]);
 
   const inputFile = ({ setFieldValue, setFieldTouched }) => (
     <input
@@ -215,6 +259,8 @@ const AdminGallery = () => {
                     setIsOpenModal={setIsOpenModal}
                     currentImages={currentImages}
                     setCurrentImages={setCurrentImages}
+                    setIsSubmit={setIsSubmit}
+                    imamgeNewEditLink={imamgeNewEditLink}
                   />
                 ))}
               </div>

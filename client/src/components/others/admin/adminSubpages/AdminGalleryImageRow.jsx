@@ -12,10 +12,12 @@ const AdminGalleryImageRow = ({
   imageUrl,
   idImage,
   imgUrl,
+  imamgeNewEditLink,
   currentImages,
   setCurrentImages,
   setImage,
   setIsOpenModal,
+  setIsSubmit,
   title,
   type,
 }) => {
@@ -85,10 +87,12 @@ const AdminGalleryImageRow = ({
           currentImages={currentImages}
           setCurrentImages={setCurrentImages}
           setIsVisiblePanel={setIsVisiblePanel}
+          setIsSubmit={setIsSubmit}
           idRow={idRow}
           imageUrl={imageUrl}
           title={title}
           type={type}
+          imamgeNewEditLink={imamgeNewEditLink}
         />
       </div>
     </div>

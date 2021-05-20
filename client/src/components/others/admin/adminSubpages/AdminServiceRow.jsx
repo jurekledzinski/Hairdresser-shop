@@ -12,10 +12,12 @@ const AdminServiceRow = ({
   idService,
   imageUrl,
   imgUrl,
+  imamgeNewEditLink,
   currentServices,
   setCurrentServices,
   setIdService,
   setIsOpenModal,
+  setIsSubmit,
   title,
   price,
 }) => {
@@ -57,7 +59,7 @@ const AdminServiceRow = ({
         </div>
         <div className="admin-service__text-wrapper">
           <p className="admin-service__text-span-2">Price:</p>
-          <p className="admin-service__text-2">{price}€</p>
+          <p className="admin-service__text-2">{price.toFixed(2)}€</p>
         </div>
         <div className="admin-service__buttons-wrapper">
           <button
@@ -94,9 +96,11 @@ const AdminServiceRow = ({
           setCurrentServices={setCurrentServices}
           setIsVisiblePanel={setIsVisiblePanel}
           idRow={idRow}
+          imamgeNewEditLink={imamgeNewEditLink}
           imageUrl={imageUrl}
           title={title}
           price={price}
+          setIsSubmit={setIsSubmit}
         />
       </div>
     </div>

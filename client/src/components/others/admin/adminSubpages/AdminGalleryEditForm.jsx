@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
@@ -12,7 +12,6 @@ import "./AdminGalleryEditForm.scss";
 import useValidationEditGalleryFormik from "../adminCustomHooks/useValidationEditGalleryFormik";
 import useDeleteErrorMessage from "../../../../customHooks/useDeleteErrorMessage";
 import useHandleGalleryEditImage from "../adminCustomHooks/useHandleGalleryEditImage";
-import useFirebseDeleteFile from "../../../../customHooks/useFirebaseDeleteFile";
 import useDeleteFileFirebase from "../../../../customHooks/useDeleteFileFirebase";
 import ErrorSuccessMessage from "../../errorSuccessMessages/ErrorSuccessMessages";
 import ProgressBar from "../../progreeBar/ProgressBar";
@@ -23,8 +22,10 @@ const AdminGalleryEditForm = ({
   currentImages,
   idRow,
   imageUrl,
+  imamgeNewEditLink,
   setCurrentImages,
   setIsVisiblePanel,
+  setIsSubmit,
   title,
   type,
 }) => {
@@ -44,17 +45,13 @@ const AdminGalleryEditForm = ({
   const adminDateUse = useSelector((store) => store.useAdminData);
   const dataAlert = useSelector((store) => store.alertData);
   const dataFile = useSelector((store) => store.fileDate);
-
   const [nameFile, setNameFile] = useState(null);
-
-  const imgLink = useRef(null);
-
-  useFirebseDeleteFile(imgLink);
 
   const onSubmit = async (values, submitProps) => {
     delete values.fileImg;
 
-    values.imageUrl = imgLink.current;
+    console.log(imamgeNewEditLink, " edit link submit");
+    values.imageUrl = imamgeNewEditLink.current;
     values.id = idRow;
 
     const { data, status } = await editImagesGallery(values);
@@ -70,7 +67,9 @@ const AdminGalleryEditForm = ({
       dispatch(addServerSuccessMessage(data.success, "default"));
       setIsVisiblePanel(false);
       setNameFile(null);
+      console.log(imageUrl);
       deleteImgFirebase(imageUrl);
+      setIsSubmit(true);
 
       const editedImage = currentImages.map((item) => {
         if (item._id === imageUpdate._id) {
@@ -92,7 +91,7 @@ const AdminGalleryEditForm = ({
       };
       setFormValues(editValues);
     }
-    imgLink.current = null;
+    imamgeNewEditLink.current = null;
     submitProps.resetForm();
   };
 
@@ -116,6 +115,7 @@ const AdminGalleryEditForm = ({
 
   return (
     <Formik
+      enableReinitialize
       initialValues={formValues || initialValues}
       validationSchema={validationSchema}
       validateOnBlur={false}
@@ -125,7 +125,7 @@ const AdminGalleryEditForm = ({
         return (
           <div className="admin-gallery__edit-form-wrapper">
             {Boolean(dataFile.fileImageGalleryEdit) && (
-              <ProgressBar imgLink={imgLink} />
+              <ProgressBar imamgeNewEditLink={imamgeNewEditLink} />
             )}
             {!Boolean(Object.keys(formik.errors).length) &&
             dataAlert.errorServerMsg ? (

@@ -12,7 +12,6 @@ import "./AdminServiceEditForm.scss";
 import useValidationServiceFormEdit from "../adminCustomHooks/useValidationServiceFormEdit";
 import useDeleteErrorMessage from "../../../../customHooks/useDeleteErrorMessage";
 import useHandleEditService from "../adminCustomHooks/useHandleEditService";
-import useFirebseDeleteFile from "../../../../customHooks/useFirebaseDeleteFile";
 import useDeleteFileFirebase from "../../../../customHooks/useDeleteFileFirebase";
 import ProgressBar from "../../progreeBar/ProgressBar";
 
@@ -22,10 +21,12 @@ const AdminServiceEditForm = ({
   currentServices,
   idRow,
   imageUrl,
+  imamgeNewEditLink,
   setCurrentServices,
   setIsVisiblePanel,
   title,
   price,
+  setIsSubmit,
 }) => {
   let editValues = {
     title,
@@ -44,14 +45,11 @@ const AdminServiceEditForm = ({
 
   const [nameFile, setNameFile] = useState(null);
 
-  const imgLink = useRef(null);
-
-  useFirebseDeleteFile(imgLink);
-
   const onSubmit = async (values, submitProps) => {
     delete values.fileImg;
     values.id = idRow;
-    values.imageUrl = imgLink.current;
+    console.log(imamgeNewEditLink, " edit link submit EDIT SERVICE");
+    values.imageUrl = imamgeNewEditLink.current;
 
     const { data, status } = await editAdminService(values);
 
@@ -64,6 +62,7 @@ const AdminServiceEditForm = ({
       dispatch(addServerSuccessMessage(data.success, "default"));
       setIsVisiblePanel(false);
       setNameFile(null);
+      setIsSubmit(true);
       deleteImgFirebase(imageUrl);
 
       const editedService = currentServices.map((item) => {
@@ -82,12 +81,12 @@ const AdminServiceEditForm = ({
 
       let editValues = {
         title: service.title,
-        price: service.price,
+        price: service.price.toFixed(2),
         fileImg: "",
       };
       setFormValues(editValues);
     }
-    imgLink.current = null;
+    imamgeNewEditLink.current = null;
     submitProps.resetForm();
   };
 
@@ -101,7 +100,7 @@ const AdminServiceEditForm = ({
     <input
       type="file"
       onChange={(e) => handleEditServiceFile(e, setFieldValue, setFieldTouched)}
-      className="admin-gallery__input-file"
+      className="admin-service__input-file"
     />
   );
 
@@ -121,15 +120,15 @@ const AdminServiceEditForm = ({
         return (
           <div className="admin-service__edit-form-wrapper">
             {Boolean(dataFile.fileEditImageService) && (
-              <ProgressBar imgLink={imgLink} />
+              <ProgressBar imamgeNewEditLink={imamgeNewEditLink} />
             )}
             <Form
               className="admin-service__form-edit"
               onSubmit={formik.handleSubmit}
             >
               <ErrorMessage name="fileImg" component={errorMsg} />
-              <div className="admin-gallery__input-file-add">
-                <label className="admin-gallery__label-file">
+              <div className="admin-service__input-file-add">
+                <label className="admin-service__label-file">
                   Choose File
                   <Field
                     as={inputFile}
@@ -140,9 +139,9 @@ const AdminServiceEditForm = ({
                   ></Field>
                 </label>
                 {nameFile ? (
-                  <span className="admin-gallery__file-name">{nameFile}</span>
+                  <span className="admin-service__file-name">{nameFile}</span>
                 ) : (
-                  <span className="admin-gallery__file-name">No file ...</span>
+                  <span className="admin-service__file-name">No file ...</span>
                 )}
               </div>
               <ErrorMessage name="title" component={errorMsg} />

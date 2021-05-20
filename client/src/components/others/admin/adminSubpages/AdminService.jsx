@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
@@ -12,6 +13,8 @@ import "./AdminService.scss";
 import { adminServiceButtons } from "./AdminServiceButtons";
 
 import { fetchServices } from "../../../../reduxStore/actions/actionFetchServices";
+import { removeImageFile } from "../../../../reduxStore/actions/actionFile";
+import { projectStorage } from "../../../../firebase/config";
 
 import useHandleServiceImage from "../adminCustomHooks/useHandleServiceImage";
 import useFirebseDeleteFile from "../../../../customHooks/useFirebaseDeleteFile";
@@ -48,9 +51,16 @@ const AdminService = () => {
   const [indexCard, setIndexCard] = useState(0);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [nameFile, setNameFile] = useState(null);
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const imgUrl = useRef(null);
   const imgLink = useRef(null);
+  const imamgeNewEditLink = useRef(null);
+
+  const history = useHistory();
+
+  console.log(imamgeNewEditLink, " imamgeNewEditLink service");
+  console.log(imgLink, " do dodawania link service");
 
   useFirebseDeleteFile(imgLink);
 
@@ -129,11 +139,35 @@ const AdminService = () => {
     setCurrentServices(services);
   }, [services]);
 
+  useEffect(() => {
+    console.log("history effect");
+    const fireBaseUrlStorage = "firebasestorage";
+    history.listen(() => {
+      if (
+        history.location.pathname !== "/admin/service" &&
+        imamgeNewEditLink.current &&
+        imamgeNewEditLink.current.indexOf(fireBaseUrlStorage) !== -1
+      ) {
+        console.log("USUWWAMY LINK GDY ZMIENIONY ROUTE BEZ SUBMIT SERVICE");
+        const image = projectStorage.refFromURL(imamgeNewEditLink.current);
+        imamgeNewEditLink.current = null;
+
+        dispatch(removeImageFile(null, null, null, null, null, null));
+        image
+          .delete()
+          .then((responese) => responese)
+          .catch((err) => {
+            setErrMsg(err);
+          });
+      }
+    });
+  }, [isSubmit, imamgeNewEditLink.current]);
+
   const inputFile = ({ setFieldValue, setFieldTouched }) => (
     <input
       type="file"
       onChange={(e) => handleFile(e, setFieldValue, setFieldTouched)}
-      className="admin-gallery__input-file"
+      className="admin-service__input-file"
     />
   );
 
@@ -201,8 +235,8 @@ const AdminService = () => {
                   onSubmit={formik.handleSubmit}
                 >
                   <ErrorMessage name="fileImg" component={errorMsg} />
-                  <div className="admin-gallery__input-file-add">
-                    <label className="admin-gallery__label-file">
+                  <div className="admin-service__input-file-add">
+                    <label className="admin-service__label-file">
                       Choose File
                       <Field
                         as={inputFile}
@@ -213,11 +247,11 @@ const AdminService = () => {
                       ></Field>
                     </label>
                     {nameFile ? (
-                      <span className="admin-gallery__file-name">
+                      <span className="admin-service__file-name">
                         {nameFile}
                       </span>
                     ) : (
-                      <span className="admin-gallery__file-name">
+                      <span className="admin-service__file-name">
                         No file ...
                       </span>
                     )}
@@ -268,6 +302,8 @@ const AdminService = () => {
                       setIsOpenModal={setIsOpenModal}
                       currentServices={currentServices}
                       setCurrentServices={setCurrentServices}
+                      setIsSubmit={setIsSubmit}
+                      imamgeNewEditLink={imamgeNewEditLink}
                     />
                   ))}
               </div>
