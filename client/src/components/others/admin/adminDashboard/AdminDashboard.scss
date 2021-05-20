@@ -6,12 +6,13 @@
 
   &__wrapper {
     width: 100%;
+    padding: 50px 10px 0;
     min-height: inherit;
+
+    @include media-queries(small) {
+      padding: 50px 20px 0;
+    }
   }
-
-  //   FIXME:
-
-  // Chowa sie waski pasek aside
 
   &__left {
     position: fixed;
@@ -33,8 +34,6 @@
         width: calc(100% - 20px);
       }
     }
-
-    // pokazuje sie waski pasek aside
 
     @media (min-width: 360px) {
       width: 40px;

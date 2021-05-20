@@ -8,11 +8,80 @@ import {
   clearAdminLogOut,
   fetchUsers,
 } from "../../../../reduxStore/actions/actionFetchAdmin";
-import { addAdminData } from "../../../../reduxStore/actions/actionAdminData";
-import { fetchAllBookedOrders } from "../../../../reduxStore/actions/actionFetchBookedOrders";
-import { fetchAllCanceledOrders } from "../../../../reduxStore/actions/actionFetchCanceledOrders";
-import { addBookedOrder } from "../../../../reduxStore/actions/actionBookedOrders";
-import { addCanceledOrder } from "../../../../reduxStore/actions/actionCanceledOrders";
+import {
+  addAdminData,
+  clearAdminData,
+} from "../../../../reduxStore/actions/actionAdminData";
+import {
+  clearFetchedOrdersBooked,
+  fetchAllBookedOrders,
+} from "../../../../reduxStore/actions/actionFetchBookedOrders";
+import {
+  clearFetchCanceledOrders,
+  fetchAllCanceledOrders,
+} from "../../../../reduxStore/actions/actionFetchCanceledOrders";
+import {
+  addBookedOrder,
+  clearBookedOrder,
+} from "../../../../reduxStore/actions/actionBookedOrders";
+import {
+  addCanceledOrder,
+  clearCanceledOrder,
+} from "../../../../reduxStore/actions/actionCanceledOrders";
+import {
+  clearFetchBookingAmountMonthShop,
+  fetchBookingsMadeAtShop,
+} from "../../../../reduxStore/actions/actionFetchAmountBookingsPerMonthInShop";
+import {
+  addBookingMonthShop,
+  clearBookingMonthShop,
+} from "../../../../reduxStore/actions/actionBookingsMadeAtShop";
+import {
+  clearFetchBookingsMonthWebsite,
+  fetchBookingsMadeAtWebsite,
+} from "../../../../reduxStore/actions/actionFetchAmountBookingsPerMonthInWebsite";
+import {
+  addBookingMonthWebsite,
+  clearBookingMonthWebsite,
+} from "../../../../reduxStore/actions/actionBookingsMadeAtWebsite";
+import {
+  clearFetchPaymentsMonthShop,
+  fetchPaymentsMadeAtShop,
+} from "../../../../reduxStore/actions/actionFetchPaymentsMonthShop";
+import {
+  fetchPaymentsMadeAtWebsite,
+  clearFetchPaymentsMonthWebsite,
+} from "../../../../reduxStore/actions/actionFetchPaymentsMonthWebsite";
+import {
+  addPaymentsMonthShop,
+  clearPaymentsMonthShop,
+} from "../../../../reduxStore/actions/actionPaymentsMonthShop";
+import {
+  addPaymentsMonthWebsite,
+  clearPaymentsMonthWebsite,
+} from "../../../../reduxStore/actions/actionPaymentsMonthWebsite";
+import {
+  clearFetchEmails,
+  fetchEmails,
+} from "../../../../reduxStore/actions/actionFetchEmails";
+import {
+  addEmail,
+  clearEmailData,
+} from "../../../../reduxStore/actions/actionEmailsData";
+import {
+  clearFetchOpinions,
+  fetchOpinions,
+} from "../../../../reduxStore/actions/actionFetchOpinions";
+import {
+  addOpinion,
+  clearOpinionData,
+} from "../../../../reduxStore/actions/actionOpinionsData";
+import { clearFetchImagesGallery } from "../../../../reduxStore/actions/actionFetchGalleryImages";
+import { clearImageFile } from "../../../../reduxStore/actions/actionFile";
+import { clearFetchPermissionRegister } from "../../../../reduxStore/actions/actionFetchPermissionRegister";
+import { clearFetchRegisterAdmins } from "../../../../reduxStore/actions/actionFetchRegisteredAdmins";
+import { clearFetchServices } from "../../../../reduxStore/actions/actionFetchServices";
+import { clearFetchShopOpen } from "../../../../reduxStore/actions/actionFetchOpenShop";
 
 import { logoutAdmin } from "../../../../utils/sessions";
 
@@ -29,8 +98,30 @@ const AdminDashboard = () => {
   );
   const { allCanceledOrders } = dataCanceledOrders;
   const dataUser = useSelector((store) => store.userData);
-  const adminDateUse = useSelector((store) => store.useAdminData);
+  //   const adminDateUse = useSelector((store) => store.useAdminData);
   const { users } = dataUser;
+  const bookingsMadeAtShop = useSelector(
+    (store) => store.amountBookingsDataShop
+  );
+  const { bookingsShop } = bookingsMadeAtShop;
+  const bookingsMadeAtWebsite = useSelector(
+    (store) => store.amountBookingsDataWebsite
+  );
+  const { bookingsWebsite } = bookingsMadeAtWebsite;
+  const paymentsFetchedShop = useSelector(
+    (store) => store.paymentsDataFetchShop
+  );
+  const { paymentsShop } = paymentsFetchedShop;
+  const paymentsFetchedWebsite = useSelector(
+    (store) => store.paymentsDataFetchWebsite
+  );
+  const { paymentsWebsite } = paymentsFetchedWebsite;
+  const paymentsShopData = useSelector((store) => store.paymentsDataShop);
+  const paymentsWebsiteData = useSelector((store) => store.paymentsDataWebsite);
+  const dataEmails = useSelector((store) => store.emailsData);
+  const { emails } = dataEmails;
+  const dataOpinions = useSelector((store) => store.opinionsData);
+  const { opinions } = dataOpinions;
 
   const [isLogOut, setIsLogOut] = useState(false);
   const [isLogOutMsg, setIsLogOutMsg] = useState(false);
@@ -41,11 +132,11 @@ const AdminDashboard = () => {
   const idTimeOut = useRef(null);
   const history = useHistory();
 
-  //   console.log(allBookedOrders, " dataBookedOrders admin dashboard");
-  //   console.log(
-  //     allCanceledOrders,
-  //     " dataCanceledOrders admin dashboard pobranie all canceled orders"
-  //   );
+  //   console.log(paymentsShop, "fetch payments shop");
+  //   console.log(paymentsWebsite, "fetch payments website");
+
+  //   console.log(paymentsShopData, " paymentsShop do uzycia dane");
+  //   console.log(paymentsWebsiteData, " paymentsWebsite do uzycia dane");
 
   const [checkSizeWindow, setCheckSizeWindow] = useState(
     window.innerWidth >= 1200 ? true : false
@@ -72,6 +163,12 @@ const AdminDashboard = () => {
     dispatch(fetchUsers());
     dispatch(fetchAllBookedOrders());
     dispatch(fetchAllCanceledOrders());
+    dispatch(fetchBookingsMadeAtShop());
+    dispatch(fetchBookingsMadeAtWebsite());
+    dispatch(fetchPaymentsMadeAtShop());
+    dispatch(fetchPaymentsMadeAtWebsite());
+    dispatch(fetchEmails());
+    dispatch(fetchOpinions());
   }, [dispatch]);
 
   useEffect(() => {
@@ -105,8 +202,31 @@ const AdminDashboard = () => {
     if (isLogOut) {
       idTimeOutLogout.current = setTimeout(() => {
         dispatch(clearAdminLogOut());
+        dispatch(clearAdminData());
+        dispatch(clearFetchedOrdersBooked());
+        dispatch(clearFetchCanceledOrders());
+        dispatch(clearBookedOrder());
+        dispatch(clearCanceledOrder());
+        dispatch(clearFetchBookingAmountMonthShop());
+        dispatch(clearBookingMonthShop());
+        dispatch(clearFetchBookingsMonthWebsite());
+        dispatch(clearBookingMonthWebsite());
+        dispatch(clearFetchPaymentsMonthShop());
+        dispatch(clearFetchPaymentsMonthWebsite());
+        dispatch(clearPaymentsMonthShop());
+        dispatch(clearPaymentsMonthWebsite());
+        dispatch(clearFetchEmails());
+        dispatch(clearEmailData());
+        dispatch(clearFetchOpinions());
+        dispatch(clearOpinionData());
+        dispatch(clearFetchImagesGallery());
+        dispatch(clearImageFile());
+        dispatch(clearFetchPermissionRegister());
+        dispatch(clearFetchRegisterAdmins());
+        dispatch(clearFetchServices());
+        dispatch(clearFetchShopOpen());
         history.push("/"), 1000;
-      });
+      }, 1000);
     }
     return () => clearTimeout(idTimeOutLogout.current);
   }, [isLogOut]);
@@ -118,6 +238,80 @@ const AdminDashboard = () => {
       window.removeEventListener("resize", checkWindowSize);
     };
   }, []);
+
+  useEffect(() => {
+    if (bookingsShop.length > 0) {
+      const bookedMonthsShop = bookingsShop.map((item) => item.month);
+      const amountBookedShop = bookingsShop.map((item) => item.count);
+
+      const dataBookings = {
+        months: bookedMonthsShop,
+        amount: amountBookedShop,
+      };
+
+      dispatch(addBookingMonthShop(dataBookings));
+    }
+  }, [bookingsShop]);
+
+  useEffect(() => {
+    if (bookingsWebsite.length > 0) {
+      const bookedMonthsShop = bookingsWebsite.map((item) => item.month);
+      const amountBookedShop = bookingsWebsite.map((item) => item.count);
+
+      const dataBookings = {
+        months: bookedMonthsShop,
+        amount: amountBookedShop,
+      };
+
+      dispatch(addBookingMonthWebsite(dataBookings));
+    }
+  }, [bookingsWebsite]);
+
+  useEffect(() => {
+    if (paymentsShop.length > 0) {
+      const totalPaymentMonthsShop = paymentsShop.map((item) => item.total);
+      const paymentsMonthsShop = paymentsShop.map((item) => item.month);
+
+      const dataShop = {
+        months: paymentsMonthsShop,
+        total: totalPaymentMonthsShop,
+      };
+
+      dispatch(addPaymentsMonthShop(dataShop));
+    }
+  }, [paymentsShop]);
+
+  useEffect(() => {
+    if (paymentsWebsite.length > 0) {
+      const totalPaymentMonthsWebsite = paymentsWebsite.map(
+        (item) => item.total
+      );
+      const paymentsMonthsWebsite = paymentsWebsite.map((item) => item.month);
+
+      const dataWebsite = {
+        months: paymentsMonthsWebsite,
+        total: totalPaymentMonthsWebsite,
+      };
+
+      dispatch(addPaymentsMonthWebsite(dataWebsite));
+    }
+  }, [paymentsWebsite]);
+
+  useEffect(() => {
+    if (emails.length > 0) {
+      emails.forEach((item) => {
+        dispatch(addEmail(item));
+      });
+    }
+  }, [emails]);
+
+  useEffect(() => {
+    if (opinions.length > 0) {
+      opinions.forEach((item) => {
+        dispatch(addOpinion(item));
+      });
+    }
+  }, [opinions]);
 
   return (
     <section className="admin">
@@ -143,7 +337,6 @@ const AdminDashboard = () => {
             handleCloseOpenMenu={handleCloseOpenMenu}
             handleLogout={handleLogout}
             isOpenMenu={isOpenMenu}
-            isLogOutMsg={isLogOutMsg}
             loadImg={loadImg}
             users={users}
           />
