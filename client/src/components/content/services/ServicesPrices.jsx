@@ -10,92 +10,7 @@ import "./ServicesPrices.scss";
 
 import ServiceCards from "./ServiceCards";
 
-const menServices = [
-  { title: "Classic haircut", price: 3.25, id: "1" },
-  { title: "Classic haircut long hair", price: 5.5, id: "2" },
-  { title: "Classic haircut & hair washing", price: 7.5, id: "3" },
-  { title: "Trimming", price: 5.0, id: "4" },
-  { title: "Trimming & arranging long beard", price: 8.5, id: "5" },
-  { title: "Stylization & arranging beard", price: 10.5, id: "6" },
-  { title: "Classic haircut & shaving", price: 10.5, id: "7" },
-  { title: "Haircut & trimming long beard", price: 6.5, id: "8" },
-  { title: "Classic shaving", price: 4.5, id: "9" },
-  { title: "Hair washing", price: 3.5, id: "10" },
-  { title: "Beard washing", price: 2.5, id: "11" },
-  { title: "Beard & Hair washing", price: 5.0, id: "12" },
-];
-
-const womenServices = [
-  { title: "Classic women’s haircuts", price: 3.25, id: "1" },
-  { title: "Classic haircut long hair", price: 5.5, id: "2" },
-  { title: "Classic haircut & hair washing", price: 7.5, id: "3" },
-  { title: "Ladies’ fashion style cuts", price: 5.0, id: "4" },
-  { title: "Trending celebrity-inspired hairstyles", price: 8.5, id: "5" },
-  { title: "Short female haircuts", price: 10.5, id: "6" },
-  { title: "Classic haircut and colour", price: 10.5, id: "7" },
-  { title: "Balayage colour", price: 6.5, id: "8" },
-  { title: "Hair extensions", price: 4.5, id: "9" },
-  { title: "Keratin hair treatments", price: 3.5, id: "10" },
-  { title: "Stylization haircut", price: 2.5, id: "11" },
-  { title: "Hair washing", price: 5.0, id: "12" },
-];
-
-const slidesData = [
-  {
-    imgFront:
-      "https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Icon-cut.png?alt=media&token=c9167ab8-b4ac-4999-a20f-7d94b5b1bd86",
-    men: [
-      { title: "Classic haircut", price: 3.25, id: "1" },
-      { title: "Classic haircut long hair", price: 5.5, id: "2" },
-      { title: "Classic haircut & hair washing", price: 7.5, id: "3" },
-      { title: "Trimming", price: 5.0, id: "4" },
-    ],
-    imgBack:
-      "https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Icon-cut-woman.png?alt=media&token=652ce079-ba35-4ba3-8fa2-5dc57010a8da",
-    women: [
-      { title: "Classic women’s haircuts", price: 3.25, id: "1" },
-      { title: "Classic haircut long hair", price: 5.5, id: "2" },
-      { title: "Classic haircut & hair washing", price: 7.5, id: "3" },
-      { title: "Ladies’ fashion style cuts", price: 5.0, id: "4" },
-    ],
-  },
-  {
-    imgFront:
-      "https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Icon-razor.png?alt=media&token=330e5dab-c22a-4dcf-ba75-762a3c3de784",
-    men: [
-      { title: "Trimming & arranging long beard", price: 8.5, id: "5" },
-      { title: "Stylization & arranging beard", price: 10.5, id: "6" },
-      { title: "Classic haircut & shaving", price: 10.5, id: "7" },
-      { title: "Haircut & trimming long beard", price: 6.5, id: "8" },
-    ],
-    imgBack:
-      "https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Icon-brush.png?alt=media&token=a508bed4-5159-424d-8bc8-56610c397b51",
-    women: [
-      { title: "Trending celebrity-inspired hairstyles", price: 8.5, id: "5" },
-      { title: "Short female haircuts", price: 10.5, id: "6" },
-      { title: "Classic haircut and colour", price: 10.5, id: "7" },
-      { title: "Balayage colour", price: 6.5, id: "8" },
-    ],
-  },
-  {
-    imgFront:
-      "https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Icon-dryer.png?alt=media&token=201b19a8-a662-4144-b7c9-df01ca861254",
-    men: [
-      { title: "Classic shaving", price: 4.5, id: "9" },
-      { title: "Hair washing", price: 3.5, id: "10" },
-      { title: "Beard washing", price: 2.5, id: "11" },
-      { title: "Beard & Hair washing", price: 5.0, id: "12" },
-    ],
-    imgBack:
-      "https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Icon-wash.png?alt=media&token=a656c958-6ebb-4508-a135-0cc1ef17f11c",
-    women: [
-      { title: "Hair extensions", price: 4.5, id: "9" },
-      { title: "Keratin hair treatments", price: 3.5, id: "10" },
-      { title: "Stylization haircut", price: 2.5, id: "11" },
-      { title: "Hair washing", price: 5.0, id: "12" },
-    ],
-  },
-];
+const slidesData = [{}, {}, {}];
 
 const ServicesPrices = () => {
   const [countCard, setCountCard] = useState(1);
@@ -110,6 +25,9 @@ const ServicesPrices = () => {
   const [slides] = useState(slidesData);
 
   const idInterval = useRef(null);
+  const idTimeOut = useRef(null);
+  const idTimeOut2 = useRef(null);
+  const idTimeOut3 = useRef(null);
   const sizeWindow = useRef(768);
   const slidesContainer = useRef(null);
 
@@ -146,32 +64,39 @@ const ServicesPrices = () => {
 
   useEffect(() => {
     if (slides.length > 0) {
-      let firstElement = slidesContainer.current.children[0].cloneNode(true);
-      let lastElement = slidesContainer.current.children[
-        slidesContainer.current.children.length - 1
-      ].cloneNode(true);
+      idTimeOut.current = setTimeout(() => {
+        let firstElement = slidesContainer.current.children[0].cloneNode(true);
+        let lastElement =
+          slidesContainer.current.children[
+            slidesContainer.current.children.length - 1
+          ].cloneNode(true);
 
-      slidesContainer.current.insertBefore(
-        lastElement,
-        slidesContainer.current.children[0]
-      );
-      slidesContainer.current.append(firstElement);
+        slidesContainer.current.insertBefore(
+          lastElement,
+          slidesContainer.current.children[0]
+        );
+        slidesContainer.current.append(firstElement);
 
-      slidesContainer.current.style.transitionDuration = "0s";
+        slidesContainer.current.style.transitionDuration = "0s";
+      }, 400);
     }
   }, [slides]);
 
   useEffect(() => {
     if (checkSizeWindow >= 768) {
-      slidesContainer.current.children[0].style.display = "none";
-      slidesContainer.current.children[
-        slidesContainer.current.children.length - 1
-      ].style.display = "none";
+      idTimeOut2.current = setTimeout(() => {
+        slidesContainer.current.children[0].style.display = "none";
+        slidesContainer.current.children[
+          slidesContainer.current.children.length - 1
+        ].style.display = "none";
+      }, 1000);
     } else {
-      slidesContainer.current.children[0].style.display = "block";
-      slidesContainer.current.children[
-        slidesContainer.current.children.length - 1
-      ].style.display = "block";
+      idTimeOut3.current = setTimeout(() => {
+        slidesContainer.current.children[0].style.display = "block";
+        slidesContainer.current.children[
+          slidesContainer.current.children.length - 1
+        ].style.display = "block";
+      }, 1000);
     }
   }, [checkSizeWindow]);
 
@@ -353,12 +278,13 @@ const ServicesPrices = () => {
     return () => window.removeEventListener("resize", getCurrentWindowSize);
   }, []);
 
-  const slidesMenOne = menServices.slice(0, 4);
-  const slidesWomenOne = womenServices.slice(0, 4);
-  const slidesMenTwo = menServices.slice(4, 8);
-  const slidesWomenTwo = womenServices.slice(4, 8);
-  const slidesMenThree = menServices.slice(8, 12);
-  const slidesWomenThree = womenServices.slice(8, 12);
+  useEffect(() => {
+    return () => {
+      clearTimeout(idTimeOut.current);
+      clearTimeout(idTimeOut2.current);
+      clearTimeout(idTimeOut3.current);
+    };
+  }, []);
 
   return (
     <div className="service__prices">

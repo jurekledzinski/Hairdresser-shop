@@ -1,41 +1,7 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-const menServices = [
-  { title: "Classic haircut", price: 3.25, id: "1" },
-  { title: "Classic haircut long hair", price: 5.5, id: "2" },
-  { title: "Classic haircut & hair washing", price: 7.5, id: "3" },
-  { title: "Trimming", price: 5.0, id: "4" },
-  { title: "Trimming & arranging long beard", price: 8.5, id: "5" },
-  { title: "Stylization & arranging beard", price: 10.5, id: "6" },
-  { title: "Classic haircut & shaving", price: 10.5, id: "7" },
-  { title: "Haircut & trimming long beard", price: 6.5, id: "8" },
-  { title: "Classic shaving", price: 4.5, id: "9" },
-  { title: "Hair washing", price: 3.5, id: "10" },
-  { title: "Beard washing", price: 2.5, id: "11" },
-  { title: "Beard & Hair washing", price: 5.0, id: "12" },
-];
-
-const womenServices = [
-  { title: "Classic women’s haircuts", price: 3.25, id: "1" },
-  { title: "Classic haircut long hair", price: 5.5, id: "2" },
-  { title: "Classic haircut & hair washing", price: 7.5, id: "3" },
-  { title: "Ladies’ fashion style cuts", price: 5.0, id: "4" },
-  { title: "Trending celebrity-inspired hairstyles", price: 8.5, id: "5" },
-  { title: "Short female haircuts", price: 10.5, id: "6" },
-  { title: "Classic haircut and colour", price: 10.5, id: "7" },
-  { title: "Balayage colour", price: 6.5, id: "8" },
-  { title: "Hair extensions", price: 4.5, id: "9" },
-  { title: "Keratin hair treatments", price: 3.5, id: "10" },
-  { title: "Stylization haircut", price: 2.5, id: "11" },
-  { title: "Hair washing", price: 5.0, id: "12" },
-];
-
-const slidesMenOne = menServices.slice(0, 4);
-const slidesWomenOne = womenServices.slice(0, 4);
-const slidesMenTwo = menServices.slice(4, 8);
-const slidesWomenTwo = womenServices.slice(4, 8);
-const slidesMenThree = menServices.slice(8, 12);
-const slidesWomenThree = womenServices.slice(8, 12);
+import { fetchAllCurrentServices } from "../../../reduxStore/actions/actionFetchAllServices";
 
 const ServiceCards = ({
   checkSizeWindow,
@@ -43,6 +9,39 @@ const ServiceCards = ({
   isServiceMenOrWomen,
   sizeWindow,
 }) => {
+  const dispatch = useDispatch();
+  const dataAllServices = useSelector((store) => store.allServicesData);
+  const { allServices } = dataAllServices;
+  const [slideMenOne, setSlideMenOne] = useState([]);
+  const [slideWomenOne, setSlideWomenOne] = useState([]);
+  const [slideMenTwo, setSlideMenTwo] = useState([]);
+  const [slideWomenTwo, setSlideWomenTwo] = useState([]);
+  const [slideMenThree, setSlideMenThree] = useState([]);
+  const [slideWomenThree, setSlideWomenThree] = useState([]);
+
+  useEffect(() => {
+    dispatch(fetchAllCurrentServices());
+  }, []);
+
+  useEffect(() => {
+    if (allServices.length > 0) {
+      const filterMen = allServices.filter((item) => item.gender === "men");
+      const filterWomen = allServices.filter((item) => item.gender === "women");
+      const slidesMenOne = filterMen.slice(0, 4);
+      const slidesWomenOne = filterWomen.slice(0, 4);
+      const slidesMenTwo = filterMen.slice(4, 8);
+      const slidesWomenTwo = filterWomen.slice(4, 8);
+      const slidesMenThree = filterMen.slice(8, 12);
+      const slidesWomenThree = filterWomen.slice(8, 12);
+      setSlideMenOne(slidesMenOne);
+      setSlideWomenOne(slidesWomenOne);
+      setSlideMenTwo(slidesMenTwo);
+      setSlideWomenTwo(slidesWomenTwo);
+      setSlideMenThree(slidesMenThree);
+      setSlideWomenThree(slidesWomenThree);
+    }
+  }, [allServices]);
+
   return (
     <Fragment>
       <div
@@ -72,14 +71,15 @@ const ServiceCards = ({
               />
             </div>
             <div className="service__card-front-bottom">
-              {slidesMenOne.map((serviceMen, index) => (
-                <Fragment key={serviceMen.id}>
-                  <p className="service__service-title">{serviceMen.title}</p>
-                  <span className="service__service-price">
-                    {serviceMen.price}€
-                  </span>
-                </Fragment>
-              ))}
+              {slideMenOne.length > 0 &&
+                slideMenOne.map((serviceMen, index) => (
+                  <Fragment key={serviceMen._id}>
+                    <p className="service__service-title">{serviceMen.title}</p>
+                    <span className="service__service-price">
+                      {serviceMen.price}€
+                    </span>
+                  </Fragment>
+                ))}
             </div>
           </div>
           <div
@@ -99,14 +99,17 @@ const ServiceCards = ({
               />
             </div>
             <div className="service__card-back-bottom">
-              {slidesWomenOne.map((serviceWomen, index) => (
-                <Fragment key={serviceWomen.id}>
-                  <p className="service__service-title">{serviceWomen.title}</p>
-                  <span className="service__service-price">
-                    {serviceWomen.price}€
-                  </span>
-                </Fragment>
-              ))}
+              {slideWomenOne.length > 0 &&
+                slideWomenOne.map((serviceWomen, index) => (
+                  <Fragment key={serviceWomen._id}>
+                    <p className="service__service-title">
+                      {serviceWomen.title}
+                    </p>
+                    <span className="service__service-price">
+                      {serviceWomen.price}€
+                    </span>
+                  </Fragment>
+                ))}
             </div>
           </div>
         </div>
@@ -138,14 +141,15 @@ const ServiceCards = ({
               />
             </div>
             <div className="service__card-front-bottom">
-              {slidesMenTwo.map((serviceMen, index) => (
-                <Fragment key={serviceMen.id}>
-                  <p className="service__service-title">{serviceMen.title}</p>
-                  <span className="service__service-price">
-                    {serviceMen.price}€
-                  </span>
-                </Fragment>
-              ))}
+              {slideMenTwo.length > 0 &&
+                slideMenTwo.map((serviceMen, index) => (
+                  <Fragment key={serviceMen._id}>
+                    <p className="service__service-title">{serviceMen.title}</p>
+                    <span className="service__service-price">
+                      {serviceMen.price}€
+                    </span>
+                  </Fragment>
+                ))}
             </div>
           </div>
           <div
@@ -165,14 +169,17 @@ const ServiceCards = ({
               />
             </div>
             <div className="service__card-back-bottom">
-              {slidesWomenTwo.map((serviceWomen, index) => (
-                <Fragment key={serviceWomen.id}>
-                  <p className="service__service-title">{serviceWomen.title}</p>
-                  <span className="service__service-price">
-                    {serviceWomen.price}€
-                  </span>
-                </Fragment>
-              ))}
+              {slideWomenTwo.length > 0 &&
+                slideWomenTwo.map((serviceWomen, index) => (
+                  <Fragment key={serviceWomen._id}>
+                    <p className="service__service-title">
+                      {serviceWomen.title}
+                    </p>
+                    <span className="service__service-price">
+                      {serviceWomen.price}€
+                    </span>
+                  </Fragment>
+                ))}
             </div>
           </div>
         </div>
@@ -204,14 +211,15 @@ const ServiceCards = ({
               />
             </div>
             <div className="service__card-front-bottom">
-              {slidesMenThree.map((serviceMen, index) => (
-                <Fragment key={serviceMen.id}>
-                  <p className="service__service-title">{serviceMen.title}</p>
-                  <span className="service__service-price">
-                    {serviceMen.price}€
-                  </span>
-                </Fragment>
-              ))}
+              {slideMenThree.length > 0 &&
+                slideMenThree.map((serviceMen, index) => (
+                  <Fragment key={serviceMen._id}>
+                    <p className="service__service-title">{serviceMen.title}</p>
+                    <span className="service__service-price">
+                      {serviceMen.price}€
+                    </span>
+                  </Fragment>
+                ))}
             </div>
           </div>
           <div
@@ -231,14 +239,17 @@ const ServiceCards = ({
               />
             </div>
             <div className="service__card-back-bottom">
-              {slidesWomenThree.map((serviceWomen, index) => (
-                <Fragment key={serviceWomen.id}>
-                  <p className="service__service-title">{serviceWomen.title}</p>
-                  <span className="service__service-price">
-                    {serviceWomen.price}€
-                  </span>
-                </Fragment>
-              ))}
+              {slideWomenThree.length > 0 &&
+                slideWomenThree.map((serviceWomen, index) => (
+                  <Fragment key={serviceWomen._id}>
+                    <p className="service__service-title">
+                      {serviceWomen.title}
+                    </p>
+                    <span className="service__service-price">
+                      {serviceWomen.price}€
+                    </span>
+                  </Fragment>
+                ))}
             </div>
           </div>
         </div>
