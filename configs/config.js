@@ -7,6 +7,7 @@ module.exports = {
   secretSession: process.env.SESS_SECRET,
   paypalApi: process.env.PAYPAL_API,
   roleAdmin: process.env.ROLE_ADMIN,
+  roleSuperAdmin: process.env.ROLE_SUPER_ADMIN,
   providerHost: process.env.HOST_EMAIL,
   portProviderEmail: process.env.PORT_PROVIDER_EMAIL,
   emailOfUser: process.env.EMAIL_USER,
