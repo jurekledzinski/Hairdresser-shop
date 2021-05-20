@@ -2,6 +2,7 @@ import {
   FETCH_IMAGES_REQUEST,
   FETCH_IMAGES_SUCCESS,
   FETCH_IMAGES_FAILURE,
+  CLEAR_FETCH_IMAGES,
 } from "../actions/actionFetchGalleryImages";
 
 const initialState = {
@@ -29,6 +30,8 @@ export const fetchImagesGalleryReducer = (state = initialState, action) => {
         images: [],
         error: action.payload,
       };
+    case CLEAR_FETCH_IMAGES:
+      return initialState;
     default:
       return state;
   }

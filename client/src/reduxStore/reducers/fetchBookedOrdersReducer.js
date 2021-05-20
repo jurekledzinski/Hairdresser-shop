@@ -2,6 +2,7 @@ import {
   FETCH_BOOKED_ORDERS_REQUEST,
   FETCH_BOOKED_ORDERS_SUCCESS,
   FETCH_BOOKED_ORDERS_FAILURE,
+  CLEAR_BOOKED_ORDERS,
 } from "../actions/actionFetchBookedOrders";
 
 const initialState = {
@@ -29,6 +30,8 @@ export const fetchAllBookedOrdersReducer = (state = initialState, action) => {
         allBookedOrders: [],
         error: action.payload,
       };
+    case CLEAR_BOOKED_ORDERS:
+      return initialState;
     default:
       return state;
   }

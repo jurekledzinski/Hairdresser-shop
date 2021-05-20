@@ -2,6 +2,7 @@ import {
   FETCH_PERMISSION_REGISTER_REQUEST,
   FETCH_PERMISSION_REGISTER_SUCCESS,
   FETCH_PERMISSION_REGISTER_FAILURE,
+  CLEAR_FETCH_PERMISSION_REGISTER,
 } from "../actions/actionFetchPermissionRegister";
 
 const initialState = {
@@ -32,6 +33,8 @@ export const fetchPermissionToRegisterReducer = (
         permission: [],
         error: action.payload,
       };
+    case CLEAR_FETCH_PERMISSION_REGISTER:
+      return initialState;
     default:
       return state;
   }

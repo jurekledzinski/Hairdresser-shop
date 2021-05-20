@@ -2,6 +2,7 @@ import {
   FETCH_CANCELED_ORDERS_REQUEST,
   FETCH_CANCELED_ORDERS_SUCCESS,
   FETCH_CANCELED_ORDERS_FAILURE,
+  CLEAR_CANCELED_ORDERS,
 } from "../actions/actionFetchCanceledOrders";
 
 const initialState = {
@@ -29,6 +30,8 @@ export const fetchAllCancledOrdersReducer = (state = initialState, action) => {
         allCanceledOrders: [],
         error: action.payload,
       };
+    case CLEAR_CANCELED_ORDERS:
+      return initialState;
     default:
       return state;
   }

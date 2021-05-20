@@ -2,6 +2,7 @@ import {
   FETCH_OPINIONS_REQUEST,
   FETCH_OPINIONS_SUCCESS,
   FETCH_OPINIONS_FAILURE,
+  CLEAR_FETCH_OPINIONS,
 } from "../actions/actionFetchOpinions";
 
 const initialState = {
@@ -29,6 +30,8 @@ export const fetchOpinionsReducer = (state = initialState, action) => {
         opinions: [],
         error: action.payload,
       };
+    case CLEAR_FETCH_OPINIONS:
+      return initialState;
     default:
       return state;
   }

@@ -2,6 +2,7 @@ import {
   FETCH_ADMINS_REQUEST,
   FETCH_ADMINS_SUCCESS,
   FETCH_ADMINS_FAILURE,
+  CLEAR_FETCH_ADMINS,
 } from "../actions/actionFetchRegisteredAdmins";
 
 const initialState = {
@@ -29,6 +30,8 @@ export const fetchAllAdminsReducer = (state = initialState, action) => {
         admins: [],
         error: action.payload,
       };
+    case CLEAR_FETCH_ADMINS:
+      return initialState;
     default:
       return state;
   }

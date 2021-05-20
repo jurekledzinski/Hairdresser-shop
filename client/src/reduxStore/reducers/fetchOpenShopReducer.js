@@ -2,6 +2,7 @@ import {
   FETCH_OPEN_SHOP_REQUEST,
   FETCH_OPEN_SHOP_SUCCESS,
   FETCH_OPEN_SHOP_FAILURE,
+  CLEAR_FETCH_OPEN_SHOP,
 } from "../actions/actionFetchOpenShop";
 
 const initialState = {
@@ -29,6 +30,8 @@ export const fetchOpenShopReducer = (state = initialState, action) => {
         shop: [],
         error: action.payload,
       };
+    case CLEAR_FETCH_OPEN_SHOP:
+      return initialState;
     default:
       return state;
   }

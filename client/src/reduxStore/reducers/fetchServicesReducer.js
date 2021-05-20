@@ -2,6 +2,7 @@ import {
   FETCH_SERVICES_REQUEST,
   FETCH_SERVICES_SUCCESS,
   FETCH_SERVICES_FAILURE,
+  CLEAR_FETCH_SERVICES,
 } from "../actions/actionFetchServices";
 
 const initialState = {
@@ -29,6 +30,8 @@ export const fetchServicesReducer = (state = initialState, action) => {
         services: [],
         error: action.payload,
       };
+    case CLEAR_FETCH_SERVICES:
+      return initialState;
     default:
       return state;
   }
