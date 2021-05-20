@@ -1,28 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { fetchOpenShop } from "../../../reduxStore/actions/actionFetchOpenShop";
 
 import "./ContactOpenHours.scss";
 
 const ContactOpenHours = () => {
+  const dispatch = useDispatch();
+  const dataOpenShop = useSelector((store) => store.openShopData);
+  const { shop } = dataOpenShop;
+
+  const dayOpenShop = shop.map((item) => (
+    <p className="contact__day" key={item._id}>
+      {item.day}
+    </p>
+  ));
+
+  const timeOpenShop = shop.map((item) => (
+    <p className="contact__time" key={item._id}>
+      {item.time}
+    </p>
+  ));
+
+  useEffect(() => {
+    dispatch(fetchOpenShop());
+  }, []);
+
   return (
     <div className="contact__hours-wrapper">
-      <div className="contact__day-of-week">
-        <p className="contact__day">Monday</p>
-        <p className="contact__day">Thusday</p>
-        <p className="contact__day">Wednesday</p>
-        <p className="contact__day">Thursday</p>
-        <p className="contact__day">Friday</p>
-        <p className="contact__day">Saturday</p>
-        <p className="contact__day">Sunday</p>
-      </div>
-      <div className="contact__time">
-        <p className="contact__time">Closed</p>
-        <p className="contact__time">10a.m. - 7p.m.</p>
-        <p className="contact__time">10a.m. - 7p.m.</p>
-        <p className="contact__time">10a.m. - 7p.m.</p>
-        <p className="contact__time">10a.m. - 7p.m.</p>
-        <p className="contact__time">10a.m. - 3p.m.</p>
-        <p className="contact__time">Closed</p>
-      </div>
+      <div className="contact__day-of-week">{dayOpenShop}</div>
+      <div className="contact__time">{timeOpenShop}</div>
     </div>
   );
 };
