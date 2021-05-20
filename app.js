@@ -22,6 +22,8 @@ const {
 mongoose.connect(atlasUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
 });
 
 const db = mongoose.connection;
@@ -46,6 +48,7 @@ const bookingRouter = require("./routes/booking");
 const checkoutRouter = require("./routes/checkout");
 const emailConfirmation = require("./routes/emailBookingConfirmation");
 const emailBookingCancel = require("./routes/emailBookingCancel");
+const counterVisits = require("./routes/counterVisits");
 
 const app = express();
 
@@ -108,6 +111,7 @@ app.use("/booking", bookingRouter);
 app.use("/create-checkout-session", checkoutRouter);
 app.use("/email-confirmation", emailConfirmation);
 app.use("/email-booking-cancel", emailBookingCancel);
+app.use("/", counterVisits);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
