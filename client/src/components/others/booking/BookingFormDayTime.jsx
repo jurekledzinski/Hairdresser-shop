@@ -10,6 +10,9 @@ import isSameDay from "date-fns/isSameDay";
 import addDays from "date-fns/addDays";
 import DatePicker from "react-datepicker";
 import { v4 as uuidv4 } from "uuid";
+//
+// import setDate from "date-fns/setDate";
+// import setDay from "date-fns/setDay";
 
 import "./BookingFormDayTime.scss";
 
@@ -24,6 +27,7 @@ const BookingFormDayTime = ({
   adminPanelClassLabel,
   choosedTime,
   errorMsg,
+  setChoosedTime,
   setDisableBtn,
 }) => {
   const dispatch = useDispatch();
@@ -40,6 +44,7 @@ const BookingFormDayTime = ({
   const [allExcludeDays, setAllExcludeDays] = useState([]);
   const [currentExcludedDays, setCurrentExcludedDays] = useState([]);
   const [choosedDay, setChoosedDay] = useState();
+  const [isDisableTime, setIsDisableTime] = useState(true);
 
   //   console.log(choosedDay, " choosedDay");
 
@@ -78,6 +83,8 @@ const BookingFormDayTime = ({
         }
       }
     });
+
+    console.log(currentTimes.current, " currentTimes.current booking time");
 
     return currentDate.getTime() < selectedDate.getTime();
   };
@@ -165,9 +172,63 @@ const BookingFormDayTime = ({
     await deleteExcludedTimesExpired();
   };
 
+  const checkFirstActiveTime = (selectedDate) => {
+    console.log(selectedDate, "selectedDate");
+    let incrementMin = 2400000;
+    let startTime = new Date(selectedDate).setHours(8, 0, 0, 0);
+    const endTime = new Date(selectedDate).setHours(19, 0, 0, 0);
+
+    let timesArray = [];
+
+    while (startTime < endTime) {
+      timesArray = [...timesArray, new Date(startTime)];
+      startTime = startTime + incrementMin;
+    }
+
+    const filterArray = timesArray.filter((item) => item > new Date());
+
+    console.log(filterArray, " timesArray");
+
+    let restTimesArr = [];
+
+    filterArray.forEach((item) => {
+      restTimesArr = [...restTimesArr, item.getTime()];
+    });
+
+    let excludTimesArr = [];
+
+    dataAllExcludedTimes.forEach((item) => {
+      excludTimesArr = [...excludTimesArr, item.timeService.getTime()];
+    });
+
+    console.log(restTimesArr, "restTimesArr");
+    console.log(excludTimesArr, "excludTimesArr");
+
+    const availableFirstTime = restTimesArr.filter(
+      (d) => !excludTimesArr.includes(d)
+    );
+
+    let hour;
+    let minute;
+
+    availableFirstTime.map((item) => console.log(new Date(item)));
+
+    if (availableFirstTime.length > 0) {
+      console.log(new Date(availableFirstTime[0]));
+      hour = new Date(availableFirstTime[0]).getHours();
+      minute = new Date(availableFirstTime[0]).getMinutes();
+    }
+
+    return { hour, minute };
+  };
+
   useEffect(() => {
     deleteExpiredBookingTimes();
   }, []);
+
+  useEffect(() => {
+    checkFirstActiveTime();
+  }, [dataAllExcludedTimes]);
 
   return (
     <div className="booking__input-wrapper-day-time">
@@ -219,10 +280,13 @@ const BookingFormDayTime = ({
                   placeholderText="Select day"
                   autoComplete="off"
                   onSelect={(date) => {
+                    const { hour, minute } = checkFirstActiveTime(date);
+                    date.setHours(hour, minute, 0, 0);
                     setDisableBtn(date.getHours());
                     currentTimes.current = [];
                     setExcludeTimes(getExcludeTimesForDate(date));
                     setChoosedDay(date);
+                    setIsDisableTime(false);
                   }}
                   excludeTimes={excludeTimes.map((item) => item.timeService)}
                   excludeDates={currentExcludedDays}
@@ -299,6 +363,7 @@ const BookingFormDayTime = ({
                     });
                   }}
                   showTimeSelectOnly
+                  disabled={isDisableTime}
                 ></DatePicker>
               );
             }}
