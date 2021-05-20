@@ -258,13 +258,16 @@ const AdminProfileUsers = () => {
       {adminsAllData.map((item) => (
         <div className="admin-profile__users" key={item._id}>
           <div className="admin-profile__left-users">
-            <p className="admin-profile__title-registered">Register Admin</p>
+            <p className="admin-profile__title-registered">
+              Register {item.role}
+            </p>
             <div className="admin-profile__user-wrapper">
               <p className="admin-profile__name-user">Name: {item.name}</p>
               <p className="admin-profile__email-user">Email: {item.email}</p>
               <button
                 className="admin-profile__delete-user"
                 onClick={() => handleDeleteAdmin(item._id)}
+                disabled={item.role === "Super Admin" ? true : false}
               >
                 Delete
               </button>
