@@ -23,11 +23,8 @@ import TestimonialStarRating from "./TestimonialStarRating";
 import { addOpinion } from "../../../utils/sessions";
 
 const TestimonialForm = () => {
-  const {
-    initialValues,
-    validationSchema,
-    validateRating,
-  } = useValidationFormik();
+  const { initialValues, validationSchema, validateRating } =
+    useValidationFormik();
   useRemoveErrorMessage();
   const { handleFile } = useHandleFile();
 
