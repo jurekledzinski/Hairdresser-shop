@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -30,7 +30,7 @@ const Login = () => {
     "https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Background-register.jpg?alt=media&token=1aaaebea-8a46-4dd2-bed2-f6b55509fb37";
 
   const isLoad = useLoadBgImg(urlImgSignIn);
-
+  const [showPassword, setShowPassword] = useState(false);
   const flagSubmit = useRef(false);
   const idTimeoutSubmit = useRef(null);
   const idTimeout = useRef(null);
@@ -57,7 +57,6 @@ const Login = () => {
       idTimeoutSubmit.current = true;
       flagSubmit.current = true;
     }
-
     submitProps.resetForm();
   };
 
@@ -83,6 +82,14 @@ const Login = () => {
 
   const errorMsg = (props) => {
     return <p className="login__error-msg">{props.children}</p>;
+  };
+
+  const handleClick = ({ target: { type, value } }) => {
+    type === "text" && value === "" && setShowPassword(false);
+  };
+
+  const handleShowPassword = () => {
+    setShowPassword((prevValue) => !prevValue);
   };
 
   return (
@@ -142,11 +149,16 @@ const Login = () => {
                     <Field
                       className="login__input"
                       name="password"
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       placeholder="Your password"
+                      onClick={handleClick}
                     />
-                    <span className="login__icon">
-                      <i className="fas fa-eye"></i>
+                    <span className="login__icon" onClick={handleShowPassword}>
+                      {showPassword ? (
+                        <i className="far fa-eye-slash"></i>
+                      ) : (
+                        <i className="fas fa-eye"></i>
+                      )}
                     </span>
                   </div>
                   <button
