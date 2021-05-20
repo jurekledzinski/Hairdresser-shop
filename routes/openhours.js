@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const OpenShop = require("../models/openHours.model");
+const isLoggedInAdmin = require("../middlewares/protectRoutes");
 
 const { ErrorHandler } = require("../errors/error");
 
@@ -15,7 +16,9 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.post("/", (req, res, next) => {
+// Tu dodac na dole
+
+router.post("/", isLoggedInAdmin, (req, res, next) => {
   const { day, time } = req.body;
 
   let info = {
@@ -51,7 +54,9 @@ router.post("/", (req, res, next) => {
   }
 });
 
-router.put("/:id", (req, res, next) => {
+// Tu dodac na dole
+
+router.put("/:id", isLoggedInAdmin, (req, res, next) => {
   const id = req.params.id;
   const { day, time } = req.body;
 
@@ -79,7 +84,9 @@ router.put("/:id", (req, res, next) => {
     });
 });
 
-router.delete("/:id", (req, res, next) => {
+// Tu dodac na dole
+
+router.delete("/:id", isLoggedInAdmin, (req, res, next) => {
   const id = req.params.id;
 
   let info = {

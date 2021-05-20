@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 const Testimonial = require("../models/testimonial.model");
+const isLoggedInAdmin = require("../middlewares/protectRoutes");
+
 const { ErrorHandler } = require("../errors/error");
-const { response } = require("express");
 
 function shuffle(array) {
   return array.sort(() => Math.random() - 0.5);
@@ -22,7 +23,9 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.get("/all", (req, res) => {
+// tu dodac na dole
+
+router.get("/all", isLoggedInAdmin, (req, res, next) => {
   Testimonial.find({})
     .then((response) => {
       if (response) {
@@ -71,7 +74,9 @@ router.post("/", (req, res, next) => {
   }
 });
 
-router.delete("/:id", (req, res, next) => {
+// tu dodac na dole
+
+router.delete("/:id", isLoggedInAdmin, (req, res, next) => {
   const id = req.params.id;
 
   const info = {

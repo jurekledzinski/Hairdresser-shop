@@ -3,12 +3,14 @@ const router = express.Router();
 const passport = require("passport");
 
 const { sessionName } = require("../configs/config");
+const checkIsLoggedIn = require("../middlewares/protectRoutesCheckIsLog");
+const isLoggedInAdmin = require("../middlewares/protectRoutes");
 
 router.get("/", (req, res) => {
   return res.status(200).json(req.user);
 });
 
-router.post("/", (req, res, next) => {
+router.post("/", checkIsLoggedIn, (req, res, next) => {
   const { email, password } = req.body;
 
   let info = {
@@ -24,7 +26,8 @@ router.post("/", (req, res, next) => {
   if (!Boolean(info.alert)) {
     passport.authenticate("local", (err, user) => {
       if (err) {
-        console.log(err);
+        info.alert = "Something went wrong!";
+        return res.status(500).json(info);
       }
 
       if (!user) {
@@ -34,7 +37,8 @@ router.post("/", (req, res, next) => {
 
       req.logIn(user, function (err) {
         if (err) {
-          console.log(err);
+          info.alert = "Something went wrong!";
+          return res.status(500).json(info);
         }
 
         info.success = "You are logged!";
@@ -57,7 +61,9 @@ router.post("/", (req, res, next) => {
   }
 });
 
-router.get("/logout", (req, res) => {
+// Tu dodac na dole
+
+router.get("/logout", isLoggedInAdmin, (req, res, next) => {
   const info = {
     alert: "",
     success: "",
@@ -66,7 +72,8 @@ router.get("/logout", (req, res) => {
   if (req.session) {
     req.session.destroy((err) => {
       if (err) {
-        console.log(err);
+        info.alert = "Something went wrong!";
+        return res.status(500).json(info);
       }
       info.success = "You are log out";
       req.logout();

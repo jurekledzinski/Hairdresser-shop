@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const EnableRegisterForm = require("../models/enableRegisterForm.model");
+const isLoggedInAdmin = require("../middlewares/protectRoutes");
 
 const { ErrorHandler } = require("../errors/error");
 
@@ -15,7 +16,9 @@ router.get("/", (req, res) => {
     });
 });
 
-router.put("/", (req, res) => {
+// Tu dodac na dole
+
+router.put("/", isLoggedInAdmin, (req, res) => {
   const { enableRegisterForm } = req.body;
 
   let info = {

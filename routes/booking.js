@@ -4,10 +4,11 @@ const router = express.Router();
 const Booking = require("../models/booking.model");
 const ExcludedTime = require("../models/excludedTimes.model");
 
+const isLoggedInAdmin = require("../middlewares/protectRoutes");
+
 const { ErrorHandler } = require("../errors/error");
 
-router.get("/booked", (req, res, next) => {
-  console.log("pobiera booked");
+router.get("/booked", isLoggedInAdmin, (req, res, next) => {
   Booking.find({ isCancel: false })
     .then((response) => {
       return res.status(200).json(response);
@@ -17,7 +18,7 @@ router.get("/booked", (req, res, next) => {
     });
 });
 
-router.get("/canceled", (req, res, next) => {
+router.get("/canceled", isLoggedInAdmin, (req, res, next) => {
   Booking.find({ isCancel: true })
     .then((response) => {
       return res.status(200).json(response);
@@ -45,14 +46,354 @@ router.get("/:id", (req, res, next) => {
     dataPayed: false,
   };
 
-  //    Booking.findOne({ bookingId: idBooking }, userProjection)
-
   Booking.findOne(
     { $or: [{ bookingId: idBooking }, { cancelCode: idBooking }] },
     userProjection
   )
     .then((response) => {
       return res.status(200).json(response);
+    })
+    .catch((err) => {
+      next(new ErrorHandler(500, "Internal server error", err.message));
+    });
+});
+
+router.get("/amount-month/bookings/shop", isLoggedInAdmin, (req, res, next) => {
+  const monthsArray = [
+    "",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  Booking.aggregate([
+    {
+      $match: {
+        $and: [
+          { bookingWhere: "Shop", isCancel: false },
+          {
+            date: {
+              $gte: new Date(new Date().getFullYear(), 0, 0),
+              $lte: new Date(new Date().getFullYear(), 11, 31, 0, 0, 0),
+            },
+          },
+        ],
+      },
+    },
+    {
+      $group: {
+        _id: { year: { $year: "$date" }, month: { $month: "$date" } },
+        results: { $push: "$$ROOT" },
+        count: { $sum: 1 },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        count: 1,
+        month: {
+          $concat: [
+            {
+              $arrayElemAt: [monthsArray, "$_id.month"],
+            },
+          ],
+        },
+      },
+    },
+  ])
+    .then((response) => {
+      let updateArr = monthsArray.reduce((acc, current) => {
+        const temp = response.find((item) => item.month === current);
+        if (!temp) {
+          let b = {
+            count: 0,
+            month: current,
+          };
+          acc = [...acc, b];
+        } else {
+          return [...acc, temp];
+        }
+
+        return acc;
+      }, []);
+
+      updateArr.shift();
+
+      return res.status(200).json(updateArr);
+    })
+    .catch((err) => {
+      next(new ErrorHandler(500, "Internal server error", err.message));
+    });
+});
+
+router.get(
+  "/amount-month/bookings/website",
+  isLoggedInAdmin,
+  (req, res, next) => {
+    const monthsArray = [
+      "",
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    Booking.aggregate([
+      {
+        $match: {
+          $and: [
+            { bookingWhere: "Website", isCancel: false },
+            {
+              date: {
+                $gte: new Date(new Date().getFullYear(), 0, 0),
+                $lte: new Date(new Date().getFullYear(), 11, 31, 0, 0, 0),
+              },
+            },
+          ],
+        },
+      },
+      {
+        $group: {
+          _id: { year: { $year: "$date" }, month: { $month: "$date" } },
+          results: { $push: "$$ROOT" },
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          count: 1,
+          month: {
+            $concat: [
+              {
+                $arrayElemAt: [monthsArray, "$_id.month"],
+              },
+            ],
+          },
+        },
+      },
+    ])
+      .then((response) => {
+        let updateArr = monthsArray.reduce((acc, current) => {
+          const temp = response.find((item) => item.month === current);
+          if (!temp) {
+            let b = {
+              count: 0,
+              month: current,
+            };
+            acc = [...acc, b];
+          } else {
+            return [...acc, temp];
+          }
+
+          return acc;
+        }, []);
+
+        updateArr.shift();
+
+        return res.status(200).json(updateArr);
+      })
+      .catch((err) => {
+        next(new ErrorHandler(500, "Internal server error", err.message));
+      });
+  }
+);
+
+router.get("/payment-month/shop", isLoggedInAdmin, (req, res, next) => {
+  const monthsArray = [
+    "",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  Booking.aggregate([
+    {
+      $match: {
+        $and: [
+          { bookingWhere: "Shop", isCancel: false },
+          {
+            date: {
+              $gte: new Date(new Date().getFullYear(), 0, 0),
+              $lte: new Date(new Date().getFullYear(), 11, 31, 0, 0, 0),
+            },
+          },
+        ],
+      },
+    },
+    {
+      $group: {
+        _id: {
+          year: { $year: "$date" },
+          month: { $month: "$date" },
+          totalPayment: "$totalPrice",
+        },
+        results: { $push: "$$ROOT" },
+        total: { $sum: "$totalPrice" },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        total: 1,
+        month: {
+          $concat: [
+            {
+              $arrayElemAt: [monthsArray, "$_id.month"],
+            },
+          ],
+        },
+      },
+    },
+  ])
+    .then((response) => {
+      const mergeArrShop = response.reduce((acc, { total, month }) => {
+        const temp = acc.find((item) => item.month === month);
+
+        if (!temp) {
+          acc = [...acc, { total, month }];
+        } else {
+          temp.total += total;
+        }
+        return acc;
+      }, []);
+
+      let updateArr = monthsArray.reduce((acc, current) => {
+        const temp = mergeArrShop.find((item) => item.month === current);
+        if (!temp) {
+          let b = {
+            total: 0,
+            month: current,
+          };
+          acc = [...acc, b];
+        } else {
+          return [...acc, temp];
+        }
+
+        return acc;
+      }, []);
+
+      updateArr.shift();
+
+      return res.status(200).json(updateArr);
+    })
+    .catch((err) => {
+      next(new ErrorHandler(500, "Internal server error", err.message));
+    });
+});
+
+router.get("/payment-month/website", isLoggedInAdmin, (req, res, next) => {
+  const monthsArray = [
+    "",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  Booking.aggregate([
+    {
+      $match: {
+        $and: [
+          { bookingWhere: "Website", isCancel: false },
+          {
+            date: {
+              $gte: new Date(new Date().getFullYear(), 0, 0),
+              $lte: new Date(new Date().getFullYear(), 11, 31, 0, 0, 0),
+            },
+          },
+        ],
+      },
+    },
+    {
+      $group: {
+        _id: {
+          year: { $year: "$date" },
+          month: { $month: "$date" },
+          totalPayment: "$totalPrice",
+        },
+        results: { $push: "$$ROOT" },
+        total: { $sum: "$totalPrice" },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        total: 1,
+        month: {
+          $concat: [
+            {
+              $arrayElemAt: [monthsArray, "$_id.month"],
+            },
+          ],
+        },
+      },
+    },
+  ])
+    .then((response) => {
+      const mergeArrWebsite = response.reduce((acc, { total, month }) => {
+        const temp = acc.find((item) => item.month === month);
+
+        if (!temp) {
+          acc = [...acc, { total, month }];
+        } else {
+          temp.total += total;
+        }
+        return acc;
+      }, []);
+
+      let updateArr = monthsArray.reduce((acc, current) => {
+        const temp = mergeArrWebsite.find((item) => item.month === current);
+        if (!temp) {
+          let b = {
+            total: 0,
+            month: current,
+          };
+          acc = [...acc, b];
+        } else {
+          return [...acc, temp];
+        }
+
+        return acc;
+      }, []);
+
+      updateArr.shift();
+
+      return res.status(200).json(updateArr);
     })
     .catch((err) => {
       next(new ErrorHandler(500, "Internal server error", err.message));
@@ -204,13 +545,6 @@ router.put("/cancel/code/:id", (req, res, next) => {
         let daysBack = dateTimesService - 1000 * 60 * 60 * 24 * 3;
         let threeDaysBack = new Date(daysBack);
 
-        console.log(
-          currentDate < threeDaysBack && dateBookingByUser < threeDaysBack,
-          "currentDate < threeDaysBack && dateBookingByUser < threeDaysBack"
-        );
-
-        console.log(currentDate > threeDaysBack, "currentDate > threeDaysBack");
-
         if (currentDate < threeDaysBack && dateBookingByUser < threeDaysBack) {
           response.cancelPaymentReturnPercent = "100%";
         } else if (currentDate > threeDaysBack) {
@@ -223,9 +557,6 @@ router.put("/cancel/code/:id", (req, res, next) => {
           info.dataOrder = result;
           return res.status(200).json(info);
         });
-
-        console.log(dateTimesService, " dateTimesService");
-        console.log(threeDaysBack, " threeDaysBack");
       } else {
         info.alert = "Incorrect cancel code";
         return res.status(404).json(info);
@@ -260,7 +591,6 @@ router.delete("/excluded/many", (req, res, next) => {
 
 router.delete("/booked/:id", (req, res) => {
   const id = req.params.id;
-  console.log(req.params, " usuwa booked order");
 
   let info = {
     alert: "",
@@ -297,8 +627,6 @@ router.delete("/canceled/:id", (req, res) => {
 router.delete("/excluded-code/:id", (req, res, next) => {
   const id = req.params.id;
 
-  console.log("usuwa przez code cancel", id);
-
   ExcludedTime.findOneAndDelete({ codeCancel: id })
     .then((response) => {
       return res.status(200).end();
@@ -310,8 +638,6 @@ router.delete("/excluded-code/:id", (req, res, next) => {
 
 router.delete("/excluded/:id", (req, res, next) => {
   const id = req.params.id;
-
-  console.log("usuwa nie code cancel");
 
   ExcludedTime.findOneAndDelete({ bookingId: id })
     .then((response) => {

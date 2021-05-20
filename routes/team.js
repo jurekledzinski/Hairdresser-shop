@@ -3,13 +3,15 @@ const router = express.Router();
 
 const Team = require("../models/team.model");
 
-router.get("/", (req, res) => {
+const { ErrorHandler } = require("../errors/error");
+
+router.get("/", (req, res, next) => {
   Team.find({})
     .then((response) => {
       return res.status(200).json(response);
     })
     .catch((err) => {
-      console.log(err, "Err podczas pobierania team");
+      next(new ErrorHandler(500, "Internal server error", err.message));
     });
 });
 

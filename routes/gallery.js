@@ -3,6 +3,8 @@ const router = express.Router();
 
 const Gallery = require("../models/gallery.model");
 
+const isLoggedInAdmin = require("../middlewares/protectRoutes");
+
 const { ErrorHandler } = require("../errors/error");
 
 router.get("/:type", (req, res, next) => {
@@ -19,7 +21,9 @@ router.get("/:type", (req, res, next) => {
     });
 });
 
-router.post("/", (req, res, next) => {
+// Tu dodac na dole
+
+router.post("/", isLoggedInAdmin, (req, res, next) => {
   const { title, imageUrl, type } = req.body;
 
   let info = {
@@ -56,7 +60,9 @@ router.post("/", (req, res, next) => {
   }
 });
 
-router.put("/:id", (req, res, next) => {
+// Tu dodac na dole
+
+router.put("/:id", isLoggedInAdmin, (req, res, next) => {
   const id = req.params.id;
   const { title, imageUrl, type } = req.body;
 
@@ -85,7 +91,9 @@ router.put("/:id", (req, res, next) => {
     });
 });
 
-router.delete("/:id", (req, res, next) => {
+// Tu dodac na dole
+
+router.delete("/:id", isLoggedInAdmin, (req, res, next) => {
   const id = req.params.id;
 
   const info = {
