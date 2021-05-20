@@ -26,10 +26,8 @@ import AdminProfilePermission from "./AdminProfilePermission";
 import AdminProfileUsers from "./AdminProfileUsers";
 
 const AdminProfile = () => {
-  const {
-    initialValues,
-    validationSchema,
-  } = useValidationFormikUpdateProfile();
+  const { initialValues, validationSchema } =
+    useValidationFormikUpdateProfile();
   useDeleteErrorMessage();
   const { handleFileEdit } = useHandleUpdateProfileImage();
   const { deleteImgFirebase } = useDeleteFileFirebase();
@@ -43,6 +41,7 @@ const AdminProfile = () => {
   const [currentAdminData, setCurrentAdminData] = useState([]);
   const [formValues, setFormValues] = useState(null);
   const [previousImageUrl, setPreviousImageUrl] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [nameFile, setNameFile] = useState(null);
 
   const imgLink = useRef(null);
@@ -128,6 +127,14 @@ const AdminProfile = () => {
       setPreviousImageUrl(users.imageUrl);
     }
   }, [dataAdmin]);
+
+  const handleClick = ({ target: { type, value } }) => {
+    type === "text" && value === "" && setShowPassword(false);
+  };
+
+  const handleShowPassword = () => {
+    setShowPassword((prevValue) => !prevValue);
+  };
 
   const inputFile = ({ setFieldValue, setFieldTouched }) => (
     <input
@@ -289,11 +296,19 @@ const AdminProfile = () => {
                           <Field
                             className="admin-profile__input"
                             name="confirmPassword"
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             placeholder="Confirm password"
+                            onClick={handleClick}
                           />
-                          <span className="admin-profile__icon">
-                            <i className="fas fa-eye"></i>
+                          <span
+                            className="admin-profile__icon"
+                            onClick={handleShowPassword}
+                          >
+                            {showPassword ? (
+                              <i className="far fa-eye-slash"></i>
+                            ) : (
+                              <i className="fas fa-eye"></i>
+                            )}
                           </span>
                         </div>
                         <button
