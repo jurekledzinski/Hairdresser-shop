@@ -3,18 +3,19 @@
 .admin-content {
   position: relative;
   min-height: calc(100vh - 100px);
-  padding: 50px 10px 0;
   margin-top: 50px;
   margin-bottom: 50px;
-  z-index: 1;
-
-  @include media-queries(small) {
-    padding: 50px 20px 0;
-  }
+  z-index: 0;
 
   @media (min-width: 799px) {
     margin-top: initial;
     margin-bottom: initial;
     transform: translateY(50px);
+  }
+
+  &__logout {
+    margin-bottom: 20px;
+    color: #2ecc40;
+    text-align: left;
   }
 }
