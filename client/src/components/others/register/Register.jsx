@@ -44,6 +44,7 @@ const Register = () => {
   const dataAlert = useSelector((store) => store.alertData);
   const [enableRegisterAdmin, setEnableRegisterAdmin] = useState(false);
   const [nameFile, setNameFile] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const history = useHistory();
   const idTimeout = useRef(null);
@@ -116,7 +117,19 @@ const Register = () => {
 
   const handleFile = (e, callbackFile, callbackTouch) => {
     callbackTouch("fileImg");
+
+    let currentEditTime = new Date();
+    let timeEditMilliseconds = currentEditTime.getTime().toString();
+
     let selectFile = e.target.files[0];
+
+    Object.defineProperty(selectFile, "name", {
+      value: selectFile.name,
+      writable: true,
+    });
+
+    selectFile.name = `${selectFile.name}-${timeEditMilliseconds}`;
+
     callbackFile("fileImg", selectFile);
 
     if (
@@ -167,6 +180,14 @@ const Register = () => {
 
     return () => clearTimeout(idTimeOutLogin.current);
   }, [enableRegisterAdmin]);
+
+  const handleClick = ({ target: { type, value } }) => {
+    type === "text" && value === "" && setShowPassword(false);
+  };
+
+  const handleShowPassword = () => {
+    setShowPassword((prevValue) => !prevValue);
+  };
 
   const inputFile = ({ setFieldValue, setFieldTouched }) => (
     <input
@@ -307,11 +328,19 @@ const Register = () => {
                     <Field
                       className="register__input"
                       name="confirmPassword"
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       placeholder="Confirm password"
+                      onClick={handleClick}
                     />
-                    <span className="register__icon">
-                      <i className="fas fa-eye"></i>
+                    <span
+                      className="register__icon"
+                      onClick={handleShowPassword}
+                    >
+                      {showPassword ? (
+                        <i className="far fa-eye-slash"></i>
+                      ) : (
+                        <i className="fas fa-eye"></i>
+                      )}
                     </span>
                   </div>
                   <button
