@@ -213,7 +213,6 @@ const BookingFormDayTime = ({
                   }}
                   shouldCloseOnSelect={false}
                   showPopperArrow={false}
-                  timeCaption="time"
                   timeIntervals={40}
                   timeFormat="HH:mm"
                   filterTime={(time) => filterPassedTime(time)}
@@ -237,7 +236,7 @@ const BookingFormDayTime = ({
             className={
               adminPanelClassLabel === "adminPanelClassLabel"
                 ? "booking__label--admin"
-                : "booking__label"
+                : "booking__label booking__label--small-device"
             }
           >
             Choose time of appointment
@@ -274,7 +273,7 @@ const BookingFormDayTime = ({
                   shouldCloseOnSelect={false}
                   showTimeSelect
                   showPopperArrow={false}
-                  timeCaption="time"
+                  timeCaption="Time"
                   timeIntervals={40}
                   timeFormat="HH:mm"
                   filterTime={(time) => filterPassedTime(time)}

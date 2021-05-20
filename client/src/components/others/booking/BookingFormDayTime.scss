@@ -9,8 +9,13 @@
 
   &__inputs-wrapper {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     width: 100%;
+
+    @include media-queries(xmedium) {
+      flex-direction: row;
+    }
   }
 
   &__input-wrapper-day {
@@ -91,7 +96,12 @@
 }
 
 .react-datepicker {
+  width: 100%;
   border-radius: 0 !important;
+
+  @include media-queries(xmedium) {
+    width: 170px;
+  }
 }
 
 .react-datepicker__header {
@@ -149,15 +159,42 @@
 }
 
 .react-datepicker__input-container > input[type="text"] {
+  width: 100%;
   border: 1px solid #cccccc;
   color: #393939;
   padding: 5px 0;
   text-indent: 5px;
+
+  @include media-queries(xmedium) {
+    width: initial;
+  }
 }
 
-// input[type="text"] {
-//   border: 1px solid #393939;
-//   color: #393939;
-//   padding: 5px 0;
-//   text-indent: 5px;
-// }
+.react-datepicker__month-container {
+  width: 100% !important;
+
+  @include media-queries(xmedium) {
+    width: 170px;
+  }
+}
+
+.react-datepicker-popper {
+  width: 100%;
+
+  @include media-queries(xmedium) {
+    width: initial;
+  }
+}
+
+.react-datepicker__day-names,
+.react-datepicker__week {
+  display: flex;
+  justify-content: space-around;
+}
+
+.react-datepicker--time-only .react-datepicker__time-container {
+  border-left: 0;
+  width: 100% !important;
+}
+
+
