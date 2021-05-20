@@ -20,7 +20,7 @@ const useColumnsTableCanceledOrders = (
         Header: "Date canceling",
         accessor: "date",
         Cell: ({ value }) => {
-          return format(new Date(value), "MM/dd/yyyy");
+          return format(new Date(value), "dd/MM/yyyy");
         },
       },
       {

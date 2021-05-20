@@ -1,6 +1,9 @@
 import React, { useMemo } from "react";
+import { useSelector } from "react-redux";
+import format from "date-fns/format";
 
-const useColumnsTableEmails = (currentEmails, setIdEmail, setIsOpenModal) => {
+const useColumnsTableEmails = (setIdEmail, setIsOpenModal) => {
+  const emailsData = useSelector((store) => store.emailDataToUse);
   const columns = useMemo(
     () => [
       { Header: "Name Surname", accessor: "name" },
@@ -11,6 +14,9 @@ const useColumnsTableEmails = (currentEmails, setIdEmail, setIsOpenModal) => {
       {
         Header: "Date",
         accessor: "date",
+        Cell: ({ value }) => {
+          return format(new Date(value), "dd/MM/yyyy HH:mm");
+        },
       },
 
       {
@@ -36,9 +42,9 @@ const useColumnsTableEmails = (currentEmails, setIdEmail, setIsOpenModal) => {
         ),
       },
     ],
-    [currentEmails]
+    [emailsData]
   );
-  const data = useMemo(() => currentEmails, [currentEmails]);
+  const data = useMemo(() => emailsData, [emailsData]);
 
   return { columns, data };
 };
