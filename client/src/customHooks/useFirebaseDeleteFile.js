@@ -1,42 +1,48 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 
+import { removeFireBaseUrl } from "../reduxStore/actions/actionFirebseUrl";
 import { removeImageFile } from "../reduxStore/actions/actionFile";
 
 import { projectStorage } from "../firebase/config";
 
-const useFirebseDeleteFile = (imgLink) => {
+const useFirebseDeleteFile = (imageLink) => {
   const dispatch = useDispatch();
+  const [errorMsg, setErrorMsg] = useState("");
 
   const history = useHistory();
+  console.log(imageLink, " store firebase link usuwa gdy zmiana routa");
 
   useEffect(() => {
+    console.log(imageLink, " store firebase link usuwa gdy zmiana routa");
     history.listen(() => {
       const fireBaseUrlStorage = "firebasestorage";
       if (
         (history.location.pathname !== "/register-admin" &&
-          Boolean(imgLink.current)) ||
-        (history.location.pathname !== "/" && Boolean(imgLink.current))
+          Boolean(imageLink.current)) ||
+        (history.location.pathname !== "/" && Boolean(imageLink.current))
       ) {
         if (
-          Boolean(imgLink.current) &&
-          imgLink.current.indexOf(fireBaseUrlStorage) !== -1
+          Boolean(imageLink.current) &&
+          imageLink.current?.indexOf(fireBaseUrlStorage) !== -1
         ) {
-          const image = projectStorage.refFromURL(imgLink.current);
-          imgLink.current = null;
+          console.log("custom hook image link", imageLink);
+          const image = projectStorage.refFromURL(imageLink.current);
+          imageLink.current = null;
+          //   dispatch(removeFireBaseUrl());
           dispatch(removeImageFile(null, null, null, null, null, null));
           image
             .delete()
             .then((responese) => responese)
             .catch((err) => {
-              console.warn(err);
+              setErrorMsg(err);
             });
         }
       }
     });
-  }, [imgLink.current]);
+  }, [imageLink.current]);
 };
 
 export default useFirebseDeleteFile;
