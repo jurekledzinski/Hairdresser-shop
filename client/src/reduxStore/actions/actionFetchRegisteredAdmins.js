@@ -3,6 +3,7 @@ import { fetchRegisterAdmin } from "../../utils/sessions";
 export const FETCH_ADMINS_REQUEST = "FETCH_ADMINS_REQUEST";
 export const FETCH_ADMINS_SUCCESS = "FETCH_ADMINS_SUCCESS";
 export const FETCH_ADMINS_FAILURE = "FETCH_ADMINS_FAILURE";
+export const CLEAR_FETCH_ADMINS = "CLEAR_FETCH_ADMINS";
 
 export const fetchAdminsRequest = () => ({
   type: FETCH_ADMINS_REQUEST,
@@ -16,6 +17,10 @@ const fetchAdminsSuccess = (admins) => ({
 const fetchAdminsFailure = (error) => ({
   type: FETCH_ADMINS_FAILURE,
   payload: error,
+});
+
+export const clearFetchRegisterAdmins = () => ({
+  type: CLEAR_FETCH_ADMINS,
 });
 
 export const fetchAllAdmins = () => {

@@ -6,6 +6,8 @@ export const FETCH_PERMISSION_REGISTER_SUCCESS =
   "FETCH_PERMISSION_REGISTER_SUCCESS";
 export const FETCH_PERMISSION_REGISTER_FAILURE =
   "FETCH_PERMISSION_REGISTER_FAILURE";
+export const CLEAR_FETCH_PERMISSION_REGISTER =
+  "CLEAR_FETCH_PERMISSION_REGISTER";
 
 export const fetchPermissionRequest = () => ({
   type: FETCH_PERMISSION_REGISTER_REQUEST,
@@ -19,6 +21,10 @@ const fetchPermissionSuccess = (permission) => ({
 const fetchPermissionFailure = (error) => ({
   type: FETCH_PERMISSION_REGISTER_FAILURE,
   payload: error,
+});
+
+export const clearFetchPermissionRegister = () => ({
+  type: CLEAR_FETCH_PERMISSION_REGISTER,
 });
 
 export const fetchPermissionToRegister = () => {

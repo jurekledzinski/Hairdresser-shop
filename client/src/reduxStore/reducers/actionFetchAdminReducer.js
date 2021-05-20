@@ -6,7 +6,7 @@ import {
 } from "../actions/actionFetchAdmin";
 
 const initialState = {
-  loading: false,
+  loading: true,
   users: [],
   error: "",
 };
@@ -31,11 +31,7 @@ export const usersReducer = (state = initialState, action) => {
         error: action.payload,
       };
     case CLEAR_ADMIN_LOG_OUT:
-      return {
-        loading: false,
-        users: [],
-        error: "",
-      };
+      return initialState;
     default:
       return state;
   }

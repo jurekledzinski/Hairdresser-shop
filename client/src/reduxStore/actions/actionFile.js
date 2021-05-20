@@ -1,4 +1,5 @@
 export const ADD_FILE = "ADD_FILE";
+export const CLEAR_FILE = "CLEAR_FILE";
 export const REMOVE_FILE = "REMOVE_FILE";
 
 export const addImageFile = (
@@ -41,4 +42,8 @@ export const removeImageFile = (
     fileImageService,
     fileEditImageService,
   },
+});
+
+export const clearImageFile = () => ({
+  type: CLEAR_FILE,
 });

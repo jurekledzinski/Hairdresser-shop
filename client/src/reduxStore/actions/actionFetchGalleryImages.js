@@ -3,6 +3,7 @@ import { fetchImagesGallery } from "../../utils/sessions";
 export const FETCH_IMAGES_REQUEST = "FETCH_IMAGES_REQUEST";
 export const FETCH_IMAGES_SUCCESS = "FETCH_IMAGES_SUCCESS";
 export const FETCH_IMAGES_FAILURE = "FETCH_IMAGES_FAILURE";
+export const CLEAR_FETCH_IMAGES = "CLEAR_FETCH_IMAGES";
 
 export const fetchImagesRequest = () => ({
   type: FETCH_IMAGES_REQUEST,
@@ -16,6 +17,10 @@ const fetchImagesSuccess = (emails) => ({
 const fetchImagesFailure = (error) => ({
   type: FETCH_IMAGES_FAILURE,
   payload: error,
+});
+
+export const clearFetchImagesGallery = () => ({
+  type: CLEAR_FETCH_IMAGES,
 });
 
 export const fetchGalleryImgs = (type) => {

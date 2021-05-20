@@ -1,4 +1,8 @@
-import { ADD_ADMIN_DATA, UPDATE_ADMIN_DATA } from "../actions/actionAdminData";
+import {
+  ADD_ADMIN_DATA,
+  CLEAR_ADMIN_DATA,
+  UPDATE_ADMIN_DATA,
+} from "../actions/actionAdminData";
 
 export const adminDataReducer = (state = {}, action) => {
   switch (action.type) {
@@ -16,7 +20,8 @@ export const adminDataReducer = (state = {}, action) => {
         enableServices: action.payload.enableServices,
         enablePermission: action.payload.enablePermission,
       };
-
+    case CLEAR_ADMIN_DATA:
+      return {};
     default:
       return state;
   }
