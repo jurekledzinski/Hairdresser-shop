@@ -16,10 +16,16 @@ const BookingFormChooseService = ({
   const dispatch = useDispatch();
   const dataAllServices = useSelector((store) => store.allServicesData);
   const { allServices } = dataAllServices;
+  //   closeChooseServiceData
+  const dataDetectClickOutSide = useSelector(
+    (store) => store.closeChooseServiceData
+  );
 
   const [isClickService, setIsClickService] = useState(false);
   const [menServices, setMenServices] = useState([]);
   const [womenServices, setWomenServices] = useState([]);
+
+  console.log(dataDetectClickOutSide.isOpen, "dataDetectClickOutSide");
 
   const handleShowServices = () => {
     setIsClickService((prevValue) => !prevValue);
@@ -73,6 +79,12 @@ const BookingFormChooseService = ({
     }
   }, [allServices]);
 
+  useEffect(() => {
+    if (dataDetectClickOutSide.isOpen) {
+      setIsClickService(false);
+    }
+  }, [dataDetectClickOutSide.isOpen]);
+
   return (
     <div className="booking__input-wrapper-services">
       <label
@@ -81,10 +93,16 @@ const BookingFormChooseService = ({
             ? "booking__label--admin"
             : "booking__label"
         }
+        data-outside="bookingOutside"
       >
-        Choose service
+        Choose service{" "}
+        <ErrorMessage
+          component={errorMsg}
+          name="services"
+          chooseService="chooseService"
+        />
       </label>
-      <ErrorMessage component={errorMsg} name="services" />
+
       <div className="booking__select-wrapper" onClick={handleShowServices}>
         <select
           className={
