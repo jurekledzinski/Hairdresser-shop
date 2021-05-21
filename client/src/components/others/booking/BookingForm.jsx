@@ -130,7 +130,17 @@ const BookingForm = ({
   };
 
   const errorMsg = (props) => {
-    return <p className="booking__error-msg">{props.children}</p>;
+    return (
+      <p
+        className={
+          Boolean(props.chooseService)
+            ? "booking__error-msg booking__error-msg--choose-service"
+            : "booking__error-msg"
+        }
+      >
+        {props.children}
+      </p>
+    );
   };
 
   useEffect(() => {
@@ -169,6 +179,7 @@ const BookingForm = ({
             <BookingFormChooseService
               adminPanelClassLabel={adminPanelClassLabel}
               adminPanelClassInput={adminPanelClassInput}
+              chooseService="chooseService"
               errorMsg={errorMsg}
               selectServices={selectServices}
               setSelectServices={setSelectServices}
