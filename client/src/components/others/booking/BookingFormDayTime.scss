@@ -21,6 +21,7 @@
   &__input-wrapper-day {
     display: flex;
     flex-direction: column;
+    z-index: 4;
   }
 
   &__input-date,
@@ -45,6 +46,7 @@
   &__input-wrapper-time {
     display: flex;
     flex-direction: column;
+    z-index: 4;
   }
 }
 
@@ -196,5 +198,3 @@
   border-left: 0;
   width: 100% !important;
 }
-
-
