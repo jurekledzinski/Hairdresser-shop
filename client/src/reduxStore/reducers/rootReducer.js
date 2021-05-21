@@ -5,6 +5,7 @@ import { bookedOrdersReducer } from "./bookedOrdersReducer";
 import { bookingsMadeAtShopReducer } from "./bookingsMadeAtShopReducer";
 import { bookingsMadeWebsiteReducer } from "./bookingsMadeAtWebsiteReducer";
 import { canceledOrdersReducer } from "./canceledOrdersReducer";
+import { closeChooseServiceReducer } from "./closeChooseServiceReducer";
 import { emailDataReducer } from "./emailsDataReducer";
 import { orderDetailsReducer } from "./orderDetailsReducer";
 import { usersReducer } from "./actionFetchAdminReducer";
@@ -37,6 +38,7 @@ import { scrollReducer } from "./scrollReducer";
 import { serverErrorReducer } from "./serverErrorReducer";
 import { singleExcludedTimeReducer } from "./singleExcludedTimeReducer.";
 
+// excludedTimesData
 export const rootReducer = combineReducers({
   adminsData: fetchAllAdminsReducer,
   amountBookingsDataShop: fetchAmountBookingsPerMonthInShopReducer,
@@ -50,6 +52,7 @@ export const rootReducer = combineReducers({
   bookedOrdersData: bookedOrdersReducer,
   bookingUserData: fetchBookingUserReducer,
   canceledOrderData: canceledOrdersReducer,
+  closeChooseServiceData: closeChooseServiceReducer,
   orderDetailsData: orderDetailsReducer,
   emailsData: fetchEmailsReducer,
   emailDataToUse: emailDataReducer,
