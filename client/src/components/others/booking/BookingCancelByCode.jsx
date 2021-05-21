@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,6 +15,7 @@ const BookingCancelByCode = () => {
   const dispatch = useDispatch();
   const dataBookingUser = useSelector((store) => store.bookingUserData);
 
+  const idTimeout = useRef(null);
   const history = useHistory();
 
   let cancelCodeID = history.location.pathname.slice(21);
@@ -31,6 +32,7 @@ const BookingCancelByCode = () => {
 
   const handleRedirectHome = () => {
     history.push("/");
+    idTimeout.current = setTimeout(() => window.location.reload(), 1000);
   };
 
   useEffect(() => {
@@ -62,9 +64,17 @@ const BookingCancelByCode = () => {
         services: dataBookingUser.bookingUser.services,
         totalPrice: dataBookingUser.bookingUser.totalPrice,
       };
+      console.log(
+        dataBookingUser.bookingUser.bookingId,
+        "booking id when cancel by code"
+      );
       sendEmailConfirmationCancel(details);
     }
   }, [dataBookingUser.bookingUser]);
+
+  useEffect(() => {
+    return () => clearTimeout(idTimeout.current);
+  }, []);
 
   return (
     <div className="booking-cancel">
