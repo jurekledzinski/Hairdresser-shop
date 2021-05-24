@@ -6,6 +6,7 @@ const BookingOrderedServices = ({
   adminPanelClassDetailsTitle,
   adminPanelClassServiceName,
   adminPanelClassServicePrice,
+  adminPanelClassStyleScroll,
   services,
 }) => {
   return (
@@ -19,7 +20,13 @@ const BookingOrderedServices = ({
       >
         Ordered service
       </h4>
-      <div className="bookingDetails__service-wrapper">
+      <div
+        className={
+          adminPanelClassStyleScroll
+            ? "bookingDetails__service-wrapper bookingDetails__service-wrapper--style-scroll"
+            : "bookingDetails__service-wrapper"
+        }
+      >
         {Boolean(services) &&
           services.map((item) => (
             <div className="bookingDetails__service" key={item._id}>
