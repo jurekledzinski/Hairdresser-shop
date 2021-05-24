@@ -2,6 +2,7 @@
   "name": "barbershop",
   "version": "1.0.0",
   "description": "Barber shop build from scratch",
+  "proxy": "https://salty-peak-16166.herokuapp.com",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode=development",
