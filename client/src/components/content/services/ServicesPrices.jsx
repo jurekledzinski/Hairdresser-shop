@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import "./ServicesPrices.scss";
 
@@ -16,7 +10,6 @@ const ServicesPrices = () => {
   const [countCard, setCountCard] = useState(1);
   const [chooseGenderMobile, setChooseGenderMobile] = useState(false);
   const [checkSizeWindow, setCheckSizeWindow] = useState(window.innerWidth);
-  const [heightSizeSlider] = useState(0);
 
   const [initialX, setInitialX] = useState(null);
   const [initialY, setInitialY] = useState(null);
@@ -30,8 +23,6 @@ const ServicesPrices = () => {
   const idTimeOut3 = useRef(null);
   const sizeWindow = useRef(768);
   const slidesContainer = useRef(null);
-
-  //   TODO: SLider logika
 
   const events = {
     swipeUp: new Event("swipeUp"),
@@ -129,8 +120,6 @@ const ServicesPrices = () => {
     }
   }, [countCard, slides.length]);
 
-  //   To tylko dla service cards powyzej 768px aby byly na swoim miejscu
-
   useEffect(() => {
     if (checkSizeWindow >= sizeWindow.current) {
       slidesContainer.current.style.transform = `translateX(${0}%)`;
@@ -198,26 +187,21 @@ const ServicesPrices = () => {
 
   useEffect(() => {
     slidesContainer.current.addEventListener("swipeUp", () => {
-      //   if (window.innerWidth > 767) {
-      //     window.scrollTo({
-      //       top: heightSizeSlider + 20,
-      //       behavior: "smooth",
-      //     });
-      //   } else {
-      //     window.scrollTo({
-      //       top: heightSizeSlider,
-      //       behavior: "smooth",
-      //     });
-      //   }
+      if (window.innerWidth < 767) {
+        window.scrollTo({
+          top: window.scrollY + (window.scrollY / 3) * 1.6,
+          behavior: "smooth",
+        });
+      }
     });
 
     slidesContainer.current.addEventListener("swipeDown", () => {
-      //   window.scrollTo({
-      //     top: 0,
-      //     behavior: "smooth",
-      //   });
+      window.scrollTo({
+        top: window.scrollY - (window.scrollY / 3) * 1.6,
+        behavior: "smooth",
+      });
     });
-  }, [scrollDiff, heightSizeSlider]);
+  }, [scrollDiff]);
 
   useEffect(() => {
     slidesContainer.current.addEventListener("swipeLeft", handleLeftMove);
@@ -242,8 +226,6 @@ const ServicesPrices = () => {
       onClick={() => handleClickDot(index + 1)}
     ></li>
   ));
-
-  //   TODO: SLider logika
 
   const handleChangeServiceToMen = () => {
     setIsServiceMenOrWomen(false);
