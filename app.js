@@ -134,22 +134,27 @@ app.use("/email-booking-cancel", emailBookingCancel);
 app.use("/", counterVisits);
 
 if (process.env.NODE_ENV === "production") {
+  console.log(" pliki statyczne", process.env.NODE_ENV);
   app.use(express.static("client/build"));
 
   app.get("*", (req, res) => {
     let pathUrl = req.path.replace(/^\//, "").replace(/\/$/, "");
 
-    console.log(pathUrl);
+    console.log(pathUrl, " path url w app ");
 
     if (pathUrl && pathUrl.endsWith(".js")) {
+      console.log("pliki js");
       const options = { headers: { "content-type": "application/javascript" } };
       let index = pathUrl.indexOf("/");
+      console.log(index, " to jest index");
       let nameOfFile = pathUrl.slice(index);
+      console.log(nameOfFile, " to jest nazwa pliku");
       res.sendFile(
         path.join(__dirname, "client", "build", nameOfFile),
         options
       );
     } else {
+      console.log("pliki inne niz js");
       res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
     }
   });
