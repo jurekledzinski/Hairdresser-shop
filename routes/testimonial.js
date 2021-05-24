@@ -11,6 +11,7 @@ function shuffle(array) {
 }
 
 router.get("/", (req, res, next) => {
+  console.log("Pobieramy opinie");
   Testimonial.find({})
     .then((response) => {
       let shuffleArr = shuffle(response);

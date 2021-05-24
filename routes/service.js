@@ -7,6 +7,7 @@ const isLoggedInAdmin = require("../middlewares/protectRoutes");
 const { ErrorHandler } = require("../errors/error");
 
 router.get("/", (req, res) => {
+  console.log("Pobieramy service");
   Service.find({})
     .then((response) => {
       if (response) {
