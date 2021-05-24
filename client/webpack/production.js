@@ -2,9 +2,9 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const LinkTypePlugin = require("html-webpack-link-type-plugin")
-  .HtmlWebpackLinkTypePlugin;
+const TerserPlugin = require("terser-webpack-plugin");
+const LinkTypePlugin =
+  require("html-webpack-link-type-plugin").HtmlWebpackLinkTypePlugin;
 
 module.exports = {
   mode: "production",
@@ -15,8 +15,9 @@ module.exports = {
   },
   optimization: {
     minimizer: [new OptimizeCssAssetsWebpackPlugin({})],
+    minimize: true,
     minimizer: [
-      new UglifyJsPlugin({
+      new TerserPlugin({
         test: /\.js(\?.*)?$/i,
       }),
     ],
@@ -26,7 +27,7 @@ module.exports = {
       maxInitialRequests: Infinity,
       minSize: 0,
       cacheGroups: {
-        vendor: {
+        defaultVendors: {
           test: /[\\/]node_modules[\\/]/,
           name(module) {
             const packageName = module.context.match(
@@ -85,7 +86,7 @@ module.exports = {
       {
         test: /\.(s(a|c)ss|css)$/,
         exclude: /\.module.(s(a|c)ss)$/,
-        loader: [
+        use: [
           MiniCssExtractPlugin.loader,
           "css-loader",
           {
