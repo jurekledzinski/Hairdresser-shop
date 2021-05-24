@@ -26,13 +26,13 @@ mongoose.connect(atlasUrl, {
 });
 
 const db = mongoose.connection;
-let error;
-let open;
 
 db.on("error", (err) => {
-  error = err;
+  console.log("error bazy danych", err);
 });
-db.once("open", () => open);
+db.once("open", () => {
+  console.log("Baza danych podlaczona poprawnie");
+});
 
 const serviceRouter = require("./routes/service");
 const teamRouter = require("./routes/team");
@@ -142,6 +142,8 @@ app.use((error, req, res, next) => {
   });
 });
 
-app.listen(port);
+app.listen(() => {
+  console.log("Server nasluchuje na porcie " + port);
+});
 
 module.exports = app;
