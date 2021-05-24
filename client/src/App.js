@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { Provider } from "react-redux";
-import { Route, useHistory, useRouteMatch } from "react-router-dom";
+import { Route, useHistory } from "react-router-dom";
 
 import store from "./reduxStore/store/store";
 import { Role } from "./helpers/roles";
@@ -48,6 +48,8 @@ const App = () => {
   const isSuccessUrl = url.indexOf("success");
   const isCancelUrl = url.indexOf("cancel");
   const isCancelCodeUrl = url.indexOf("cancel-code");
+  const isLogin = url.indexOf("login");
+  const isRegister = url.indexOf("register");
 
   const checkClass =
     (isBookingUrl !== -1 && isDetailsUrl !== -1) || isBookingUrl !== -1
@@ -58,7 +60,13 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <div className={checkClass}>
+      <div
+        className={
+          isLogin !== -1 || isRegister !== -1
+            ? "app app--booking-login-register"
+            : checkClass
+        }
+      >
         <Suspense fallback={<DotLoader />}>
           <ServerError>
             <Route exact path="/" component={MainPage} />
