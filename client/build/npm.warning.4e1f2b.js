@@ -1,1 +1,0 @@
-(self.webpackChunkbarbershop=self.webpackChunkbarbershop||[]).push([[607],{42473:function(e){"use strict";var s=function(){};e.exports=s}}]);
