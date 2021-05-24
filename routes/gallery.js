@@ -21,7 +21,7 @@ router.get("/:type", (req, res, next) => {
     });
 });
 
-router.post("/", isLoggedInAdmin, (req, res, next) => {
+router.post("/", (req, res, next) => {
   const { title, imageUrl, type } = req.body;
 
   let info = {
@@ -58,7 +58,7 @@ router.post("/", isLoggedInAdmin, (req, res, next) => {
   }
 });
 
-router.put("/:id", isLoggedInAdmin, (req, res, next) => {
+router.put("/:id", (req, res, next) => {
   const id = req.params.id;
   const { title, imageUrl, type } = req.body;
 
@@ -87,7 +87,7 @@ router.put("/:id", isLoggedInAdmin, (req, res, next) => {
     });
 });
 
-router.delete("/:id", isLoggedInAdmin, (req, res, next) => {
+router.delete("/:id", (req, res, next) => {
   const id = req.params.id;
 
   const info = {

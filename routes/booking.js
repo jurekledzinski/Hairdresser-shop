@@ -8,7 +8,7 @@ const isLoggedInAdmin = require("../middlewares/protectRoutes");
 
 const { ErrorHandler } = require("../errors/error");
 
-router.get("/booked", isLoggedInAdmin, (req, res, next) => {
+router.get("/booked", (req, res, next) => {
   Booking.find({ isCancel: false })
     .then((response) => {
       return res.status(200).json(response);
@@ -18,7 +18,7 @@ router.get("/booked", isLoggedInAdmin, (req, res, next) => {
     });
 });
 
-router.get("/canceled", isLoggedInAdmin, (req, res, next) => {
+router.get("/canceled", (req, res, next) => {
   Booking.find({ isCancel: true })
     .then((response) => {
       return res.status(200).json(response);
@@ -58,7 +58,7 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
-router.get("/amount-month/bookings/shop", isLoggedInAdmin, (req, res, next) => {
+router.get("/amount-month/bookings/shop", (req, res, next) => {
   const monthsArray = [
     "",
     "January",
@@ -135,88 +135,84 @@ router.get("/amount-month/bookings/shop", isLoggedInAdmin, (req, res, next) => {
     });
 });
 
-router.get(
-  "/amount-month/bookings/website",
-  isLoggedInAdmin,
-  (req, res, next) => {
-    const monthsArray = [
-      "",
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
+router.get("/amount-month/bookings/website", (req, res, next) => {
+  const monthsArray = [
+    "",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
-    Booking.aggregate([
-      {
-        $match: {
-          $and: [
-            { bookingWhere: "Website", isCancel: false },
+  Booking.aggregate([
+    {
+      $match: {
+        $and: [
+          { bookingWhere: "Website", isCancel: false },
+          {
+            date: {
+              $gte: new Date(new Date().getFullYear(), 0, 0),
+              $lte: new Date(new Date().getFullYear(), 11, 31, 0, 0, 0),
+            },
+          },
+        ],
+      },
+    },
+    {
+      $group: {
+        _id: { year: { $year: "$date" }, month: { $month: "$date" } },
+        results: { $push: "$$ROOT" },
+        count: { $sum: 1 },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        count: 1,
+        month: {
+          $concat: [
             {
-              date: {
-                $gte: new Date(new Date().getFullYear(), 0, 0),
-                $lte: new Date(new Date().getFullYear(), 11, 31, 0, 0, 0),
-              },
+              $arrayElemAt: [monthsArray, "$_id.month"],
             },
           ],
         },
       },
-      {
-        $group: {
-          _id: { year: { $year: "$date" }, month: { $month: "$date" } },
-          results: { $push: "$$ROOT" },
-          count: { $sum: 1 },
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-          count: 1,
-          month: {
-            $concat: [
-              {
-                $arrayElemAt: [monthsArray, "$_id.month"],
-              },
-            ],
-          },
-        },
-      },
-    ])
-      .then((response) => {
-        let updateArr = monthsArray.reduce((acc, current) => {
-          const temp = response.find((item) => item.month === current);
-          if (!temp) {
-            let b = {
-              count: 0,
-              month: current,
-            };
-            acc = [...acc, b];
-          } else {
-            return [...acc, temp];
-          }
+    },
+  ])
+    .then((response) => {
+      let updateArr = monthsArray.reduce((acc, current) => {
+        const temp = response.find((item) => item.month === current);
+        if (!temp) {
+          let b = {
+            count: 0,
+            month: current,
+          };
+          acc = [...acc, b];
+        } else {
+          return [...acc, temp];
+        }
 
-          return acc;
-        }, []);
+        return acc;
+      }, []);
 
-        updateArr.shift();
+      updateArr.shift();
 
-        return res.status(200).json(updateArr);
-      })
-      .catch((err) => {
-        next(new ErrorHandler(500, "Internal server error", err.message));
-      });
-  }
-);
+      return res.status(200).json(updateArr);
+    })
+    .catch((err) => {
+      next(new ErrorHandler(500, "Internal server error", err.message));
+    });
+});
 
-router.get("/payment-month/shop", isLoggedInAdmin, (req, res, next) => {
+router.get("/payment-month/shop", (req, res, next) => {
   const monthsArray = [
     "",
     "January",
@@ -308,7 +304,7 @@ router.get("/payment-month/shop", isLoggedInAdmin, (req, res, next) => {
     });
 });
 
-router.get("/payment-month/website", isLoggedInAdmin, (req, res, next) => {
+router.get("/payment-month/website", (req, res, next) => {
   const monthsArray = [
     "",
     "January",

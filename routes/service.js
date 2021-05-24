@@ -18,7 +18,7 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/:query", isLoggedInAdmin, (req, res, next) => {
+router.get("/:query", (req, res, next) => {
   const gender = req.query.qender;
   const card = req.query.card;
 
@@ -33,7 +33,7 @@ router.get("/:query", isLoggedInAdmin, (req, res, next) => {
     });
 });
 
-router.post("/", isLoggedInAdmin, (req, res, next) => {
+router.post("/", (req, res, next) => {
   const { imageUrl, title, price, gender, card } = req.body;
 
   let info = {
@@ -72,7 +72,7 @@ router.post("/", isLoggedInAdmin, (req, res, next) => {
   }
 });
 
-router.put("/:id", isLoggedInAdmin, (req, res) => {
+router.put("/:id", (req, res) => {
   const id = req.params.id;
   const { imageUrl, title, price } = req.body;
 
@@ -101,7 +101,7 @@ router.put("/:id", isLoggedInAdmin, (req, res) => {
     });
 });
 
-router.delete("/:id", isLoggedInAdmin, (req, res, next) => {
+router.delete("/:id", (req, res, next) => {
   const id = req.params.id;
 
   const info = {
