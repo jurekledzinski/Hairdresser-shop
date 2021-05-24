@@ -1,1 +1,0 @@
-(self.webpackChunkbarbershop=self.webpackChunkbarbershop||[]).push([[2422],{32422:function(){}}]);
