@@ -29,6 +29,7 @@ import { firebaseUrlReducer } from "./firebseUrlReducer";
 import { galleryImagesReducer } from "./galleryImagesReducer";
 import { excludedTimesReducer } from "./excludedTimesReducer";
 import { headerReducer } from "./headerReducer";
+import { mainPageOpinionsReducer } from "./mainPageOpinionsReducer";
 import { opinionsDataReducer } from "./opinionsDataReducer";
 import { paymentsShopReducer } from "./paymentsMonthShopReducer";
 import { paymentsWebsiteReducer } from "./paymentsMonthWebsiteReducer";
@@ -38,7 +39,6 @@ import { scrollReducer } from "./scrollReducer";
 import { serverErrorReducer } from "./serverErrorReducer";
 import { singleExcludedTimeReducer } from "./singleExcludedTimeReducer.";
 
-// excludedTimesData
 export const rootReducer = combineReducers({
   adminsData: fetchAllAdminsReducer,
   amountBookingsDataShop: fetchAmountBookingsPerMonthInShopReducer,
@@ -63,6 +63,7 @@ export const rootReducer = combineReducers({
   firebaseUrlData: firebaseUrlReducer,
   headerData: headerReducer,
   excludedTimesData: excludedTimesReducer,
+  mainPageOpinionsData: mainPageOpinionsReducer,
   opinionsData: fetchOpinionsReducer,
   openShopData: fetchOpenShopReducer,
   permissionData: fetchPermissionToRegisterReducer,
