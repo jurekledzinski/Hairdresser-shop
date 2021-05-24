@@ -41,7 +41,13 @@ const AdminHeader = ({
             <span className="admin__hamburger-line"></span>
           </div>
         </div>
-        <h4 className="admin__menu-option-name">
+        <h4
+          className={
+            sectionAdmin.indexOf("details-appointment") !== -1
+              ? "admin__menu-option-name admin__menu-option-name--hide-mobile"
+              : "admin__menu-option-name"
+          }
+        >
           {currentUrl !== "/admin"
             ? sectionAdmin.indexOf("details") !== -1
               ? newNameSection
