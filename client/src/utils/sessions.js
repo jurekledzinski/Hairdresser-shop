@@ -1,5 +1,17 @@
 import request from "../helpers/request";
 
+export const getVistisPageNumber = async () => {
+  const { data, status } = await request.get("/");
+
+  return { data, status };
+};
+
+export const createVistisPageNumber = async () => {
+  const { data, status } = await request.put("/");
+
+  return { data, status };
+};
+
 export const addImageGallery = async (dataImg) => {
   const { data, status } = await request.post("/gallery", dataImg);
   return { data, status };
@@ -284,18 +296,6 @@ export const getPaymentBookingsEachMonthShop = async () => {
 
 export const getPaymentBookingsEachMonthWebsite = async () => {
   const { data, status } = await request.get("/booking/payment-month/website");
-
-  return { data, status };
-};
-
-export const getVistisPageNumber = async () => {
-  const { data, status } = await request.get("/");
-
-  return { data, status };
-};
-
-export const createVistisPageNumber = async () => {
-  const { data, status } = await request.put("/");
 
   return { data, status };
 };
