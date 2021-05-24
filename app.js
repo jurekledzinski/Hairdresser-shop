@@ -16,7 +16,30 @@ const {
   nodeEnv,
   sessionName,
   secretSession,
+  roleAdmin,
+  roleSuperAdmin,
+  providerHost,
+  portProviderEmail,
+  emailOfUser,
+  passwordUserEmail,
+  emailAddressSendTo,
+  stripePublishableKey,
+  stripeSecretKey,
 } = require("./configs/config");
+
+console.log(atlasUrl);
+console.log(nodeEnv);
+console.log(sessionName);
+console.log(secretSession);
+console.log(roleAdmin);
+console.log(roleSuperAdmin);
+console.log(providerHost);
+console.log(portProviderEmail);
+console.log(emailOfUser);
+console.log(passwordUserEmail);
+console.log(emailAddressSendTo);
+console.log(stripePublishableKey);
+console.log(stripeSecretKey);
 
 mongoose.connect(atlasUrl, {
   useNewUrlParser: true,
@@ -26,13 +49,11 @@ mongoose.connect(atlasUrl, {
 });
 
 const db = mongoose.connection;
-let error;
-let open;
 
 db.on("error", (err) => {
-  error = err;
+  console.log(err);
 });
-db.once("open", () => open);
+db.once("open", () => console.log("Baza dziala poprawnie"));
 
 const serviceRouter = require("./routes/service");
 const teamRouter = require("./routes/team");
@@ -78,6 +99,7 @@ app.use(
       collection: "session",
     }),
     cookie: {
+      httpOnly: true,
       maxAge: 3 * 24 * 60 * 60 * 1000,
       secure: false,
       sameSite: nodeEnv === "production" ? "lax" : "lax",
@@ -88,13 +110,13 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use(function (req, res, next) {
-//   res.setHeader(
-//     "Content-Security-Policy",
-//     "default-src 'self' firebasestorage.googleapis.com *.firebasestorage.googleapis.com mongodb.com *.mongodb.com stripe.com *.stripe.com; img-src * 'self' data: https:;font-src *; object-src 'self';script-src 'self' 'sha256-7nnKyr+RUZ9a44Hg3lYwjgkUx5VyFQwv2ZUhVw6N7J4=' stripe.com *.stripe.com;style-src 'self' 'unsafe-inline' fontawesome.com *.fontawesome.com fonts.google.com *.fonts.google.com fonts.googleapis.com *.fonts.googleapis.com;"
-//   );
-//   next();
-// });
+app.use(function (req, res, next) {
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self' firebasestorage.googleapis.com *.firebasestorage.googleapis.com mongodb.com *.mongodb.com stripe.com *.stripe.com; img-src * 'self' data: https:;font-src *; object-src 'self';script-src 'self' 'sha256-7nnKyr+RUZ9a44Hg3lYwjgkUx5VyFQwv2ZUhVw6N7J4=' stripe.com *.stripe.com;style-src 'self' 'unsafe-inline' fontawesome.com *.fontawesome.com fonts.google.com *.fonts.google.com fonts.googleapis.com *.fonts.googleapis.com;"
+  );
+  next();
+});
 
 app.use("/service", serviceRouter);
 app.use("/team", teamRouter);
@@ -116,6 +138,8 @@ if (process.env.NODE_ENV === "production") {
 
   app.get("*", (req, res) => {
     let pathUrl = req.path.replace(/^\//, "").replace(/\/$/, "");
+
+    console.log(pathUrl);
 
     if (pathUrl && pathUrl.endsWith(".js")) {
       const options = { headers: { "content-type": "application/javascript" } };
