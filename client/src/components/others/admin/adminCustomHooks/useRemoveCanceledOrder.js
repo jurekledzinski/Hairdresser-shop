@@ -10,16 +10,11 @@ import { deleteCanceledOrder } from "../../../../utils/sessions";
 
 import { removeCanceledOrder } from "../../../../reduxStore/actions/actionCanceledOrders";
 
-const useRemoveCanceledOrder = (
-  idOrderCanceled,
-  idCancelOrder,
-  setIsOpenModal
-) => {
+const useRemoveCanceledOrder = (idOrderCanceled, setIsOpenModal) => {
   const dispatch = useDispatch();
 
   const handleRemoveItem = async () => {
     const { data, status } = await deleteCanceledOrder(idOrderCanceled);
-    console.log(data, status);
 
     if (status === 200) {
       dispatch(addServerSuccessMessage(data.success, "removeAtTableAdmin"));

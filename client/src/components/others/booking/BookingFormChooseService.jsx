@@ -16,7 +16,6 @@ const BookingFormChooseService = ({
   const dispatch = useDispatch();
   const dataAllServices = useSelector((store) => store.allServicesData);
   const { allServices } = dataAllServices;
-  //   closeChooseServiceData
   const dataDetectClickOutSide = useSelector(
     (store) => store.closeChooseServiceData
   );
@@ -24,8 +23,6 @@ const BookingFormChooseService = ({
   const [isClickService, setIsClickService] = useState(false);
   const [menServices, setMenServices] = useState([]);
   const [womenServices, setWomenServices] = useState([]);
-
-  console.log(dataDetectClickOutSide.isOpen, "dataDetectClickOutSide");
 
   const handleShowServices = () => {
     setIsClickService((prevValue) => !prevValue);
@@ -177,133 +174,3 @@ const BookingFormChooseService = ({
 };
 
 export default BookingFormChooseService;
-
-{
-  /* <label className="booking__label-service" htmlFor="checkboxMen1">
-<input
-  className="booking__input-service"
-  type="checkbox"
-  id="checkboxMen1"
-/>
-First checkbox
-</label>
-<label className="booking__label-service" htmlFor="checkboxMen2">
-<input
-  className="booking__input-service"
-  type="checkbox"
-  id="checkboxMen2"
-/>
-Second checkbox
-</label>
-<label className="booking__label-service" htmlFor="checkboxMen3">
-<input
-  className="booking__input-service"
-  type="checkbox"
-  id="checkboxMen3"
-/>
-Third checkbox
-</label> */
-}
-
-{
-  /* <label className="booking__label-service" htmlFor="checkboxWomen1">
-<input
-  className="booking__input-service"
-  type="checkbox"
-  id="checkboxWomen1"
-/>
-First checkbox
-</label>
-<label className="booking__label-service" htmlFor="checkboxWomen2">
-<input
-  className="booking__input-service"
-  type="checkbox"
-  id="checkboxWomen2"
-/>
-Second checkbox
-</label>
-<label className="booking__label-service" htmlFor="checkboxWomen3">
-<input
-  className="booking__input-service"
-  type="checkbox"
-  id="checkboxWomen3"
-/>
-Third checkbox
-</label> */
-}
-
-{
-  /* <Field name="services">
-{({ field }) => {
-  return (
-    womenServices.length > 0 &&
-    womenServices.map((option, index) => {
-      return (
-        <div
-          className="booking__services-inputs-wrapper"
-          key={index}
-        >
-          <input
-            className="booking__input-service"
-            type="checkbox"
-            id={option._id}
-            value={option.title}
-            checked={
-              field.title !== undefined
-                ? field.title.includes(option.title)
-                : field.title
-            }
-          />
-          <label
-            className="booking__label-service"
-            htmlFor={option._id}
-          >
-            {option.title}
-          </label>
-          <span className="booking__select-price">
-            {option.price}€
-          </span>
-        </div>
-      );
-    })
-  );
-}}
-</Field> */
-}
-
-// <FieldArray name="services">
-//               {({ field }) => {
-//                 return (
-//                   menServices.length > 0 &&
-//                   menServices?.map((option, index) => {
-//                     return (
-//                       <div
-//                         className="booking__services-inputs-wrapper"
-//                         key={index}
-//                       >
-//                         <input
-//                           className="booking__input-service"
-//                           type="checkbox"
-//                           id={option._id}
-//                           value={option.title}
-//                           checked={
-//                             field.title !== undefined
-//                               ? field.title.includes(option.title)
-//                               : field.title
-//                           }
-//                         />
-//                         <label
-//                           className="booking__label-service"
-//                           htmlFor={option._id}
-//                         >
-//                           {option.title}{" "}
-//                         </label>
-//                         <span className="booking__select-price">
-//                           {option.price}€
-//                         </span>
-//                       </div>
-//                     );
-//                   })
-//                 );
-//               }}
-//             </FieldArray>

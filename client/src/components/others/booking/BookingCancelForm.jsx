@@ -36,8 +36,6 @@ const BookingCancelForm = ({
   const onSubmit = async (values, submitProps) => {
     const { data, status } = await cancelBookingByUser(values.codeCancel);
 
-    console.log(data, status, " cancel booking admin panel");
-
     if (status === 200) {
       if (adminPanelRedirect === "adminPanelRedirect") {
         setIsModalOpen(true);
@@ -61,7 +59,6 @@ const BookingCancelForm = ({
   };
 
   const handleRedirect = () => {
-    console.log("redirect to admin cancel booking");
     setIsModalOpen(false);
     history.push(`/admin/apponitments`);
   };
@@ -81,7 +78,6 @@ const BookingCancelForm = ({
       onSubmit={onSubmit}
     >
       {(formik) => {
-        console.log(formik);
         return (
           <div className="booking__cancel-wrapper">
             <Form className="booking__cancel-form">

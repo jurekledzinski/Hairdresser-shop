@@ -30,7 +30,6 @@ export const fetchUsers = () => {
     const { data, status } = await fetchAdminData();
 
     if (status === 200) {
-      console.log(data, " to jest fetch admin");
       await dispatch(fetchUsersSuccess(data));
     } else {
       const errorMessage = "Failed to fetch data";

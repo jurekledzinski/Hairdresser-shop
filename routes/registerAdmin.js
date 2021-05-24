@@ -4,11 +4,8 @@ const bcrypt = require("bcrypt");
 
 const RegisterAdmin = require("../models/registerAdmin.model.js");
 const isLoggedInAdmin = require("../middlewares/protectRoutes");
-const notLoggedIn = require("../middlewares/protectRoutes");
 
 const { ErrorHandler } = require("../errors/error");
-
-// Tu dodac na dole
 
 router.get("/", isLoggedInAdmin, (req, res, next) => {
   RegisterAdmin.find({})
@@ -132,8 +129,6 @@ router.post("/", (req, res, next) => {
   }
 });
 
-// Tu dodac na dole
-
 router.put("/:id", isLoggedInAdmin, (req, res, next) => {
   const id = req.params.id;
   const {
@@ -177,8 +172,6 @@ router.put("/:id", isLoggedInAdmin, (req, res, next) => {
       next(new ErrorHandler(500, "Internal server error", err.message));
     });
 });
-
-// Tu dodac na dole
 
 router.put("/profile/:id", isLoggedInAdmin, (req, res, next) => {
   const id = req.params.id;
@@ -262,8 +255,6 @@ router.put("/profile/:id", isLoggedInAdmin, (req, res, next) => {
     );
   }
 });
-
-// Tu dodac na dole
 
 router.delete("/:id", isLoggedInAdmin, (req, res, next) => {
   const id = req.params.id;

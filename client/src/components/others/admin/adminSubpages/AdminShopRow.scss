@@ -59,10 +59,6 @@
     text-align: left;
     text-indent: 10px;
     font-weight: 300;
-
-    @include media-queries(large) {
-      //   width: 50%;
-    }
   }
 
   &__text-2 {
@@ -73,7 +69,6 @@
     font-weight: 300;
 
     @include media-queries(large) {
-      //   width: 50%;
       text-indent: 10px;
     }
   }

@@ -10,7 +10,6 @@ const useDeleteFileFirebase = () => {
   const dispatch = useDispatch();
 
   const deleteImgFirebase = (imgLink) => {
-    console.log(imgLink, " imgLink w usun zdjecie po klik delete");
     const fireBaseUrlStorage = "firebasestorage";
     if (Boolean(imgLink) && imgLink.indexOf(fireBaseUrlStorage) !== -1) {
       const image = projectStorage.refFromURL(imgLink);

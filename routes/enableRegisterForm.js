@@ -16,8 +16,6 @@ router.get("/", (req, res) => {
     });
 });
 
-// Tu dodac na dole
-
 router.put("/", isLoggedInAdmin, (req, res) => {
   const { enableRegisterForm } = req.body;
 

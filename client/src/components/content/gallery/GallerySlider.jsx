@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Modal from "../../others/modal/Modal";
 
@@ -7,12 +7,6 @@ import "./GallerySlider.scss";
 
 import CircleSpinner from "../../others/spinner/CircleSpinner";
 import { buttonsGallerySlider } from "./GallerySliderButtons";
-
-import { imgSliderMen } from "./Images";
-import { imgSliderWomen } from "./Images";
-import { imgSliderChildren } from "./Images";
-import { imgSliderWeddings } from "./Images";
-import { imgSliderOthers } from "./Images";
 
 const GallerySlider = ({
   setChooseButton,
@@ -23,18 +17,13 @@ const GallerySlider = ({
   setTurnOffTransitionSlider,
   turnOffTransitionSlider,
 }) => {
-  const dispatch = useDispatch();
   const imagesGalleryData = useSelector((store) => store.galleryImagesData);
 
   const [countCard, setCountCard] = useState(0);
-  const [heightSizeSlider, setHeighSizetSlider] = useState(0);
   const [isLoad, setIsLoad] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [initialX, setInitialX] = useState(null);
   const [initialY, setInitialY] = useState(null);
-  const [scrollDiff, setScrollDiff] = useState(0);
-  const [slides, setSlides] = useState(imgSliderMen);
-  const [windowSize, setWindowSize] = useState(window.innerWidth);
 
   const [widthSlider, setWidthSlider] = useState(1000);
   const [heightSlider, setHeightSlider] = useState(500);
@@ -50,8 +39,6 @@ const GallerySlider = ({
   const isMounted = useRef(null);
   const idTimeOut = useRef(null);
   const slidesContainer = useRef(null);
-
-  //   TODO: Logika slideru
 
   const events = {
     swipeUp: new Event("swipeUp"),
@@ -145,8 +132,6 @@ const GallerySlider = ({
     }
   }, [countCard, imagesGalleryData.length]);
 
-  //   FIXME: Start Resize slider
-
   const sizeSliderDefaultAndResizeLess1200 = (ratioHeight) => {
     let diff2 = (1000 * 100) / window.innerWidth - (1000 * 100) / 1000;
     let px = (window.innerWidth / 100) * 100 - diff2 - 40;
@@ -163,10 +148,6 @@ const GallerySlider = ({
     const widthInnerWindow = window.innerWidth;
     const heightInnerWindow = window.innerHeight;
     const ratio = Math.min(widthInnerWindow / heightInnerWindow);
-
-    if (Boolean(slidesContainer.current)) {
-      setHeighSizetSlider(slidesContainer.current.offsetHeight);
-    }
 
     const sizePrecent = (1000 * 100) / window.innerWidth;
     setWidthSlider(sizePrecent + "%");
@@ -191,7 +172,6 @@ const GallerySlider = ({
 
   useEffect(() => {
     const resizeSlider = () => {
-      setWindowSize(window.innerWidth);
       setWidthSlider(1000 + "px");
       setHeightSlider(500 + "px");
 
@@ -237,8 +217,6 @@ const GallerySlider = ({
     }
   }, []);
 
-  //   FIXME: Koniec Resize slider
-
   const startTouchDisplay = (e) => {
     e.preventDefault();
     const touchX = e.touches[0].clientX;
@@ -260,8 +238,6 @@ const GallerySlider = ({
 
       const diffrenceX = initialX - currenTouchX;
       const diffrenceY = initialY - currenTouchY;
-
-      setScrollDiff(diffrenceY);
 
       if (Math.abs(diffrenceX) > Math.abs(diffrenceY)) {
         if (diffrenceX > 0) {
@@ -325,29 +301,6 @@ const GallerySlider = ({
     }
   }, [clickedImgCounter]);
 
-  //   useEffect(() => {
-  //     switch (indexBtn) {
-  //       case 0:
-  //         setSlides(imgSliderMen);
-  //         break;
-  //       case 1:
-  //         setSlides(imgSliderWomen);
-  //         break;
-  //       case 2:
-  //         setSlides(imgSliderChildren);
-  //         break;
-  //       case 3:
-  //         setSlides(imgSliderWeddings);
-  //         break;
-  //       case 4:
-  //         setSlides(imgSliderOthers);
-  //         break;
-  //       default:
-  //         setSlides([]);
-  //         break;
-  //     }
-  //   }, [indexBtn]);
-
   useEffect(() => {
     isMounted.current = true;
     return () => {
@@ -368,7 +321,6 @@ const GallerySlider = ({
     const nameBtn = e.target.innerHTML;
     setChooseButton(nameBtn.toLowerCase());
 
-    console.log(nameBtn, "slider button", indexNumArrImages);
     setIndexBtn(indexNumArrImages);
   };
 
@@ -387,8 +339,6 @@ const GallerySlider = ({
       onClick={() => handleClickDot(index + 1)}
     ></li>
   ));
-
-  //   TODO: Logika slideru
 
   return (
     <Modal isOpen={isOpenModal}>

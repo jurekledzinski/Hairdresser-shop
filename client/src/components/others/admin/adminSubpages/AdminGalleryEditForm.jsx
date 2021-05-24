@@ -50,7 +50,6 @@ const AdminGalleryEditForm = ({
   const onSubmit = async (values, submitProps) => {
     delete values.fileImg;
 
-    console.log(imamgeNewEditLink, " edit link submit");
     values.imageUrl = imamgeNewEditLink.current;
     values.id = idRow;
 
@@ -67,7 +66,6 @@ const AdminGalleryEditForm = ({
       dispatch(addServerSuccessMessage(data.success, "default"));
       setIsVisiblePanel(false);
       setNameFile(null);
-      console.log(imageUrl);
       deleteImgFirebase(imageUrl);
       setIsSubmit(true);
 

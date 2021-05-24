@@ -64,10 +64,6 @@ const BookingCancelByCode = () => {
         services: dataBookingUser.bookingUser.services,
         totalPrice: dataBookingUser.bookingUser.totalPrice,
       };
-      console.log(
-        dataBookingUser.bookingUser.bookingId,
-        "booking id when cancel by code"
-      );
       sendEmailConfirmationCancel(details);
     }
   }, [dataBookingUser.bookingUser]);

@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 
-import { removeFireBaseUrl } from "../reduxStore/actions/actionFirebseUrl";
 import { removeImageFile } from "../reduxStore/actions/actionFile";
 
 import { projectStorage } from "../firebase/config";
@@ -13,10 +12,8 @@ const useFirebseDeleteFile = (imageLink) => {
   const [errorMsg, setErrorMsg] = useState("");
 
   const history = useHistory();
-  console.log(imageLink, " store firebase link usuwa gdy zmiana routa");
 
   useEffect(() => {
-    console.log(imageLink, " store firebase link usuwa gdy zmiana routa");
     history.listen(() => {
       const fireBaseUrlStorage = "firebasestorage";
       if (
@@ -28,10 +25,8 @@ const useFirebseDeleteFile = (imageLink) => {
           Boolean(imageLink.current) &&
           imageLink.current?.indexOf(fireBaseUrlStorage) !== -1
         ) {
-          console.log("custom hook image link", imageLink);
           const image = projectStorage.refFromURL(imageLink.current);
           imageLink.current = null;
-          //   dispatch(removeFireBaseUrl());
           dispatch(removeImageFile(null, null, null, null, null, null));
           image
             .delete()

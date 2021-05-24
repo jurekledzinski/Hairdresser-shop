@@ -1,34 +1,24 @@
 import request from "../helpers/request";
 
-// TODO: post gallery images
-
 export const addImageGallery = async (dataImg) => {
   const { data, status } = await request.post("/gallery", dataImg);
   return { data, status };
 };
-
-// TODO: Get gallery images
 
 export const fetchImagesGallery = async (type) => {
   const { data, status } = await request.get(`/gallery/${type}`);
   return { data, status };
 };
 
-// TODO: update Gallery images
-
 export const editImagesGallery = async (edit) => {
   const { data, status } = await request.put(`/gallery/${edit.id}`, edit);
   return { data, status };
 };
 
-// TODO: Delete Gallery images
-
 export const deleteImagesGallery = async (id) => {
   const { data, status } = await request.delete(`/gallery/${id}`);
   return { data, status };
 };
-
-// inne
 
 export const fetchOpinions = async () => {
   const { data, status } = await request.get("/opinions");
@@ -65,14 +55,10 @@ export const deleteEmail = async (id) => {
   return { data, status };
 };
 
-// Register admin
-
 export const registerAdmin = async (personalData) => {
   const { data, status } = await request.post("/register-admin", personalData);
   return { data, status };
 };
-
-// TODO: pobierz wszytkich adminow
 
 export const fetchRegisterAdmin = async () => {
   const { data, status } = await request.get("/register-admin");
@@ -100,8 +86,6 @@ export const deleteAdmin = async (id) => {
   return { data, status };
 };
 
-// Login admin
-
 export const loginAdmin = async (personalData) => {
   const { data, status } = await request.post("/login-admin", personalData);
   return { data, status };
@@ -117,8 +101,6 @@ export const logoutAdmin = async () => {
   return { data, status };
 };
 
-// Enable register
-
 export const fetchEnableRegisterPermission = async () => {
   const { data, status } = await request.get("/enable-register");
   return { data, status };
@@ -128,8 +110,6 @@ export const addEnableRegisterPermission = async (add) => {
   const { data, status } = await request.put("/enable-register", add);
   return { data, status };
 };
-
-// TODO: Service
 
 export const fetchAllServices = async () => {
   const { data, status } = await request.get("/service");
@@ -149,7 +129,6 @@ export const addAdminService = async (service) => {
 };
 
 export const editAdminService = async (edit) => {
-  console.log(edit, " edit admin service");
   const { data, status } = await request.put(`/service/${edit.id}`, edit);
   return { data, status };
 };
@@ -158,8 +137,6 @@ export const deleteAdminService = async (id) => {
   const { data, status } = await request.delete(`/service/${id}`);
   return { data, status };
 };
-
-// TODO: Shop
 
 export const fetchAdminOpenShop = async () => {
   const { data, status } = await request.get("/open-shop");
@@ -180,16 +157,6 @@ export const deleteAdminOpenShop = async (id) => {
   const { data, status } = await request.delete(`/open-shop/${id}`);
   return { data, status };
 };
-
-// TODO: booking
-
-// to jest nie uzywane api callback
-
-// export const getBookings = async () => {
-//   const { data, status } = await request.get("/booking");
-
-//   return { data, status };
-// };
 
 export const getBookingUser = async (id) => {
   const { data, status } = await request.get(`/booking/${id}`);
@@ -232,10 +199,7 @@ export const deleteCanceledOrder = async (id) => {
   return { data, status };
 };
 
-// TODO: exl dates
-
 export const getExcludedDates = async () => {
-  console.log(" exlcuded get times all");
   const { data, status } = await request.get("/booking/excluded");
 
   return { data, status };
@@ -248,22 +212,16 @@ export const addExcludedDates = async (date) => {
 };
 
 export const deleteExcludedDate = async (id) => {
-  console.log(id, "ex tims session");
   const { data, status } = await request.delete(`/booking/excluded/${id}`);
 
   return { data, status };
 };
 
-// deleteCancelCode
-
 export const deleteExcludedDateCancelCode = async (id) => {
-  console.log(id);
   const { data, status } = await request.delete(`/booking/excluded-code/${id}`);
 
   return { data, status };
 };
-
-// Checkout
 
 export const collectPay = async (dataPay) => {
   const { data, status } = await request.post(
@@ -274,10 +232,7 @@ export const collectPay = async (dataPay) => {
   return { data, status };
 };
 
-// Send booking confirm success or cancel
-
 export const bookingConfirmCancelOrSuccess = async (confirmation) => {
-  console.log(confirmation.bookingId);
   const { data, status } = await request.post(
     `/email-confirmation/${confirmation.bookingId}`,
     confirmation
@@ -285,8 +240,6 @@ export const bookingConfirmCancelOrSuccess = async (confirmation) => {
 
   return { data, status };
 };
-
-// Send email cancel by code
 
 export const cancelBookingSendEmailUser = async (cancelData) => {
   const { data, status } = await request.post(
@@ -297,21 +250,15 @@ export const cancelBookingSendEmailUser = async (cancelData) => {
   return { data, status };
 };
 
-//Usuwanie exluded times ktore sa juz po terminie czyli minely
-
 export const deleteExcludedTimesExpired = async () => {
   await request.delete("/booking/excluded/many");
 };
-
-//Cancel code usuwanie po kodzie bookingu
 
 export const cancelBookingByUser = async (code) => {
   const { data, status } = await request.put(`/booking/cancel/code/${code}`);
 
   return { data, status };
 };
-
-// Aggregate liczba bookingow w kazdym miesiacu w roku obecnym
 
 export const getAmountBookingsEachMonthShop = async () => {
   const { data, status } = await request.get(
@@ -340,8 +287,6 @@ export const getPaymentBookingsEachMonthWebsite = async () => {
 
   return { data, status };
 };
-
-// check visits
 
 export const getVistisPageNumber = async () => {
   const { data, status } = await request.get("/");

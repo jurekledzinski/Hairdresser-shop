@@ -45,7 +45,6 @@
   padding: 0px 20px;
   margin: 0 auto;
   box-sizing: border-box;
-  //   background-color: #303030;
 
   @include media-queries(xlarge) {
     max-width: 1200px;
@@ -54,8 +53,6 @@
     padding: 50px;
   }
 
-  // tutaj dałem min-height: bez min-height <768 i centruje w pionie
-
   &__wrapper {
     position: relative;
     display: flex;
@@ -63,8 +60,6 @@
     width: 100%;
     margin: 0 auto;
     padding: 50px 0;
-
-    // tutaj dałem min-height: inherit
 
     @include media-queries(large) {
       flex-direction: row;
@@ -78,8 +73,6 @@
       padding: 0;
     }
   }
-
-  //TODO: Lewa strona
 
   &__left {
     position: relative;
@@ -148,8 +141,6 @@
     }
   }
 
-  //   Prawa strona
-
   &__right {
     display: flex;
     flex-direction: column;
@@ -212,8 +203,6 @@
     margin-bottom: 20px;
   }
 
-  //   TO jest do file
-
   &__input-file-add {
     position: relative;
     display: flex;
@@ -252,8 +241,6 @@
     width: 0;
     opacity: 0;
   }
-
-  //   TO jest do file u gory
 
   &__wrapper-name {
     position: relative;

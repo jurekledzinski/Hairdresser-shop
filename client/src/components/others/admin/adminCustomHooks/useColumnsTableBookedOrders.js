@@ -60,7 +60,6 @@ const useColumnsTableBookedOrders = (
           <button
             className="admin-booked__btn-remove"
             onClick={() => {
-              console.log(propsTable.row.original);
               setIsOpenModal(true);
               setIdBookedOrder(propsTable.row.original._id);
               setIdCancelOrder(propsTable.row.original.cancelCode);

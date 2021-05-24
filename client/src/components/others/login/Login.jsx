@@ -48,7 +48,6 @@ const Login = () => {
 
   const onSubmit = async (values, submitProps) => {
     const { data, status } = await loginAdmin(values);
-    console.log(data, status);
 
     if (status !== 200) {
       dispatch(addServerErrorMessage(data.alert, "registerForm"));
@@ -99,7 +98,6 @@ const Login = () => {
       onSubmit={onSubmit}
     >
       {(formik) => {
-        console.log(formik);
         return (
           <section className="login">
             <div className="login__wrapper">

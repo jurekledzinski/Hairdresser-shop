@@ -98,7 +98,6 @@ const AdminDashboard = () => {
   );
   const { allCanceledOrders } = dataCanceledOrders;
   const dataUser = useSelector((store) => store.userData);
-  //   const adminDateUse = useSelector((store) => store.useAdminData);
   const { users } = dataUser;
   const bookingsMadeAtShop = useSelector(
     (store) => store.amountBookingsDataShop
@@ -116,8 +115,6 @@ const AdminDashboard = () => {
     (store) => store.paymentsDataFetchWebsite
   );
   const { paymentsWebsite } = paymentsFetchedWebsite;
-  const paymentsShopData = useSelector((store) => store.paymentsDataShop);
-  const paymentsWebsiteData = useSelector((store) => store.paymentsDataWebsite);
   const dataEmails = useSelector((store) => store.emailsData);
   const { emails } = dataEmails;
   const dataOpinions = useSelector((store) => store.opinionsData);
@@ -131,12 +128,6 @@ const AdminDashboard = () => {
   const idTimeOutLogout = useRef(null);
   const idTimeOut = useRef(null);
   const history = useHistory();
-
-  //   console.log(paymentsShop, "fetch payments shop");
-  //   console.log(paymentsWebsite, "fetch payments website");
-
-  //   console.log(paymentsShopData, " paymentsShop do uzycia dane");
-  //   console.log(paymentsWebsiteData, " paymentsWebsite do uzycia dane");
 
   const [checkSizeWindow, setCheckSizeWindow] = useState(
     window.innerWidth >= 1200 ? true : false

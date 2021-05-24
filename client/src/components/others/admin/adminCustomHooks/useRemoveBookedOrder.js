@@ -19,7 +19,6 @@ const useRemoveBookedOrder = (idBookedOrder, idCancelOrder, setIsOpenModal) => {
   const handleRemoveItem = async () => {
     const { data, status } = await deleteBookedOrder(idBookedOrder);
     await deleteExcludedDateCancelCode(idCancelOrder);
-    console.log(data, status);
 
     if (status === 200) {
       dispatch(addServerSuccessMessage(data.success, "removeAtTableAdmin"));

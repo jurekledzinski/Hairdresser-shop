@@ -18,8 +18,6 @@ router.get("/", (req, res) => {
     });
 });
 
-// Tu dodac na dole
-
 router.get("/:query", isLoggedInAdmin, (req, res, next) => {
   const gender = req.query.qender;
   const card = req.query.card;
@@ -34,8 +32,6 @@ router.get("/:query", isLoggedInAdmin, (req, res, next) => {
       next(new ErrorHandler(500, "Internal server error", err.message));
     });
 });
-
-// Tu dodac na dole
 
 router.post("/", isLoggedInAdmin, (req, res, next) => {
   const { imageUrl, title, price, gender, card } = req.body;
@@ -76,8 +72,6 @@ router.post("/", isLoggedInAdmin, (req, res, next) => {
   }
 });
 
-// Tu dodac na dole
-
 router.put("/:id", isLoggedInAdmin, (req, res) => {
   const id = req.params.id;
   const { imageUrl, title, price } = req.body;
@@ -106,8 +100,6 @@ router.put("/:id", isLoggedInAdmin, (req, res) => {
       next(new ErrorHandler(500, "Internal server error", err.message));
     });
 });
-
-// Tu dodac na dole
 
 router.delete("/:id", isLoggedInAdmin, (req, res, next) => {
   const id = req.params.id;

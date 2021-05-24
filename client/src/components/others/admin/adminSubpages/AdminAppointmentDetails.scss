@@ -38,7 +38,6 @@
   align-items: center;
   width: 100%;
   max-width: 1200px;
-  //   min-height: 100vh;
   margin: 0 auto;
   background-repeat: no-repeat;
   background-position: center;
@@ -58,7 +57,6 @@
     min-height: initial;
     height: auto;
     max-width: 1200px;
-    // width: 97%;
   }
 
   &__center-wrapper {
@@ -78,7 +76,6 @@
     display: flex;
     width: 100%;
     height: auto;
-    // padding: initial;
     padding: 50px 0;
 
     @include media-queries(large) {
@@ -102,7 +99,6 @@
 
   &__title {
     padding-left: 10px;
-    margin-bottom: 40px;
     text-transform: uppercase;
     color: white;
     text-align: left;
@@ -118,14 +114,6 @@
     width: 100%;
     height: auto;
     padding: 10px;
-
-    @include media-queries(small) {
-      //   padding: 20px;
-    }
-
-    @include media-queries(xmedium) {
-      //   padding: 50px;
-    }
   }
 
   &__confirm-terms-shop {

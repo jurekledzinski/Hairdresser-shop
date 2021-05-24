@@ -60,7 +60,6 @@
     min-height: initial;
     height: auto;
     max-width: 1200px;
-    // width: 97%;
   }
 
   &__center-wrapper {
@@ -76,7 +75,6 @@
     display: flex;
     width: 100%;
     height: auto;
-    // padding: initial;
     padding: 50px 0;
 
     @include media-queries(large) {

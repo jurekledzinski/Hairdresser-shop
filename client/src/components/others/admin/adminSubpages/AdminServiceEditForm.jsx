@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
@@ -48,7 +48,6 @@ const AdminServiceEditForm = ({
   const onSubmit = async (values, submitProps) => {
     delete values.fileImg;
     values.id = idRow;
-    console.log(imamgeNewEditLink, " edit link submit EDIT SERVICE");
     values.imageUrl = imamgeNewEditLink.current;
 
     const { data, status } = await editAdminService(values);

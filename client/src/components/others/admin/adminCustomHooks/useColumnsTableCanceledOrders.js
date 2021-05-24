@@ -44,7 +44,6 @@ const useColumnsTableCanceledOrders = (
           <button
             className="admin-canceled__btn-remove"
             onClick={() => {
-              console.log(propsTable.row.original._id);
               history.push(
                 `/admin/details-canceled-order/${propsTable.row.original._id}`
               );
@@ -63,7 +62,6 @@ const useColumnsTableCanceledOrders = (
           <button
             className="admin-canceled__btn-remove"
             onClick={() => {
-              console.log(propsTable.row.original._id);
               setIsOpenModal(true);
               setIdOrderCanceled(propsTable.row.original._id);
               setIdCancelOrder(propsTable.row.original.cancelCode);

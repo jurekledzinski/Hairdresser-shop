@@ -10,10 +10,6 @@
   width: 80px;
   z-index: 5;
 
-  @media (max-width: 667px) {
-    top: 35%;
-  }
-
   @include media-queries(medium) {
     width: 65px;
   }

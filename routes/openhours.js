@@ -16,8 +16,6 @@ router.get("/", (req, res, next) => {
     });
 });
 
-// Tu dodac na dole
-
 router.post("/", isLoggedInAdmin, (req, res, next) => {
   const { day, time } = req.body;
 
@@ -54,8 +52,6 @@ router.post("/", isLoggedInAdmin, (req, res, next) => {
   }
 });
 
-// Tu dodac na dole
-
 router.put("/:id", isLoggedInAdmin, (req, res, next) => {
   const id = req.params.id;
   const { day, time } = req.body;
@@ -83,8 +79,6 @@ router.put("/:id", isLoggedInAdmin, (req, res, next) => {
       next(new ErrorHandler(500, "Internal server error", err.message));
     });
 });
-
-// Tu dodac na dole
 
 router.delete("/:id", isLoggedInAdmin, (req, res, next) => {
   const id = req.params.id;

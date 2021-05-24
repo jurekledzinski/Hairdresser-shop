@@ -59,9 +59,6 @@ const AdminService = () => {
 
   const history = useHistory();
 
-  console.log(imamgeNewEditLink, " imamgeNewEditLink service");
-  console.log(imgLink, " do dodawania link service");
-
   useFirebseDeleteFile(imgLink);
 
   const { handleRemoveItem } = useRemoveService(
@@ -140,7 +137,6 @@ const AdminService = () => {
   }, [services]);
 
   useEffect(() => {
-    console.log("history effect");
     const fireBaseUrlStorage = "firebasestorage";
     history.listen(() => {
       if (
@@ -148,7 +144,6 @@ const AdminService = () => {
         imamgeNewEditLink.current &&
         imamgeNewEditLink.current.indexOf(fireBaseUrlStorage) !== -1
       ) {
-        console.log("USUWWAMY LINK GDY ZMIENIONY ROUTE BEZ SUBMIT SERVICE");
         const image = projectStorage.refFromURL(imamgeNewEditLink.current);
         imamgeNewEditLink.current = null;
 

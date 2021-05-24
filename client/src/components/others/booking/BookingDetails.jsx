@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { loadStripe } from "@stripe/stripe-js/pure";
@@ -7,18 +7,12 @@ import { loadStripe } from "@stripe/stripe-js/pure";
 import "./BookingDetails.scss";
 
 import { addServerErrorMessage } from "../../../reduxStore/actions/actionAlertsMessages";
-import {
-  addExcludTimes,
-  removeExcludTimes,
-} from "../../../reduxStore/actions/actionExcludedTimes";
 
 import {
   addBooking,
   addExcludedDates,
   collectPay,
 } from "../../../utils/sessions";
-
-import BookingGoBackButton from "./BookingGoBackButton";
 
 import BookingPersonalDetails from "./BookingPersonalDetails";
 import BookingDetailsSummary from "./BookingDetailsSummary";
@@ -31,21 +25,13 @@ const BookingDetails = () => {
   const { initialValues, validationSchema } = useValidationAgreePolicy();
   const dispatch = useDispatch();
   const dataAlert = useSelector((store) => store.alertData);
-  const dataAllExcludedTimes = useSelector((store) => store.excludedTimesData);
   const dataDetailsOrder = useSelector((store) => store.orderDetailsData);
   const dataSingleExcludedTime = useSelector(
     (store) => store.singleExcludedTimeData
   );
   const [stripe, setStripe] = useState(null);
 
-  //   const dataBookingUser = useSelector((store) => store.bookingUserData);
-
-  //   console.log(dataSingleExcludedTime, "pojedynczy czas");
-
   const history = useHistory();
-  const location = useLocation();
-
-  //   const bookingID = location.pathname.slice(17);
 
   const onSubmit = async (values, submitProps) => {
     let updateDetailsOrder = dataDetailsOrder;
@@ -78,7 +64,6 @@ const BookingDetails = () => {
   useEffect(() => {
     const item = sessionStorage.getItem("page");
     if (item) {
-      console.log("strona ");
       history.push("/booking");
     }
     sessionStorage.setItem("page", true);
@@ -96,7 +81,6 @@ const BookingDetails = () => {
   }, []);
 
   const handleGoBackToBooking = () => {
-    // dispatch(removeExcludTimes(dataDetailsOrder.bookingId));
     history.push(`/booking`);
   };
 

@@ -14,8 +14,6 @@
     animation: moveLayerNav 0.4s linear;
     z-index: 110 !important;
 
-    // FIXME:
-
     &--active {
       display: flex;
       position: fixed;
@@ -28,8 +26,6 @@
       box-shadow: 0 4px 2px -2px rgb(222, 222, 222);
       z-index: 110;
     }
-
-    // FIXME:
 
     @include media-queries(large) {
       display: flex;
@@ -114,25 +110,46 @@
     display: none;
     font-size: 1.4rem;
 
+    &--hide-mobile {
+      display: none;
+    }
+
     @include media-queries(xxsmall) {
       display: block;
+
+      &--hide-mobile {
+        display: none;
+      }
     }
 
     @include media-queries(xsmall) {
       display: block;
       font-size: 1.6rem;
+
+      &--hide-mobile {
+        display: none;
+      }
     }
 
     @include media-queries(small) {
       font-size: 1.6rem;
+
+      &--hide-mobile {
+        display: none;
+      }
     }
 
     @include media-queries(xmedium) {
-      font-size: 2.2rem;
+      font-size: 1.6rem;
+
+      &--hide-mobile {
+        display: none;
+      }
     }
 
     @include media-queries(medium) {
-      font-size: 2.4rem;
+      display: block;
+      font-size: 2.2rem;
     }
   }
 

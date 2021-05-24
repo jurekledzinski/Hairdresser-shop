@@ -11,18 +11,8 @@ import { v4 as uuidv4 } from "uuid";
 
 import "./BookingForm.scss";
 
-import {
-  addServerErrorMessage,
-  addServerSuccessMessage,
-} from "../../../reduxStore/actions/actionAlertsMessages";
-
-import { addBooking, addExcludedDates } from "../../../utils/sessions";
-
 import { addOrderDetails } from "../../../reduxStore/actions/actionOrderDetails";
-// import { addExcludTimes } from "../../../reduxStore/actions/actionExcludedTimes";
 import { addSingleExcludTimes } from "../../../reduxStore/actions/actionSingleExcludedTime";
-
-import { fetchBookingUser } from "../../../reduxStore/actions/actionFetchOrderDetails";
 
 import BookingFormChooseHairDresser from "./BookingFormChooseHairDresser";
 import BookingFormDayTime from "./BookingFormDayTime";
@@ -41,7 +31,6 @@ const BookingForm = ({
   adminPanelClassRedirect,
 }) => {
   const dispatch = useDispatch();
-  const dataDetailsOrder = useSelector((store) => store.orderDetailsData);
   const dataAlert = useSelector((store) => store.alertData);
   const [exludedTimeDate, setExcludedTimeDate] = useState();
   const [choosedTime, setChoosedTime] = useState(null);
@@ -101,23 +90,8 @@ const BookingForm = ({
     copyValues.subTotalPrice = subTotal;
     copyValues.totalPrice = Math.round(total * 100) / 100;
 
-    console.log(total);
-
-    console.log(copyValues);
-
     dispatch(addOrderDetails(copyValues));
     dispatch(addSingleExcludTimes(excludedTimeData));
-
-    // dispatch(addExcludTimes(excludedTimeData));
-
-    // const { data, status } = await addBooking(copyValues);
-
-    // if (status === 200) {
-    //   setFlagSubmit(true);
-    //   dispatch(addServerSuccessMessage(data.success, "registerForm"));
-    // } else {
-    //   dispatch(addServerErrorMessage(data.alert, "registerForm"));
-    // }
 
     submitProps.setSubmitting(false);
     submitProps.resetForm();

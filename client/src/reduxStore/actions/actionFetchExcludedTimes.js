@@ -26,8 +26,6 @@ export const fetchAllTimesExcluded = () => {
     await dispatch(fetchAllExTimesRequest());
     const { data, status } = await getExcludedDates();
 
-    console.log(data, status, " fetch times all");
-
     if (status === 200) {
       await dispatch(fetchAllExTimesSuccess(data));
     } else {

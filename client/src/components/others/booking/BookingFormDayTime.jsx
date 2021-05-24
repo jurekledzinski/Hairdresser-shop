@@ -7,12 +7,7 @@ import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
 import subDays from "date-fns/subDays";
 import isSameDay from "date-fns/isSameDay";
-import addDays from "date-fns/addDays";
 import DatePicker from "react-datepicker";
-import { v4 as uuidv4 } from "uuid";
-//
-// import setDate from "date-fns/setDate";
-// import setDay from "date-fns/setDay";
 
 import "./BookingFormDayTime.scss";
 
@@ -27,27 +22,19 @@ const BookingFormDayTime = ({
   adminPanelClassLabel,
   choosedTime,
   errorMsg,
-  setChoosedTime,
   setDisableBtn,
 }) => {
   const dispatch = useDispatch();
   const dataAllExcludedTimes = useSelector((store) => store.excludedTimesData);
   const dataAllExTimes = useSelector((store) => store.allFetchExTimesData);
 
-  //   console.log(dataAllExcludedTimes, " dataAllExcludedTimes dni i czas");
-
-  //   console.log(dataAllExTimes, " dataAllExTimes kalendarz pobrane z bazy");
-
   const rangeTime = useRef([]);
   const currentTimes = useRef([]);
 
   const [allExcludeDays, setAllExcludeDays] = useState([]);
-  const [currentDayIsAvailable, setCurrentDayIsAvailable] = useState([]);
   const [currentExcludedDays, setCurrentExcludedDays] = useState([]);
   const [choosedDay, setChoosedDay] = useState();
   const [isDisableTime, setIsDisableTime] = useState(true);
-
-  //   console.log(choosedDay, " choosedDay");
 
   const isWeekday = (date) => {
     const day = getDay(date);
@@ -63,8 +50,6 @@ const BookingFormDayTime = ({
   const [excludeTimes, setExcludeTimes] = useState(
     getExcludeTimesForDate(choosedTime)
   );
-
-  //   console.log(excludeTimes, " excludeTimes ");
 
   const filterPassedTime = (time) => {
     const currentDate = new Date();
@@ -85,8 +70,6 @@ const BookingFormDayTime = ({
       }
     });
 
-    console.log(currentTimes.current, " currentTimes.current booking time");
-
     return currentDate.getTime() < selectedDate.getTime();
   };
 
@@ -104,10 +87,6 @@ const BookingFormDayTime = ({
 
     const filterArray = timesArray.filter((item) => item > new Date());
 
-    console.log(filterArray, " filterArray setDisable day");
-
-    console.log(dataAllExcludedTimes, "dataAllExcludedTimes");
-
     let restTimesArr = [];
 
     filterArray.forEach((item) => {
@@ -119,9 +98,6 @@ const BookingFormDayTime = ({
     dataAllExcludedTimes.forEach((item) => {
       excludTimesArr = [...excludTimesArr, item.timeService.getTime()];
     });
-
-    console.log(restTimesArr, "restTimesArr");
-    console.log(excludTimesArr, "excludTimesArr");
 
     const checkIsCurrentDayIsDisable = restTimesArr.filter(
       (d) => !excludTimesArr.includes(d)
@@ -145,17 +121,11 @@ const BookingFormDayTime = ({
 
     let excludeDate = groupBy(dataAllExcludedTimes);
 
-    // console.log(excludeDate, " excludeDate");
-
     let getKeys = Object.keys(excludeDate);
-
-    console.log(getKeys);
 
     const { checkIsCurrentDayIsDisable } = createCurrentTimesServices();
 
     const dayToday = `${new Date().getDate()}.${new Date().getMonth()}.${new Date().getFullYear()}`;
-
-    console.log(dayToday);
 
     let whenAllExcTimesInCurrentDay;
 
@@ -163,7 +133,6 @@ const BookingFormDayTime = ({
       if (excludeDate[item].length === 17) {
         return excludeDate[item];
       } else if (item === dayToday && checkIsCurrentDayIsDisable.length === 0) {
-        console.log("nie moge");
         return excludeDate[item];
       } else if (checkIsCurrentDayIsDisable.length === 0) {
         whenAllExcTimesInCurrentDay = dayToday;
@@ -172,22 +141,10 @@ const BookingFormDayTime = ({
       return null;
     });
 
-    console.log(whenAllExcTimesInCurrentDay);
-
-    console.log(excludeDate, "excludeDate");
-    console.log(dataAllExcludedTimes, " dataAllExcludedTimes");
-
     arrayExcludedDates = [
       ...arrayExcludedDates,
       `${whenAllExcTimesInCurrentDay}`,
     ];
-
-    console.log(arrayExcludedDates, " arrayExcludedDates");
-
-    console.log(
-      checkIsCurrentDayIsDisable,
-      " pozostale dni do wykluczenia dnia dzisiejszego"
-    );
 
     setAllExcludeDays(arrayExcludedDates);
   }, [dataAllExcludedTimes]);
@@ -205,8 +162,6 @@ const BookingFormDayTime = ({
         exlDays = [...exlDays, subDays(new Date(year, month, day), 0)];
       }
     });
-
-    console.log(exlDays, " wykluczone już dni doslownie");
 
     setCurrentExcludedDays(exlDays);
   }, [allExcludeDays]);
@@ -238,7 +193,6 @@ const BookingFormDayTime = ({
   };
 
   const checkFirstActiveTime = (selectedDate) => {
-    console.log(selectedDate, "selectedDate");
     let incrementMin = 2400000;
     let startTime = new Date(selectedDate).setHours(8, 0, 0, 0);
     const endTime = new Date(selectedDate).setHours(19, 0, 0, 0);
@@ -252,8 +206,6 @@ const BookingFormDayTime = ({
 
     const filterArray = timesArray.filter((item) => item > new Date());
 
-    console.log(filterArray, " timesArray");
-
     let restTimesArr = [];
 
     filterArray.forEach((item) => {
@@ -266,9 +218,6 @@ const BookingFormDayTime = ({
       excludTimesArr = [...excludTimesArr, item.timeService.getTime()];
     });
 
-    console.log(restTimesArr, "restTimesArr");
-    console.log(excludTimesArr, "excludTimesArr");
-
     const availableFirstTime = restTimesArr.filter(
       (d) => !excludTimesArr.includes(d)
     );
@@ -276,10 +225,7 @@ const BookingFormDayTime = ({
     let hour;
     let minute;
 
-    // availableFirstTime.map((item) => console.log(new Date(item)));
-
     if (availableFirstTime.length > 0) {
-      console.log(new Date(availableFirstTime[0]));
       hour = new Date(availableFirstTime[0]).getHours();
       minute = new Date(availableFirstTime[0]).getMinutes();
     }
@@ -447,7 +393,5 @@ const BookingFormDayTime = ({
     </div>
   );
 };
-
-// className="booking__input-select-time" select
 
 export default BookingFormDayTime;

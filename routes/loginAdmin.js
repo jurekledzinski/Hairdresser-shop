@@ -61,8 +61,6 @@ router.post("/", checkIsLoggedIn, (req, res, next) => {
   }
 });
 
-// Tu dodac na dole
-
 router.get("/logout", isLoggedInAdmin, (req, res, next) => {
   const info = {
     alert: "",

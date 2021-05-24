@@ -23,8 +23,6 @@ router.get("/", (req, res, next) => {
     });
 });
 
-// tu dodac na dole
-
 router.get("/all", isLoggedInAdmin, (req, res, next) => {
   Testimonial.find({})
     .then((response) => {
@@ -73,8 +71,6 @@ router.post("/", (req, res, next) => {
       });
   }
 });
-
-// tu dodac na dole
 
 router.delete("/:id", isLoggedInAdmin, (req, res, next) => {
   const id = req.params.id;

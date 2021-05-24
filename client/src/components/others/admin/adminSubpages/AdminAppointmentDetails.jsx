@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
@@ -15,8 +15,6 @@ import {
   bookingConfirmCancelOrSuccess,
 } from "../../../../utils/sessions";
 
-import BookingGoBackButton from "../../booking/BookingGoBackButton";
-
 import BookingPersonalDetails from "../../booking/BookingPersonalDetails";
 import BookingDetailsSummary from "../../booking/BookingDetailsSummary";
 import BookingOrderedServices from "../../booking/BookingOrderedServices";
@@ -29,20 +27,13 @@ const AdminAppointmentDetails = () => {
   const { initialValues, validationSchema } = useValidationAgreePolicy();
   const dispatch = useDispatch();
   const dataAlert = useSelector((store) => store.alertData);
-  const dataAllExcludedTimes = useSelector((store) => store.excludedTimesData);
   const dataDetailsOrder = useSelector((store) => store.orderDetailsData);
   const dataSingleExcludedTime = useSelector(
     (store) => store.singleExcludedTimeData
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  //   const dataBookingUser = useSelector((store) => store.bookingUserData);
-
-  //   console.log(dataSingleExcludedTime, "pojedynczy czas");
-
   const history = useHistory();
-
-  //   const bookingID = location.pathname.slice(17);
 
   const onSubmit = async (values, submitProps) => {
     let updateDetailsOrder = dataDetailsOrder;
@@ -51,8 +42,6 @@ const AdminAppointmentDetails = () => {
     const { data, status } = await addBooking(updateDetailsOrder);
     const [objExTime] = dataSingleExcludedTime;
     await addExcludedDates(objExTime);
-
-    console.log(data, status, " admin add booking details");
 
     if (status === 200) {
       const details = {
@@ -67,7 +56,6 @@ const AdminAppointmentDetails = () => {
       };
       dispatch(addBookedOrder(data));
       await bookingConfirmCancelOrSuccess(details);
-      console.log(details, " dane do email success confirmation email");
       setIsModalOpen(true);
     } else {
       dispatch(addServerErrorMessage(error.message, "registerForm"));
@@ -80,19 +68,16 @@ const AdminAppointmentDetails = () => {
   useEffect(() => {
     const item = sessionStorage.getItem("pageTwo");
     if (item) {
-      console.log("strona ");
-      //   history.push(`/admin/apponitments`);
+      history.push(`/admin/apponitments`);
     }
     sessionStorage.setItem("pageTwo", true);
   }, []);
 
   const handleGoBackToBooking = () => {
-    // dispatch(removeExcludTimes(dataDetailsOrder.bookingId));
     history.push(`/admin/apponitments`);
   };
 
   const handleRedirect = () => {
-    console.log("redirect to admin appointment");
     setIsModalOpen(false);
     history.push(`/admin/apponitments`);
   };
@@ -140,6 +125,7 @@ const AdminAppointmentDetails = () => {
                         adminPanelClassDetailsTitle="adminPanelClassDetailsTitle"
                         adminPanelClassServiceName="adminPanelClassServiceName"
                         adminPanelClassServicePrice="adminPanelClassServicePrice"
+                        adminPanelClassStyleScroll="adminPanelClassStyleScroll"
                         services={dataDetailsOrder.services}
                       />
                       <BookingDetailsSummary
@@ -184,7 +170,7 @@ const AdminAppointmentDetails = () => {
                       <MessagePopup
                         isOpenModal={isModalOpen}
                         handleRedirect={handleRedirect}
-                        messageTitle="Thank you for order service in our shop"
+                        messageTitle="Service is booked successfully"
                       />
                     </div>
                   </div>
