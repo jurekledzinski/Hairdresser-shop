@@ -1,10 +1,10 @@
 import request from "../helpers/request";
 
-export const getVistisPageNumber = async () => {
-  const { data, status } = await request.get("/");
+// export const getVistisPageNumber = async () => {
+//   const { data, status } = await request.get("/");
 
-  return { data, status };
-};
+//   return { data, status };
+// };
 
 export const createVistisPageNumber = async () => {
   const { data, status } = await request.put("/");
