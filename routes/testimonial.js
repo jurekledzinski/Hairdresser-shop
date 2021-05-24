@@ -11,7 +11,6 @@ function shuffle(array) {
 }
 
 router.get("/", (req, res, next) => {
-  console.log("Pobieramy opinie");
   Testimonial.find({})
     .then((response) => {
       let shuffleArr = shuffle(response);
@@ -24,7 +23,7 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.get("/all", (req, res, next) => {
+router.get("/all", isLoggedInAdmin, (req, res, next) => {
   Testimonial.find({})
     .then((response) => {
       if (response) {
@@ -73,7 +72,7 @@ router.post("/", (req, res, next) => {
   }
 });
 
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", isLoggedInAdmin, (req, res, next) => {
   const id = req.params.id;
 
   const info = {

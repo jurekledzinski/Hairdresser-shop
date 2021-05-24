@@ -140,6 +140,8 @@ if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
     let pathUrl = req.path.replace(/^\//, "").replace(/\/$/, "");
 
+    console.log(req.path);
+
     console.log(pathUrl, " path url w app ");
 
     if (pathUrl && pathUrl.endsWith(".js")) {

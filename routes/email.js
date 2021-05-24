@@ -16,7 +16,7 @@ const {
   passwordUserEmail,
 } = require("../configs/config");
 
-router.get("/", (req, res, next) => {
+router.get("/", isLoggedInAdmin, (req, res, next) => {
   Email.find({})
     .then((response) => {
       return res.status(200).json(response);
@@ -178,7 +178,7 @@ router.post("/", (req, res, next) => {
   }
 });
 
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", isLoggedInAdmin, (req, res, next) => {
   const id = req.params.id;
 
   const info = {

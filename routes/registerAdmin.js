@@ -7,7 +7,7 @@ const isLoggedInAdmin = require("../middlewares/protectRoutes");
 
 const { ErrorHandler } = require("../errors/error");
 
-router.get("/", (req, res, next) => {
+router.get("/", isLoggedInAdmin, (req, res, next) => {
   RegisterAdmin.find({})
     .select("-password")
     .then((response) => {
@@ -129,7 +129,7 @@ router.post("/", (req, res, next) => {
   }
 });
 
-router.put("/:id", (req, res, next) => {
+router.put("/:id", isLoggedInAdmin, (req, res, next) => {
   const id = req.params.id;
   const {
     enableBook,
@@ -173,7 +173,7 @@ router.put("/:id", (req, res, next) => {
     });
 });
 
-router.put("/profile/:id", (req, res, next) => {
+router.put("/profile/:id", isLoggedInAdmin, (req, res, next) => {
   const id = req.params.id;
   const { name, lastName, email, password, confirmPassword, imageUrl } =
     req.body;
@@ -256,7 +256,7 @@ router.put("/profile/:id", (req, res, next) => {
   }
 });
 
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", isLoggedInAdmin, (req, res, next) => {
   const id = req.params.id;
 
   const info = {
