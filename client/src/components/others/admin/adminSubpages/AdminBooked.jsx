@@ -28,9 +28,6 @@ const AdminBooked = () => {
   const [idCancelOrder, setIdCancelOrder] = useState(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  console.log(dataBookedOrdersToUse, " dataBookedOrdersToUse");
-  console.log(dataAlert, " dataAlert");
-
   const { columns, data } = useColumnsTableBookedOrders(
     setIdBookedOrder,
     setIdCancelOrder,

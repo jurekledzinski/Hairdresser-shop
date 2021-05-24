@@ -44,8 +44,6 @@ const AdminCanceled = () => {
 
   useDeleteErrorMessage();
 
-  console.log(dataCanceledOrdersToUse, " dataCanceledOrdersToUse");
-
   const tableInstance = useTable(
     {
       columns,
