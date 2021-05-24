@@ -59,9 +59,6 @@ const AdminGallery = () => {
 
   const history = useHistory();
 
-  console.log(imamgeNewEditLink, " gallery imamgeNewEditLink");
-  console.log(imgLink, " do dodawania link");
-
   useFirebseDeleteFile(imgLink);
 
   const { handleRemoveItem } = useRemoveGalleryImage(
@@ -127,7 +124,6 @@ const AdminGallery = () => {
   }, []);
 
   useEffect(() => {
-    console.log("history effect");
     const fireBaseUrlStorage = "firebasestorage";
     history.listen(() => {
       if (
@@ -135,7 +131,6 @@ const AdminGallery = () => {
         imamgeNewEditLink.current &&
         imamgeNewEditLink.current.indexOf(fireBaseUrlStorage) !== -1
       ) {
-        console.log("USUWWAMY LINK GDY ZMIENIONY ROUTE BEZ SUBMIT");
         const image = projectStorage.refFromURL(imamgeNewEditLink.current);
         imamgeNewEditLink.current = null;
 

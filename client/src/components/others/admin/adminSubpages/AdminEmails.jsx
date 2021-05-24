@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   useGlobalFilter,
   useTable,
@@ -23,7 +23,6 @@ import ErrorSuccessMessage from "../../errorSuccessMessages/ErrorSuccessMessages
 import useRemoveEmail from "../adminCustomHooks/useRemoveEmail";
 
 const AdminEmails = () => {
-  const dispatch = useDispatch();
   const adminDateUse = useSelector((store) => store.useAdminData);
   const dataAlert = useSelector((store) => store.alertData);
   const emailsData = useSelector((store) => store.emailDataToUse);

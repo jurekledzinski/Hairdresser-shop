@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   useGlobalFilter,
   useTable,
@@ -24,7 +24,6 @@ import ErrorSuccessMessage from "../../errorSuccessMessages/ErrorSuccessMessages
 import useRemoveOpinion from "../adminCustomHooks/useRemoveOpinion";
 
 const AdminOpinions = () => {
-  const dispatch = useDispatch();
   const adminDateUse = useSelector((store) => store.useAdminData);
   const dataAlert = useSelector((store) => store.alertData);
   const opinionsData = useSelector((store) => store.opinionsDataToUse);
