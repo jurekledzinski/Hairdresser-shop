@@ -4,7 +4,6 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const nodemailer = require("nodemailer");
 const session = require("express-session");
 const passport = require("passport");
 const MongoStore = require("connect-mongo")(session);
@@ -27,13 +26,13 @@ mongoose.connect(atlasUrl, {
 });
 
 const db = mongoose.connection;
+let error;
+let open;
 
-mongoose.connection.on("error", (err) => {
-  console.log(err, "to jest error mongo");
+db.on("error", (err) => {
+  error = err;
 });
-mongoose.connection.once("open", () => {
-  console.log("Baza danych podłaczona poprawnie");
-});
+db.once("open", () => open);
 
 const serviceRouter = require("./routes/service");
 const teamRouter = require("./routes/team");
@@ -93,7 +92,7 @@ app.use(passport.session());
 app.use(function (req, res, next) {
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self' firebasestorage.googleapis.com *.firebasestorage.googleapis.com mongodb.com *.mongodb.com paypal.com *.paypal.com; img-src * 'self' data: https:;font-src *; object-src 'self';script-src 'self' 'sha256-7nnKyr+RUZ9a44Hg3lYwjgkUx5VyFQwv2ZUhVw6N7J4=' paypal.com *.paypal.com;style-src 'self' 'unsafe-inline' fontawesome.com *.fontawesome.com fonts.google.com *.fonts.google.com fonts.googleapis.com *.fonts.googleapis.com;"
+    "default-src 'self' firebasestorage.googleapis.com *.firebasestorage.googleapis.com mongodb.com *.mongodb.com stripe.com *.stripe.com; img-src * 'self' data: https:;font-src *; object-src 'self';script-src 'self' 'sha256-7nnKyr+RUZ9a44Hg3lYwjgkUx5VyFQwv2ZUhVw6N7J4=' paypal.com *.paypal.com;style-src 'self' 'unsafe-inline' fontawesome.com *.fontawesome.com fonts.google.com *.fonts.google.com fonts.googleapis.com *.fonts.googleapis.com;"
   );
   next();
 });
@@ -134,7 +133,6 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.use((error, req, res, next) => {
-  console.log(error, "error middleware w app");
   res.status(error.status || 500);
 
   res.json({
