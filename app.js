@@ -155,6 +155,10 @@ if (process.env.NODE_ENV === "production") {
       );
     } else {
       console.log("pliki inne niz js");
+      console.log(
+        "sciezka inne niz js",
+        path.resolve(__dirname, "client", "build", "index.html")
+      );
       res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
     }
   });
