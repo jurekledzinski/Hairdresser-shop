@@ -118,6 +118,7 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.use("/", counterVisits);
 app.use("/service", serviceRouter);
 app.use("/team", teamRouter);
 app.use("/gallery", galleryRouter);
@@ -131,7 +132,6 @@ app.use("/booking", bookingRouter);
 app.use("/create-checkout-session", checkoutRouter);
 app.use("/email-confirmation", emailConfirmation);
 app.use("/email-booking-cancel", emailBookingCancel);
-app.use("/", counterVisits);
 
 if (process.env.NODE_ENV === "production") {
   console.log(" pliki statyczne", process.env.NODE_ENV);
