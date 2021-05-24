@@ -6,7 +6,7 @@ import {
   removeImageFile,
 } from "../../../../reduxStore/actions/actionFile";
 
-const FILE_SIZE = 120 * 100;
+const FILE_SIZE = 150 * 150;
 const FILE_FORMATS = ["image/png", "image/jpeg"];
 
 const useHandleFile = () => {
