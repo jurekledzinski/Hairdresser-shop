@@ -1,6 +1,5 @@
 import {
   ADD_EXCLUDED_TIMES,
-  CLEAR_EXCLUDED_TIMES,
   REMOVE_EXCLUDED_TIMES,
 } from "../actions/actionExcludedTimes";
 
