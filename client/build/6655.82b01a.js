@@ -1,0 +1,1 @@
+(self.webpackChunkbarbershop=self.webpackChunkbarbershop||[]).push([[6655],{16655:function(e,r,n){"use strict";var t=n(67294),a=n(73935);n(12087);r.Z=function(e){var r=e.children,n=e.isOpen,c=(0,t.useRef)(),u=n?t.createElement("div",{className:"modal",ref:c},r):null;return a.createPortal(u,document.querySelector("#root"))}},12087:function(){}}]);
