@@ -26,13 +26,13 @@ mongoose.connect(atlasUrl, {
 });
 
 const db = mongoose.connection;
+let error;
+let open;
 
 db.on("error", (err) => {
-  console.log("error bazy danych", err);
+  error = err;
 });
-db.once("open", () => {
-  console.log("Baza danych podlaczona poprawnie");
-});
+db.once("open", () => open);
 
 const serviceRouter = require("./routes/service");
 const teamRouter = require("./routes/team");
@@ -78,7 +78,6 @@ app.use(
       collection: "session",
     }),
     cookie: {
-      httpOnly: true,
       maxAge: 3 * 24 * 60 * 60 * 1000,
       secure: false,
       sameSite: nodeEnv === "production" ? "lax" : "lax",
@@ -142,8 +141,6 @@ app.use((error, req, res, next) => {
   });
 });
 
-app.listen(() => {
-  console.log("Server nasluchuje na porcie " + port);
-});
+app.listen(port);
 
 module.exports = app;
