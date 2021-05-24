@@ -35,6 +35,9 @@
   margin: 0 auto;
   padding: 50px 20px;
   background-color: #303030;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: min-height 999999s;
 
   @include media-queries(small) {
     padding: 50px;

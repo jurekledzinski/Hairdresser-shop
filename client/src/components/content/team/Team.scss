@@ -15,6 +15,9 @@
   background-position: center;
   background-size: cover;
   z-index: 1;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: min-height 999999s;
 
   @include media-queries(small) {
     padding: 50px;

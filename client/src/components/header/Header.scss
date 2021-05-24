@@ -6,6 +6,9 @@
   width: 100%;
   margin: 0 auto;
   height: 100vh;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: height 999999s;
 
   @include media-queries(xlarge) {
     max-width: 1200px;
