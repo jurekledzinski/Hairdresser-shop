@@ -1,29 +1,28 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useHistory, withRouter } from "react-router-dom";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { addServerErrorMessage } from "../../../reduxStore/actions/actionAlertsMessages";
 import { addErrorServerWhenFetchData } from "../../../reduxStore/actions/actionServerError";
+import { addMainPageOpinions } from "../../../reduxStore/actions/actionMainPageOpinions";
 
 import "./TestimonialSlider.scss";
 
 import { fetchOpinions } from "../../../utils/sessions";
 
-const TestimonialSlider = () => {
+const TestimonialSlider = ({ isSubmit }) => {
   const dispatch = useDispatch();
-  const [checkSizeWindow, setCheckSizeWindow] = useState(window.innerWidth);
+  const dataMainPageOpinions = useSelector(
+    (store) => store.mainPageOpinionsData
+  );
   const [countCard, setCountCard] = useState(1);
-  const [heightSizeSlider] = useState(0);
   const [initialX, setInitialX] = useState(null);
   const [initialY, setInitialY] = useState(null);
   const [scrollDiff, setScrollDiff] = useState(0);
-  const [slides, setSlides] = useState([]);
   const [changeArraySlides, setChangeArraySlides] = useState([]);
   const [numSlide, setNumSlide] = useState(0);
 
   const idInterval = useRef(null);
-  const sizeWindow = useRef(768);
   const slidesContainer = useRef(null);
 
   const history = useHistory();
@@ -46,7 +45,7 @@ const TestimonialSlider = () => {
     }
 
     if (numSlide <= 0) {
-      setNumSlide(slides.length - 1);
+      setNumSlide(dataMainPageOpinions.length - 1);
     } else {
       setNumSlide((prevValue) => prevValue - 1);
     }
@@ -60,7 +59,7 @@ const TestimonialSlider = () => {
       clearInterval(idInterval.current);
     }
 
-    if (numSlide >= slides.length - 1) {
+    if (numSlide >= dataMainPageOpinions.length - 1) {
       setNumSlide(0);
     } else {
       setNumSlide((prevValue) => prevValue + 1);
@@ -72,11 +71,12 @@ const TestimonialSlider = () => {
   };
 
   useEffect(() => {
-    if (slides.length > 0) {
+    if (dataMainPageOpinions.length > 0) {
       let firstElement = slidesContainer.current.children[0].cloneNode(true);
-      let lastElement = slidesContainer.current.children[
-        slidesContainer.current.children.length - 1
-      ].cloneNode(true);
+      let lastElement =
+        slidesContainer.current.children[
+          slidesContainer.current.children.length - 1
+        ].cloneNode(true);
 
       slidesContainer.current.insertBefore(
         lastElement,
@@ -91,7 +91,17 @@ const TestimonialSlider = () => {
       slidesContainer.current.style.transitionDuration = "0s";
       slidesContainer.current.style.transform = `translateX(-${100}%)`;
     }
-  }, [slides]);
+  }, [dataMainPageOpinions]);
+
+  useEffect(() => {
+    if (Boolean(slidesContainer.current) && dataMainPageOpinions.length > 0) {
+      slidesContainer.current.style.transitionDuration = "0s";
+      slidesContainer.current.children[0].remove();
+      slidesContainer.current.children[
+        slidesContainer.current.children.length - 1
+      ].remove();
+    }
+  }, [isSubmit]);
 
   useEffect(() => {
     slidesContainer.current.style.transitionDuration = "0.5s";
@@ -112,21 +122,21 @@ const TestimonialSlider = () => {
       setTimeout(() => {
         slidesContainer.current.style.transitionDuration = "0.0s";
         slidesContainer.current.style.transform = `translateX(-${
-          100 * slides.length
+          100 * dataMainPageOpinions.length
         }%)`;
         setTimeout(() => {
-          setCountCard(slides.length);
+          setCountCard(dataMainPageOpinions.length);
         }, 15);
         return;
       }, 502);
     }
-  }, [countCard, slides.length]);
+  }, [countCard, dataMainPageOpinions.length]);
 
   const playIntervalSlider = () => {
-    if (slides.length > 1) {
+    if (dataMainPageOpinions.length > 1) {
       idInterval.current = setInterval(() => {
         setCountCard((prevValue) => prevValue + 1);
-        if (numSlide >= slides.length - 1) {
+        if (numSlide >= dataMainPageOpinions.length - 1) {
           setNumSlide(0);
         } else {
           setNumSlide((prevValue) => prevValue + 1);
@@ -145,7 +155,7 @@ const TestimonialSlider = () => {
     return () => {
       return clearInterval(idInterval.current);
     };
-  }, [countCard, location, numSlide, slides]);
+  }, [countCard, location, numSlide, dataMainPageOpinions]);
 
   const startTouchDisplay = (e) => {
     e.preventDefault();
@@ -207,6 +217,26 @@ const TestimonialSlider = () => {
   ]);
 
   useEffect(() => {
+    slidesContainer.current.addEventListener("swipeUp", () => {
+      if (window.innerWidth < 767) {
+        window.scrollTo({
+          top: window.scrollY + 200,
+          behavior: "smooth",
+        });
+      }
+    });
+
+    slidesContainer.current.addEventListener("swipeDown", () => {
+      if (window.innerWidth < 767) {
+        window.scrollTo({
+          top: window.scrollY - 200,
+          behavior: "smooth",
+        });
+      }
+    });
+  }, [scrollDiff]);
+
+  useEffect(() => {
     slidesContainer.current.addEventListener("swipeLeft", handleLeftMove);
     slidesContainer.current.addEventListener("swipeRight", handleRightMove);
 
@@ -218,7 +248,7 @@ const TestimonialSlider = () => {
     };
   }, [handleLeftMove, handleRightMove]);
 
-  const dotsSlider = slides.map((item, index) => (
+  const dotsSlider = dataMainPageOpinions.map((item, index) => (
     <li
       key={index}
       className={
@@ -230,7 +260,7 @@ const TestimonialSlider = () => {
     ></li>
   ));
 
-  const customersNames = slides.map((item, index) =>
+  const customersNames = dataMainPageOpinions.map((item, index) =>
     numSlide === index ? (
       <p
         className={
@@ -245,7 +275,7 @@ const TestimonialSlider = () => {
     ) : null
   );
 
-  const customersImages = slides.map((item, index) => {
+  const customersImages = dataMainPageOpinions.map((item, index) => {
     return numSlide === index ? (
       <span className="testimonial__image-wrapper" key={index}>
         <img
@@ -263,7 +293,7 @@ const TestimonialSlider = () => {
 
   const ratesValue = [1, 2, 3, 4, 5];
 
-  const rateStars = slides.map((item1, index) => {
+  const rateStars = dataMainPageOpinions.map((item1, index) => {
     return numSlide === index
       ? ratesValue.map((item2) => (
           <i
@@ -282,13 +312,13 @@ const TestimonialSlider = () => {
   useEffect(() => {
     let copyDeepSlides = [];
 
-    slides.forEach((item) => {
+    dataMainPageOpinions.forEach((item) => {
       const singleSlide = { ...item };
       copyDeepSlides = [...copyDeepSlides, singleSlide];
     });
 
     const firstSlide = copyDeepSlides.slice(0, 1);
-    const lastSlide = copyDeepSlides.slice(slides.length - 1);
+    const lastSlide = copyDeepSlides.slice(dataMainPageOpinions.length - 1);
 
     copyDeepSlides = [...lastSlide, ...copyDeepSlides];
     copyDeepSlides = [...copyDeepSlides, ...firstSlide];
@@ -300,7 +330,7 @@ const TestimonialSlider = () => {
     const { data, status } = await fetchOpinions();
 
     if (status === 200) {
-      setSlides(data);
+      dispatch(addMainPageOpinions(data));
     } else {
       const { alert, where, statusCode } = data;
       dispatch(addErrorServerWhenFetchData(alert, where, statusCode));
@@ -315,7 +345,7 @@ const TestimonialSlider = () => {
     <div className="testimonial__slider">
       <div className="testimonial__slider-wrapper">
         <div className="testimonial__content" ref={slidesContainer}>
-          {slides.map((item, index) => (
+          {dataMainPageOpinions.map((item, index) => (
             <div className="testimonial__text" key={index}>
               <div className="testimonial__text-left">
                 <blockquote

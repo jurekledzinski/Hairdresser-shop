@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { addSingleSection } from "../../../reduxStore/actions/actionScroll";
@@ -9,6 +9,7 @@ import TestimonialSlider from "./TestimonialSlider";
 import TestimonialForm from "./TestimonialForm";
 
 const Testimonial = () => {
+  const [isSubmit, setIsSubmit] = useState(false);
   const testimonialRef = useRef(null);
   const dispatch = useDispatch();
 
@@ -26,9 +27,9 @@ const Testimonial = () => {
           One should, nevertheless, consider that there is a direct relation
           between the entity integrity and the capacity of the primary element.
         </p>
-        <TestimonialSlider />
+        <TestimonialSlider isSubmit={isSubmit} />
         <h3 className="testimonial__title-opinion">Send opinion</h3>
-        <TestimonialForm />
+        <TestimonialForm setIsSubmit={setIsSubmit} />
       </div>
     </section>
   );

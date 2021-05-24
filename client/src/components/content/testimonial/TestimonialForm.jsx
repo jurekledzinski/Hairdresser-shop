@@ -6,6 +6,7 @@ import {
   addServerErrorMessage,
   addServerSuccessMessage,
 } from "../../../reduxStore/actions/actionAlertsMessages";
+import { addSingleMainPageOpinion } from "../../../reduxStore/actions/actionMainPageOpinions";
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
@@ -22,7 +23,7 @@ import TestimonialStarRating from "./TestimonialStarRating";
 
 import { addOpinion } from "../../../utils/sessions";
 
-const TestimonialForm = () => {
+const TestimonialForm = ({ setIsSubmit }) => {
   const { initialValues, validationSchema, validateRating } =
     useValidationFormik();
   useRemoveErrorMessage();
@@ -31,6 +32,9 @@ const TestimonialForm = () => {
   const dispatch = useDispatch();
   const dataAlert = useSelector((store) => store.alertData);
   const dataFile = useSelector((store) => store.fileDate);
+  const dataMainPageOpinions = useSelector(
+    (store) => store.mainPageOpinionsData
+  );
   const [nameFile, setNameFile] = useState(null);
 
   const rates = [1, 2, 3, 4, 5];
@@ -52,6 +56,10 @@ const TestimonialForm = () => {
       dispatch(addServerErrorMessage(data.alert, "default"));
       setNameFile(null);
     } else {
+      if (dataMainPageOpinions.length < 4) {
+        setIsSubmit((prevValue) => !prevValue);
+        dispatch(addSingleMainPageOpinion(values));
+      }
       dispatch(addServerSuccessMessage(data.success, "default"));
       setNameFile(null);
     }
