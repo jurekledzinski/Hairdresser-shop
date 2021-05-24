@@ -58,7 +58,7 @@ app.disable("x-powered-by");
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:3000",
+    origin: "https://salty-peak-16166.herokuapp.com",
   })
 );
 app.use(express.json());
@@ -80,8 +80,8 @@ app.use(
     cookie: {
       httpOnly: true,
       maxAge: 3 * 24 * 60 * 60 * 1000,
-      secure: false,
-      sameSite: nodeEnv === "production" ? "lax" : "lax",
+      secure: true,
+      sameSite: nodeEnv === "production" ? "none" : "lax",
     },
   })
 );
