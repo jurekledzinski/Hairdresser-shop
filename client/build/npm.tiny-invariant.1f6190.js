@@ -1,1 +1,0 @@
-(self.webpackChunkbarbershop=self.webpackChunkbarbershop||[]).push([[9996],{2177:function(r,e){"use strict";var n="Invariant failed";e.Z=function(r,e){if(!r)throw new Error(n)}}}]);
