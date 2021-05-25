@@ -137,7 +137,7 @@ if (process.env.NODE_ENV === "production") {
   console.log(" pliki statyczne", process.env.NODE_ENV);
   app.use(express.static("client/build"));
 
-  console.log(app.use(express.static("client/build")), "SCIEZKA");
+  console.log(express.static("client/build"), "SCIEZKA");
 
   app.get("*", (req, res) => {
     console.log(req.path, " req path w serwowaniu plikow statycznych");
