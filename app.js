@@ -135,7 +135,7 @@ app.use("/email-booking-cancel", emailBookingCancel);
 
 if (process.env.NODE_ENV === "production") {
   console.log(" pliki statyczne", process.env.NODE_ENV);
-  app.use(express.static("client/build"));
+  app.use(express.static(path.resolve(__dirname, "client", "build")));
 
   console.log(express.static("client/build"), "SCIEZKA");
 
