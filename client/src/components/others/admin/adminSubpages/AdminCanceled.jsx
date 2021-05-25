@@ -38,7 +38,6 @@ const AdminCanceled = () => {
 
   const { handleRemoveItem } = useRemoveCanceledOrder(
     idOrderCanceled,
-    idCancelOrder,
     setIsOpenModal
   );
 
