@@ -118,7 +118,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use("/", counterVisits);
+app.use("/visits", counterVisits);
 app.use("/service", serviceRouter);
 app.use("/team", teamRouter);
 app.use("/gallery", galleryRouter);
