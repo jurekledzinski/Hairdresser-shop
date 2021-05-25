@@ -23,8 +23,8 @@ router.post("/", async (req, res) => {
   });
 
   const session = await stripe.checkout.sessions.create({
-    success_url: `${domainURL}/booking/success/${bookingId}`,
-    cancel_url: `${domainURL}/booking/cancel/${bookingId}`,
+    success_url: `https://${domainURL}/booking/success/${bookingId}`,
+    cancel_url: `https://${domainURL}/booking/cancel/${bookingId}`,
     payment_method_types: ["card"],
     line_items: updateForStripeArray,
     mode: "payment",
