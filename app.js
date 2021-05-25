@@ -149,7 +149,7 @@ if (process.env.NODE_ENV === "production") {
       const options = { headers: { "content-type": "application/javascript" } };
       let index = pathUrl.lastIndexOf("/");
       console.log(index, " to jest index");
-      let nameOfFile = pathUrl.slice(index);
+      let nameOfFile = pathUrl.slice(index + 1);
       console.log(nameOfFile, " to jest nazwa pliku");
       res.sendFile(
         path.join(__dirname, "client", "build", nameOfFile),
