@@ -99,6 +99,7 @@ const AdminDashboard = () => {
   const { allCanceledOrders } = dataCanceledOrders;
   const dataUser = useSelector((store) => store.userData);
   const { users } = dataUser;
+  const adminDateUse = useSelector((store) => store.useAdminData);
   const bookingsMadeAtShop = useSelector(
     (store) => store.amountBookingsDataShop
   );
@@ -329,7 +330,7 @@ const AdminDashboard = () => {
             handleLogout={handleLogout}
             isOpenMenu={isOpenMenu}
             loadImg={loadImg}
-            users={users}
+            users={adminDateUse}
           />
           <AdminContent isLogOutMsg={isLogOutMsg} />
         </div>
