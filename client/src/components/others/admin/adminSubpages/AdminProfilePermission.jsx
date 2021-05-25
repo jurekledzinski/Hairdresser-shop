@@ -18,6 +18,7 @@ import ErrorSuccessMessage from "../../errorSuccessMessages/ErrorSuccessMessages
 const AdminProfilePermission = () => {
   const dispatch = useDispatch();
   const adminDateUse = useSelector((store) => store.useAdminData);
+  const dataAlert = useSelector((store) => store.alertData);
   const dataPermission = useSelector((store) => store.permissionData);
   const { permission } = dataPermission;
   const [checked, setChecked] = useState(false);
@@ -60,7 +61,9 @@ const AdminProfilePermission = () => {
 
   return (
     <div className="admin-profile__enable-register">
-      <ErrorSuccessMessage />
+      {dataAlert.errorServerMsg
+        ? dataAlert.where === "enableRegister" && <ErrorSuccessMessage />
+        : dataAlert.where === "enableRegister" && <ErrorSuccessMessage />}
       <form
         className="admin-profile__permission-register"
         onSubmit={handleEnablePermissionRegister}
