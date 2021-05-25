@@ -3,7 +3,7 @@
 @mixin button-login-sing-up {
   display: block;
   width: 100%;
-  padding: 7px 0;
+  padding: 10px 0;
   background-color: #f8c822;
   border: none;
   color: #333333;
@@ -27,6 +27,7 @@
 
   @include media-queries(medium) {
     width: 100px;
+    padding: 7px 0;
   }
 
   @include media-queries(large) {

@@ -2,7 +2,7 @@
 
 @mixin btn-checkout {
   width: 100%;
-  padding: 5px 0;
+  padding: 10px 0;
   border: none;
   background-color: #f8c822;
   color: #333333;
@@ -25,6 +25,7 @@
 
   @include media-queries(medium) {
     width: 100px;
+    padding: 7px 0;
   }
 
   @include media-queries(large) {
