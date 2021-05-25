@@ -79,7 +79,7 @@ app.disable("x-powered-by");
 app.use(
   cors({
     credentials: true,
-    origin: "https://salty-peak-16166.herokuapp.com",
+    origin: "https://floating-plateau-93167.herokuapp.com",
   })
 );
 app.use(express.json());
