@@ -135,40 +135,12 @@ app.use("/email-booking-cancel", emailBookingCancel);
 
 if (process.env.NODE_ENV === "production") {
   console.log(" pliki statyczne", process.env.NODE_ENV);
-  app.use(express.static("client/build"));
+  app.use(express.static(path.join(__dirname, "client", "build")));
+
+  console.log(path.join(__dirname, "client", "build"), "SCIEZKA DO PLIKU");
 
   app.get("*", (req, res) => {
-    let pathUrl = req.path.replace(/^\//, "").replace(/\/$/, "");
-
-    console.log(req.path);
-
-    console.log(pathUrl, " path url w app ");
-
-    if (pathUrl && pathUrl.endsWith(".js")) {
-      console.log("pliki js");
-      const options = { headers: { "content-type": "application/javascript" } };
-      let index = pathUrl.lastIndexOf("/");
-      console.log(index, " to jest index pliku js");
-      let nameOfFile = pathUrl.slice(index + 1);
-      console.log(nameOfFile, " to jest nazwa pliku javascript");
-      res.sendFile(
-        path.join(__dirname, "client", "build", nameOfFile),
-        options
-      );
-    } else if (pathUrl && pathUrl.endsWith(".css")) {
-      console.log("pliki js");
-      const options = { headers: { "content-type": "text/css" } };
-      let index = pathUrl.lastIndexOf("/");
-      console.log(index, " to jest index css pliku");
-      let nameOfFile = pathUrl.slice(index + 1);
-      console.log(nameOfFile, " to jest nazwa pliku cssowego");
-      res.sendFile(
-        path.join(__dirname, "client", "build", nameOfFile),
-        options
-      );
-    } else {
-      res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-    }
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
 
