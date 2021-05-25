@@ -10,6 +10,7 @@ import {
 } from "../../../../reduxStore/actions/actionAlertsMessages";
 
 import { fetchUsers } from "../../../../reduxStore/actions/actionFetchAdmin";
+import { updateSingleAdminData } from "../../../../reduxStore/actions/actionAdminData";
 
 import useValidationFormikUpdateProfile from "../adminCustomHooks/useValidationFormikUpdateProfile";
 import useDeleteErrorMessage from "../../../../customHooks/useDeleteErrorMessage";
@@ -38,7 +39,6 @@ const AdminProfile = () => {
   const dataAlert = useSelector((store) => store.alertData);
   const dataFile = useSelector((store) => store.fileDate);
 
-  const [currentAdminData, setCurrentAdminData] = useState([]);
   const [formValues, setFormValues] = useState(null);
   const [previousImageUrl, setPreviousImageUrl] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -67,23 +67,8 @@ const AdminProfile = () => {
       setNameFile(null);
     } else {
       dispatch(addServerSuccessMessage(data.success, "adminProfileEdit"));
+      dispatch(updateSingleAdminData(updateAdmin));
       setNameFile(null);
-
-      const editedAdmin = currentAdminData.map((item) => {
-        if (item._id === updateAdmin._id) {
-          return {
-            ...item,
-            name: updateAdmin.name,
-            lastName: updateAdmin.lastName,
-            email: updateAdmin.email,
-            imageUrl: updateAdmin.imageUrl,
-            password: updateAdmin.password,
-          };
-        }
-        return item;
-      });
-
-      setCurrentAdminData(editedAdmin);
 
       let editValues = {
         name: updateAdmin.name,
@@ -93,6 +78,7 @@ const AdminProfile = () => {
         password: "",
         confirmPassword: "",
       };
+
       setFormValues(editValues);
     }
     deleteImgFirebase(previousImageUrl);
