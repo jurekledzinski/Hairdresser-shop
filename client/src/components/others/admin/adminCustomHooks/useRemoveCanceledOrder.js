@@ -17,11 +17,11 @@ const useRemoveCanceledOrder = (idOrderCanceled, setIsOpenModal) => {
     const { data, status } = await deleteCanceledOrder(idOrderCanceled);
 
     if (status === 200) {
-      dispatch(addServerSuccessMessage(data.success, "default"));
+      dispatch(addServerSuccessMessage(data.success, "removeAtTableAdmin"));
       dispatch(removeCanceledOrder(idOrderCanceled));
       setIsOpenModal(false);
     } else {
-      dispatch(addServerErrorMessage(data.alert, "default"));
+      dispatch(addServerErrorMessage(data.alert, "removeAtTableAdmin"));
     }
   };
 
