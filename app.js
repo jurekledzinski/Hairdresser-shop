@@ -147,7 +147,7 @@ if (process.env.NODE_ENV === "production") {
     if (pathUrl && pathUrl.endsWith(".js")) {
       console.log("pliki js");
       const options = { headers: { "content-type": "application/javascript" } };
-      let index = pathUrl.indexOf("/");
+      let index = pathUrl.lastIndexOf("/");
       console.log(index, " to jest index");
       let nameOfFile = pathUrl.slice(index);
       console.log(nameOfFile, " to jest nazwa pliku");
