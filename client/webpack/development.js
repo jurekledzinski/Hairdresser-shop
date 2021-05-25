@@ -45,7 +45,7 @@ module.exports = {
       {
         test: /\.(s(a|c)ss|css)$/,
         exclude: /\.module.(s(a|c)ss)$/,
-        loader: [
+        use: [
           "style-loader",
           "css-loader",
           {
