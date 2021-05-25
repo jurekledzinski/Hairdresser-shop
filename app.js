@@ -101,8 +101,8 @@ app.use(
     cookie: {
       httpOnly: true,
       maxAge: 3 * 24 * 60 * 60 * 1000,
-      secure: false,
-      sameSite: nodeEnv === "production" ? "lax" : "lax",
+      secure: true,
+      sameSite: nodeEnv === "production" ? "none" : "lax",
     },
   })
 );
