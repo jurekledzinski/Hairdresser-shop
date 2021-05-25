@@ -6,6 +6,7 @@ const stripe = require("stripe")(stripeSecretKey);
 
 router.post("/", async (req, res) => {
   const domainURL = req.headers.host;
+  console.log(domainURL, " DOMAIN URL");
 
   const { bookingId, services } = req.body;
   let updateForStripeArray = services.map((item) => {
@@ -22,8 +23,8 @@ router.post("/", async (req, res) => {
   });
 
   const session = await stripe.checkout.sessions.create({
-    success_url: `${domainURL}booking/success/${bookingId}`,
-    cancel_url: `${domainURL}booking/cancel/${bookingId}`,
+    success_url: `${domainURL}/booking/success/${bookingId}`,
+    cancel_url: `${domainURL}/booking/cancel/${bookingId}`,
     payment_method_types: ["card"],
     line_items: updateForStripeArray,
     mode: "payment",
