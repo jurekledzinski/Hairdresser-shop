@@ -134,13 +134,30 @@ app.use("/email-confirmation", emailConfirmation);
 app.use("/email-booking-cancel", emailBookingCancel);
 
 if (process.env.NODE_ENV === "production") {
-  console.log(" pliki statyczne", process.env.NODE_ENV);
-  app.use(express.static(path.join(__dirname, "client", "build")));
-
-  console.log(path.join(__dirname, "client", "build"), "SCIEZKA DO PLIKU");
+  app.use(express.static("client/build"));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    let pathUrl = req.path.replace(/^\//, "").replace(/\/$/, "");
+
+    if (pathUrl && pathUrl.endsWith(".js")) {
+      const options = { headers: { "content-type": "application/javascript" } };
+      let index = pathUrl.lastIndexOf("/");
+      let nameOfFile = pathUrl.slice(index + 1);
+      res.sendFile(
+        path.join(__dirname, "client", "build", nameOfFile),
+        options
+      );
+    } else if (pathUrl && pathUrl.endsWith(".css")) {
+      const options = { headers: { "content-type": "text/css" } };
+      let index = pathUrl.lastIndexOf("/");
+      let nameOfFile = pathUrl.slice(index + 1);
+      res.sendFile(
+        path.join(__dirname, "client", "build", nameOfFile),
+        options
+      );
+    } else {
+      res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    }
   });
 }
 
