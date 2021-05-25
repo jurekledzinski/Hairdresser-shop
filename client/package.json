@@ -5,7 +5,7 @@
   "main": "index.js",
   "proxy": "https://floating-plateau-93167.herokuapp.com",
   "scripts": {
-    "start": "webpack-dev-server --mode=development",
+    "start": "webpack serve --mode=development",
     "build": "webpack --mode=production"
   },
   "author": "Jerzy Ledzinski",
