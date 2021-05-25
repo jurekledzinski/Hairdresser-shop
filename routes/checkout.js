@@ -6,6 +6,7 @@ const stripe = require("stripe")(stripeSecretKey);
 
 router.post("/", async (req, res) => {
   const domainURL = req.headers.referer;
+  console.log(domainURL, " DOMAIN URL");
 
   const { bookingId, services } = req.body;
   let updateForStripeArray = services.map((item) => {
