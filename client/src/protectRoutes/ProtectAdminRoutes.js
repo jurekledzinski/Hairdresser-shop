@@ -31,6 +31,7 @@ const ProtectedRouteAdmin = ({ path, roles, component: Component }) => {
         if (
           roles &&
           Boolean(islogAdmin) &&
+          !Array.isArray(islogAdmin) &&
           roles.indexOf(islogAdmin.role) === -1
         ) {
           return <Redirect to="/" />;
