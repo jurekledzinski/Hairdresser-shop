@@ -153,7 +153,7 @@ const BookingFormDayTime = ({
     }
 
     setAllExcludeDays(arrayExcludedDates);
-  }, [dataAllExcludedTimes]);
+  }, [dataAllExcludedTimes, allExcludeDays]);
 
   useEffect(() => {
     let exlDays = [];
