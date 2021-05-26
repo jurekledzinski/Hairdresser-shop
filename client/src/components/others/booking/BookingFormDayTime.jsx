@@ -141,7 +141,7 @@ const BookingFormDayTime = ({
       return null;
     });
 
-    if (checkIsCurrentDayIsDisable.length === 0) {
+    if (checkIsCurrentDayIsDisable.length === 0 && new Date()) {
       whenAllExcTimesInCurrentDay = dayToday;
     }
 
@@ -153,7 +153,7 @@ const BookingFormDayTime = ({
     }
 
     setAllExcludeDays(arrayExcludedDates);
-  }, [dataAllExcludedTimes, allExcludeDays]);
+  }, [dataAllExcludedTimes]);
 
   useEffect(() => {
     let exlDays = [];
