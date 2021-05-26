@@ -147,7 +147,6 @@ const BookingFormDayTime = ({
 
     if (checkIsCurrentDayIsDisable.length === 0 && new Date()) {
       whenAllExcTimesInCurrentDay = dayToday;
-      alert(whenAllExcTimesInCurrentDay);
     }
 
     if (whenAllExcTimesInCurrentDay) {
@@ -156,6 +155,8 @@ const BookingFormDayTime = ({
         `${whenAllExcTimesInCurrentDay}`,
       ];
     }
+
+    alert(whenAllExcTimesInCurrentDay);
 
     setAllExcludeDays(arrayExcludedDates);
   }, [dataAllExcludedTimes]);
