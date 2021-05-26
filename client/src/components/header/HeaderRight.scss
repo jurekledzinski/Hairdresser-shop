@@ -192,8 +192,28 @@
       font-size: 1.6rem;
     }
 
+    &--admin {
+      color: #fdcc24b5;
+
+      &:hover {
+        color: #f8c822;
+      }
+    }
+
     &--active {
       color: #f8c822;
+    }
+
+    &--logout {
+      color: #ff564ce0;
+      border: none;
+      outline: none;
+      background-color: transparent;
+      cursor: pointer;
+
+      &:hover {
+        color: #ff4136;
+      }
     }
 
     @media (min-width: 100px) and (orientation: landscape) {
@@ -305,5 +325,14 @@
   }
   &__hamburger-line3 {
     width: 60%;
+  }
+
+  &__logout-message {
+    margin-bottom: 20px;
+    color: #2ecc40;
+
+    &--alert {
+      color: #ff4136;
+    }
   }
 }
