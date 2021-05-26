@@ -33,6 +33,12 @@ const GalleryImages = ({
     }
   }, [chooseButton, images]);
 
+  const handleOnloadImage = (e) => {
+    if (isMount.current) {
+      idTimeOut.current = setTimeout(() => setIsLoadImg(true), 500);
+    }
+  };
+
   useEffect(() => {
     isMount.current = true;
     return () => {
@@ -44,10 +50,6 @@ const GalleryImages = ({
   useEffect(() => {
     setIsLoadImg(false);
   }, [indexBtn]);
-
-  const handleOnloadImage = (e) => {
-    idTimeOut.current = setTimeout(() => setIsLoadImg(true), 500);
-  };
 
   return (
     <div className="gallery__images-wrapper">
