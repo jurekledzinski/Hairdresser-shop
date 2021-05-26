@@ -31,7 +31,11 @@ export const usersReducer = (state = initialState, action) => {
         error: action.payload,
       };
     case CLEAR_ADMIN_LOG_OUT:
-      return initialState;
+      return {
+        loading: false,
+        users: [],
+        error: "",
+      };
     default:
       return state;
   }
