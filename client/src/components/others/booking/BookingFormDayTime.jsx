@@ -141,7 +141,7 @@ const BookingFormDayTime = ({
       return null;
     });
 
-    if (checkIsCurrentDayIsDisable.length === 0 && new Date()) {
+    if (checkIsCurrentDayIsDisable.length === 0) {
       whenAllExcTimesInCurrentDay = dayToday;
     }
 
@@ -151,11 +151,6 @@ const BookingFormDayTime = ({
         `${whenAllExcTimesInCurrentDay}`,
       ];
     }
-
-    console.log(
-      whenAllExcTimesInCurrentDay,
-      " whenAllExcTimesInCurrentDay react"
-    );
 
     setAllExcludeDays(arrayExcludedDates);
   }, [dataAllExcludedTimes]);
