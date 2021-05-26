@@ -21,6 +21,7 @@
   &__input-wrapper-day {
     display: flex;
     flex-direction: column;
+    width: 100%;
     z-index: 10;
   }
 
@@ -46,6 +47,7 @@
   &__input-wrapper-time {
     display: flex;
     flex-direction: column;
+    width: 100%;
     z-index: 4;
   }
 }
@@ -160,6 +162,10 @@
   outline: none;
 }
 
+.react-datepicker__input-container {
+  width: 100% !important;
+}
+
 .react-datepicker__input-container > input[type="text"] {
   width: 100%;
   border: 1px solid #cccccc;
@@ -168,7 +174,7 @@
   text-indent: 5px;
 
   @include media-queries(xmedium) {
-    width: initial;
+    width: 100%;
   }
 }
 
@@ -176,7 +182,7 @@
   width: 100% !important;
 
   @include media-queries(xmedium) {
-    width: 170px;
+    width: 175px;
   }
 }
 
@@ -196,5 +202,9 @@
 
 .react-datepicker--time-only .react-datepicker__time-container {
   border-left: 0;
+  width: 100% !important;
+}
+
+.react-datepicker-wrapper {
   width: 100% !important;
 }
