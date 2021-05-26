@@ -79,7 +79,7 @@ app.disable("x-powered-by");
 app.use(
   cors({
     credentials: true,
-    origin: "https://shielded-retreat-98586.herokuapp.com",
+    origin: "https://ancient-shelf-84928.herokuapp.com",
   })
 );
 app.use(express.json());
