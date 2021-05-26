@@ -517,7 +517,7 @@ router.put("/:id", (req, res, next) => {
         .save()
         .then((response) => {
           info.success = "Updated successfully";
-          return res.status(200).end(info);
+          return res.status(200).json(info);
         })
         .catch((err) => {
           next(new ErrorHandler(500, "Internal server error", err.message));
