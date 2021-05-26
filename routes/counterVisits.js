@@ -6,7 +6,7 @@ const isLoggedInAdmin = require("../middlewares/protectRoutes");
 
 const { ErrorHandler } = require("../errors/error");
 
-router.get("/", (req, res, next) => {
+router.get("/", isLoggedInAdmin, (req, res, next) => {
   Visit.find({})
     .then((response) => {
       return res.status(200).json(response);

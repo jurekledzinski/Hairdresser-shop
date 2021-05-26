@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
     });
 });
 
-router.put("/", (req, res) => {
+router.put("/", isLoggedInAdmin, (req, res) => {
   const { enableRegisterForm } = req.body;
 
   let info = {

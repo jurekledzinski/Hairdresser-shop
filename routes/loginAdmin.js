@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
   return res.status(200).json(req.user);
 });
 
-router.post("/", (req, res, next) => {
+router.post("/", checkIsLoggedIn, (req, res, next) => {
   const { email, password } = req.body;
 
   let info = {
@@ -61,7 +61,7 @@ router.post("/", (req, res, next) => {
   }
 });
 
-router.get("/logout", (req, res, next) => {
+router.get("/logout", isLoggedInAdmin, (req, res, next) => {
   const info = {
     alert: "",
     success: "",
