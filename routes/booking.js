@@ -571,14 +571,9 @@ router.put("/cancel/code/:id", (req, res, next) => {
 
 router.delete("/:id", (req, res, next) => {
   const id = req.params.id;
-  let info = {
-    alert: "",
-    success: "",
-  };
   Booking.findOneAndDelete({ bookingId: id })
     .then((response) => {
-      info.success = "Removed successfully";
-      return res.status(200).end(info);
+      return res.status(200).end();
     })
     .catch((err) => {
       next(new ErrorHandler(500, "Internal server error", err.message));
@@ -586,14 +581,9 @@ router.delete("/:id", (req, res, next) => {
 });
 
 router.delete("/excluded/many", (req, res, next) => {
-  let info = {
-    alert: "",
-    success: "",
-  };
   ExcludedTime.deleteMany({ timeService: { $lt: new Date() } })
     .then((response) => {
-      info.success = "Removed successfully";
-      return res.status(200).end(info);
+      return res.status(200).end();
     })
     .catch((err) => {
       next(new ErrorHandler(500, "Internal server error", err.message));
@@ -638,15 +628,9 @@ router.delete("/canceled/:id", (req, res) => {
 router.delete("/excluded-code/:id", (req, res, next) => {
   const id = req.params.id;
 
-  let info = {
-    alert: "",
-    success: "",
-  };
-
   ExcludedTime.findOneAndDelete({ codeCancel: id })
     .then((response) => {
-      info.success = "Removed successfully";
-      return res.status(200).end(info);
+      return res.status(200).end();
     })
     .catch((err) => {
       next(new ErrorHandler(500, "Internal server error", err.message));
@@ -655,14 +639,9 @@ router.delete("/excluded-code/:id", (req, res, next) => {
 
 router.delete("/excluded/:id", (req, res, next) => {
   const id = req.params.id;
-  let info = {
-    alert: "",
-    success: "",
-  };
   ExcludedTime.findOneAndDelete({ bookingId: id })
     .then((response) => {
-      info.success = "Removed successfully";
-      return res.status(200).end(info);
+      return res.status(200).end();
     })
     .catch((err) => {
       next(new ErrorHandler(500, "Internal server error", err.message));
