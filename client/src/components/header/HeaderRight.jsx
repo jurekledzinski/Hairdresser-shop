@@ -1,8 +1,36 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchUsers } from "../../reduxStore/actions/actionFetchAdmin";
+import {
+  clearAdminLogOut,
+  fetchUsers,
+} from "../../reduxStore/actions/actionFetchAdmin";
+import { clearAdminData } from "../../reduxStore/actions/actionAdminData";
+import { clearFetchedOrdersBooked } from "../../reduxStore/actions/actionFetchBookedOrders";
+import { clearFetchCanceledOrders } from "../../reduxStore/actions/actionFetchCanceledOrders";
+import { clearBookedOrder } from "../../reduxStore/actions/actionBookedOrders";
+import { clearCanceledOrder } from "../../reduxStore/actions/actionCanceledOrders";
+import { clearFetchBookingAmountMonthShop } from "../../reduxStore/actions/actionFetchAmountBookingsPerMonthInShop";
+import { clearBookingMonthShop } from "../../reduxStore/actions/actionBookingsMadeAtShop";
+import { clearFetchBookingsMonthWebsite } from "../../reduxStore/actions/actionFetchAmountBookingsPerMonthInWebsite";
+import { clearBookingMonthWebsite } from "../../reduxStore/actions/actionBookingsMadeAtWebsite";
+import { clearFetchPaymentsMonthShop } from "../../reduxStore/actions/actionFetchPaymentsMonthShop";
+import { clearFetchPaymentsMonthWebsite } from "../../reduxStore/actions/actionFetchPaymentsMonthWebsite";
+import { clearPaymentsMonthShop } from "../../reduxStore/actions/actionPaymentsMonthShop";
+import { clearPaymentsMonthWebsite } from "../../reduxStore/actions/actionPaymentsMonthWebsite";
+import { clearFetchEmails } from "../../reduxStore/actions/actionFetchEmails";
+import { clearEmailData } from "../../reduxStore/actions/actionEmailsData";
+import { clearFetchOpinions } from "../../reduxStore/actions/actionFetchOpinions";
+import { clearOpinionData } from "../../reduxStore/actions/actionOpinionsData";
+import { clearFetchImagesGallery } from "../../reduxStore/actions/actionFetchGalleryImages";
+import { clearImageFile } from "../../reduxStore/actions/actionFile";
+import { clearFetchPermissionRegister } from "../../reduxStore/actions/actionFetchPermissionRegister";
+import { clearFetchRegisterAdmins } from "../../reduxStore/actions/actionFetchRegisteredAdmins";
+import { clearFetchServices } from "../../reduxStore/actions/actionFetchServices";
+import { clearFetchShopOpen } from "../../reduxStore/actions/actionFetchOpenShop";
+
+import { logoutAdmin } from "../../utils/sessions";
 
 import "./HeaderRight.scss";
 
@@ -24,6 +52,45 @@ const HeaderRight = ({
   const dataUser = useSelector((store) => store.userData);
   const { users } = dataUser;
   const [islogAdmin, setIsLogAdmin] = useState(null);
+  const [logOutMsg, setLogOutMsg] = useState(null);
+  const idTimeOut = useRef(null);
+
+  const handleLogoutMainPage = async () => {
+    const { data, status } = await logoutAdmin();
+    if (status === 200) {
+      setLogOutMsg(data.success);
+    } else {
+      setLogOutMsg(data.alert);
+    }
+    dispatch(clearAdminLogOut());
+    dispatch(clearAdminData());
+    dispatch(clearFetchedOrdersBooked());
+    dispatch(clearFetchCanceledOrders());
+    dispatch(clearBookedOrder());
+    dispatch(clearCanceledOrder());
+    dispatch(clearFetchBookingAmountMonthShop());
+    dispatch(clearBookingMonthShop());
+    dispatch(clearFetchBookingsMonthWebsite());
+    dispatch(clearBookingMonthWebsite());
+    dispatch(clearFetchPaymentsMonthShop());
+    dispatch(clearFetchPaymentsMonthWebsite());
+    dispatch(clearPaymentsMonthShop());
+    dispatch(clearPaymentsMonthWebsite());
+    dispatch(clearFetchEmails());
+    dispatch(clearEmailData());
+    dispatch(clearFetchOpinions());
+    dispatch(clearOpinionData());
+    dispatch(clearFetchImagesGallery());
+    dispatch(clearImageFile());
+    dispatch(clearFetchPermissionRegister());
+    dispatch(clearFetchRegisterAdmins());
+    dispatch(clearFetchServices());
+    dispatch(clearFetchShopOpen());
+    idTimeOut.current = setTimeout(() => {
+      setIsLogAdmin(null);
+      setLogOutMsg(null);
+    }, 1000);
+  };
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -34,6 +101,10 @@ const HeaderRight = ({
       setIsLogAdmin(users);
     }
   }, [users]);
+
+  useEffect(() => {
+    return () => clearTimeout(idTimeOut.current);
+  }, []);
 
   return (
     <Fragment>
@@ -73,18 +144,53 @@ const HeaderRight = ({
             isMobileMenuOpen ? "header__nav header__nav--active" : "header__nav"
           }
         >
+          {logOutMsg && (
+            <p
+              className={
+                logOutMsg === "You are log out"
+                  ? "header__logout-message"
+                  : "header__logout-message--alert"
+              }
+            >
+              {logOutMsg}
+            </p>
+          )}
           <p className="header__logo-mobile-show">Hair Planet</p>
           <ul className="header__menu">
             {Boolean(islogAdmin) && islogAdmin.role === "Super Admin" && (
               <li className="header__menu-item">
-                <Link className="header__menu-link" to="/admin">
+                <button
+                  className="header__menu-link header__menu-link--logout"
+                  onClick={handleLogoutMainPage}
+                >
+                  Log out
+                </button>
+              </li>
+            )}
+            {Boolean(islogAdmin) && islogAdmin.role === "Super Admin" && (
+              <li className="header__menu-item">
+                <Link
+                  className={
+                    Boolean(islogAdmin) &&
+                    islogAdmin.role === "Super Admin" &&
+                    "header__menu-link header__menu-link--admin"
+                  }
+                  to="/admin"
+                >
                   Admin
                 </Link>
               </li>
             )}
             {Boolean(islogAdmin) && islogAdmin.role === "Admin" && (
               <li className="header__menu-item">
-                <Link className="header__menu-link" to="/admin">
+                <Link
+                  className={
+                    Boolean(islogAdmin) &&
+                    islogAdmin.role === "Admin" &&
+                    "header__menu-link header__menu-link--admin"
+                  }
+                  to="/admin"
+                >
                   Admin
                 </Link>
               </li>
