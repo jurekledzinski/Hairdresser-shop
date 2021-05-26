@@ -79,7 +79,7 @@ app.disable("x-powered-by");
 app.use(
   cors({
     credentials: true,
-    origin: "https://ancient-shelf-84928.herokuapp.com",
+    origin: "https://dry-hamlet-25578.herokuapp.com",
   })
 );
 app.use(express.json());
