@@ -136,6 +136,10 @@ const BookingFormDayTime = ({
         return excludeDate[item];
       } else if (checkIsCurrentDayIsDisable.length === 0) {
         whenAllExcTimesInCurrentDay = dayToday;
+        alert(
+          whenAllExcTimesInCurrentDay,
+          "checkIsCurrentDayIsDisable.length===0"
+        );
       }
 
       return null;
@@ -143,12 +147,15 @@ const BookingFormDayTime = ({
 
     if (checkIsCurrentDayIsDisable.length === 0 && new Date()) {
       whenAllExcTimesInCurrentDay = dayToday;
+      alert(whenAllExcTimesInCurrentDay);
     }
 
-    arrayExcludedDates = [
-      ...arrayExcludedDates,
-      `${whenAllExcTimesInCurrentDay}`,
-    ];
+    if (whenAllExcTimesInCurrentDay) {
+      arrayExcludedDates = [
+        ...arrayExcludedDates,
+        `${whenAllExcTimesInCurrentDay}`,
+      ];
+    }
 
     setAllExcludeDays(arrayExcludedDates);
   }, [dataAllExcludedTimes]);
