@@ -504,6 +504,11 @@ router.put("/:id", (req, res, next) => {
   const id = req.params.id;
   const { isPayed } = req.body;
 
+  let info = {
+    alert: "",
+    success: "",
+  };
+
   Booking.findById(id).then((response) => {
     if (response) {
       response.isPayed = isPayed;
@@ -511,7 +516,8 @@ router.put("/:id", (req, res, next) => {
       response
         .save()
         .then((response) => {
-          return res.end();
+          info.success = "Updated successfully";
+          return res.status(200).end(info);
         })
         .catch((err) => {
           next(new ErrorHandler(500, "Internal server error", err.message));
@@ -565,10 +571,14 @@ router.put("/cancel/code/:id", (req, res, next) => {
 
 router.delete("/:id", (req, res, next) => {
   const id = req.params.id;
-
+  let info = {
+    alert: "",
+    success: "",
+  };
   Booking.findOneAndDelete({ bookingId: id })
     .then((response) => {
-      return res.status(200).end();
+      info.success = "Removed successfully";
+      return res.status(200).end(info);
     })
     .catch((err) => {
       next(new ErrorHandler(500, "Internal server error", err.message));
@@ -576,9 +586,14 @@ router.delete("/:id", (req, res, next) => {
 });
 
 router.delete("/excluded/many", (req, res, next) => {
+  let info = {
+    alert: "",
+    success: "",
+  };
   ExcludedTime.deleteMany({ timeService: { $lt: new Date() } })
     .then((response) => {
-      return res.status(200).end();
+      info.success = "Removed successfully";
+      return res.status(200).end(info);
     })
     .catch((err) => {
       next(new ErrorHandler(500, "Internal server error", err.message));
@@ -623,9 +638,15 @@ router.delete("/canceled/:id", (req, res) => {
 router.delete("/excluded-code/:id", (req, res, next) => {
   const id = req.params.id;
 
+  let info = {
+    alert: "",
+    success: "",
+  };
+
   ExcludedTime.findOneAndDelete({ codeCancel: id })
     .then((response) => {
-      return res.status(200).end();
+      info.success = "Removed successfully";
+      return res.status(200).end(info);
     })
     .catch((err) => {
       next(new ErrorHandler(500, "Internal server error", err.message));
@@ -634,10 +655,14 @@ router.delete("/excluded-code/:id", (req, res, next) => {
 
 router.delete("/excluded/:id", (req, res, next) => {
   const id = req.params.id;
-
+  let info = {
+    alert: "",
+    success: "",
+  };
   ExcludedTime.findOneAndDelete({ bookingId: id })
     .then((response) => {
-      return res.status(200).end();
+      info.success = "Removed successfully";
+      return res.status(200).end(info);
     })
     .catch((err) => {
       next(new ErrorHandler(500, "Internal server error", err.message));
