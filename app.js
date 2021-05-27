@@ -16,30 +16,7 @@ const {
   nodeEnv,
   sessionName,
   secretSession,
-  roleAdmin,
-  roleSuperAdmin,
-  providerHost,
-  portProviderEmail,
-  emailOfUser,
-  passwordUserEmail,
-  emailAddressSendTo,
-  stripePublishableKey,
-  stripeSecretKey,
 } = require("./configs/config");
-
-console.log(atlasUrl);
-console.log(nodeEnv);
-console.log(sessionName);
-console.log(secretSession);
-console.log(roleAdmin);
-console.log(roleSuperAdmin);
-console.log(providerHost);
-console.log(portProviderEmail);
-console.log(emailOfUser);
-console.log(passwordUserEmail);
-console.log(emailAddressSendTo);
-console.log(stripePublishableKey);
-console.log(stripeSecretKey);
 
 mongoose.connect(atlasUrl, {
   useNewUrlParser: true,
@@ -50,10 +27,15 @@ mongoose.connect(atlasUrl, {
 
 const db = mongoose.connection;
 
+let errDb = false;
+let openDb = true;
+
 db.on("error", (err) => {
-  console.log(err);
+  errDb;
 });
-db.once("open", () => console.log("Baza dziala poprawnie"));
+db.once("open", () => {
+  openDb;
+});
 
 const serviceRouter = require("./routes/service");
 const teamRouter = require("./routes/team");
