@@ -32,10 +32,8 @@ const BookingForm = ({
 }) => {
   const dispatch = useDispatch();
   const dataAlert = useSelector((store) => store.alertData);
-  const [exludedTimeDate, setExcludedTimeDate] = useState();
   const [choosedTime, setChoosedTime] = useState(null);
   const [disableBtn, setDisableBtn] = useState(null);
-  const [formValues, setFormValues] = useState(null);
   const [selectServices, setSelectServices] = useState([]);
 
   const { initialValues, validationSchema } = validationBookingFormik();
@@ -64,8 +62,6 @@ const BookingForm = ({
       ),
       bookingId: generateBookingId,
     };
-
-    setExcludedTimeDate(excludedTimeData);
 
     let copyValues = values;
     copyValues.bookingId = generateBookingId;
@@ -123,8 +119,7 @@ const BookingForm = ({
 
   return (
     <Formik
-      enableReinitialize
-      initialValues={formValues || initialValues}
+      initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
