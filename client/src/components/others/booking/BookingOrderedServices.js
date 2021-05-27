@@ -31,7 +31,11 @@ const BookingOrderedServices = ({
           services.map((item) => (
             <div className="bookingDetails__service" key={item._id}>
               <div className="bookingDetails__image">
-                <img src={item.imageUrl} alt="Icon" />
+                <img
+                  className="bookingDetails__img"
+                  src={item.imageUrl}
+                  alt="Icon"
+                />
               </div>
               <div className="bookingDetails__tax-price-wrapper">
                 <p
