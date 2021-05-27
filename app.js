@@ -79,7 +79,7 @@ app.disable("x-powered-by");
 app.use(
   cors({
     credentials: true,
-    origin: "https://dry-hamlet-25578.herokuapp.com",
+    origin: "http://localhost:3000",
   })
 );
 app.use(express.json());
