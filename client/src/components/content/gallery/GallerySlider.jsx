@@ -38,7 +38,6 @@ const GallerySlider = ({
   const idInterval = useRef(null);
   const isMounted = useRef(null);
   const idTimeOut = useRef(null);
-  const idTimeOutNode = useRef(null);
   const slidesContainer = useRef(null);
 
   const events = {
@@ -76,19 +75,17 @@ const GallerySlider = ({
       Boolean(slidesContainer.current) &&
       isMounted.current
     ) {
-      idTimeOutNode.current = setTimeout(() => {
-        let firstElement = slidesContainer.current.children[0].cloneNode(true);
-        let lastElement =
-          slidesContainer.current.children[
-            slidesContainer.current.children.length - 1
-          ].cloneNode(true);
+      let firstElement = slidesContainer.current.children[0].cloneNode(true);
+      let lastElement =
+        slidesContainer.current.children[
+          slidesContainer.current.children.length - 1
+        ].cloneNode(true);
 
-        slidesContainer.current.insertBefore(
-          lastElement,
-          slidesContainer.current.children[0]
-        );
-        slidesContainer.current.append(firstElement);
-      }, 500);
+      slidesContainer.current.insertBefore(
+        lastElement,
+        slidesContainer.current.children[0]
+      );
+      slidesContainer.current.append(firstElement);
 
       slidesContainer.current.style.transitionDuration = "0s";
       slidesContainer.current.style.transform = `translateX(-${100}%)`;
@@ -313,7 +310,6 @@ const GallerySlider = ({
     return () => {
       isMounted.current = false;
       clearTimeout(idTimeOut.current);
-      clearTimeout(idTimeOutNode.current);
     };
   }, []);
 
