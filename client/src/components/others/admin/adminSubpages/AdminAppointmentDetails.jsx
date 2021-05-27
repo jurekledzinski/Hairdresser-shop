@@ -6,8 +6,11 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import "./AdminAppointmentDetails.scss";
 
 import { addServerErrorMessage } from "../../../../reduxStore/actions/actionAlertsMessages";
-
 import { addBookedOrder } from "../../../../reduxStore/actions/actionBookedOrders";
+import { increaseBookingMonthShop } from "../../../../reduxStore/actions/actionBookingsMadeAtShop";
+import { increaseBookingMonthWebsite } from "../../../../reduxStore/actions/actionBookingsMadeAtWebsite";
+import { increasePaymentsMonthShop } from "../../../../reduxStore/actions/actionPaymentsMonthShop";
+import { increasePaymentsMonthWebsite } from "../../../../reduxStore/actions/actionPaymentsMonthWebsite";
 
 import {
   addBooking,
@@ -57,6 +60,21 @@ const AdminAppointmentDetails = () => {
       dispatch(addBookedOrder(data));
       await bookingConfirmCancelOrSuccess(details);
       setIsModalOpen(true);
+
+      const indexMonthInTabel = new Date(data.dataPayed).getMonth();
+      const placeBooking = data.bookingWhere;
+      const priceOrder = data.totalPrice;
+      switch (placeBooking) {
+        case "Shop":
+          dispatch(increaseBookingMonthShop(indexMonthInTabel));
+          dispatch(increasePaymentsMonthShop(indexMonthInTabel, priceOrder));
+          break;
+        case "Website":
+          dispatch(increaseBookingMonthWebsite(indexMonthInTabel));
+          dispatch(increasePaymentsMonthWebsite(indexMonthInTabel, priceOrder));
+        default:
+          break;
+      }
     } else {
       dispatch(addServerErrorMessage(error.message, "registerForm"));
     }
