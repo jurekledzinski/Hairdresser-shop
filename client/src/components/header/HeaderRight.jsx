@@ -2,33 +2,9 @@ import React, { Fragment, useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  clearAdminLogOut,
-  fetchUsers,
-} from "../../reduxStore/actions/actionFetchAdmin";
-import { clearAdminData } from "../../reduxStore/actions/actionAdminData";
-import { clearFetchedOrdersBooked } from "../../reduxStore/actions/actionFetchBookedOrders";
-import { clearFetchCanceledOrders } from "../../reduxStore/actions/actionFetchCanceledOrders";
-import { clearBookedOrder } from "../../reduxStore/actions/actionBookedOrders";
-import { clearCanceledOrder } from "../../reduxStore/actions/actionCanceledOrders";
-import { clearFetchBookingAmountMonthShop } from "../../reduxStore/actions/actionFetchAmountBookingsPerMonthInShop";
-import { clearBookingMonthShop } from "../../reduxStore/actions/actionBookingsMadeAtShop";
-import { clearFetchBookingsMonthWebsite } from "../../reduxStore/actions/actionFetchAmountBookingsPerMonthInWebsite";
-import { clearBookingMonthWebsite } from "../../reduxStore/actions/actionBookingsMadeAtWebsite";
-import { clearFetchPaymentsMonthShop } from "../../reduxStore/actions/actionFetchPaymentsMonthShop";
-import { clearFetchPaymentsMonthWebsite } from "../../reduxStore/actions/actionFetchPaymentsMonthWebsite";
-import { clearPaymentsMonthShop } from "../../reduxStore/actions/actionPaymentsMonthShop";
-import { clearPaymentsMonthWebsite } from "../../reduxStore/actions/actionPaymentsMonthWebsite";
-import { clearFetchEmails } from "../../reduxStore/actions/actionFetchEmails";
-import { clearEmailData } from "../../reduxStore/actions/actionEmailsData";
-import { clearFetchOpinions } from "../../reduxStore/actions/actionFetchOpinions";
-import { clearOpinionData } from "../../reduxStore/actions/actionOpinionsData";
-import { clearFetchImagesGallery } from "../../reduxStore/actions/actionFetchGalleryImages";
-import { clearImageFile } from "../../reduxStore/actions/actionFile";
-import { clearFetchPermissionRegister } from "../../reduxStore/actions/actionFetchPermissionRegister";
-import { clearFetchRegisterAdmins } from "../../reduxStore/actions/actionFetchRegisteredAdmins";
-import { clearFetchServices } from "../../reduxStore/actions/actionFetchServices";
-import { clearFetchShopOpen } from "../../reduxStore/actions/actionFetchOpenShop";
+import { fetchUsers } from "../../reduxStore/actions/actionFetchAdmin";
+
+import { clearAdminDashboard } from "../../utils/clearAdminDashboard";
 
 import { logoutAdmin } from "../../utils/sessions";
 
@@ -62,30 +38,8 @@ const HeaderRight = ({
     } else {
       setLogOutMsg(data.alert);
     }
-    dispatch(clearAdminLogOut());
-    dispatch(clearAdminData());
-    dispatch(clearFetchedOrdersBooked());
-    dispatch(clearFetchCanceledOrders());
-    dispatch(clearBookedOrder());
-    dispatch(clearCanceledOrder());
-    dispatch(clearFetchBookingAmountMonthShop());
-    dispatch(clearBookingMonthShop());
-    dispatch(clearFetchBookingsMonthWebsite());
-    dispatch(clearBookingMonthWebsite());
-    dispatch(clearFetchPaymentsMonthShop());
-    dispatch(clearFetchPaymentsMonthWebsite());
-    dispatch(clearPaymentsMonthShop());
-    dispatch(clearPaymentsMonthWebsite());
-    dispatch(clearFetchEmails());
-    dispatch(clearEmailData());
-    dispatch(clearFetchOpinions());
-    dispatch(clearOpinionData());
-    dispatch(clearFetchImagesGallery());
-    dispatch(clearImageFile());
-    dispatch(clearFetchPermissionRegister());
-    dispatch(clearFetchRegisterAdmins());
-    dispatch(clearFetchServices());
-    dispatch(clearFetchShopOpen());
+    clearAdminDashboard(dispatch);
+
     idTimeOut.current = setTimeout(() => {
       setIsLogAdmin(null);
       setLogOutMsg(null);

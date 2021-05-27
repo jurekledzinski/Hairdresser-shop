@@ -4,84 +4,26 @@ import { useDispatch, useSelector } from "react-redux";
 
 import "./AdminDashboard.scss";
 
-import {
-  clearAdminLogOut,
-  fetchUsers,
-} from "../../../../reduxStore/actions/actionFetchAdmin";
-import {
-  addAdminData,
-  clearAdminData,
-} from "../../../../reduxStore/actions/actionAdminData";
-import {
-  clearFetchedOrdersBooked,
-  fetchAllBookedOrders,
-} from "../../../../reduxStore/actions/actionFetchBookedOrders";
-import {
-  clearFetchCanceledOrders,
-  fetchAllCanceledOrders,
-} from "../../../../reduxStore/actions/actionFetchCanceledOrders";
-import {
-  addBookedOrder,
-  clearBookedOrder,
-} from "../../../../reduxStore/actions/actionBookedOrders";
-import {
-  addCanceledOrder,
-  clearCanceledOrder,
-} from "../../../../reduxStore/actions/actionCanceledOrders";
-import {
-  clearFetchBookingAmountMonthShop,
-  fetchBookingsMadeAtShop,
-} from "../../../../reduxStore/actions/actionFetchAmountBookingsPerMonthInShop";
-import {
-  addBookingMonthShop,
-  clearBookingMonthShop,
-} from "../../../../reduxStore/actions/actionBookingsMadeAtShop";
-import {
-  clearFetchBookingsMonthWebsite,
-  fetchBookingsMadeAtWebsite,
-} from "../../../../reduxStore/actions/actionFetchAmountBookingsPerMonthInWebsite";
-import {
-  addBookingMonthWebsite,
-  clearBookingMonthWebsite,
-} from "../../../../reduxStore/actions/actionBookingsMadeAtWebsite";
-import {
-  clearFetchPaymentsMonthShop,
-  fetchPaymentsMadeAtShop,
-} from "../../../../reduxStore/actions/actionFetchPaymentsMonthShop";
-import {
-  fetchPaymentsMadeAtWebsite,
-  clearFetchPaymentsMonthWebsite,
-} from "../../../../reduxStore/actions/actionFetchPaymentsMonthWebsite";
-import {
-  addPaymentsMonthShop,
-  clearPaymentsMonthShop,
-} from "../../../../reduxStore/actions/actionPaymentsMonthShop";
-import {
-  addPaymentsMonthWebsite,
-  clearPaymentsMonthWebsite,
-} from "../../../../reduxStore/actions/actionPaymentsMonthWebsite";
-import {
-  clearFetchEmails,
-  fetchEmails,
-} from "../../../../reduxStore/actions/actionFetchEmails";
-import {
-  addEmail,
-  clearEmailData,
-} from "../../../../reduxStore/actions/actionEmailsData";
-import {
-  clearFetchOpinions,
-  fetchOpinions,
-} from "../../../../reduxStore/actions/actionFetchOpinions";
-import {
-  addOpinion,
-  clearOpinionData,
-} from "../../../../reduxStore/actions/actionOpinionsData";
-import { clearFetchImagesGallery } from "../../../../reduxStore/actions/actionFetchGalleryImages";
-import { clearImageFile } from "../../../../reduxStore/actions/actionFile";
-import { clearFetchPermissionRegister } from "../../../../reduxStore/actions/actionFetchPermissionRegister";
-import { clearFetchRegisterAdmins } from "../../../../reduxStore/actions/actionFetchRegisteredAdmins";
-import { clearFetchServices } from "../../../../reduxStore/actions/actionFetchServices";
-import { clearFetchShopOpen } from "../../../../reduxStore/actions/actionFetchOpenShop";
+import { clearAdminDashboard } from "../../../../utils/clearAdminDashboard";
+
+import { fetchUsers } from "../../../../reduxStore/actions/actionFetchAdmin";
+import { addAdminData } from "../../../../reduxStore/actions/actionAdminData";
+import { fetchAllBookedOrders } from "../../../../reduxStore/actions/actionFetchBookedOrders";
+import { fetchAllCanceledOrders } from "../../../../reduxStore/actions/actionFetchCanceledOrders";
+import { addBookedOrder } from "../../../../reduxStore/actions/actionBookedOrders";
+import { addCanceledOrder } from "../../../../reduxStore/actions/actionCanceledOrders";
+import { fetchBookingsMadeAtShop } from "../../../../reduxStore/actions/actionFetchAmountBookingsPerMonthInShop";
+import { addBookingMonthShop } from "../../../../reduxStore/actions/actionBookingsMadeAtShop";
+import { fetchBookingsMadeAtWebsite } from "../../../../reduxStore/actions/actionFetchAmountBookingsPerMonthInWebsite";
+import { addBookingMonthWebsite } from "../../../../reduxStore/actions/actionBookingsMadeAtWebsite";
+import { fetchPaymentsMadeAtShop } from "../../../../reduxStore/actions/actionFetchPaymentsMonthShop";
+import { fetchPaymentsMadeAtWebsite } from "../../../../reduxStore/actions/actionFetchPaymentsMonthWebsite";
+import { addPaymentsMonthShop } from "../../../../reduxStore/actions/actionPaymentsMonthShop";
+import { addPaymentsMonthWebsite } from "../../../../reduxStore/actions/actionPaymentsMonthWebsite";
+import { fetchEmails } from "../../../../reduxStore/actions/actionFetchEmails";
+import { addEmail } from "../../../../reduxStore/actions/actionEmailsData";
+import { fetchOpinions } from "../../../../reduxStore/actions/actionFetchOpinions";
+import { addOpinion } from "../../../../reduxStore/actions/actionOpinionsData";
 
 import { logoutAdmin } from "../../../../utils/sessions";
 
@@ -186,37 +128,14 @@ const AdminDashboard = () => {
   }, [allCanceledOrders]);
 
   useEffect(() => {
-    idTimeOut.current = setTimeout(() => setLoadImg(false), 700);
+    idTimeOut.current = setTimeout(() => setLoadImg(false), 1000);
     return () => clearTimeout(idTimeOut.current);
   }, []);
 
   useEffect(() => {
     if (isLogOut) {
       idTimeOutLogout.current = setTimeout(() => {
-        dispatch(clearAdminLogOut());
-        dispatch(clearAdminData());
-        dispatch(clearFetchedOrdersBooked());
-        dispatch(clearFetchCanceledOrders());
-        dispatch(clearBookedOrder());
-        dispatch(clearCanceledOrder());
-        dispatch(clearFetchBookingAmountMonthShop());
-        dispatch(clearBookingMonthShop());
-        dispatch(clearFetchBookingsMonthWebsite());
-        dispatch(clearBookingMonthWebsite());
-        dispatch(clearFetchPaymentsMonthShop());
-        dispatch(clearFetchPaymentsMonthWebsite());
-        dispatch(clearPaymentsMonthShop());
-        dispatch(clearPaymentsMonthWebsite());
-        dispatch(clearFetchEmails());
-        dispatch(clearEmailData());
-        dispatch(clearFetchOpinions());
-        dispatch(clearOpinionData());
-        dispatch(clearFetchImagesGallery());
-        dispatch(clearImageFile());
-        dispatch(clearFetchPermissionRegister());
-        dispatch(clearFetchRegisterAdmins());
-        dispatch(clearFetchServices());
-        dispatch(clearFetchShopOpen());
+        clearAdminDashboard(dispatch);
         history.push("/"), 1000;
       }, 1000);
     }
@@ -226,9 +145,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     window.addEventListener("resize", checkWindowSize);
 
-    () => {
-      window.removeEventListener("resize", checkWindowSize);
-    };
+    return () => window.removeEventListener("resize", checkWindowSize);
   }, []);
 
   useEffect(() => {
