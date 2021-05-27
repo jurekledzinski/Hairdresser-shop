@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { Provider } from "react-redux";
-import { Route, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 
 import store from "./reduxStore/store/store";
 import { Role } from "./helpers/roles";
@@ -32,6 +32,9 @@ const AdminDashboard = lazy(() =>
 );
 const Login = lazy(() => import("./components/others/login/Login"));
 const Register = lazy(() => import("./components/others/register/Register"));
+const PageNotFound = lazy(() =>
+  import("./components/others/pageNotFound/PageNotFound")
+);
 
 import ServerError from "./components/others/errorSuccessMessages/ServerErrors";
 
@@ -69,24 +72,27 @@ const App = () => {
       >
         <Suspense fallback={<DotLoader />}>
           <ServerError>
-            <Route exact path="/" component={MainPage} />
-            <Route exact path="/booking" component={BookingMainPage} />
-            <Route path="/booking/details/:id" component={BookingDetails} />
-            <Route path="/booking/success/:id" component={BookingSuccess} />
-            <Route path="/booking/cancel/:id" component={BookingCancel} />
-            <Route
-              path="/booking/cancel-code/:id"
-              component={BookingCancelByCode}
-            />
-            <Route path="/team-details" component={TeamDetails} />
-            <Route path="/term-policy" component={BookingTermPolicyDetails} />
-            <ProtectAdmin
-              path="/admin"
-              roles={[Role.Admin, Role.SuperAdmin]}
-              component={AdminDashboard}
-            />
-            <Route path="/login-admin" component={Login} />
-            <ProtectRegister path="/register-admin" component={Register} />
+            <Switch>
+              <Route exact path="/" component={MainPage} />
+              <Route exact path="/booking" component={BookingMainPage} />
+              <Route path="/booking/details/:id" component={BookingDetails} />
+              <Route path="/booking/success/:id" component={BookingSuccess} />
+              <Route path="/booking/cancel/:id" component={BookingCancel} />
+              <Route
+                path="/booking/cancel-code/:id"
+                component={BookingCancelByCode}
+              />
+              <Route path="/team-details" component={TeamDetails} />
+              <Route path="/term-policy" component={BookingTermPolicyDetails} />
+              <ProtectAdmin
+                path="/admin"
+                roles={[Role.Admin, Role.SuperAdmin]}
+                component={AdminDashboard}
+              />
+              <Route path="/login-admin" component={Login} />
+              <ProtectRegister path="/register-admin" component={Register} />
+              <Route component={PageNotFound} />
+            </Switch>
           </ServerError>
         </Suspense>
       </div>

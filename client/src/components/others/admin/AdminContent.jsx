@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from "react";
-import { Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import { Role } from "../../../helpers/roles";
 
@@ -28,16 +29,35 @@ const AdminShop = lazy(() => import("./adminSubpages/AdminShop"));
 const AdminOpinions = lazy(() => import("./adminSubpages/AdminOpinions"));
 const AdminProfile = lazy(() => import("./adminSubpages/AdminProfile"));
 const AdminService = lazy(() => import("./adminSubpages/AdminService"));
+const PageNotFound = lazy(() => import("../pageNotFound/PageNotFound"));
 
 import { ProtectAdmin } from "../../../protectRoutes/ProtectAdminRoutes";
+import { clearAdminDashboard } from "../../../utils/clearAdminDashboard";
 
 import DotLoader from "../dotLoader/DotLoader";
 
 const AdminContent = ({ isLogOutMsg }) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleRedirectHomePage = () => {
+    history.push("/");
+    clearAdminDashboard(dispatch);
+  };
+
   return (
     <div className="admin-content">
       <Suspense fallback={<DotLoader />}>
-        {isLogOutMsg && <p className="admin-content__logout">{isLogOutMsg}</p>}
+        {isLogOutMsg ? (
+          <p className="admin-content__logout">{isLogOutMsg}</p>
+        ) : (
+          <button
+            className="admin-content__go-back-homepage-btn"
+            onClick={handleRedirectHomePage}
+          >
+            Go homepage
+          </button>
+        )}
         <Switch>
           <ProtectAdmin
             exact
@@ -105,6 +125,7 @@ const AdminContent = ({ isLogOutMsg }) => {
             component={AdminService}
             roles={[Role.Admin, Role.SuperAdmin]}
           />
+          <Route component={PageNotFound} />
         </Switch>
       </Suspense>
     </div>

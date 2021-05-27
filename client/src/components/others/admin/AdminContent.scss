@@ -18,4 +18,19 @@
     color: #2ecc40;
     text-align: left;
   }
+
+  &__go-back-homepage-btn {
+    margin-bottom: 20px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #393939;
+    text-align: left;
+    transition: 0.4s linear;
+    cursor: pointer;
+
+    &:hover {
+      color: #000000;
+    }
+  }
 }
