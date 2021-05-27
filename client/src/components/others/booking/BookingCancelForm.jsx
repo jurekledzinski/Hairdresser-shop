@@ -14,6 +14,10 @@ import {
 import { addServerErrorMessage } from "../../../reduxStore/actions/actionAlertsMessages";
 import { addCanceledOrder } from "../../../reduxStore/actions/actionCanceledOrders";
 import { removeBookedOrder } from "../../../reduxStore/actions/actionBookedOrders";
+import { removeBookingMonthShop } from "../../../reduxStore/actions/actionBookingsMadeAtShop";
+import { removeBookingMonthWebsite } from "../../../reduxStore/actions/actionBookingsMadeAtWebsite";
+import { removePaymentsMonthShop } from "../../../reduxStore/actions/actionPaymentsMonthShop";
+import { removePaymentsMonthWebsite } from "../../../reduxStore/actions/actionPaymentsMonthWebsite";
 
 import useValidationCancelBooking from "./bookingCustomHooks/useValidationCancelBooking";
 import ErrorSuccessMessage from "../../others/errorSuccessMessages/ErrorSuccessMessages";
@@ -38,6 +42,21 @@ const BookingCancelForm = ({
 
     if (status === 200) {
       if (adminPanelRedirect === "adminPanelRedirect") {
+        const indexMonthInTabel = new Date(data.dataOrder.dataPayed).getMonth();
+        const placeBooking = data.dataOrder.bookingWhere;
+        const priceOrder = data.dataOrder.totalPrice;
+        switch (placeBooking) {
+          case "Shop":
+            dispatch(removeBookingMonthShop(indexMonthInTabel));
+            dispatch(removePaymentsMonthShop(indexMonthInTabel, priceOrder));
+            break;
+          case "Website":
+            dispatch(removeBookingMonthWebsite(indexMonthInTabel));
+            dispatch(removePaymentsMonthWebsite(indexMonthInTabel, priceOrder));
+          default:
+            break;
+        }
+
         setIsModalOpen(true);
         setMessageTitle(data.success);
         dispatch(removeBookedOrder(data.dataOrder._id));
