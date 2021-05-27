@@ -163,6 +163,10 @@
     @include media-queries(xlarge) {
       margin-bottom: initial;
       margin-right: 40px;
+
+      &--admin {
+        margin-right: 25px;
+      }
     }
 
     @media (min-width: 100px) and (orientation: landscape) {
@@ -205,7 +209,7 @@
     }
 
     &--logout {
-      color: #ff564ce0;
+      color: #f8c822;
       border: none;
       outline: none;
       background-color: transparent;
@@ -333,6 +337,14 @@
 
     &--alert {
       color: #ff4136;
+
+      @include media-queries(xlarge) {
+        display: none;
+      }
+    }
+
+    @include media-queries(xlarge) {
+      display: none;
     }
   }
 }

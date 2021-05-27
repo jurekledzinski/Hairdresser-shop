@@ -158,7 +158,13 @@ const HeaderRight = ({
           <p className="header__logo-mobile-show">Hair Planet</p>
           <ul className="header__menu">
             {Boolean(islogAdmin) && islogAdmin.role === "Super Admin" && (
-              <li className="header__menu-item">
+              <li
+                className={
+                  islogAdmin
+                    ? "header__menu-item header__menu-item--admin"
+                    : "header__menu-item"
+                }
+              >
                 <button
                   className="header__menu-link header__menu-link--logout"
                   onClick={handleLogoutMainPage}
@@ -168,7 +174,13 @@ const HeaderRight = ({
               </li>
             )}
             {Boolean(islogAdmin) && islogAdmin.role === "Super Admin" && (
-              <li className="header__menu-item">
+              <li
+                className={
+                  islogAdmin
+                    ? "header__menu-item header__menu-item--admin"
+                    : "header__menu-item"
+                }
+              >
                 <Link
                   className={
                     Boolean(islogAdmin) &&
@@ -182,7 +194,13 @@ const HeaderRight = ({
               </li>
             )}
             {Boolean(islogAdmin) && islogAdmin.role === "Admin" && (
-              <li className="header__menu-item">
+              <li
+                className={
+                  islogAdmin
+                    ? "header__menu-item header__menu-item--admin"
+                    : "header__menu-item"
+                }
+              >
                 <Link
                   className={
                     Boolean(islogAdmin) &&
@@ -198,7 +216,11 @@ const HeaderRight = ({
             {headerMenuLinks.map((item, index) => {
               return (
                 <li
-                  className={item.classItem}
+                  className={
+                    islogAdmin
+                      ? "header__menu-item header__menu-item--admin"
+                      : item.classItem
+                  }
                   key={index}
                   onClick={() => handleScrollSectionAfterClickLink(index)}
                   ref={addRefs}
