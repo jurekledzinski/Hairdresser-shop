@@ -1,6 +1,7 @@
 export const ADD_PAYMENT_SHOP = "ADD_PAYMENT_SHOP";
 export const CLEAR_PAYMENT_SHOP = "CLEAR_PAYMENT_SHOP";
-export const REMOVE_PAYMENT_SHOP = "REMOVE_PAYMENT_SHOP";
+export const DECREASE_PAYMENT_SHOP_CHART = "DECREASE_PAYMENT_SHOP_CHART";
+export const INCREASE_PAYMENT_SHOP_CHART = "INCREASE_PAYMENT_SHOP_CHART";
 
 export const addPaymentsMonthShop = (payment) => ({
   type: ADD_PAYMENT_SHOP,
@@ -10,10 +11,19 @@ export const addPaymentsMonthShop = (payment) => ({
   },
 });
 
-export const removePaymentsMonthShop = (index) => ({
-  type: REMOVE_PAYMENT_SHOP,
+export const removePaymentsMonthShop = (index, money) => ({
+  type: DECREASE_PAYMENT_SHOP_CHART,
   payload: {
     index: index,
+    money: money,
+  },
+});
+
+export const increasePaymentsMonthShop = (index, money) => ({
+  type: INCREASE_PAYMENT_SHOP_CHART,
+  payload: {
+    index: index,
+    money: money,
   },
 });
 
