@@ -600,11 +600,13 @@ router.delete("/booked/:id", isLoggedInAdmin, (req, res) => {
   let info = {
     alert: "",
     success: "",
+    result: "",
   };
 
   Booking.findOneAndDelete({ _id: id })
     .then((response) => {
       info.success = "Order removed successfully";
+      info.result = response;
       return res.status(200).json(info);
     })
     .catch((err) => {
