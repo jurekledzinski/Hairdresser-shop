@@ -69,18 +69,20 @@ const ServicesPrices = () => {
         slidesContainer.current.append(firstElement);
 
         slidesContainer.current.style.transitionDuration = "0s";
-      }, 400);
+      }, 1000);
     }
   }, [slides]);
 
   useEffect(() => {
-    if (checkSizeWindow >= 768) {
+    if (checkSizeWindow > 767) {
       idTimeOut2.current = setTimeout(() => {
         slidesContainer.current.children[0].style.display = "none";
         slidesContainer.current.children[
           slidesContainer.current.children.length - 1
         ].style.display = "none";
       }, 1000);
+      slidesContainer.current.style.transitionDuration = "0s";
+      slidesContainer.current.style.transform = `translateX(${0}%)`;
     } else {
       idTimeOut3.current = setTimeout(() => {
         slidesContainer.current.children[0].style.display = "block";
@@ -88,6 +90,8 @@ const ServicesPrices = () => {
           slidesContainer.current.children.length - 1
         ].style.display = "block";
       }, 1000);
+      slidesContainer.current.style.transform = `translateX(-${100}%)`;
+      slidesContainer.current.style.transitionDuration = "0s";
     }
   }, [checkSizeWindow]);
 
