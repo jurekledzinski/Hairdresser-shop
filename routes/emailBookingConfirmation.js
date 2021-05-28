@@ -58,7 +58,7 @@ router.post("/:id", (req, res, next) => {
                   <h3 style="font-size: 18px; margin: 0;">Your Order Details:</h3>
                           <p style="margin: 0;">Hairdresser name: ${hairdresserName}</p>
               <p style="margin: 0;">Date appointment: ${new Date(
-                timeAppointment
+                dateAppointment
               )
                 .toLocaleDateString()
                 .split("-")
