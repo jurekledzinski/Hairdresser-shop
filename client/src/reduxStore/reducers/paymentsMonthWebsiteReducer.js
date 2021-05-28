@@ -15,7 +15,9 @@ export const paymentsWebsiteReducer = (state = [], action) => {
           ...item1,
           total: item1.total.map((item2, index) => {
             if (index === action.payload.index && item2 > 0) {
-              return (item2 = item2 - action.payload.money);
+              return (item2 = 0
+                ? 0
+                : Math.round((item2 - action.payload.money) * 100) / 100);
             }
             return item2;
           }),
@@ -26,7 +28,7 @@ export const paymentsWebsiteReducer = (state = [], action) => {
         return {
           ...item1,
           total: item1.total.map((item2, index) => {
-            if (index === action.payload.index && item2 > 0) {
+            if (index === action.payload.index && item2 >= 0) {
               return (item2 = item2 + action.payload.money);
             }
             return item2;

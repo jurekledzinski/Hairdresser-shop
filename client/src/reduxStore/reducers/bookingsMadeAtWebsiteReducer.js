@@ -26,7 +26,7 @@ export const bookingsMadeWebsiteReducer = (state = [], action) => {
         return {
           ...item1,
           amount: item1.amount.map((item2, index) => {
-            if (index === action.payload.index && item2 > 0) {
+            if (index === action.payload.index && item2 >= 0) {
               return (item2 = item2 + 1);
             }
             return item2;
