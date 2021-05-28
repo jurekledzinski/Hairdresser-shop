@@ -21,11 +21,15 @@ router.post("/:id", (req, res, next) => {
     totalPrice,
   } = req.body;
 
-  const timeAppointment = new Date(dateAppointment).toUTCString();
+  console.log(
+    new Date(dateAppointment).toLocaleTimeString(),
+    "timelocalstring"
+  );
+  const timeAppointment = new Date(dateAppointment).toISOString();
 
   console.log(timeAppointment, " timeAppointment");
 
-  console.log(new Date(timeAppointment), " czas zmieniony z utc");
+  console.log(new Date(timeAppointment), " czas zmieniony z ISO");
 
   const output = `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
