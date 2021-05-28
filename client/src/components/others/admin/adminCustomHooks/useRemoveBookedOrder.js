@@ -11,13 +11,20 @@ import {
   deleteExcludedDateCancelCode,
 } from "../../../../utils/sessions";
 
+import { removeExcludTimes } from "../../../../reduxStore/actions/actionExcludedTimes";
 import { removeBookedOrder } from "../../../../reduxStore/actions/actionBookedOrders";
 import { removeBookingMonthShop } from "../../../../reduxStore/actions/actionBookingsMadeAtShop";
 import { removeBookingMonthWebsite } from "../../../../reduxStore/actions/actionBookingsMadeAtWebsite";
 import { removePaymentsMonthShop } from "../../../../reduxStore/actions/actionPaymentsMonthShop";
 import { removePaymentsMonthWebsite } from "../../../../reduxStore/actions/actionPaymentsMonthWebsite";
+import { fetchAllTimesExcluded } from "../../../../reduxStore/actions/actionFetchExcludedTimes";
 
-const useRemoveBookedOrder = (idBookedOrder, idCancelOrder, setIsOpenModal) => {
+const useRemoveBookedOrder = (
+  bookingId,
+  idBookedOrder,
+  idCancelOrder,
+  setIsOpenModal
+) => {
   const dispatch = useDispatch();
 
   const handleRemoveItem = async () => {
@@ -42,6 +49,8 @@ const useRemoveBookedOrder = (idBookedOrder, idCancelOrder, setIsOpenModal) => {
       }
       dispatch(addServerSuccessMessage(data.success, "removeAtTableAdmin"));
       dispatch(removeBookedOrder(idBookedOrder));
+      dispatch(removeExcludTimes(bookingId));
+      dispatch(fetchAllTimesExcluded());
       setIsOpenModal(false);
     } else {
       dispatch(addServerErrorMessage(data.alert, "removeAtTableAdmin"));

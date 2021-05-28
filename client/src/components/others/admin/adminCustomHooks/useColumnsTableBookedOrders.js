@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import format from "date-fns/format";
 
 const useColumnsTableBookedOrders = (
+  setBookingId,
   setIdBookedOrder,
   setIdCancelOrder,
   setIsOpenModal
@@ -63,6 +64,7 @@ const useColumnsTableBookedOrders = (
               setIsOpenModal(true);
               setIdBookedOrder(propsTable.row.original._id);
               setIdCancelOrder(propsTable.row.original.cancelCode);
+              setBookingId(propsTable.row.original.bookingId);
             }}
           >
             <i className="fas fa-trash-alt"></i>
