@@ -39,7 +39,6 @@ const HeaderRight = ({
       setLogOutMsg(data.alert);
     }
     clearAdminDashboard(dispatch);
-
     idTimeOut.current = setTimeout(() => {
       setIsLogAdmin(null);
       setLogOutMsg(null);
@@ -112,6 +111,22 @@ const HeaderRight = ({
           <p className="header__logo-mobile-show">Hair Planet</p>
           <ul className="header__menu">
             {Boolean(islogAdmin) && islogAdmin.role === "Super Admin" && (
+              <li
+                className={
+                  islogAdmin
+                    ? "header__menu-item header__menu-item--admin"
+                    : "header__menu-item"
+                }
+              >
+                <button
+                  className="header__menu-link header__menu-link--logout"
+                  onClick={handleLogoutMainPage}
+                >
+                  Log out
+                </button>
+              </li>
+            )}
+            {Boolean(islogAdmin) && islogAdmin.role === "Admin" && (
               <li
                 className={
                   islogAdmin
