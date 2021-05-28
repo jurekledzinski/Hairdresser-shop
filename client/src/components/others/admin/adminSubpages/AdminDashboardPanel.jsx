@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
 import "./adminDashboardPanel.scss";
@@ -16,6 +16,7 @@ const adminDashboardPanel = () => {
   const emailsData = useSelector((store) => store.emailDataToUse);
   const opinionsData = useSelector((store) => store.opinionsDataToUse);
   const [countVisits, setCountVisits] = useState(0);
+  const isMount = useRef(null);
 
   const currentDay = new Date().toLocaleDateString();
 
@@ -42,7 +43,7 @@ const adminDashboardPanel = () => {
   const fetchCounterVisits = async () => {
     const { data, status } = await getVistisPageNumber();
 
-    if (status === 200) {
+    if (status === 200 && isMount.current) {
       setCountVisits(data[0].counter);
     } else {
       setCountVisits(0);
@@ -50,7 +51,11 @@ const adminDashboardPanel = () => {
   };
 
   useEffect(() => {
-    fetchCounterVisits();
+    isMount.current = true;
+    if (isMount.current) {
+      fetchCounterVisits();
+    }
+    return () => (isMount.current = false);
   }, []);
 
   return (
