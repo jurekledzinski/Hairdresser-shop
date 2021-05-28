@@ -61,7 +61,7 @@ app.disable("x-powered-by");
 app.use(
   cors({
     credentials: true,
-    origin: "https://intense-caverns-83490.herokuapp.com",
+    origin: "https://safe-crag-32363.herokuapp.com",
   })
 );
 app.use(express.json());
