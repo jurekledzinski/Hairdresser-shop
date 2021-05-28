@@ -1,1 +1,0 @@
-(self.webpackChunkbarbershop=self.webpackChunkbarbershop||[]).push([[3054],{5826:function(r){r.exports=Array.isArray||function(r){return"[object Array]"==Object.prototype.toString.call(r)}}}]);
