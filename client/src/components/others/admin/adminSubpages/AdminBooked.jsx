@@ -24,17 +24,20 @@ const AdminBooked = () => {
   const adminDateUse = useSelector((store) => store.useAdminData);
   const dataBookedOrdersToUse = useSelector((store) => store.bookedOrdersData);
   const dataAlert = useSelector((store) => store.alertData);
+  const [bookingId, setBookingId] = useState(null);
   const [idBookedOrder, setIdBookedOrder] = useState(null);
   const [idCancelOrder, setIdCancelOrder] = useState(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const { columns, data } = useColumnsTableBookedOrders(
+    setBookingId,
     setIdBookedOrder,
     setIdCancelOrder,
     setIsOpenModal
   );
 
   const { handleRemoveItem } = useRemoveBookedOrder(
+    bookingId,
     idBookedOrder,
     idCancelOrder,
     setIsOpenModal

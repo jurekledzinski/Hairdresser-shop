@@ -64,6 +64,7 @@ const AdminAppointmentDetails = () => {
       const indexMonthInTabel = new Date(data.dataPayed).getMonth();
       const placeBooking = data.bookingWhere;
       const priceOrder = data.totalPrice;
+
       switch (placeBooking) {
         case "Shop":
           dispatch(increaseBookingMonthShop(indexMonthInTabel));
