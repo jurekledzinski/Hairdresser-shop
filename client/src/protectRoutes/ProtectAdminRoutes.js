@@ -8,7 +8,7 @@ const ProtectedRouteAdmin = ({ path, roles, component: Component }) => {
   const dispatch = useDispatch();
   const dataUser = useSelector((store) => store.userData);
   const { users } = dataUser;
-  const [islogAdmin, setIsLogAdmin] = useState();
+  const [islogAdmin, setIsLogAdmin] = useState(users);
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -24,7 +24,11 @@ const ProtectedRouteAdmin = ({ path, roles, component: Component }) => {
     <Route
       path={path}
       render={(props) => {
-        if (!islogAdmin && typeof users === "object" && dataUser.loading) {
+        if (
+          users.length === 0 &&
+          typeof users === "object" &&
+          dataUser.loading
+        ) {
           return <Redirect to="/" />;
         }
 
@@ -36,7 +40,6 @@ const ProtectedRouteAdmin = ({ path, roles, component: Component }) => {
         ) {
           return <Redirect to="/" />;
         }
-
         return <Component {...props} />;
       }}
     />
