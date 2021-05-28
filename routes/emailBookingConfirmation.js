@@ -21,6 +21,12 @@ router.post("/:id", (req, res, next) => {
     totalPrice,
   } = req.body;
 
+  const timeAppointment = new Date(dateAppointment).toUTCString();
+
+  console.log(timeAppointment, " timeAppointment");
+
+  console.log(new Date(timeAppointment), " czas zmieniony z utc");
+
   const output = `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <html xmlns="http://www.w3.org/1999/xhtml" lang="en-GB">
@@ -58,7 +64,7 @@ router.post("/:id", (req, res, next) => {
                   <h3 style="font-size: 18px; margin: 0;">Your Order Details:</h3>
                           <p style="margin: 0;">Hairdresser name: ${hairdresserName}</p>
               <p style="margin: 0;">Date appointment: ${new Date(
-                dateAppointment
+                timeAppointment
               )
                 .toLocaleDateString()
                 .split("-")
