@@ -1,0 +1,20 @@
+@use "../../../scss-variables/media-queries" as *;
+
+.contact {
+  &__hours-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-area: hours;
+    padding: 10px;
+    background-color: #393939;
+    color: #dddddd;
+  }
+
+  &__day {
+    font-weight: 300;
+  }
+
+  &__time {
+    font-weight: 300;
+  }
+}

@@ -1,0 +1,63 @@
+@use "../../../scss-variables/media-queries" as *;
+
+.testimonial {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 50px 20px;
+  margin: 0 auto;
+  background-color: #303030;
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Background-testimonials.jpeg?alt=media&token=5ab0cd7f-5044-4724-9a9d-0c7eac06576c");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: min-height 999999s;
+
+  @include media-queries(small) {
+    padding: 50px;
+  }
+
+  @include media-queries(large) {
+    padding: 50px;
+    min-height: 100vh;
+  }
+
+  @include media-queries(xlarge) {
+    max-width: 1200px;
+    min-height: initial;
+    height: 768px;
+  }
+
+  &__wrapper {
+    width: 100%;
+    margin: 0 auto;
+
+    @include media-queries(xlarge) {
+      width: 1000px;
+    }
+  }
+
+  &__title {
+    color: #d4774a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  &__subtitle {
+    margin: 20px 0 20px 0;
+    color: #ddd;
+    font-size: 1.4rem;
+    font-weight: 300;
+  }
+
+  &__title-opinion {
+    margin: 25px 0;
+    color: #d4774a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+}

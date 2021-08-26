@@ -1,0 +1,354 @@
+@use "../../../scss-variables/media-queries" as *;
+
+@mixin button-login-sing-up {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  background-color: #f8c822;
+  border: none;
+  color: #333333;
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-weight: 500;
+  font-family: "Oswald", sans-serif;
+  text-align: center;
+  outline: none;
+  cursor: pointer;
+  transition: 0.4s ease;
+
+  &:hover {
+    background-color: #f8cd38;
+    color: black;
+  }
+
+  @include media-queries(xmedium) {
+    font-size: 1.6rem;
+  }
+
+  @include media-queries(medium) {
+    width: 100px;
+    padding: 7px 0;
+  }
+
+  @include media-queries(large) {
+    width: 120px;
+    padding: 5px 0;
+  }
+}
+
+.register {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 0px 20px;
+  margin: 0 auto;
+  box-sizing: border-box;
+
+  @include media-queries(xlarge) {
+    max-width: 1200px;
+    min-height: initial;
+    height: 768px;
+    padding: 50px;
+  }
+
+  &__wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
+    padding: 50px 0;
+
+    @include media-queries(large) {
+      flex-direction: row;
+      min-height: inherit;
+      padding: 50px 0;
+    }
+
+    @include media-queries(xlarge) {
+      width: 1000px;
+      height: 100%;
+      padding: 0;
+    }
+  }
+
+  &__left {
+    position: relative;
+    display: none;
+    flex-basis: 50%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Background-register.jpg?alt=media&token=1aaaebea-8a46-4dd2-bed2-f6b55509fb37");
+    opacity: 0.9;
+
+    @include media-queries(large) {
+      display: block;
+      flex-basis: 40%;
+    }
+
+    @include media-queries(xlarge) {
+      flex-basis: 50%;
+    }
+  }
+
+  &__cover-left {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  &__left-redirects {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 180px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__left-title {
+    width: 100%;
+    color: rgba(255, 255, 255, 1);
+    letter-spacing: 1px;
+  }
+
+  &__left-subtitle {
+    width: 100%;
+    color: rgba(255, 255, 255, 1);
+  }
+
+  &__left-login-text {
+    width: 100%;
+    color: rgba(255, 255, 255, 1);
+    font-size: 1.4rem;
+  }
+
+  &__left-login-button {
+    @include button-login-sing-up();
+    @include media-queries(large) {
+      padding: 7px 0;
+    }
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-basis: 100%;
+
+    @include media-queries(large) {
+      flex-basis: 60%;
+      background-image: initial;
+      background-color: #fff;
+    }
+
+    @include media-queries(xlarge) {
+      flex-basis: 50%;
+    }
+  }
+
+  &__right-title {
+    display: block;
+    color: #d4774a;
+    margin-bottom: 60px;
+
+    @include media-queries(large) {
+      display: none;
+      margin-bottom: initial;
+    }
+  }
+
+  &__form {
+    position: relative;
+    width: 100%;
+
+    @include media-queries(medium) {
+      width: 70%;
+    }
+
+    @include media-queries(large) {
+      width: initial;
+    }
+  }
+
+  &__input-wrapper-name-surname {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+
+    @include media-queries(large) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  &__input-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  &__input-file-add {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  &__label-file {
+    display: flex;
+    justify-content: center;
+    width: 48%;
+    padding: 7px 0;
+    background-color: #393939;
+    color: #f8cd38;
+    font-size: 1.4rem;
+    cursor: pointer;
+
+    @include media-queries(large) {
+      padding: 10px 0;
+    }
+  }
+
+  &__file-name {
+    display: inline-block;
+    margin-left: 10px;
+    color: #393939;
+    font-size: 1rem;
+  }
+
+  &__input-file {
+    padding: 7px 0;
+    border: none;
+    outline: none;
+    height: 0;
+    width: 0;
+    opacity: 0;
+  }
+
+  &__wrapper-name {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    @include media-queries(large) {
+      margin-bottom: initial;
+      width: 48%;
+    }
+  }
+
+  &__wrapper-surname {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    @include media-queries(large) {
+      width: 48%;
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    right: 5px;
+    bottom: 7px;
+    color: #333333;
+  }
+
+  &__label {
+    margin-bottom: 10px;
+    color: #f8c822;
+    color: #333333;
+    font-size: 1.4rem;
+
+    @include media-queries(large) {
+      color: black;
+      font-size: 1.6rem;
+    }
+  }
+
+  &__input {
+    padding: 8px 25px 8px 0;
+    border: 1px solid #aaa;
+    border-radius: 0;
+    text-indent: 5px;
+    outline: none;
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active {
+      box-shadow: 0 0 0 30px white inset !important;
+      -webkit-box-shadow: 0 0 0 30px white inset !important;
+    }
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:active ~ .register__icon {
+      color: #333333;
+    }
+
+    &:focus ~ .register__icon,
+    &:active ~ .register__icon {
+      color: #333333;
+    }
+
+    &::placeholder {
+      color: transparent;
+    }
+
+    &:placeholder-shown ~ .register__icon {
+      color: #808080;
+    }
+
+    &:not(:placeholder-shown) ~ .register__icon {
+      color: #333333;
+    }
+  }
+
+  &__button-register {
+    @include button-login-sing-up();
+    margin-top: 30px;
+  }
+
+  &__error-msg {
+    position: absolute;
+    top: -15px;
+    margin-bottom: 10px;
+    color: #ff4136;
+    text-align: left;
+    font-size: 1.1rem;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #303030;
+  }
+}

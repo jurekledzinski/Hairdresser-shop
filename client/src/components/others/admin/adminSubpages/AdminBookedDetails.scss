@@ -1,0 +1,49 @@
+@use "../../../../scss-variables/media-queries" as *;
+
+.booked-details {
+  width: 100%;
+  min-height: 100vh;
+
+  &__booking-title {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  &__text-wrapper {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+
+    @media (min-width: 470px) {
+      flex-direction: row;
+    }
+  }
+
+  &__name-title {
+    margin-bottom: 5px;
+    text-align: left;
+    font-weight: 500;
+
+    @media (min-width: 470px) {
+      margin-bottom: initial;
+    }
+  }
+
+  &__value {
+    text-align: left;
+    text-indent: initial;
+
+    @media (min-width: 470px) {
+      text-indent: 5px;
+    }
+  }
+
+  &__icon-ok {
+    color: #2ecc40;
+  }
+
+  &__icon-not-confirm {
+    color: #ff4136;
+  }
+}

@@ -1,0 +1,48 @@
+@use "../../../scss-variables/media-queries" as *;
+
+.service {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 50px 0;
+  margin: 0 auto;
+  background-color: #303030;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: min-height 999999s;
+
+  @include media-queries(large) {
+    min-height: 100vh;
+  }
+
+  @include media-queries(xlarge) {
+    max-width: 1200px;
+    min-height: initial;
+    height: 768px;
+  }
+
+  &__wrapper {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+
+    @include media-queries(xlarge) {
+      width: 1000px;
+      margin: 0 auto;
+    }
+  }
+
+  &__title {
+    padding: 20px 0;
+    color: #d4774a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+
+    @include media-queries(xlarge) {
+      padding: 40px 0;
+    }
+  }
+}

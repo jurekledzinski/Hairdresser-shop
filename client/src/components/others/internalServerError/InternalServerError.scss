@@ -1,0 +1,33 @@
+.server-error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+
+  &__image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  &__button {
+    min-width: 120px;
+    padding: 8px 10px;
+    margin: 20px 0 0 10%;
+    background-color: #f8c822;
+    color: #333333;
+    transition: 0.3s background-color, 0.4s color;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+
+    &:hover {
+      background-color: orange;
+      color: black;
+    }
+  }
+}

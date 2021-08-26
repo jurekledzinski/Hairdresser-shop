@@ -1,0 +1,73 @@
+{
+  "name": "barbershop",
+  "version": "1.0.0",
+  "description": "Barber shop build from scratch",
+  "main": "index.js",
+  "proxy": "https://safe-crag-32363.herokuapp.com",
+  "scripts": {
+    "start": "webpack serve --mode=development",
+    "build": "webpack --mode=production"
+  },
+  "author": "Jerzy Ledzinski",
+  "license": "MIT",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@stripe/stripe-js": "^1.14.0",
+    "axios": "^0.21.1",
+    "chart.js": "^3.2.1",
+    "date-fns": "^2.17.0",
+    "firebase": "^8.3.3",
+    "formik": "^2.2.6",
+    "google-map-react": "^2.1.9",
+    "gsap": "^3.6.0",
+    "react": "^17.0.1",
+    "react-chartjs-2": "^3.0.3",
+    "react-datepicker": "^3.8.0",
+    "react-dom": "^17.0.1",
+    "react-error-boundary": "^3.1.0",
+    "react-redux": "^7.2.2",
+    "react-router-dom": "^5.2.0",
+    "react-table": "^7.6.3",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "uuid": "^8.3.2",
+    "yup": "^0.32.9"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^6.2.1",
+    "css-loader": "^4.3.0",
+    "dotenv-webpack": "^7.0.1",
+    "file-loader": "^6.1.1",
+    "html-loader": "^1.3.1",
+    "html-webpack-link-type-plugin": "^1.1.0",
+    "html-webpack-plugin": "^5.3.1",
+    "image-webpack-loader": "^7.0.1",
+    "mini-css-extract-plugin": "^0.11.3",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
+    "sass": "^1.32.8",
+    "sass-loader": "^10.0.2",
+    "style-loader": "^1.3.0",
+    "terser-webpack-plugin": "^5.1.2",
+    "webpack": "^5.37.1",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.7.3"
+  }
+}

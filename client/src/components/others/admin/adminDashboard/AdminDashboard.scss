@@ -1,0 +1,104 @@
+@use "../../../../scss-variables/media-queries" as *;
+
+.admin {
+  width: 100%;
+  min-height: 100vh;
+
+  &__wrapper {
+    width: 100%;
+    padding: 50px 10px 0;
+    min-height: inherit;
+
+    @include media-queries(small) {
+      padding: 50px 20px 0;
+    }
+  }
+
+  &__left {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 0px;
+    background-color: #303030;
+    transition: 0.4s ease;
+    z-index: 2;
+
+    &--active {
+      width: calc(100% - 10px);
+      background-color: #303030;
+      transition: 0.4s ease;
+      z-index: 2;
+
+      @include media-queries(small) {
+        width: calc(100% - 20px);
+      }
+    }
+
+    @media (min-width: 360px) {
+      width: 40px;
+
+      &--active {
+        width: calc(100% - 20px);
+      }
+    }
+
+    @include media-queries(medium) {
+      width: 60px;
+
+      &--active {
+        width: 300px;
+      }
+    }
+
+    @include media-queries(large) {
+      z-index: 100;
+      &--active {
+        z-index: 100;
+      }
+    }
+
+    @include media-queries(xxlarge) {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 300px;
+      background-color: #303030;
+      z-index: 100;
+      transition: 0.4s ease;
+
+      &--active {
+        width: 60px;
+        transition: 0.4s ease;
+      }
+    }
+  }
+
+  &__right {
+    margin-left: 0px;
+    transition: 0.4s ease;
+
+    &--active {
+      transition: 0.4s ease;
+    }
+
+    @media (min-width: 360px) {
+      margin-left: 40px;
+    }
+
+    @include media-queries(medium) {
+      margin-left: 60px;
+    }
+
+    @include media-queries(xxlarge) {
+      margin-left: 300px;
+      transition: 0.4s ease;
+
+      &--active {
+        margin-left: 60px;
+        transition: 0.4s ease;
+      }
+    }
+  }
+}

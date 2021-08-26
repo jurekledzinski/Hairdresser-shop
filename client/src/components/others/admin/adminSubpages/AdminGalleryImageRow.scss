@@ -1,0 +1,112 @@
+@use "../../../../scss-variables/media-queries" as *;
+
+@mixin buttonEditDelete {
+  flex-grow: 1;
+  padding: 10px 0;
+  border: none;
+  outline: none;
+  background-color: #393939;
+  color: #f8cd38;
+  transition: 0.4s ease;
+  cursor: pointer;
+
+  &--active {
+    background-color: #f8cd38;
+    color: #393939;
+  }
+
+  @include media-queries(large) {
+    padding: initial;
+  }
+}
+
+.admin-gallery {
+  &__row-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 80px;
+    margin-bottom: 10px;
+    background-color: #525252;
+    @include media-queries(large) {
+      flex-direction: row;
+      height: 80px;
+    }
+  }
+
+  &__image-frame {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    @include media-queries(large) {
+      width: 90px;
+      height: 80px;
+    }
+  }
+
+  &__buttons-wrapper {
+    display: flex;
+    width: 100%;
+
+    background-color: red;
+
+    @include media-queries(large) {
+      width: 20%;
+      height: 100%;
+    }
+  }
+
+  &__edit {
+    @include buttonEditDelete();
+
+    @include media-queries(large) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__delete {
+    @include buttonEditDelete();
+
+    @include media-queries(large) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__panel-edit {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    background-color: white;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.4s ease-out;
+
+    &--active {
+      height: 160px;
+
+      @include media-queries(large) {
+        display: flex;
+        align-items: center;
+        height: 80px;
+      }
+    }
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #303030;
+  }
+}

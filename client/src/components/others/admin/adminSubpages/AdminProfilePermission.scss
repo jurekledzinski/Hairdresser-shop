@@ -1,0 +1,33 @@
+@use "../../../../scss-variables/media-queries" as *;
+
+.admin-profile {
+  &__enable-register {
+    width: 100%;
+    padding: 20px 10px;
+  }
+
+  &__permission-register {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  &__enable-label {
+    font-size: 1.4rem;
+  }
+
+  &__enable-input {
+    margin-right: 5px;
+    font-size: 1.4rem;
+  }
+
+  &__button-confirm {
+    padding: 2px 15px;
+    margin-left: 5px;
+    background-color: #f8c822;
+    border: none;
+    outline: none;
+    color: #393939;
+    cursor: pointer;
+    font-family: "Oswald", sans-serif;
+  }
+}

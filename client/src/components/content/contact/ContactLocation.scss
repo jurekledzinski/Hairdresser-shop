@@ -1,0 +1,67 @@
+@use "../../../scss-variables/media-queries" as *;
+
+.contact {
+  &__location-wrapper {
+    display: flex;
+    flex-direction: column;
+    grid-area: location;
+    margin-top: 40px;
+
+    @include media-queries(large) {
+      margin-top: 0px;
+    }
+  }
+
+  &__find-title {
+    margin-bottom: 15px;
+    color: #d4774a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  &__address-map {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #393939;
+
+    @include media-queries(xlarge) {
+      flex-direction: row-reverse;
+    }
+  }
+
+  &__map {
+    width: 100%;
+    height: 280px;
+    padding: 10px;
+    background-color: #393939;
+
+    @include media-queries(xlarge) {
+      width: 60%;
+    }
+  }
+
+  &__address {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    height: 130px;
+    padding: 10px;
+    color: #dddddd;
+
+    @include media-queries(xlarge) {
+      width: 40%;
+      height: 280px;
+      align-items: center;
+    }
+  }
+
+  &__name-shop,
+  &__shop-street,
+  &__shop-post-code,
+  &__shop-country {
+    font-weight: 300;
+  }
+}

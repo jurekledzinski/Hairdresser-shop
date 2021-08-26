@@ -1,0 +1,33 @@
+@use "../../../../scss-variables/media-queries" as *;
+
+.admin-email {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - 150px);
+
+  &__wrapper {
+    width: 1350px;
+    min-height: inherit;
+    height: 100%;
+  }
+
+  &__btn-remove {
+    width: 100%;
+    height: 100%;
+    border: none;
+    color: #ff4136;
+    background-color: transparent;
+    box-sizing: border-box;
+    transition: 0.2s linear;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.6rem;
+
+    &:hover {
+      transform: scale(1.2);
+      color: red;
+    }
+  }
+}

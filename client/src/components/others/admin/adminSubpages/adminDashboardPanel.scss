@@ -1,0 +1,165 @@
+@use "../../../../scss-variables/media-queries" as *;
+
+.admin {
+  &__dashboard-panel {
+    position: relative;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(10, auto);
+    row-gap: 20px;
+    z-index: -1;
+
+    grid-template-areas:
+      "booked"
+      "canceled"
+      "customers"
+      "emails"
+      "income"
+      "opinions"
+      "visits"
+      "time"
+      "chart1"
+      "chart2";
+    background-color: #f1f5f9;
+
+    @include media-queries(small) {
+    }
+
+    @include media-queries(medium) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto;
+      column-gap: 20px;
+      grid-template-areas:
+        "booked canceled"
+        "customers emails"
+        "income opinions"
+        "visits time"
+        "chart1 chart1"
+        "chart2 chart2";
+    }
+
+    @include media-queries(large) {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      column-gap: 20px;
+      row-gap: 20px;
+      grid-template-areas:
+        "booked canceled customers"
+        "emails income opinions"
+        "chart1 chart1 visits"
+        "chart2 chart2 time";
+      z-index: initial;
+      min-height: calc(135vh);
+    }
+
+    @include media-queries(xlarge) {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 150px) auto;
+      column-gap: 30px;
+      row-gap: 30px;
+      grid-template-areas:
+        "booked canceled customers emails"
+        "income opinions visits time"
+        "chart1 chart1 chart2 chart2";
+      min-height: initial;
+    }
+  }
+
+  &__card {
+    padding: 0 0 20px 0;
+    background-color: #e4e4e4;
+  }
+
+  &__card-1 {
+    grid-area: booked;
+  }
+
+  &__card-2 {
+    grid-area: canceled;
+  }
+
+  &__card-3 {
+    grid-area: customers;
+  }
+
+  &__card-4 {
+    grid-area: emails;
+  }
+
+  &__card-5 {
+    grid-area: income;
+  }
+
+  &__card-6 {
+    grid-area: opinions;
+  }
+
+  &__card-7 {
+    grid-area: visits;
+
+    @include media-queries(large) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @include media-queries(xlarge) {
+      display: initial;
+    }
+  }
+
+  &__card-8 {
+    grid-area: time;
+
+    @include media-queries(large) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @include media-queries(xlarge) {
+      display: initial;
+    }
+  }
+
+  &__card-9 {
+    grid-area: chart1;
+    background-color: white;
+  }
+
+  &__card-10 {
+    grid-area: chart2;
+    background-color: white;
+  }
+
+  &__logout {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    color: #3d9970;
+    font-size: 1.2rem;
+    font-weight: 400;
+
+    @include media-queries(small) {
+      font-size: 1.4rem;
+    }
+
+    @include media-queries(xlarge) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__cart-title {
+    margin-top: 20px;
+    color: #333333;
+    font-weight: 400;
+  }
+
+  &__cart-amount {
+    margin-top: 20px;
+    color: #333333;
+    font-size: 4rem;
+  }
+}

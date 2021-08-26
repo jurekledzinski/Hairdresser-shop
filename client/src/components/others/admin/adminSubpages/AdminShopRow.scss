@@ -1,0 +1,158 @@
+@use "../../../../scss-variables/media-queries" as *;
+
+@mixin buttonEditDelete {
+  flex-grow: 1;
+  padding: 10px 0;
+  border: none;
+  outline: none;
+  background-color: #393939;
+  color: #f8cd38;
+  transition: 0.4s ease;
+  cursor: pointer;
+
+  &--active {
+    background-color: #f8cd38;
+    color: #393939;
+  }
+
+  @include media-queries(large) {
+    padding: initial;
+  }
+}
+
+.admin-shop {
+  &__row-service {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 50px;
+    margin-bottom: 10px;
+    background-color: #525252;
+    @include media-queries(large) {
+      flex-direction: row;
+      height: 50px;
+    }
+  }
+
+  &__text-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    height: 50px;
+
+    @include media-queries(medium) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: initial;
+    }
+
+    @include media-queries(large) {
+      width: 50%;
+    }
+  }
+
+  &__text-1 {
+    width: 100%;
+    color: #d6d6d6;
+    text-align: left;
+    text-indent: 10px;
+    font-weight: 300;
+  }
+
+  &__text-2 {
+    width: 100%;
+    color: #d6d6d6;
+    text-align: left;
+    text-indent: 10px;
+    font-weight: 300;
+
+    @include media-queries(large) {
+      text-indent: 10px;
+    }
+  }
+
+  &__text-span-1,
+  &__text-span-2 {
+    width: 100%;
+    color: white;
+    text-align: left;
+    font-size: 1.4rem;
+    font-weight: 400;
+
+    @include media-queries(small) {
+      font-size: 1.5rem;
+    }
+
+    @include media-queries(medium) {
+      width: initial;
+      text-align: initial;
+    }
+
+    @include media-queries(large) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__text-span-1 {
+    text-indent: 10px;
+  }
+
+  &__text-span-2 {
+    text-indent: 10px;
+
+    @include media-queries(large) {
+      text-indent: initial;
+    }
+  }
+
+  &__buttons-wrapper {
+    display: flex;
+    width: 100%;
+
+    background-color: red;
+
+    @include media-queries(large) {
+      width: 20%;
+      height: 100%;
+    }
+  }
+
+  &__edit {
+    @include buttonEditDelete();
+
+    @include media-queries(large) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__delete {
+    @include buttonEditDelete();
+
+    @include media-queries(large) {
+      font-size: 1.6rem;
+    }
+  }
+
+  &__panel-edit {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    background-color: white;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.4s ease-out;
+
+    &--active {
+      height: 160px;
+
+      @include media-queries(large) {
+        display: flex;
+        align-items: center;
+        height: 80px;
+      }
+    }
+  }
+}

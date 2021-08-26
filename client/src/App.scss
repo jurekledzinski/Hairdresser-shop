@@ -1,0 +1,20 @@
+.app {
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+
+  &--booking-endpoint {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #303030;
+  }
+
+  &--booking-login-register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+}

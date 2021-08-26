@@ -1,0 +1,56 @@
+@use "../../scss-variables/media-queries" as *;
+
+.header {
+  &__main-titles {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+
+    @include media-queries(xlarge) {
+      width: initial;
+      left: 34%;
+    }
+  }
+
+  &__title {
+    margin-bottom: 5px;
+    color: white;
+    letter-spacing: 1px;
+  }
+
+  &__title-part-1 {
+    @include media-queries(xlarge) {
+      color: #333;
+    }
+  }
+
+  &__subtitle {
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+
+    @include media-queries(xsmall) {
+      font-size: 1.8rem;
+    }
+
+    @include media-queries(xlarge) {
+      text-align: left;
+      font-size: 2.2rem;
+      font-weight: 400;
+    }
+
+    @media (max-width: 480px) and (orientation: landscape) {
+      font-size: 1.4rem;
+    }
+  }
+
+  &__subtitle-part-1 {
+    @include media-queries(xlarge) {
+      margin-right: 9px;
+      color: #333;
+    }
+  }
+}

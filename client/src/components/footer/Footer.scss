@@ -1,0 +1,99 @@
+@use "../../scss-variables/media-queries" as *;
+
+.footer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 0;
+  margin: 0 auto;
+  background-color: #101010;
+  color: #dddddd;
+
+  @include media-queries(xlarge) {
+    max-width: 1200px;
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 90%;
+    @include media-queries(xlarge) {
+      max-width: 1000px;
+    }
+  }
+
+  &__logo {
+    flex-basis: 50%;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 2rem;
+    font-family: "Engagement", cursive;
+
+    @include media-queries(xxsmall) {
+      font-size: 2.5rem;
+    }
+
+    @include media-queries(medium) {
+      flex-basis: initial;
+      flex-grow: 1;
+      order: -1;
+      margin-bottom: initial;
+      font-size: 2.6rem;
+    }
+  }
+
+  &__rights {
+    flex-basis: 100%;
+    font-size: 1.3rem;
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+
+    @include media-queries(xxsmall) {
+      font-size: 1.3rem;
+    }
+
+    @include media-queries(small) {
+      font-size: 1.4rem;
+    }
+
+    @include media-queries(medium) {
+      flex-basis: initial;
+      flex-grow: 1;
+      order: 0;
+      font-size: 1.6rem;
+    }
+  }
+
+  &__media {
+    flex-basis: 50%;
+    padding-bottom: 0px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 1.4rem;
+
+    @include media-queries(xxsmall) {
+      font-size: 1.6rem;
+    }
+
+    @include media-queries(xsmall) {
+      font-size: 1.8rem;
+    }
+
+    @include media-queries(medium) {
+      flex-basis: initial;
+      flex-grow: 1;
+      order: 1;
+      padding-bottom: 5px;
+      margin-bottom: initial;
+      font-size: 2rem;
+    }
+  }
+
+  &__yt,
+  &__tw,
+  &__in {
+    margin-right: 8px;
+  }
+}

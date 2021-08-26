@@ -1,0 +1,109 @@
+@use "../../scss-variables/media-queries" as *;
+
+.header {
+  position: relative;
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  height: 100vh;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: height 999999s;
+
+  @include media-queries(xlarge) {
+    max-width: 1200px;
+    height: 600px;
+  }
+
+  &__left {
+    display: none;
+
+    @include media-queries(xlarge) {
+      display: block;
+      width: 30%;
+      height: 100%;
+      background-color: #c4a128;
+    }
+  }
+
+  &__right {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Hairdresser-500.jpeg?alt=media&token=2eeaff7c-49d3-4fc9-b23b-840530ce6780");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    @include media-queries(medium) {
+      background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Hairdresser-1024.jpeg?alt=media&token=57bb271a-8f3e-44ca-9722-4aab16ce8228");
+      width: 100%;
+    }
+
+    @include media-queries(xlarge) {
+      background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Hairdresser-1024.jpeg?alt=media&token=57bb271a-8f3e-44ca-9722-4aab16ce8228");
+      width: 70%;
+    }
+
+    @media (max-width: 480px) and (orientation: landscape) {
+      background-position: top;
+    }
+  }
+
+  &__booking-button {
+    position: absolute;
+    top: 77%;
+    left: 50%;
+    padding: 5px 15px;
+    transform: translate(-50%, -50%);
+    border: 2px solid #f8c822;
+    background-color: transparent;
+    color: white;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.4s ease;
+
+    &:hover {
+      background-color: #303030;
+      color: white;
+      border: 2px solid #303030;
+    }
+
+    @include media-queries(xsmall) {
+      padding: 5px 15px;
+      font-size: 2rem;
+    }
+
+    @include media-queries(xlarge) {
+      left: 16%;
+      border: 2px solid #333;
+      color: #333;
+    }
+
+    @media (min-width: 1130px) {
+      left: 17%;
+    }
+
+    @media (max-width: 480px) and (orientation: landscape) {
+      font-size: 1.4rem;
+    }
+  }
+
+  &__redirect {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__redirect-text {
+    color: white;
+    font-weight: 300;
+    font-family: "Roboto", sans-serif;
+  }
+}

@@ -1,0 +1,118 @@
+@use "../../../scss-variables/media-queries" as *;
+
+@mixin button-type-image {
+  display: block;
+  width: 49%;
+  padding: 2px 0;
+  margin-bottom: 8px;
+  border: 1px solid #808080;
+  background-color: transparent;
+  color: white;
+  outline: none;
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-family: "Oswald", sans-serif;
+  letter-spacing: 1px;
+  transition: 0.4s ease;
+  cursor: pointer;
+
+  @include media-queries(xsmall) {
+    padding: 5px 0;
+  }
+
+  @include media-queries(xmedium) {
+    width: 49%;
+    font-size: 1.6rem;
+  }
+}
+
+.gallery {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 50px 20px;
+  background-color: #303030;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: min-height 999999s;
+
+  @include media-queries(small) {
+    padding: 50px;
+  }
+
+  @include media-queries(large) {
+    padding: 50px;
+    min-height: 100vh;
+  }
+
+  @include media-queries(xlarge) {
+    max-width: 1200px;
+    min-height: initial;
+    height: 768px;
+  }
+
+  &__wrapper {
+    width: 100%;
+    margin: 0 auto;
+
+    @include media-queries(xlarge) {
+      width: 900px;
+    }
+  }
+
+  &__title {
+    margin: -25px 0 10px 0;
+    color: #d4774a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  &__subtitle {
+    margin: 25px 0 20px 0;
+    color: #ddd;
+    font-size: 1.4rem;
+    font-weight: 300;
+  }
+
+  &__buttons-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0 auto 20px auto;
+
+    @include media-queries(medium) {
+      width: 70%;
+      margin-bottom: 50px;
+    }
+
+    @include media-queries(large) {
+      width: 50%;
+    }
+  }
+
+  &__button {
+    @include button-type-image();
+
+    &:nth-child(5) {
+      width: 100%;
+    }
+
+    @include media-queries(medium) {
+      &:nth-child(3),
+      &:nth-child(4),
+      &:nth-child(5) {
+        width: 32%;
+      }
+    }
+
+    &--active {
+      border: 1px solid #f8c822;
+      background-color: #f8c822;
+      color: #333333;
+    }
+  }
+}

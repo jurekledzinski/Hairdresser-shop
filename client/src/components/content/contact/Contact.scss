@@ -1,0 +1,93 @@
+@use "../../../scss-variables/media-queries" as *;
+
+.contact {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 50px 20px;
+  margin: 0 auto;
+  background-color: #303030;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: min-height 999999s;
+
+  @include media-queries(small) {
+    padding: 50px;
+  }
+
+  @include media-queries(large) {
+    padding: 50px;
+    min-height: 100vh;
+  }
+
+  @include media-queries(xlarge) {
+    max-width: 1200px;
+    min-height: initial;
+    height: 768px;
+    padding: 50px 0 0 0;
+  }
+
+  &__left {
+    width: 100%;
+
+    @include media-queries(xlarge) {
+      width: 70%;
+    }
+  }
+
+  &__wrapper {
+    position: relative;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: 20px auto auto auto auto;
+    column-gap: 20px;
+    row-gap: 20px;
+    grid-template-areas:
+      "title"
+      "hours"
+      "images"
+      "form"
+      "location";
+
+    @include media-queries(large) {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 40px 150px 50px auto;
+      grid-template-areas:
+        "title title"
+        "hours images"
+        "form images"
+        "form location";
+    }
+
+    @include media-queries(xlarge) {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+    }
+  }
+
+  &__title {
+    margin: -25px 0 25px 0;
+    color: #d4774a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    grid-area: title;
+  }
+
+  &__right {
+    display: none;
+
+    @include media-queries(xlarge) {
+      display: block;
+      width: 30%;
+      height: 100%;
+      background-color: #c4a128;
+    }
+  }
+}

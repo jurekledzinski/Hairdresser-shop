@@ -1,0 +1,51 @@
+@use "../../../../scss-variables/media-queries" as*;
+
+.controler-prev-next {
+  &__span {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  &__pageIndex {
+    display: inline-block;
+    font-weight: 400;
+
+    @media (max-width: 1023px) {
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 960px) {
+      margin: 10px 0 10px 0;
+    }
+  }
+
+  &__btn {
+    width: 100px;
+    padding: 10px 20px;
+    background-color: #393939;
+    border: none;
+    color: white;
+    outline: none;
+    transition: 0.2s linear;
+    font-weight: 300;
+
+    @media (max-width: 1023px) {
+      padding: 8px 24px;
+    }
+
+    @media (max-width: 290px) {
+      width: 70px;
+      padding: 5px 0;
+    }
+
+    &:hover {
+      background-color: #303030;
+      letter-spacing: 1px;
+      color: white;
+      cursor: pointer;
+    }
+    &:disabled {
+      background-color: #222222;
+      letter-spacing: 1px;
+    }
+  }
+}

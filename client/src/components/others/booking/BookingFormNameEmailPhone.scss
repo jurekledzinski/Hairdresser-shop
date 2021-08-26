@@ -1,0 +1,19 @@
+@use "../../../scss-variables/media-queries" as *;
+
+.booking {
+  &__input {
+    padding: 6px 0;
+    border: none;
+    color: black;
+    text-indent: 5px;
+    outline: none;
+
+    &--admin {
+      padding: 6px 0;
+      border: 1px solid #cccccc;
+      color: #333333;
+      text-indent: 5px;
+      outline: none;
+    }
+  }
+}

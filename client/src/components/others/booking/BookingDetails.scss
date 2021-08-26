@@ -1,0 +1,181 @@
+@use "../../../scss-variables/media-queries" as *;
+
+@mixin btn-checkout {
+  width: 100%;
+  padding: 10px 0;
+  border: none;
+  background-color: #f8c822;
+  color: #333333;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  outline: none;
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.4s ease;
+
+  &:hover {
+    background-color: #f8cd38;
+    color: black;
+  }
+
+  @include media-queries(xmedium) {
+    font-size: 1.6rem;
+  }
+
+  @include media-queries(medium) {
+    width: 100px;
+    padding: 7px 0;
+  }
+
+  @include media-queries(large) {
+    width: 120px;
+  }
+}
+
+.bookingDetails {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  min-height: 100vh;
+  padding: 50px 20px;
+  margin: 0 auto;
+  background-color: #303030;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  z-index: 1;
+
+  @include media-queries(medium) {
+    padding: 50px;
+  }
+
+  @include media-queries(large) {
+    padding: 50px 0 50px 50px;
+    padding: 50px;
+  }
+
+  @include media-queries(xlarge) {
+    min-height: initial;
+    height: auto;
+    max-width: 1200px;
+  }
+
+  &__center-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+  }
+
+  &__wrapper {
+    display: flex;
+    width: 100%;
+    height: auto;
+    padding: 50px 0;
+
+    @include media-queries(large) {
+      max-width: 1200px;
+      padding: 50px 0;
+    }
+
+    @include media-queries(xlarge) {
+      height: 768px;
+    }
+  }
+
+  &__left {
+    display: none;
+    width: 100%;
+    height: auto;
+
+    @include media-queries(large) {
+      display: block;
+      width: 40%;
+      background-image: url("https://firebasestorage.googleapis.com/v0/b/hairdress-shop.appspot.com/o/Background-booking.jpeg?alt=media&token=043b3596-878c-49ff-a10c-002b66da3570");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+
+    @include media-queries(xlarge) {
+      width: 50%;
+    }
+  }
+
+  &__right {
+    width: 100%;
+    height: auto;
+
+    @include media-queries(large) {
+      width: 60%;
+    }
+
+    @include media-queries(xlarge) {
+      width: 50%;
+    }
+  }
+
+  &__inside-wrapper {
+    width: 100%;
+    background-color: #303030;
+  }
+
+  &__title {
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    color: white;
+
+    @include media-queries(large) {
+      margin-bottom: initial;
+    }
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+
+    @include media-queries(small) {
+      padding: 20px;
+    }
+
+    @include media-queries(xmedium) {
+      padding: 50px;
+    }
+  }
+
+  &__confirm-terms-shop {
+    margin: 20px 0;
+  }
+
+  &__confirm-terms {
+    display: flex;
+    width: fit-content;
+    color: #f8c822;
+    font-size: 1.1rem;
+    font-weight: 300;
+    cursor: pointer;
+
+    @include media-queries(small) {
+      font-size: 1.3rem;
+    }
+  }
+
+  &__confirm-checkbox {
+    display: block;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+
+  &__button-checkout {
+    margin-top: 13px;
+    @include btn-checkout();
+  }
+}
