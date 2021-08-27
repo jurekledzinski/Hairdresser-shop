@@ -90,6 +90,11 @@ npm install in client folder
 - In app.js file in root folder, in cors origin change to http://localhost:3000
 - In package.json file in client folder, remove proxy.
 - In client/src/helpers/request.js in axios.create --- add line: baseURL: "http://localhost:5000"
+- In folder routes/checkout.js change this in development mode:
+  success_url: `http://localhost:3000/booking/success/${bookingId}`,
+  cancel_url: `http://localhost:3000/booking/cancel/${bookingId}`,
+
+To test in stripe, use number card: 4242 4242 4242 4242
 
 ### Run application
 
