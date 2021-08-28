@@ -1,5 +1,7 @@
 # ![WebApp](https://github.com/jurekledzinski/Hairdresser-shop/blob/media/images/Course%20shop.jpg?raw=true)
 
+# ![WebApp](https://github.com/jurekledzinski/Hairdresser-shop/blob/media/images/Admin%20panel%20hairdresser.jpg?raw=true)
+
 # Hairdresser shop
 
 Landing page of hairdresser shop with hidden admin panel, booking system, payment in stripe.
