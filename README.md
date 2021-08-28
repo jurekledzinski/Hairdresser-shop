@@ -1,6 +1,6 @@
 # ![WebApp](https://github.com/jurekledzinski/Hairdresser-shop/blob/media/images/Course%20shop.jpg?raw=true)
 
-# ![WebApp](https://github.com/jurekledzinski/Hairdresser-shop/blob/media/images/Admin%20panel%20hairdresser.jpg?raw=true)
+# ![WebApp](https://github.com/jurekledzinski/Hairdresser-shop/blob/media/images/Admin%20panel.jpg?raw=true)
 
 # Hairdresser shop
 
