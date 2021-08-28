@@ -93,6 +93,7 @@ npm install in client folder
 - In folder routes/checkout.js change this in development mode:
   success_url: `http://localhost:3000/booking/success/${bookingId}`,
   cancel_url: `http://localhost:3000/booking/cancel/${bookingId}`,
+- The can appear some errors due to cookie sameSite or content security blocking after changes in browsers, so it is good to test with https protocol on localhost.
 
 To test in stripe, use number card: 4242 4242 4242 4242
 
