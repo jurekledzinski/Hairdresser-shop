@@ -20,8 +20,6 @@
       "time"
       "chart1"
       "chart2";
-    background-color: #f1f5f9;
-
     @include media-queries(small) {
     }
 
@@ -67,35 +65,41 @@
 
   &__card {
     padding: 0 0 20px 0;
-    background-color: #e4e4e4;
   }
 
   &__card-1 {
     grid-area: booked;
+    background-color: #0074d9;
   }
 
   &__card-2 {
     grid-area: canceled;
+    background-color: #2ecc40;
   }
 
   &__card-3 {
     grid-area: customers;
+    background-color: #ffdc00;
   }
 
   &__card-4 {
     grid-area: emails;
+    background-color: #ff4136;
   }
 
   &__card-5 {
     grid-area: income;
+    background-color: #f012be;
   }
 
   &__card-6 {
     grid-area: opinions;
+    background-color: #ff851b;
   }
 
   &__card-7 {
     grid-area: visits;
+    background-color: #7fdbff;
 
     @include media-queries(large) {
       display: flex;
@@ -111,6 +115,7 @@
 
   &__card-8 {
     grid-area: time;
+    background-color: #85144b;
 
     @include media-queries(large) {
       display: flex;
@@ -153,13 +158,13 @@
 
   &__cart-title {
     margin-top: 20px;
-    color: #333333;
+    color: white;
     font-weight: 400;
   }
 
   &__cart-amount {
     margin-top: 20px;
-    color: #333333;
+    color: white;
     font-size: 4rem;
   }
 }
