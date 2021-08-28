@@ -74,7 +74,7 @@ const ServicesPrices = () => {
   }, [slides]);
 
   useEffect(() => {
-    if (checkSizeWindow > 767) {
+    if (checkSizeWindow > 767 && Boolean(slidesContainer.current)) {
       idTimeOut2.current = setTimeout(() => {
         slidesContainer.current.children[0].style.display = "none";
         slidesContainer.current.children[
