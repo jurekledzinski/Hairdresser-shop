@@ -14,7 +14,6 @@ const ServicesPrices = () => {
   const [initialX, setInitialX] = useState(null);
   const [initialY, setInitialY] = useState(null);
   const [isServiceMenOrWomen, setIsServiceMenOrWomen] = useState(false);
-  const [scrollDiff, setScrollDiff] = useState(0);
   const [slides] = useState(slidesData);
 
   const idInterval = useRef(null);
@@ -131,7 +130,6 @@ const ServicesPrices = () => {
   }, [checkSizeWindow]);
 
   const startTouchDisplay = (e) => {
-    e.preventDefault();
     const touchX = e.touches[0].clientX;
     const touchY = e.touches[0].clientY;
     setInitialX(touchX);
@@ -140,8 +138,6 @@ const ServicesPrices = () => {
 
   useEffect(() => {
     const moveTouchDisplay = (e) => {
-      e.preventDefault();
-
       if (!initialX || !initialY) {
         return;
       }
@@ -151,8 +147,6 @@ const ServicesPrices = () => {
 
       const diffrenceX = initialX - currenTouchX;
       const diffrenceY = initialY - currenTouchY;
-
-      setScrollDiff(diffrenceY);
 
       if (Math.abs(diffrenceX) > Math.abs(diffrenceY)) {
         if (diffrenceX > 0) {
@@ -188,24 +182,6 @@ const ServicesPrices = () => {
     initialX,
     initialY,
   ]);
-
-  useEffect(() => {
-    slidesContainer.current.addEventListener("swipeUp", () => {
-      if (window.innerWidth < 767) {
-        window.scrollTo({
-          top: window.scrollY + (window.scrollY / 3) * 1.6,
-          behavior: "smooth",
-        });
-      }
-    });
-
-    slidesContainer.current.addEventListener("swipeDown", () => {
-      window.scrollTo({
-        top: window.scrollY - (window.scrollY / 3) * 1.6,
-        behavior: "smooth",
-      });
-    });
-  }, [scrollDiff]);
 
   useEffect(() => {
     slidesContainer.current.addEventListener("swipeLeft", handleLeftMove);

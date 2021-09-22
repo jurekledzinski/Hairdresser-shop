@@ -18,7 +18,6 @@ const TestimonialSlider = ({ isSubmit }) => {
   const [countCard, setCountCard] = useState(1);
   const [initialX, setInitialX] = useState(null);
   const [initialY, setInitialY] = useState(null);
-  const [scrollDiff, setScrollDiff] = useState(0);
   const [changeArraySlides, setChangeArraySlides] = useState([]);
   const [numSlide, setNumSlide] = useState(0);
 
@@ -158,7 +157,6 @@ const TestimonialSlider = ({ isSubmit }) => {
   }, [countCard, location, numSlide, dataMainPageOpinions]);
 
   const startTouchDisplay = (e) => {
-    e.preventDefault();
     const touchX = e.touches[0].clientX;
     const touchY = e.touches[0].clientY;
     setInitialX(touchX);
@@ -167,8 +165,6 @@ const TestimonialSlider = ({ isSubmit }) => {
 
   useEffect(() => {
     const moveTouchDisplay = (e) => {
-      e.preventDefault();
-
       if (!initialX || !initialY) {
         return;
       }
@@ -178,8 +174,6 @@ const TestimonialSlider = ({ isSubmit }) => {
 
       const diffrenceX = initialX - currenTouchX;
       const diffrenceY = initialY - currenTouchY;
-
-      setScrollDiff(diffrenceY);
 
       if (Math.abs(diffrenceX) > Math.abs(diffrenceY)) {
         if (diffrenceX > 0) {
@@ -215,26 +209,6 @@ const TestimonialSlider = ({ isSubmit }) => {
     initialX,
     initialY,
   ]);
-
-  useEffect(() => {
-    slidesContainer.current.addEventListener("swipeUp", () => {
-      if (window.innerWidth < 767) {
-        window.scrollTo({
-          top: window.scrollY + 200,
-          behavior: "smooth",
-        });
-      }
-    });
-
-    slidesContainer.current.addEventListener("swipeDown", () => {
-      if (window.innerWidth < 767) {
-        window.scrollTo({
-          top: window.scrollY - 200,
-          behavior: "smooth",
-        });
-      }
-    });
-  }, [scrollDiff]);
 
   useEffect(() => {
     slidesContainer.current.addEventListener("swipeLeft", handleLeftMove);
